@@ -1,0 +1,51 @@
+
+<div *ngIf="coinBoard">
+    <h2><span jhiTranslate="blockchainApp.coinBoard.detail.title">Coin Board</span> {{coinBoard.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="blockchainApp.coinBoard.title">Title</span></dt>
+        <dd>
+            <span>{{coinBoard.title}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.coinBoard.context">Context</span></dt>
+        <dd>
+            <span>{{coinBoard.context}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.coinBoard.coninBoardType">Conin Board Type</span></dt>
+        <dd>
+            <span jhiTranslate="{{'blockchainApp.CoinBoardType.' + coinBoard.coninBoardType}}">{{coinBoard.coninBoardType}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.coinBoard.createdat">Createdat</span></dt>
+        <dd>
+            <span>{{coinBoard.createdat | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.coinBoard.updatedat">Updatedat</span></dt>
+        <dd>
+            <span>{{coinBoard.updatedat | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.coinBoard.coin">Coin</span></dt>
+        <dd>
+            <div *ngIf="coinBoard.coinId">
+                <a [routerLink]="['/coin-block-chain-info', coinBoard.coinId]">{{coinBoard.coinId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.coinBoard.user">User</span></dt>
+        <dd>
+            {{coinBoard.userId}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'coin-board-block-chain-info/'+ coinBoard.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

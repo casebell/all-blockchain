@@ -1,0 +1,26 @@
+{
+    "market": {
+        "time": "Refresh(sec)",
+        "currency": "Currency",
+        "market-name": "Market",
+        "btc": "BTC",
+        "eth": "ETH",
+        "xrp": "XRP",
+        "dash": "DASH",
+        "ltc": "LTC",
+        "etc": "ETC",
+        "bch": "BCH",
+        "zec": "ZEC",
+        "xmr": "XMR",
+        "neo": "NEO",
+        "poloniex": "Poloniex",
+        "bithumb": "Bithumb",
+        "korbit": "Korbit",
+        "coinone": "Coinone",
+        "okcoincn": "OKCoin cn",
+        "bitflyer": "bitFlyer",
+        "bittrex": "Bittrex",
+        "coin": "Coin",
+        "aboutMarket": "This price using the yahoo finance API and each market api."
+    }
+}

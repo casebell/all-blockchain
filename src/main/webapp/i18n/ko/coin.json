@@ -1,0 +1,33 @@
+{
+    "blockchainApp": {
+        "coin" : {
+            "home": {
+                "title": "코인",
+                "createLabel": "Create a new Coin",
+                "createOrEditLabel": "Create or edit a Coin",
+                "search": "Search for Coin"
+            },
+            "created": "A new Coin is created with identifier {{ param }}",
+            "updated": "A Coin is updated with identifier {{ param }}",
+            "deleted": "A Coin is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Coin {{ id }}?"
+            },
+            "detail": {
+                "title": "Coin"
+            },
+            "name": "Name",
+            "founder": "Founder",
+            "consensusAlgorithms": "Consensus Algorithms",
+            "homepage": "Homepage",
+            "whitePaper": "White Paper",
+            "context": "Context",
+            "releaseat": "Releaseat",
+            "createdat": "Createdat",
+            "updatedat": "Updatedat",
+            "resource": "Resource",
+            "board": "Board",
+            "bitcoin":"비트코인"
+        }
+    }
+}

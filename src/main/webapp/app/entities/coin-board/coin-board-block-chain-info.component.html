@@ -1,0 +1,87 @@
+<div>
+    <h2>
+        <span jhiTranslate="blockchainApp.coinBoard.home.title">Coin Boards</span>
+        <button class="btn btn-primary float-right create-coin-board-block-chain-info" [routerLink]="['/', { outlets: { popup: ['coin-board-block-chain-info-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="blockchainApp.coinBoard.home.createLabel">
+            Create new Coin Board
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'blockchainApp.coinBoard.home.search' | translate }}">
+                    <button class="input-group-addon btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-addon btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="coinBoards">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="title"><span jhiTranslate="blockchainApp.coinBoard.title">Title</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="context"><span jhiTranslate="blockchainApp.coinBoard.context">Context</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="coninBoardType"><span jhiTranslate="blockchainApp.coinBoard.coninBoardType">Conin Board Type</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="createdat"><span jhiTranslate="blockchainApp.coinBoard.createdat">Createdat</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="updatedat"><span jhiTranslate="blockchainApp.coinBoard.updatedat">Updatedat</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="coinId"><span jhiTranslate="blockchainApp.coinBoard.coin">Coin</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="userId"><span jhiTranslate="blockchainApp.coinBoard.user">User</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let coinBoard of coinBoards ;trackBy: trackId">
+                <td><a [routerLink]="['../coin-board-block-chain-info', coinBoard.id ]">{{coinBoard.id}}</a></td>
+                <td>{{coinBoard.title}}</td>
+                <td>{{coinBoard.context}}</td>
+                <td jhiTranslate="{{'blockchainApp.CoinBoardType.' + coinBoard.coninBoardType}}">{{coinBoard.coninBoardType}}</td>
+                <td>{{coinBoard.createdat | date:'medium'}}</td>
+                <td>{{coinBoard.updatedat | date:'medium'}}</td>
+                <td>
+                    <div *ngIf="coinBoard.coinId">
+                        <a [routerLink]="['../coin-block-chain-info', coinBoard.coinId  ]" >{{coinBoard.coinId}}</a>
+                    </div>
+                </td>
+                <td>
+                    {{coinBoard.userId}}
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../coin-board-block-chain-info', coinBoard.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'coin-board-block-chain-info/'+ coinBoard.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'coin-board-block-chain-info/'+ coinBoard.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

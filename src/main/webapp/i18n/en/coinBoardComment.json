@@ -1,0 +1,29 @@
+{
+    "blockchainApp": {
+        "coinBoardComment" : {
+            "home": {
+                "title": "Coin Board Comments",
+                "createLabel": "Create a new Coin Board Comment",
+                "createOrEditLabel": "Create or edit a Coin Board Comment",
+                "search": "Search for Coin Board Comment"
+            },
+            "created": "A new Coin Board Comment is created with identifier {{ param }}",
+            "updated": "A Coin Board Comment is updated with identifier {{ param }}",
+            "deleted": "A Coin Board Comment is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Coin Board Comment {{ id }}?"
+            },
+            "detail": {
+                "title": "Coin Board Comment"
+            },
+            "context": "Context",
+            "groupNo": "Group No",
+            "parent": "Parent",
+            "depth": "Depth",
+            "createdat": "Createdat",
+            "updatedat": "Updatedat",
+            "coinBoard": "Coin Board",
+            "user": "User"
+        }
+    }
+}

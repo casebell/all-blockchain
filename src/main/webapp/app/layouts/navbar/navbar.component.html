@@ -1,0 +1,331 @@
+<md-toolbar color="primary" class="desktop">
+
+    <button md-button routerLink="/">
+            <md-icon>home</md-icon>
+            <span jhiTranslate="global.title">All Blockchain</span></button>
+
+    <!-- This fills the remaining space of the current row -->
+    <!--  <span class="fill-remaining-space"></span>-->
+
+  <!--   <button md-button><span jhiTranslate="navbar.coin.title">coin</span></button>
+    <button md-button [mdMenuTriggerFor]="accountMenu">
+            <span jhiTranslate="navbar.account.title">account</span>
+        </button>
+
+    <md-menu #accountMenu="mdMenu" [ngSwitch]="isAuthenticated()">
+        <button md-menu-item (click)="logout()" *ngSwitchCase="true">
+                <span jhiTranslate="navbar.account.logout">로그아웃</span>
+            </button>
+        <button md-menu-item (click)="login()" *ngSwitchCase="false">
+                <span jhiTranslate="navbar.account.login">로그인</span>
+            </button>
+        <button *ngSwitchCase="false" md-menu-item routerLink="register" routerLinkActive="active">
+                <span jhiTranslate="navbar.account.register">회원가입</span>
+            </button>
+    </md-menu> -->
+
+    <button md-button [mdMenuTriggerFor]="languageMenu" style="margin-left:auto">
+             <md-icon>language</md-icon><span jhiTranslate="navbar.language">language</span>  
+        </button>
+    <md-menu #languageMenu="mdMenu">
+        <button md-menu-item *ngFor="let language of languages" (click)="changeLanguage(language)">
+          {{language | findLanguageFromKey}}
+        </button>
+    </md-menu>
+    <!--   <button md-button [mdMenuTriggerFor]="menu" fxHide="false" fxHide.gt-sm>
+           <md-icon>menu</md-icon>
+       </button>-->
+
+</md-toolbar>
+
+<md-toolbar color="primary"  [ngSwitch]="isAuthenticated()" class="mobile">
+    <button md-button (click)="clickMenuIcon()">
+        <md-icon>menu</md-icon>
+        <span jhiTranslate="global.title">All Blockchain</span>
+    </button>
+    <md-toolbar-row *ngIf="checkMenu">
+         <md-icon>language</md-icon>
+        <span jhiTranslate="navbar.language">Language</span>
+        <button md-button (click)="rotate('languageState')">
+            <md-icon  [@toolbarIcon]='languageState' >keyboard_arrow_right</md-icon>
+        </button>
+    </md-toolbar-row>
+    <md-toolbar-row *ngIf="languageState =='rotated'">
+          <button md-button (click)="changeLanguage(language)" *ngFor="let language of languages">
+          {{language | findLanguageFromKey}}
+        </button>
+    </md-toolbar-row>
+   <!--  <md-toolbar-row *ngIf="checkMenu">
+        <span jhiTranslate="navbar.coin.title">Coin</span>
+        <button md-button (click)="rotate('coinState')">
+            <md-icon  [@toolbarIcon]='coinState' >keyboard_arrow_right</md-icon>
+        </button>
+    </md-toolbar-row>
+    <md-toolbar-row *ngIf="checkMenu">
+        <span jhiTranslate="navbar.account.title">account</span>
+        <button md-button (click)="rotate('accountState')">
+            <md-icon  [@toolbarIcon]='accountState' >keyboard_arrow_right</md-icon>
+        </button>
+    </md-toolbar-row>
+    <md-toolbar-row *ngIf="accountState =='rotated' && this.principal.isAuthenticated()">
+           <button md-button (click)="logout()" >
+                <span jhiTranslate="navbar.account.logout">로그아웃</span>
+            </button>
+    </md-toolbar-row>
+      <md-toolbar-row *ngIf="accountState =='rotated' && !this.principal.isAuthenticated()">
+        <button md-button (click)="login()" >
+                <span jhiTranslate="navbar.account.login">로그인</span>
+        </button>
+    </md-toolbar-row>
+      <md-toolbar-row *ngIf="accountState =='rotated' && !this.principal.isAuthenticated()">
+            <button md-button routerLink="register" routerLinkActive="active">
+                <span jhiTranslate="navbar.account.register">회원가입</span>
+            </button>
+    </md-toolbar-row> -->
+
+    <!--<md-toolbar-row>
+       <span>Third Line</span>
+       <span class="example-spacer"></span>
+       <md-icon class="example-icon">favorite</md-icon>
+       <md-icon class="example-icon">delete</md-icon>
+   </md-toolbar-row>-->
+</md-toolbar>
+<!--<md-menu x-position="before" #menu="mdMenu">
+    <button md-menu-item >Products</button>
+    <button md-menu-item >Dashboard</button>
+    &lt;!&ndash;<button md-menu-item>Help</button>&ndash;&gt;
+</md-menu>-->
+<!--
+<nav class="navbar navbar-inverse navbar-toggleable-md jh-navbar">
+    <div class="jh-logo-container float-left">
+        <a class="jh-navbar-toggler hidden-lg-up float-right" href="javascript:void(0);" data-toggle="collapse"
+           data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+           aria-label="Toggle navigation" (click)="toggleNavbar()">
+            <i class="fa fa-bars"></i>
+        </a>
+        <a class="navbar-brand logo float-left" routerLink="/" (click)="collapseNavbar()">
+            &lt;!&ndash;<span class="logo-img"></span>&ndash;&gt;
+            <span jhiTranslate="global.title" class="navbar-title">Blockchain</span>
+            <span class="navbar-version">{{version}}</span>
+        </a>
+    </div>
+    <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed"
+         [ngSwitch]="isAuthenticated()">
+        <ul class="navbar-nav ml-auto">
+            &lt;!&ndash;        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
+                            <i class="fa fa-home" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.home">Home</span>
+                        </a>
+                    </li>&ndash;&gt;
+            &lt;!&ndash; jhipster-needle-add-element-to-menu - JHipster will add new menu items here &ndash;&gt;
+            <li ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);">
+                    <span>
+                        &lt;!&ndash;<i class="fa fa-th-list" aria-hidden="true"></i>&ndash;&gt;
+                        <span jhiTranslate="navbar.coin.title">
+                            coin
+                        </span>
+                        <b class="caret"></b>
+                    </span>
+                </a>
+                <ul class="dropdown-menu" ngbDropdownMenu>
+                    <li>
+                        <a class="dropdown-item" routerLink="bitcoin" routerLinkActive="active"
+                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            &lt;!&ndash;<i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>&ndash;&gt;
+                            <span jhiTranslate="navbar.coin.bitcoin">bitcoin</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="coin-board-block-chain-info" routerLinkActive="active"
+                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            &lt;!&ndash;<i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>&ndash;&gt;
+                            <span jhiTranslate="navbar.coin.ethereum">ethereum</span>
+                        </a>
+                    </li>
+                    &lt;!&ndash; jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here &ndash;&gt;
+                </ul>
+            </li>
+
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer"
+                routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu">
+                    <span>
+                        &lt;!&ndash;<i class="fa fa-th-list" aria-hidden="true"></i>&ndash;&gt;
+                        <span jhiTranslate="navbar.coin.title">
+                            coin
+                        </span>
+                        <b class="caret"></b>
+                    </span>
+                </a>
+                <ul class="dropdown-menu" ngbDropdownMenu>
+                    <li>
+                        <a class="dropdown-item" routerLink="coin-block-chain-info" routerLinkActive="active"
+                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.entities.coinBlockChainInfo">Coin Block Chain Info</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="coin-board-block-chain-info" routerLinkActive="active"
+                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.entities.coinBoardBlockChainInfo">Coin Board Block Chain Info</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="coin-board-comment-block-chain-info"
+                           routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+                           (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.entities.coinBoardCommentBlockChainInfo">Coin Board Comment Block Chain Info</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="resource-block-chain-info" routerLinkActive="active"
+                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <span
+                                jhiTranslate="global.menu.entities.resourceBlockChainInfo">Resource Block Chain Info</span>
+                        </a>
+                    </li>
+                    &lt;!&ndash; jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here &ndash;&gt;
+                </ul>
+            </li>
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer"
+                routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu">
+                    <span>
+                        <i class="fa fa-user-plus" aria-hidden="true"></i>
+                        <span jhiTranslate="global.menu.admin.main">Administration</span>
+                        <b class="caret"></b>
+                    </span>
+                </a>
+                <ul class="dropdown-menu" ngbDropdownMenu>
+                    <li>
+                        <a class="dropdown-item" routerLink="user-management" routerLinkActive="active"
+                           (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-user" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.admin.userManagement">User management</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="jhi-metrics" routerLinkActive="active"
+                           (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-tachometer" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.admin.metrics">Metrics</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="jhi-health" routerLinkActive="active"
+                           (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-heart" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.admin.health">Health</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="jhi-configuration" routerLinkActive="active"
+                           (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-list" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.admin.configuration">Configuration</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="audits" routerLinkActive="active"
+                           (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-bell" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.admin.audits">Audits</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="logs" routerLinkActive="active" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-tasks" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.admin.logs">Logs</span>
+                        </a>
+                    </li>
+                    <li *ngIf="swaggerEnabled">
+                        <a class="dropdown-item" routerLink="docs" routerLinkActive="active" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-book" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.admin.apidocs">API</span>
+                        </a>
+                    </li>
+                    &lt;!&ndash; jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here &ndash;&gt;
+                    <li *ngIf="!inProduction">
+                        <a class="dropdown-item" href='./h2-console' target="_tab" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-hdd-o" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.admin.database">Database</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li ngbDropdown class="nav-item dropdown pointer" *ngIf="languages">
+                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);"
+                   id="languagesnavBarDropdown" *ngIf="languages.length > 1">
+                    <span>
+                        <i class="fa fa-flag" aria-hidden="true"></i>
+                        <span jhiTranslate="global.menu.language">Language</span>
+                        <b class="caret"></b>
+                    </span>
+                </a>
+                <ul class="dropdown-menu" ngbDropdownMenu *ngIf="languages.length > 1">
+                    <li *ngFor="let language of languages">
+                        <a class="dropdown-item" [jhiActiveMenu]="language" href="javascript:void(0);"
+                           (click)="changeLanguage(language);collapseNavbar();">{{language | findLanguageFromKey}}</a>
+                    </li>
+                </ul>
+            </li>
+            <li ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu">
+                  <span *ngIf="!getImageUrl()">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <span jhiTranslate="global.menu.account.main">
+                      Account
+                    </span>
+                    <b class="caret"></b>
+                  </span>
+                    <span *ngIf="getImageUrl()">
+                      <img [src]="getImageUrl()" class="profile-image img-circle" alt="Avatar">
+                  </span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
+                    <li *ngSwitchCase="true">
+                        <a class="dropdown-item" routerLink="settings" routerLinkActive="active"
+                           (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-wrench" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.account.settings">Settings</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="true">
+                        <a class="dropdown-item" routerLink="password" routerLinkActive="active"
+                           (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-clock-o" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.account.password">Password</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="true">
+                        <a class="dropdown-item" (click)="logout()" id="logout">
+                            <i class="fa fa-fw fa-sign-out" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.account.logout">Sign out</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="false">
+                        <a class="dropdown-item" (click)="login()" id="login">
+                            <i class="fa fa-fw fa-sign-in" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.account.login">Sign in</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="false">
+                        <a class="dropdown-item" routerLink="register" routerLinkActive="active"
+                           (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-registered" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.account.register">Register</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>-->

@@ -1,0 +1,11 @@
+<form ngNoForm action="{{ providerURL }}" method="POST" style="float:left;margin-right: 10px;">
+    <button type="submit" color="primary" md-button class="jh-btn-social jh-btn-{{ provider }}">
+        <i class="fa fa-{{provider}} fa-lg" aria-hidden="true"></i>
+        <!--<span jhiTranslate="social.btnLabel" translateValues="{ label: '{{label}}' }">Sign in with {{ label }}</span>-->
+    </button>
+<!--    <ng-template #facebookButton>
+        <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+    </ng-template>-->
+    <input name="scope" type="hidden" value="{{ providerSetting }}"/>
+    <input name="_csrf" type="hidden" value="{{ csrf }}"/>
+</form>

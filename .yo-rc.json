@@ -1,0 +1,43 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "io.iansoft.blockchain",
+      "nativeLanguage": "ko"
+    },
+    "jhipsterVersion": "4.6.2",
+    "baseName": "blockchain",
+    "packageName": "io.iansoft.blockchain",
+    "packageFolder": "io/iansoft/blockchain",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "hibernateCache": "hazelcast",
+    "clusteredHttpSession": false,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": "elasticsearch",
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "gradle",
+    "enableSocialSignIn": true,
+    "jwtSecretKey": "b1b4532d94624c7a1f39ef8e93f0b55800046529",
+    "clientFramework": "angularX",
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "applicationType": "monolith",
+    "testFrameworks": [
+      "gatling",
+      "cucumber",
+      "protractor"
+    ],
+    "jhiPrefix": "jhi",
+    "enableTranslation": true,
+    "nativeLanguage": "ko",
+    "languages": [
+      "ko",
+      "en",
+      "vi"
+    ]
+  }
+}

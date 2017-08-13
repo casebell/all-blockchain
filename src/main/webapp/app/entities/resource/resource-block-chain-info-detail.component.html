@@ -1,0 +1,47 @@
+
+<div *ngIf="resource">
+    <h2><span jhiTranslate="blockchainApp.resource.detail.title">Resource</span> {{resource.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="blockchainApp.resource.url">Url</span></dt>
+        <dd>
+            <span>{{resource.url}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.resource.size">Size</span></dt>
+        <dd>
+            <span>{{resource.size}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.resource.createdAt">Created At</span></dt>
+        <dd>
+            <span>{{resource.createdAt | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.resource.updatedAt">Updated At</span></dt>
+        <dd>
+            <span>{{resource.updatedAt | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.resource.resourceType">Resource Type</span></dt>
+        <dd>
+            <span jhiTranslate="{{'blockchainApp.ResourceType.' + resource.resourceType}}">{{resource.resourceType}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.resource.coin">Coin</span></dt>
+        <dd>
+            <div *ngIf="resource.coinId">
+                <a [routerLink]="['/coin-block-chain-info', resource.coinId]">{{resource.coinId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'resource-block-chain-info/'+ resource.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

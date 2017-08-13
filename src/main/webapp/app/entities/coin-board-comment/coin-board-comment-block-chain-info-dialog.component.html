@@ -1,0 +1,73 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myCoinBoardCommentLabel" jhiTranslate="blockchainApp.coinBoardComment.home.createOrEditLabel">Create or edit a Coin Board Comment</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!coinBoardComment.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="coinBoardComment.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="blockchainApp.coinBoardComment.context" for="field_context">Context</label>
+            <input type="text" class="form-control" name="context" id="field_context"
+                [(ngModel)]="coinBoardComment.context"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="blockchainApp.coinBoardComment.groupNo" for="field_groupNo">Group No</label>
+            <input type="number" class="form-control" name="groupNo" id="field_groupNo"
+                [(ngModel)]="coinBoardComment.groupNo"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="blockchainApp.coinBoardComment.parent" for="field_parent">Parent</label>
+            <input type="number" class="form-control" name="parent" id="field_parent"
+                [(ngModel)]="coinBoardComment.parent"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="blockchainApp.coinBoardComment.depth" for="field_depth">Depth</label>
+            <input type="number" class="form-control" name="depth" id="field_depth"
+                [(ngModel)]="coinBoardComment.depth"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="blockchainApp.coinBoardComment.createdat" for="field_createdat">Createdat</label>
+            <div class="d-flex">
+                <input id="field_createdat" type="datetime-local" class="form-control" name="createdat" [(ngModel)]="coinBoardComment.createdat"
+                  />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="blockchainApp.coinBoardComment.updatedat" for="field_updatedat">Updatedat</label>
+            <div class="d-flex">
+                <input id="field_updatedat" type="datetime-local" class="form-control" name="updatedat" [(ngModel)]="coinBoardComment.updatedat"
+                  />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label jhiTranslate="blockchainApp.coinBoardComment.coinBoard" for="field_coinBoard">Coin Board</label>
+            <select class="form-control" id="field_coinBoard" name="coinBoard" [(ngModel)]="coinBoardComment.coinBoardId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="coinBoardOption.id" *ngFor="let coinBoardOption of coinboards; trackBy: trackCoinBoardById">{{coinBoardOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="blockchainApp.coinBoardComment.user" for="field_user">User</label>
+            <select class="form-control" id="field_user" name="user" [(ngModel)]="coinBoardComment.userId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

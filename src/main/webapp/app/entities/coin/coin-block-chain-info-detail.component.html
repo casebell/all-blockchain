@@ -1,0 +1,57 @@
+
+<div *ngIf="coin">
+    <h2><span jhiTranslate="blockchainApp.coin.detail.title">Coin</span> {{coin.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="blockchainApp.coin.name">Name</span></dt>
+        <dd>
+            <span>{{coin.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.coin.founder">Founder</span></dt>
+        <dd>
+            <span>{{coin.founder}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.coin.consensusAlgorithms">Consensus Algorithms</span></dt>
+        <dd>
+            <span jhiTranslate="{{'blockchainApp.ConsensusAlgorithms.' + coin.consensusAlgorithms}}">{{coin.consensusAlgorithms}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.coin.homepage">Homepage</span></dt>
+        <dd>
+            <span>{{coin.homepage}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.coin.whitePaper">White Paper</span></dt>
+        <dd>
+            <span>{{coin.whitePaper}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.coin.context">Context</span></dt>
+        <dd>
+            <span>{{coin.context}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.coin.releaseat">Releaseat</span></dt>
+        <dd>
+            <span>{{coin.releaseat | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.coin.createdat">Createdat</span></dt>
+        <dd>
+            <span>{{coin.createdat | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.coin.updatedat">Updatedat</span></dt>
+        <dd>
+            <span>{{coin.updatedat | date:'medium'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'coin-block-chain-info/'+ coin.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

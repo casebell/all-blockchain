@@ -1,0 +1,52 @@
+<!doctype html>
+<html class="no-js" lang="ko" dir="ltr">
+<head>
+    <base href="./" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>blockchain</title>
+    <meta name="description" content="">
+    <meta name="google" value="notranslate">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#000000">
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="manifest" href="manifest.webapp" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <!--[if lt IE 9]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <jhi-main></jhi-main>
+    <!-- <script src="node_modules/core-js/client/shim.min.js"></script> -->
+     <script>
+        // load shim for IE
+        if (window.navigator.userAgent.indexOf('Trident/') > 0) {
+            var script = document.createElement('script');
+            script.src = 'core-js-shim.min.js';
+            script.type = 'text/javascript';
+            document.getElementsByTagName('head')[0].appendChild(script)
+        }
+    </script>
+    <noscript>
+        <h1>You must enable javascript to view this page.</h1>
+    </noscript>
+    <!-- uncomment this for adding service worker
+        <script>
+            if ('serviceWorker' in navigator) {
+                 navigator.serviceWorker
+                    .register('./sw.js')
+                    .then(function() { console.log('Service Worker Registered'); });
+            }
+        </script>
+    -->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-104314792-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+    "navbar": {
+        "title": "All Blockchain",
+        "coin" : {
+            "title":"코인",
+            "bitcoin":"비트코인",
+            "ethereum":"이더리움"
+        },
+        "account": {
+            "title":"계정",
+            "login":"로그인",
+            "logout":"로그아웃",
+            "register":"회원가입"
+        },
+        "language" :"언어"
+    }
+}

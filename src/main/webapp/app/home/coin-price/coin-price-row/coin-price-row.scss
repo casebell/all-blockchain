@@ -1,0 +1,49 @@
+:host {
+    font-weight:400;
+}
+.inc{
+    color:red !important;
+}
+.dec{
+    color:blue !important;
+}
+.mat-grid-tile /deep/ .mat-figure{
+    flex-flow:wrap !important;
+    -webkit-flex-flow: wrap !important;
+}
+.price-inc{
+    color:red !important;
+
+}
+.price-equal {
+    color:black !important;
+}
+.price-dec {
+    color:blue !important;
+
+}
+
+md-grid-tile {
+    border-bottom: 1px solid #EEE !important;
+}
+
+p{
+    font-size: 0.8rem;
+    width:100%;
+    margin-bottom:0 !important;
+    text-align: center !important;
+}
+md-icon{
+    vertical-align: middle;
+}
+
+.diff{
+    font-size:0.7em;
+}
+
+
+@media (max-width: 600px) {
+ md-grid-tile {
+     width:100px !important;
+ }
+}

@@ -1,0 +1,10 @@
+{
+    "blockchainApp": {
+        "CoinBoardType" : {
+            "null": "",
+            "FREE": "FREE",
+            "INQUIRY": "INQUIRY",
+            "NEWS": "NEWS"
+        }
+    }
+}

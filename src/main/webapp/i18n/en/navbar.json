@@ -1,0 +1,17 @@
+{
+    "navbar": {
+        "title": "All Blockchain",
+        "coin" : {
+            "title":"Coin",
+            "bitcoin":"BITCOIN",
+            "ethereum":"ETHEREUM"
+        },
+        "account": {
+            "title":"Account",
+            "login":"Login",
+            "logout":"Logout",
+            "register":"Register"
+        },
+        "language" :"Languages"
+    }
+}
