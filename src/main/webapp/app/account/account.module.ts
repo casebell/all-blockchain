@@ -1,6 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { BlockchainSharedModule } from '../shared';
 
 import {
@@ -20,10 +20,15 @@ import {
     SocialAuthComponent,
     accountState
 } from './';
+import { MdInputModule, MdButtonModule, MdIconModule } from "@angular/material";
 
 @NgModule({
     imports: [
         BlockchainSharedModule,
+        ReactiveFormsModule,
+        MdInputModule,
+        MdButtonModule,
+        MdIconModule,
         RouterModule.forRoot(accountState, { useHash: true })
     ],
     declarations: [

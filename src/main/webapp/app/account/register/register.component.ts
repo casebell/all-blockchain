@@ -4,6 +4,7 @@ import { JhiLanguageService } from 'ng-jhipster';
 
 import { Register } from './register.service';
 import { LoginModalService } from '../../shared';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
     selector: 'jhi-register',
@@ -11,7 +12,7 @@ import { LoginModalService } from '../../shared';
 })
 export class RegisterComponent implements OnInit, AfterViewInit {
 
-    confirmPassword: string;
+   // confirmPassword: string;
     doNotMatch: string;
     error: string;
     errorEmailExists: string;
@@ -19,14 +20,26 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     registerAccount: any;
     success: boolean;
     modalRef: NgbModalRef;
-
+    registerForm:FormGroup
     constructor(
         private languageService: JhiLanguageService,
         private loginModalService: LoginModalService,
         private registerService: Register,
         private elementRef: ElementRef,
-        private renderer: Renderer
+        private renderer: Renderer,
+        private fb: FormBuilder
     ) {
+        this.registerForm = this.fb.group({
+            login: ['', [Validators.required,
+                        Validators.pattern("^[_'.@A-Za-z0-9-]*$"),
+                         Validators.minLength(1),
+                         Validators.maxLength(50)]],
+            password: ['', Validators.required],
+            confirmPassword: ['', [Validators.required,
+                                  Validators.minLength(1),
+                                    Validators.maxLength(50)]],
+            email: ['', Validators.required]
+        });
     }
 
     ngOnInit() {
@@ -35,11 +48,17 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.renderer.invokeElementMethod(this.elementRef.nativeElement.querySelector('#login'), 'focus', []);
+        /* this.renderer.invokeElementMethod(this.elementRef.nativeElement.querySelector('#login'), 'focus', []); */
     }
 
     register() {
-        if (this.registerAccount.password !== this.confirmPassword) {
+         this.languageService.getCurrent().then((key) => {
+                this.registerAccount.langKey = key;
+                this.registerService.save(this.registerAccount).subscribe(() => {
+                    this.success = true;
+                }, (response) => this.processError(response));
+            });
+       /*  if (this.registerAccount.password !== this.confirmPassword) {
             this.doNotMatch = 'ERROR';
         } else {
             this.doNotMatch = null;
@@ -52,7 +71,23 @@ export class RegisterComponent implements OnInit, AfterViewInit {
                     this.success = true;
                 }, (response) => this.processError(response));
             });
-        }
+        } */
+    }
+
+    get getLogin(){
+        return this.registerForm.get('login');
+    }
+
+    get getPassword(){
+        return this.registerForm.get('login');
+    }
+
+    get getConfirmPassword(){
+        return this.registerForm.get('confirmPassword');
+    }
+
+    get getEmail() {
+        return this.registerForm.get('email');
     }
 
     openLogin() {
