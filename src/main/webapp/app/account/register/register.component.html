@@ -1,50 +1,71 @@
-<h1 jhiTranslate="register.title">Registration</h1>
-<jhi-social provider="google"></jhi-social>
-<jhi-social provider="facebook"></jhi-social>
-<jhi-social provider="twitter"></jhi-social>
+<!-- <h1 jhiTranslate="register.title">Registration</h1>
 
-<!-- <div style="display: flex">
-    <div style="flex: 1;">
-        <form [formGroup]="registerForm" (ngSubmit)="register(registerForm.value)">
-            <md-input-container class="full-width">
-                <input mdInput placeholder="{{'global.form.username.placeholder' | translate}}" formControlName="login">
-                <md-error *ngIf="getLogin.touched && getLogin.hasError('required')">
-                    Username is <strong>required</strong>
-                </md-error>
-            </md-input-container>
-            <md-input-container class="full-width" style="margin-bottom:20px">
-                <input mdInput placeholder="{{'global.form.newpassword.placeholder' | translate}}"
-                       formControlName="password">
-                <md-error *ngIf="getPassword.touched &&  getPassword.hasError('required')">
-                    Password is <strong>required</strong>
-                </md-error>
-            </md-input-container>
-            <md-input-container class="full-width">
-                <input mdInput placeholder="{{'global.form.confirmpassword.placeholder' | translate}}"
-                       formControlName="confirmPassword">
-                <md-error *ngIf="getConfirmPassword.touched && getConfirmPassword.hasError('required')">
-                    Username is <strong>required</strong>
-                </md-error>
-            </md-input-container>
-            <md-input-container class="full-width">
-                <input mdInput placeholder="{{'global.form.email.placeholder' | translate}}" formControlName="email">
-                <md-error *ngIf="getEmail.touched && getEmail.hasError('required')">
-                    Username is <strong>required</strong>
-                </md-error>
-            </md-input-container>
-            <div>
-                <button type="button" md-raised-button color="primary"><span jhiTranslate="register.form.button">Register</span>
-                </button>
-            </div>
-        </form>
-    </div>
-    <div style="flex: 1;">
-        <h3>소셜 로그인</h3>
+ -->
+ <div class="alert alert-success" *ngIf="success" jhiTranslate="register.messages.success">
+    <strong>Registration saved!</strong> Please check your email for confirmation.
+</div>
+<h5>편하게 가입하기 </h3>
+<div class="social-cointainer">
+    <div style="margin-right:15px">
         <jhi-social provider="google"></jhi-social>
+    </div>
+    <div style="margin-right:15px">
         <jhi-social provider="facebook"></jhi-social>
+    </div>
+    <div style="margin-right:15px">
         <jhi-social provider="twitter"></jhi-social>
     </div>
-</div> -->
+</div>
+
+<h5 style="margin-bottom:20px">직접 가입하기</h3>
+<form [formGroup]="registerForm" (ngSubmit)="register(registerForm)" style="font-size:0.8em">
+    <md-input-container class="full-width">
+        <input mdInput placeholder="{{'global.form.username.placeholder' | translate}}" formControlName="login">
+        <md-error *ngIf="getLogin.touched && getLogin.hasError('required')"  jhiTranslate="register.messages.validate.login.required">
+            Username is <strong>required</strong>
+        </md-error>
+        <md-error *ngIf="getLogin.touched && getLogin.hasError('minlength')"  jhiTranslate="register.messages.validate.login.minlength">
+            Username is <strong>required</strong>
+        </md-error>
+        <md-error *ngIf="getLogin.touched && getLogin.hasError('maxlength')"  jhiTranslate="register.messages.validate.login.maxlength">
+            Username is <strong>required</strong>
+        </md-error>
+    </md-input-container>
+    <md-input-container class="full-width">
+        <input mdInput placeholder="{{'global.form.newpassword.placeholder' | translate}}" formControlName="password" type="password">
+        <md-error *ngIf="getPassword.touched &&  getPassword.hasError('required')" jhiTranslate="register.messages.validate.password.required">
+            Password is <strong>required</strong>
+        </md-error>
+        <md-error *ngIf="getPassword.touched &&  getPassword.hasError('passwordPattern')" jhiTranslate="register.messages.validate.password.pattern">
+            Password is <strong>6~20 1charater 1 number</strong>
+        </md-error>
+    </md-input-container>
+   <!--  <md-input-container class="full-width">
+        <input mdInput placeholder="{{'global.form.confirmpassword.placeholder' | translate}}" formControlName="confirmPassword" type="password">
+        <md-error *ngIf="registerForm.hasError('passwordNotSame')">
+                Paswword is <strong>not same</strong>
+                </md-error>
+        <md-error *ngIf="getConfirmPassword.touched && getConfirmPassword.hasError('required')">
+            ConfirmPassword is <strong>required</strong>
+        </md-error>
+    </md-input-container> -->
+    <md-input-container class="full-width">
+        <input mdInput placeholder="{{'global.form.email.placeholder' | translate}}" formControlName="email" email>
+        <md-error *ngIf="getEmail.touched && getEmail.hasError('required')">
+            Username is <strong>required</strong>
+        </md-error>
+        <md-error *ngIf="getEmail.touched && getEmail.hasError('email')">
+            email is <strong>not email type</strong>
+        </md-error>
+    </md-input-container>
+    <div style="margin-top:15px">
+        <button  md-raised-button color="primary" [disabled]="registerForm.invalid"><span jhiTranslate="register.form.button">Register</span>
+                </button>
+    </div>
+</form>
+
+
+</div>
 <!--
 
 <div>
@@ -52,9 +73,7 @@
         <div class="col-md-8 offset-md-2">
             <h1 jhiTranslate="register.title">Registration</h1>
 
-            <div class="alert alert-success" *ngIf="success" jhiTranslate="register.messages.success">
-                <strong>Registration saved!</strong> Please check your email for confirmation.
-            </div>
+         
 
             <div class="alert alert-danger" *ngIf="error" jhiTranslate="register.messages.error.fail">
                 <strong>Registration failed!</strong> Please try again later.

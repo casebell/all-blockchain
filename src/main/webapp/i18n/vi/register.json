@@ -11,6 +11,14 @@
                     "minlength": "Tên tài khoản phải có ít nhất 1 ký tự.",
                     "maxlength": "Tên tài khoản không được vượt quá 50 ký tự.",
                     "pattern": "Tên tài khoản chỉ có thể chứa các ký tự in thường và số."
+                },
+                "password" : {
+                    "required" :"Your password is required",
+                    "pattern" :"password must be at least 6 character long and certain a number and certain a alphabet"
+                },
+                "email" : {
+                   "required" :"Your email is required",
+                   "pattern" :"Check your email type"
                 }
             },
             "success": "<strong>Đăng ký thành công!</strong> Bạn vui lòng kiểm tra hộp thư để xác nhận tài khoản.",

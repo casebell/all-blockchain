@@ -4,10 +4,13 @@
             <md-icon>home</md-icon>
             <span jhiTranslate="global.title">All Blockchain</span></button>
 
+    <!--    <button md-button><span jhiTranslate="navbar.coin.title">coin</span></button> -->
+   
+   
+   
     <!-- This fills the remaining space of the current row -->
-    <!--  <span class="fill-remaining-space"></span>-->
-
- <!--    <button md-button><span jhiTranslate="navbar.coin.title">coin</span></button> -->
+    <span class="fill-remaining-space"></span>
+    
     <button md-button [mdMenuTriggerFor]="accountMenu">
             <span jhiTranslate="navbar.account.title">account</span>
         </button>
@@ -38,24 +41,50 @@
 
 </md-toolbar>
 
-<md-toolbar color="primary"  [ngSwitch]="isAuthenticated()" class="mobile">
-    <button md-button (click)="clickMenuIcon()">
+
+
+
+<!--mobile -->
+
+<md-toolbar color="primary" [ngSwitch]="isAuthenticated()" class="mobile">
+    <button md-button (click)="clickMenuIcon()" >
         <md-icon>menu</md-icon>
         <span jhiTranslate="global.title">All Blockchain</span>
     </button>
-    <md-toolbar-row *ngIf="checkMenu">
-         <md-icon>language</md-icon>
-        <span jhiTranslate="navbar.language">Language</span>
-        <button md-button (click)="rotate('languageState')">
-            <md-icon  [@toolbarIcon]='languageState' >keyboard_arrow_right</md-icon>
+
+    <!-- This fills the remaining space of the current row -->
+    <span class="fill-remaining-space"></span>
+    <button md-button [mdMenuTriggerFor]="accountMenuMobile" class="mobile-button">
+        <span jhiTranslate="navbar.account.title">account</span>
+    </button>
+    
+    <md-menu #accountMenuMobile="mdMenu" [ngSwitch]="isAuthenticated()">
+        <button md-menu-item (click)="logout()" *ngSwitchCase="true">
+            <span jhiTranslate="navbar.account.logout">로그아웃</span>
         </button>
-    </md-toolbar-row>
-    <md-toolbar-row *ngIf="languageState =='rotated'">
+        <button md-menu-item (click)="login()" *ngSwitchCase="false">
+            <span jhiTranslate="navbar.account.login">로그인</span>
+        </button>
+        <button *ngSwitchCase="false" md-menu-item routerLink="register" routerLinkActive="active">
+            <span jhiTranslate="navbar.account.register">회원가입</span>
+        </button>
+    </md-menu>
+    <!--  <md-icon>language</md-icon>
+        <span jhiTranslate="navbar.language">Language</span> -->
+    <button md-button [mdMenuTriggerFor]="languageMenuMobile" class="mobile-button">
+            <md-icon>language</md-icon>
+        </button>
+    <md-menu #languageMenuMobile="mdMenu">
+        <button md-menu-item *ngFor="let language of languages" (click)="changeLanguage(language)">
+              {{language | findLanguageFromKey}}
+            </button>
+    </md-menu>
+    <!-- <md-toolbar-row *ngIf="languageState =='rotated'">
           <button md-button (click)="changeLanguage(language)" *ngFor="let language of languages">
           {{language | findLanguageFromKey}}
         </button>
-    </md-toolbar-row>
-   <!--  <md-toolbar-row *ngIf="checkMenu">
+    </md-toolbar-row> -->
+    <!--  <md-toolbar-row *ngIf="checkMenu">
         <span jhiTranslate="navbar.coin.title">Coin</span>
         <button md-button (click)="rotate('coinState')">
             <md-icon  [@toolbarIcon]='coinState' >keyboard_arrow_right</md-icon>

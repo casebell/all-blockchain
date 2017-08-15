@@ -38,7 +38,6 @@ export class NavbarComponent implements OnInit {
     checkMenu: boolean;
     coinState: string = 'default';
     accountState: string = 'default';
-    languageState:string = 'default';
     constructor(private loginService: LoginService,
                 private languageService: JhiLanguageService,
                 private languageHelper: JhiLanguageHelper,
@@ -77,9 +76,6 @@ export class NavbarComponent implements OnInit {
                 break;
             case 'accountState':
                 this.accountState = (this.accountState === 'default' ? 'rotated' : 'default');
-                break;
-            case 'languageState':
-                this.languageState = (this.languageState === 'default' ? 'rotated' : 'default');
                 break;
         }
 

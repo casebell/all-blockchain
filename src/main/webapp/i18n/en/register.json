@@ -11,6 +11,14 @@
                     "minlength": "Your username is required to be at least 1 character.",
                     "maxlength": "Your username cannot be longer than 50 characters.",
                     "pattern": "Your username can only contain lower-case letters and digits."
+                },
+                "password" : {
+                    "required" :"Your password is required",
+                    "pattern" :"password must be at least 6 character long and certain a number and certain a alphabet"
+                },
+                "email" : {
+                   "required" :"Your email is required",
+                   "pattern" :"Check your email"
                 }
             },
             "success": "<strong>Registration saved!</strong> Please check your email for confirmation.",
