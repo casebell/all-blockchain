@@ -18,7 +18,7 @@
             </md-error>
         </md-input-container>
         <md-input-container class="full-width" style="margin-bottom:20px">
-            <input mdInput placeholder="{{'login.form.password.placeholder' | translate}}" formControlName="password">
+            <input mdInput placeholder="{{'login.form.password.placeholder' | translate}}" formControlName="password" type="password">
             <md-error *ngIf="loginForm.controls.password.touched &&  loginForm.controls.password.hasError('required')">
                 Password is <strong>required</strong>
             </md-error>

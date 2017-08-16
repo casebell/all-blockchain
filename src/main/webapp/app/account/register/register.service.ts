@@ -8,6 +8,8 @@ export class Register {
     constructor(private http: HttpClient) {}
 
     save(account: any): Observable<any> {
-        return this.http.post('api/register', account, { responseType: 'text' });
+        return this.http.post('api/register', account);
     }
+
+
 }

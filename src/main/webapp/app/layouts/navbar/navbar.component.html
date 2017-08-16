@@ -47,11 +47,10 @@
 <!--mobile -->
 
 <md-toolbar color="primary" [ngSwitch]="isAuthenticated()" class="mobile">
-    <button md-button (click)="clickMenuIcon()" >
+    <button md-button (click)="clickMenuIcon()" class="mobile-menu-button" >
         <md-icon>menu</md-icon>
-        <span jhiTranslate="global.title">All Blockchain</span>
     </button>
-
+    <span jhiTranslate="global.title" routerLink="/">All Blockchain</span>
     <!-- This fills the remaining space of the current row -->
     <span class="fill-remaining-space"></span>
     <button md-button [mdMenuTriggerFor]="accountMenuMobile" class="mobile-button">

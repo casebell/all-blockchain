@@ -6,6 +6,7 @@ import { Register } from './register.service';
 import { LoginModalService } from '../../shared';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
     selector: 'jhi-register',
@@ -30,7 +31,8 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         private elementRef: ElementRef,
         private renderer: Renderer,
         private fb: FormBuilder,
-        private snackBar: MdSnackBar
+        private snackBar: MdSnackBar,
+        private translateService: TranslateService
     ) {
         this.registerForm = this.fb.group({
             login: ['', [Validators.required,
@@ -44,6 +46,8 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     ngOnInit() {
         this.success = false;
         this.registerAccount = {};
+        console.log('translate ', this.translateService.instant('blockchainApp.resource.home.title'))
+        console.log('translate ', this.translateService.instant('global.form.email.placeholder'))
     }
 
     ngAfterViewInit() {
@@ -51,6 +55,10 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     }
 
     register(register) {
+        this.error = null;
+        this.errorUserExists = null;
+        this.errorEmailExists = null;
+
         this.languageService.getCurrent().then((key) => {
             register.value.langKey = key;
           //  this.registerAccount.langKey = key;
@@ -101,14 +109,16 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     }
 
     private processError(response) {
-        console.log('error response : ', response);
-        if (response.status === 400 && response.error === 'login already in use') {
+        console.log('error response : ', response.error);
+        console.log('error response : ', response.error.code);
+        console.log('translate ', this.translateService.instant('blockchainApp.resource.home.title'))
+        if (response.status === 400 && response.error.code === 'duplicated.login.exception') {
             console.log('test');
-            this.openSnackBar("login already in use","");
-        } else if (response.status === 400 && response.error === 'email address already in use') {
-            this.openSnackBar("email address already in use","");
+            this.errorUserExists='ERROR';
+        } else if (response.status === 400 && response.error.code === 'duplicated.email.exception') {
+            this.errorEmailExists = 'ERROR';
         } else {
-            this.error = 'ERROR';
+            this.error ='ERROR';
         }
     }
 

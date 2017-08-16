@@ -1,6 +1,8 @@
 {
     "register": {
         "title": "Registration",
+        "social":"Create Account with Social",
+        "email" :"Create Account",
         "form": {
             "button": "Register"
         },

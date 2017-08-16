@@ -76,6 +76,8 @@ export class JhiLoginModalComponent implements AfterViewInit {
             const redirect = this.stateStorageService.getUrl();
             if (redirect) {
                 this.router.navigate([redirect]);
+            } else {
+                this.dialogRef.close('login success');
             }
         }).catch(() => {
             this.authenticationError = true;
@@ -84,10 +86,12 @@ export class JhiLoginModalComponent implements AfterViewInit {
 
     register() {
      //   this.activeModal.dismiss('to state register');
+     this.dialogRef.close('go-reset-password');     
         this.router.navigate(['/register']);
     }
 
     requestResetPassword() {
+        this.dialogRef.close('go-reset-password');
        // this.activeModal.dismiss('to state requestReset');
         this.router.navigate(['/reset', 'request']);
     }

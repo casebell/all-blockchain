@@ -97,6 +97,7 @@ export class NavbarComponent implements OnInit {
         // this.modalRef = this.loginModalService.open();
         let dialogRef = this.dialog.open(JhiLoginModalComponent);
         dialogRef.afterClosed().subscribe(result => {
+                
         });
     }
 

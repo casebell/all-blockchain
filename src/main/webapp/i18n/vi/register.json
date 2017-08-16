@@ -1,6 +1,8 @@
 {
     "register": {
         "title": "Đăng ký",
+        "social":"Create Account with Social",
+        "email" :"Create Account",
         "form": {
             "button": "Đăng ký"
         },

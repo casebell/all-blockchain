@@ -45,8 +45,6 @@ describe('Component Tests', () => {
 
         it('should ensure the two passwords entered match', () => {
             comp.registerAccount.password = 'password';
-            comp.confirmPassword = 'non-matching';
-
             comp.register();
 
             expect(comp.doNotMatch).toEqual('ERROR');
@@ -56,7 +54,7 @@ describe('Component Tests', () => {
             inject([Register, JhiLanguageService],
                 fakeAsync((service: Register, mockTranslate: MockLanguageService) => {
                     spyOn(service, 'save').and.returnValue(Observable.of({}));
-                    comp.registerAccount.password = comp.confirmPassword = 'password';
+                    comp.registerAccount.password = 'password';
 
                     comp.register();
                     tick();
@@ -82,7 +80,7 @@ describe('Component Tests', () => {
                         status: 400,
                         _body: 'login already in use'
                     }));
-                    comp.registerAccount.password = comp.confirmPassword = 'password';
+                    comp.registerAccount.password  = 'password';
 
                     comp.register();
                     tick();
@@ -101,7 +99,7 @@ describe('Component Tests', () => {
                         status: 400,
                         _body: 'email address already in use'
                     }));
-                    comp.registerAccount.password = comp.confirmPassword = 'password';
+                    comp.registerAccount.password = 'password';
 
                     comp.register();
                     tick();
@@ -119,7 +117,7 @@ describe('Component Tests', () => {
                     spyOn(service, 'save').and.returnValue(Observable.throw({
                         status: 503
                     }));
-                    comp.registerAccount.password = comp.confirmPassword = 'password';
+                    comp.registerAccount.password = 'password';
 
                     comp.register();
                     tick();
