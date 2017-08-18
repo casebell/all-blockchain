@@ -3,6 +3,15 @@
    Every toolbar row uses a flexbox row layout. */
     flex: 1 1 auto;
 }
+
+.mobile-button {
+    min-width: 50px;
+    padding:0;
+}
+.mobile-menu-button {
+    min-width: 30px;
+    padding:5px;
+}
 /* ==========================================================================
 Navbar
 ========================================================================== */

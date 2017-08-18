@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
     <div class="row">
         <div class="col-md-8 offset-md-2">
             <h1 jhiTranslate="activate.title">Activation</h1>
@@ -15,3 +15,14 @@
         </div>
     </div>
 </div>
+ -->
+<h1 jhiTranslate="activate.title" style="margin-bottom:30px">Activation</h1>
+<md-card>
+        <div *ngIf="success">
+                <span jhiTranslate="activate.messages.success"><strong>Your user account has been activated.</strong> 
+            </div>
+
+            <md-error *ngIf="error" jhiTranslate="activate.messages.error">
+                <strong>Your user could not be activated.</strong> Please use the registration form to sign up.
+            </md-error>
+</md-card>

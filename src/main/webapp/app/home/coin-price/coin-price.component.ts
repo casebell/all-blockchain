@@ -162,13 +162,13 @@ export class CoinPriceComponent implements OnInit {
 
     ngOnInit() {
         this.initialCoin();
-        this.getBithumb();
+      /*   this.getBithumb();
         this.getKorbit();
         this.getPoloniexBitcoin();
         this.getCoinone();
         this.getOkCoinCn();
         this.getBitflyer();
-        this.getBittrex();
+        this.getBittrex(); */
     }
 
     initialCoin() {

@@ -1,4 +1,19 @@
-<div>
+<md-card>
+    <h3 *ngIf="success" style="margin-bottom:30px;" jhiTranslate="social.register.title" translateValues="{ label: '{{providerLabel}}' }">Registration with
+    </h3>
+    <h3 *ngIf="error" jhiTranslate="social.register.errorTitle" style="margin-bottom:30px;">Registration</h3>
+
+    <div *ngIf="success" jhiTranslate="social.register.messages.success">
+        <strong>Registration saved!</strong>
+    </div>
+
+    <div*ngIf="error" jhiTranslate="social.register.messages.error.fail">
+        <strong>Registration failed!</strong> Please try again later.
+    </div>
+
+</md-card>
+
+<!-- <div>
     <div class="row">
         <div class="col-md-8 offset-md-2">
             <h1 *ngIf="success" jhiTranslate="social.register.title" translateValues="{ label: '{{providerLabel}}' }">Registration with</h1>
@@ -20,4 +35,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

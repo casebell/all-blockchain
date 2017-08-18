@@ -49,7 +49,7 @@ import {MdButtonModule, MdButtonToggleModule, MdIconModule, MdMenuModule, MdTool
         MdButtonModule,
         MdMenuModule,
         MdToolbarModule,
-        MdButtonToggleModule
+        MdButtonToggleModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [

@@ -2,6 +2,7 @@ package io.iansoft.blockchain.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 
+import io.iansoft.blockchain.domain.ErrorResponse;
 import io.iansoft.blockchain.domain.User;
 import io.iansoft.blockchain.repository.UserRepository;
 import io.iansoft.blockchain.security.SecurityUtils;
@@ -59,17 +60,15 @@ public class AccountResource {
     @PostMapping(path = "/register",
         produces={MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
     @Timed
-    public ResponseEntity registerAccount(@Valid @RequestBody ManagedUserVM managedUserVM) {
+    public ResponseEntity<?> registerAccount(@Valid @RequestBody ManagedUserVM managedUserVM) {
 
-        HttpHeaders textPlainHeaders = new HttpHeaders();
-        textPlainHeaders.setContentType(MediaType.TEXT_PLAIN);
         if (!checkPasswordLength(managedUserVM.getPassword())) {
             return new ResponseEntity<>(CHECK_ERROR_MESSAGE, HttpStatus.BAD_REQUEST);
         }
         return userRepository.findOneByLogin(managedUserVM.getLogin().toLowerCase())
-            .map(user -> new ResponseEntity<>("login already in use", textPlainHeaders, HttpStatus.BAD_REQUEST))
+            .map(user -> new ResponseEntity<>(new ErrorResponse("duplicated.login.exception","login already in use"), HttpStatus.BAD_REQUEST))
             .orElseGet(() -> userRepository.findOneByEmail(managedUserVM.getEmail())
-                .map(user -> new ResponseEntity<>("email address already in use", textPlainHeaders, HttpStatus.BAD_REQUEST))
+                .map(user -> new ResponseEntity<>(new ErrorResponse("duplicated.email.exception","email address already in use"), HttpStatus.BAD_REQUEST))
                 .orElseGet(() -> {
                     User user = userService
                         .createUser(managedUserVM.getLogin(), managedUserVM.getPassword(),
