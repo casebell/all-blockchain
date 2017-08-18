@@ -25,6 +25,12 @@
         <button *ngSwitchCase="false" md-menu-item routerLink="register" routerLinkActive="active">
                 <span jhiTranslate="navbar.account.register">회원가입</span>
             </button>
+        <button *ngSwitchCase="true" md-menu-item routerLink="settings" routerLinkActive="active">
+            <span jhiTranslate="global.menu.account.settings">Settings</span>
+            </button>
+        <button *ngSwitchCase="true" md-menu-item routerLink="password" routerLinkActive="active">
+            <span jhiTranslate="global.menu.account.password">Password</span>
+            </button>
     </md-menu>
 
     <button md-button [mdMenuTriggerFor]="languageMenu" style="margin-left:auto">
@@ -67,6 +73,7 @@
         <button *ngSwitchCase="false" md-menu-item routerLink="register" routerLinkActive="active">
             <span jhiTranslate="navbar.account.register">회원가입</span>
         </button>
+        
     </md-menu>
     <!--  <md-icon>language</md-icon>
         <span jhiTranslate="navbar.language">Language</span> -->
