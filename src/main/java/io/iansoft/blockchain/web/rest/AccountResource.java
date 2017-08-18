@@ -172,12 +172,12 @@ public class AccountResource {
     @PostMapping(path = "/account/reset_password/init",
         produces = MediaType.TEXT_PLAIN_VALUE)
     @Timed
-    public ResponseEntity<?> requestPasswordReset(@RequestBody String mail) {
+    public ResponseEntity requestPasswordReset(@RequestBody String mail) {
         return userService.requestPasswordReset(mail)
             .map(user -> {
                 mailService.sendPasswordResetMail(user);
                 return new ResponseEntity<>("email was sent", HttpStatus.OK);
-            }).orElse(new ResponseEntity<>(new ErrorResponse("notRegistered.email.exception","email address not registered"), HttpStatus.BAD_REQUEST));
+            }).orElse(new ResponseEntity<>("email address not registered", HttpStatus.BAD_REQUEST));
     }
 
     /**

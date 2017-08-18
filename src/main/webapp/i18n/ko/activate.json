@@ -1,9 +1,9 @@
 {
     "activate": {
-        "title": "계정 활성화",
+        "title": "계정 인증",
         "messages": {
-            "success": "<strong>당신의 계정이 활성화되었습니다.</strong> ",
-            "error": "<strong>당신의 계정이 활성화될 수 없습니다.</strong> 회원가입을 위해 등록 폼을 이용해 주세요."
+            "success": "<strong>계정이 인증되었습니다. </strong> ",
+            "error": "<strong>계정 인증에 실패하였습니다. </strong> 다시 가입 부탁드립니다."
         }
     }
 }

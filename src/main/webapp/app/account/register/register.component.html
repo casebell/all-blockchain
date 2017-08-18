@@ -1,9 +1,8 @@
-<!-- <h1 jhiTranslate="register.title">Registration</h1>
-
- -->
-<div class="alert alert-success" *ngIf="success; else registerTemplate" jhiTranslate="register.messages.success">
-    <strong>Registration saved!</strong> Please check your email for confirmation.
-</div>
+<md-card *ngIf="success; else registerTemplate">
+    <p jhiTranslate="register.messages.success">
+        <strong>Registration saved!</strong> Please check your email for confirmation.
+    </p>
+</md-card>
 <ng-template #registerTemplate>
     <h5 jhiTranslate="register.social">편하게 가입하기 </h5>
     <div class="social-cointainer">
@@ -65,11 +64,6 @@
                 <strong>Registration failed!</strong> Please try again later.
             </md-error>
          </form>
-         <div class="alert alert-warning">
-                <span jhiTranslate="global.messages.info.authenticated.prefix">If you want to </span>
-                <a class="alert-link" (click)="openLogin()" jhiTranslate="global.messages.info.authenticated.link">sign in</a>
-                <span jhiTranslate="global.messages.info.authenticated.suffix">, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").</span>
-            </div>
 </ng-template>
 <!--
 

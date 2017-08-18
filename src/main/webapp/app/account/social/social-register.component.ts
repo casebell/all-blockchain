@@ -32,7 +32,7 @@ export class SocialRegisterComponent implements OnInit  {
         this.providerLabel = this.provider.charAt(0).toUpperCase() + this.provider.slice(1);
     }
 
-    login() {
+  /*   login() {
         this.modalRef = this.loginModalService.open();
-    }
+    } */
 }
