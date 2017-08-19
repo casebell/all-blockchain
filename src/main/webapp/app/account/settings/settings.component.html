@@ -36,16 +36,21 @@
                     Your last name cannot be longer than 50 characters.
                 </md-error>
             </md-input-container>
-    <!-- 
+
             <md-input-container class="full-width">
-                <input mdInput placeholder="{{'global.form.email.placeholder' | translate}}" formControlName="email" email>
-                <md-error *ngIf="getEmail.touched && getEmail.hasError('required')"  jhiTranslate="register.messages.validate.email.required">
-                    Username is <strong>required</strong>
+                <input mdInput placeholder="{{'global.form.email.placeholder' | translate}}"
+                [(ngModel)]="settingsAccount.email"
+                    minlength="5" maxlength="100" 
+                    #emailInput="ngModel"
+                    required    
+                    name="email" email>
+                <md-error *ngIf="emailInput.dirty && emailInput.invalid && emailInput.errors.required"  jhiTranslate="global.messages.validate.email.required">
+                    Your email is required.
                 </md-error>
-                <md-error *ngIf="getEmail.touched && getEmail.hasError('email')" jhiTranslate="register.messages.validate.email.pattern">
-                    email is <strong>not email type</strong>
+                <md-error *ngIf="emailInput.dirty && emailInput.invalid && emailInput.errors.email" jhiTranslate="global.messages.validate.email.invalid">
+                    Your email is invalid.
                 </md-error>
-            </md-input-container> -->
+            </md-input-container> 
             <div style="margin-top:15px">
                 <button md-raised-button color="primary" [disabled]="settingsForm.invalid"><span jhiTranslate="register.form.button">Register</span>
             </button>
