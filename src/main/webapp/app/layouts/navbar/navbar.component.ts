@@ -101,7 +101,10 @@ export class NavbarComponent implements OnInit {
         });
     }
 
+    openCoinSidenav(){
 
+    }
+    
     logout() {
         this.collapseNavbar();
         this.loginService.logout();

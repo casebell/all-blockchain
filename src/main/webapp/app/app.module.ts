@@ -30,6 +30,8 @@ import {
     ErrorComponent
 } from './layouts';
 import {MdButtonModule, MdButtonToggleModule, MdIconModule, MdMenuModule, MdToolbarModule} from "@angular/material";
+import { DataService } from "./shared/data.service";
+
 
 
 
@@ -67,7 +69,8 @@ import {MdButtonModule, MdButtonToggleModule, MdIconModule, MdMenuModule, MdTool
         ProfileService,
         customHttpProvider(),
         PaginationConfig,
-        UserRouteAccessService
+        UserRouteAccessService,
+        DataService
     ],
     bootstrap: [ JhiMainComponent ]
 })

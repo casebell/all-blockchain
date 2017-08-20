@@ -67,8 +67,8 @@
                 },
                 "confirmpassword": {
                     "required": "Bạn phải nhập lại mật khẩu để xác nhận.",
-                    "minlength": "Mật khẩu phải có ít nhất 4 ký tự.",
-                    "maxlength": "Mật khẩu không được vượt quá 50 ký tự."
+                    "minlength": "Mật khẩu phải có ít nhất 6 ký tự.",
+                    "maxlength": "Mật khẩu không được vượt quá 100 ký tự."
                 },
                 "email": {
                     "required": "Bạn phải nhập email.",

@@ -4,7 +4,7 @@
             <md-icon>home</md-icon>
             <span jhiTranslate="global.title">All Blockchain</span></button>
 
-    <!--    <button md-button><span jhiTranslate="navbar.coin.title">coin</span></button> -->
+       <button md-button (click)="openCoinSidenav()"><span jhiTranslate="navbar.coin.title">coin</span></button>
    
    
    
@@ -73,6 +73,12 @@
         <button *ngSwitchCase="false" md-menu-item routerLink="register" routerLinkActive="active">
             <span jhiTranslate="navbar.account.register">회원가입</span>
         </button>
+        <button *ngSwitchCase="true" md-menu-item routerLink="settings" routerLinkActive="active">
+            <span jhiTranslate="global.menu.account.settings">Settings</span>
+            </button>
+        <button *ngSwitchCase="true" md-menu-item routerLink="password" routerLinkActive="active">
+            <span jhiTranslate="global.menu.account.password">Password</span>
+            </button>
         
     </md-menu>
     <!--  <md-icon>language</md-icon>
