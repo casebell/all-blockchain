@@ -4,44 +4,63 @@
             <md-icon>home</md-icon>
             <span jhiTranslate="global.title">All Blockchain</span></button>
 
-       <button md-button><span jhiTranslate="navbar.coin.title">coin</span></button>
-   
+    <button md-button><span jhiTranslate="navbar.coin.title">coin</span></button>
+
 
     <button md-button *jhiHasAnyAuthority="'ROLE_ADMIN'" [mdMenuTriggerFor]="adminMenu">
         Admin
     </button>
 
     <md-menu #adminMenu="mdMenu">
-            <button md-menu-item routerLink="user-management" routerLinkActive="active">
+        <button md-menu-item routerLink="user-management" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                     <span jhiTranslate="global.menu.admin.userManagement">User management</span>
                 </button>
-            <button md-menu-item routerLink="jhi-metrics" routerLinkActive="active">
+        <button md-menu-item routerLink="jhi-metrics" routerLinkActive="active">
                     <span jhiTranslate="global.menu.admin.metrics">Metrics</span>
                 </button>
-    
-            <button  md-menu-item outerLink="jhi-health" routerLinkActive="active">
+
+        <button md-menu-item outerLink="jhi-health" routerLinkActive="active">
                     <span jhiTranslate="global.menu.admin.health">Health</span>
                 </button>
-            <button  md-menu-item routerLink="jhi-configuration" routerLinkActive="active">
+        <button md-menu-item routerLink="jhi-configuration" routerLinkActive="active">
                     <span jhiTranslate="global.menu.admin.configuration">Configuration</span>
                 </button>
-            <button  md-menu-item routerLink="audits" routerLinkActive="active">
+        <button md-menu-item routerLink="audits" routerLinkActive="active">
                     <span jhiTranslate="global.menu.admin.audits">Audits</span>
                 </button>
-            <button  md-menu-item routerLink="logs" routerLinkActive="active">
+        <button md-menu-item routerLink="logs" routerLinkActive="active">
                     <span jhiTranslate="global.menu.admin.logs">Audits</span>
                 </button>
-            <button  md-menu-item routerLink="docs" routerLinkActive="active">
+        <button md-menu-item routerLink="docs" routerLinkActive="active">
                     <span jhiTranslate="global.menu.admin.apidocs">API</span>
                 </button>
-            <button  md-menu-item  href='./h2-console' target="_tab"  routerLinkActive="active">
+        <button md-menu-item href='./h2-console' target="_tab" routerLinkActive="active">
                 <span jhiTranslate="global.menu.admin.database">Database</span>
                 </button>
-        </md-menu>
-    
+    </md-menu>
+
+    <button md-button *jhiHasAnyAuthority="'ROLE_ADMIN'" [mdMenuTriggerFor]="entityMenu">
+                Entity
+            </button>
+
+    <md-menu #entityMenu="mdMenu">
+        <button md-menu-item routerLink="coin-block-chain-info" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                            <span >Coin </span>
+                    </button>
+        <button md-menu-item routerLink="coin-board-block-chain-info" routerLinkActive="active">
+                            <span>Coin-Board</span>
+                    </button>
+        <button md-menu-item routerLink="coin-board-comment-block-chain-info" routerLinkActive="active">
+                            <span>Coin Board Comment</span>
+                    </button>
+        <button md-menu-item routerLink="resource-block-chain-info" routerLinkActive="active">
+                           <span >Resource</span>
+                    </button>
+    </md-menu>
+
     <!-- This fills the remaining space of the current row -->
     <span class="fill-remaining-space"></span>
-    
+
     <!--account -->
     <button md-button [mdMenuTriggerFor]="accountMenu">
             <span jhiTranslate="navbar.account.title">account</span>
@@ -87,7 +106,7 @@
 <!--mobile -->
 
 <md-toolbar color="primary" [ngSwitch]="isAuthenticated()" class="mobile">
-    <button md-button (click)="clickMenuIcon()" class="mobile-menu-button" >
+    <button md-button (click)="clickMenuIcon()" class="mobile-menu-button">
         <md-icon>menu</md-icon>
     </button>
     <span jhiTranslate="global.title" routerLink="/">All Blockchain</span>
@@ -96,7 +115,7 @@
     <button md-button [mdMenuTriggerFor]="accountMenuMobile" class="mobile-button">
         <span jhiTranslate="navbar.account.title">account</span>
     </button>
-    
+
     <md-menu #accountMenuMobile="mdMenu" [ngSwitch]="isAuthenticated()">
         <button md-menu-item (click)="logout()" *ngSwitchCase="true">
             <span jhiTranslate="navbar.account.logout">로그아웃</span>
@@ -113,7 +132,7 @@
         <button *ngSwitchCase="true" md-menu-item routerLink="password" routerLinkActive="active">
             <span jhiTranslate="global.menu.account.password">Password</span>
             </button>
-        
+
     </md-menu>
     <!--  <md-icon>language</md-icon>
         <span jhiTranslate="navbar.language">Language</span> -->

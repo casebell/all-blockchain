@@ -18,7 +18,7 @@ export const coinBoardCommentRoute: Routes = [
         path: 'coin-board-comment-block-chain-info',
         component: CoinBoardCommentBlockChainInfoComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'blockchainApp.coinBoardComment.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -26,7 +26,7 @@ export const coinBoardCommentRoute: Routes = [
         path: 'coin-board-comment-block-chain-info/:id',
         component: CoinBoardCommentBlockChainInfoDetailComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'blockchainApp.coinBoardComment.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -38,7 +38,7 @@ export const coinBoardCommentPopupRoute: Routes = [
         path: 'coin-board-comment-block-chain-info-new',
         component: CoinBoardCommentBlockChainInfoPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'blockchainApp.coinBoardComment.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -48,7 +48,7 @@ export const coinBoardCommentPopupRoute: Routes = [
         path: 'coin-board-comment-block-chain-info/:id/edit',
         component: CoinBoardCommentBlockChainInfoPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'blockchainApp.coinBoardComment.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -58,7 +58,7 @@ export const coinBoardCommentPopupRoute: Routes = [
         path: 'coin-board-comment-block-chain-info/:id/delete',
         component: CoinBoardCommentBlockChainInfoDeletePopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'blockchainApp.coinBoardComment.home.title'
         },
         canActivate: [UserRouteAccessService],

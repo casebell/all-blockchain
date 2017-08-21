@@ -16,7 +16,7 @@ export const coinBoardRoute: Routes = [
         path: 'coin-board-block-chain-info',
         component: CoinBoardBlockChainInfoComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'blockchainApp.coinBoard.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -24,7 +24,7 @@ export const coinBoardRoute: Routes = [
         path: 'coin-board-block-chain-info/:id',
         component: CoinBoardBlockChainInfoDetailComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'blockchainApp.coinBoard.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -36,7 +36,7 @@ export const coinBoardPopupRoute: Routes = [
         path: 'coin-board-block-chain-info-new',
         component: CoinBoardBlockChainInfoPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'blockchainApp.coinBoard.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -46,7 +46,7 @@ export const coinBoardPopupRoute: Routes = [
         path: 'coin-board-block-chain-info/:id/edit',
         component: CoinBoardBlockChainInfoPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'blockchainApp.coinBoard.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -56,7 +56,7 @@ export const coinBoardPopupRoute: Routes = [
         path: 'coin-board-block-chain-info/:id/delete',
         component: CoinBoardBlockChainInfoDeletePopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'blockchainApp.coinBoard.home.title'
         },
         canActivate: [UserRouteAccessService],

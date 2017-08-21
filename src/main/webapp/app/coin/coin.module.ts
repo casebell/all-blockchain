@@ -9,6 +9,7 @@ import { MdSidenavModule,
          MdTableModule, 
          MdInputModule } from '@angular/material';
 import { CdkTableModule } from "@angular/cdk";
+import { CoinSidenavService } from "./coin-sidenav/coin-sidenav.service";
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { CdkTableModule } from "@angular/cdk";
     declarations: [CoinComponent,
                    CoinSidenavComponent, 
                    CoinHomeComponent],
+    providers: [CoinSidenavService],                    
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class CoinModule {}
