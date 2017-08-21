@@ -4,13 +4,45 @@
             <md-icon>home</md-icon>
             <span jhiTranslate="global.title">All Blockchain</span></button>
 
-       <button md-button (click)="openCoinSidenav()"><span jhiTranslate="navbar.coin.title">coin</span></button>
+       <button md-button><span jhiTranslate="navbar.coin.title">coin</span></button>
    
-   
-   
+
+    <button md-button *jhiHasAnyAuthority="'ROLE_ADMIN'" [mdMenuTriggerFor]="adminMenu">
+        Admin
+    </button>
+
+    <md-menu #adminMenu="mdMenu">
+            <button md-menu-item routerLink="user-management" routerLinkActive="active">
+                    <span jhiTranslate="global.menu.admin.userManagement">User management</span>
+                </button>
+            <button md-menu-item routerLink="jhi-metrics" routerLinkActive="active">
+                    <span jhiTranslate="global.menu.admin.metrics">Metrics</span>
+                </button>
+    
+            <button  md-menu-item outerLink="jhi-health" routerLinkActive="active">
+                    <span jhiTranslate="global.menu.admin.health">Health</span>
+                </button>
+            <button  md-menu-item routerLink="jhi-configuration" routerLinkActive="active">
+                    <span jhiTranslate="global.menu.admin.configuration">Configuration</span>
+                </button>
+            <button  md-menu-item routerLink="audits" routerLinkActive="active">
+                    <span jhiTranslate="global.menu.admin.audits">Audits</span>
+                </button>
+            <button  md-menu-item routerLink="logs" routerLinkActive="active">
+                    <span jhiTranslate="global.menu.admin.logs">Audits</span>
+                </button>
+            <button  md-menu-item routerLink="docs" routerLinkActive="active">
+                    <span jhiTranslate="global.menu.admin.apidocs">API</span>
+                </button>
+            <button  md-menu-item  href='./h2-console' target="_tab"  routerLinkActive="active">
+                <span jhiTranslate="global.menu.admin.database">Database</span>
+                </button>
+        </md-menu>
+    
     <!-- This fills the remaining space of the current row -->
     <span class="fill-remaining-space"></span>
     
+    <!--account -->
     <button md-button [mdMenuTriggerFor]="accountMenu">
             <span jhiTranslate="navbar.account.title">account</span>
         </button>
@@ -32,6 +64,8 @@
             <span jhiTranslate="global.menu.account.password">Password</span>
             </button>
     </md-menu>
+
+
 
     <button md-button [mdMenuTriggerFor]="languageMenu" style="margin-left:auto">
              <md-icon>language</md-icon><span jhiTranslate="navbar.language">language</span>  

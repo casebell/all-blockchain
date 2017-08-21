@@ -10,7 +10,6 @@ export const coinHomeRoute: Route = {
         authorities: [],
         pageTitle: 'coin.coin-home.title'
     },
-    canActivate: [UserRouteAccessService],
-    outlet: 'coin'
+    canActivate: [UserRouteAccessService]
 };
 

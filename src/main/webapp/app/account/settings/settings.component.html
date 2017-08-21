@@ -1,16 +1,10 @@
-
-<md-card>
-    <h3 jhiTranslate="settings.title" translateValues="{username: '{{settingsAccount.login}}'}" *ngIf="settingsAccount">User settings for [<b>{{settingsAccount.login}}</b>]</h3>
-        <form  name="form" role="form" (ngSubmit)="save()" #settingsForm="ngForm" *ngIf="settingsAccount" novalidate style="margin-top:15px;font-weight:400">
+<div style="padding:15px;">
+    <md-card>
+        <h3 jhiTranslate="settings.title" translateValues="{username: '{{settingsAccount.login}}'}" *ngIf="settingsAccount">User settings for [<b>{{settingsAccount.login}}</b>]</h3>
+        <form name="form" role="form" (ngSubmit)="save()" #settingsForm="ngForm" *ngIf="settingsAccount" novalidate style="margin-top:15px;font-weight:400">
             <md-input-container class="full-width">
-                <input mdInput 
-                       name="firstName"
-                       type="text" 
-                       placeholder="{{'settings.form.firstname.placeholder' | translate}}"
-                       [(ngModel)]="settingsAccount.firstName" 
-                        maxlength=50 
-                       #firstNameInput="ngModel"
-                       required>
+                <input mdInput name="firstName" type="text" placeholder="{{'settings.form.firstname.placeholder' | translate}}" [(ngModel)]="settingsAccount.firstName"
+                    maxlength=50 #firstNameInput="ngModel" required>
                 <md-error *ngIf="firstNameInput.dirty && firstNameInput.invalid && firstNameInput.errors.required" jhiTranslate="settings.messages.validate.firstname.required">
                     Your first name is required.
                 </md-error>
@@ -19,14 +13,8 @@
                 </md-error>
             </md-input-container>
             <md-input-container class="full-width">
-                <input mdInput 
-                       name="lastName"
-                       type="text" 
-                       placeholder="{{'settings.form.lastname.placeholder' | translate}}"
-                       [(ngModel)]="settingsAccount.lastName" 
-                        maxlength=50 
-                       #lastNameInput="ngModel"
-                       required>
+                <input mdInput name="lastName" type="text" placeholder="{{'settings.form.lastname.placeholder' | translate}}" [(ngModel)]="settingsAccount.lastName"
+                    maxlength=50 #lastNameInput="ngModel" required>
                 <md-error *ngIf="lastNameInput.dirty && lastNameInput.invalid && lastNameInput.errors.required" jhiTranslate="settings.messages.validate.lastname.required">
                     Your last name is required.
                 </md-error>
@@ -36,13 +24,9 @@
             </md-input-container>
 
             <md-input-container class="full-width">
-                <input mdInput placeholder="{{'global.form.email.placeholder' | translate}}"
-                [(ngModel)]="settingsAccount.email"
-                    minlength="5" maxlength="100" 
-                    #emailInput="ngModel"
-                    required    
-                    name="email" email>
-                <md-error *ngIf="emailInput.dirty && emailInput.invalid && emailInput.errors.required"  jhiTranslate="global.messages.validate.email.required">
+                <input mdInput placeholder="{{'global.form.email.placeholder' | translate}}" [(ngModel)]="settingsAccount.email" minlength="5"
+                    maxlength="100" #emailInput="ngModel" required name="email" email>
+                <md-error *ngIf="emailInput.dirty && emailInput.invalid && emailInput.errors.required" jhiTranslate="global.messages.validate.email.required">
                     Your email is required.
                 </md-error>
                 <md-error *ngIf="emailInput.dirty && emailInput.invalid && emailInput.errors.email" jhiTranslate="global.messages.validate.email.invalid">
@@ -54,17 +38,17 @@
                 <md-error *ngIf="emailInput.dirty && emailInput.invalid && emailInput.errors.maxlength" jhiTranslate="global.messages.validate.email.maxlength">
                     Your email is invalid.
                 </md-error>
-            </md-input-container> 
+            </md-input-container>
             <md-select style="margin-top:15px" [placeholder]="'settings.form.language' | translate" name="langKey" [(ngModel)]="settingsAccount.langKey">
                 <md-option *ngFor="let language of languages" [value]="language">
                     {{language | findLanguageFromKey}}
                 </md-option>
-              </md-select>
+            </md-select>
             <div style="margin-top:15px">
                 <button md-raised-button color="primary" [disabled]="settingsForm.invalid"><span jhiTranslate="settings.form.button">Register</span>
             </button>
             </div>
-          <!--   <md-error  style="margin-top:15px" *ngIf="errorUserExists" jhiTranslate="register.messages.error.userexists">
+            <!--   <md-error  style="margin-top:15px" *ngIf="errorUserExists" jhiTranslate="register.messages.error.userexists">
                 <strong>Login name already registered!</strong> Please choose another one.
             </md-error>
             <md-error  style="margin-top:15px" *ngIf="errorEmailExists" jhiTranslate="register.messages.error.emailexists">
@@ -74,9 +58,10 @@
             <md-error  style="margin-top:15px" *ngIf="error" jhiTranslate="register.messages.error.fail">
                 <strong>Registration failed!</strong> Please try again later.
             </md-error> -->
-         </form>
+        </form>
 
-         <div style="margin-top:20px;"  *ngIf="success" jhiTranslate="settings.messages.success">
+        <div style="margin-top:20px;" *ngIf="success" jhiTranslate="settings.messages.success">
             <strong>Settings saved!</strong>
         </div>
-</md-card>
+    </md-card>
+</div>
