@@ -3,6 +3,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { DataSource } from '@angular/cdk';
 import { Observable } from 'rxjs/Observable';
 import { Coin } from '../../model/coin.model';
+import { CoinSidenavService, 
+         CoinSidenavSource } from "./coin-sidenav.service";
 
 @Component({
   selector: 'abc-coin-sidenav',
@@ -13,11 +15,11 @@ export class CoinSidenavComponent implements OnInit {
 
   displayedColumns = ['name'];
   coinDatabase = new CoinDatabase();
-  dataSource: ExampleDataSource | null;
+  dataSource: CoinSidenavSource | null;
 
   @ViewChild('filter') filter: ElementRef;
 
-  constructor() { }
+  constructor(private coinSidenavService:CoinSidenavService) { }
 
   ngOnInit() {
     this.dataSource = new ExampleDataSource(this.coinDatabase);
@@ -42,9 +44,9 @@ export class CoinDatabase {
   dataChange: BehaviorSubject<Coin[]> = new BehaviorSubject<Coin[]>([]);
   get data(): Coin[] { return this.dataChange.value; }
 
-  constructor() {
+  constructor(private _coinSidenavService:CoinSidenavService) {
     // Fill up the database with 100 users.
-    for (let i = 0; i < 100; i++) { this.addUser(); }
+    
   }
 
   /** Adds a new user to the database. */
@@ -77,7 +79,7 @@ export class ExampleDataSource extends DataSource<any> {
   get filter(): string { return this._filterChange.value; }
   set filter(filter: string) { this._filterChange.next(filter); }
 
-  constructor(private _exampleDatabase: CoinDatabase) {
+  constructor(private _coinSidenavService: CoinSidenavService) {
     super();
   }
 

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { HttpClient } from "@angular/common/http";
 
+
 @Injectable()
 export class Register {
 
@@ -13,3 +14,4 @@ export class Register {
 
 
 }
+
