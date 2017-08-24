@@ -17,7 +17,7 @@
 <md-tab-group>
     <md-tab label="Style A">
         <div class="table-header-wrapper">
-            <md-grid-list cols="8" rowHeight="60px">
+            <md-grid-list cols="9" rowHeight="60px">
                 <md-grid-tile><span jhiTranslate="market.coin">Coin</span></md-grid-tile>
                 <md-grid-tile><span jhiTranslate="market.bithumb">Bithumb</span></md-grid-tile>
                 <md-grid-tile><span jhiTranslate="market.korbit">Korbit</span></md-grid-tile>
@@ -26,6 +26,7 @@
                 <md-grid-tile><span jhiTranslate="market.okcoincn">OKCoin CN</span></md-grid-tile>
                 <md-grid-tile><span jhiTranslate="market.bitflyer">bitFlyer</span></md-grid-tile>
                 <md-grid-tile><span jhiTranslate="market.bittrex">Bittrex</span></md-grid-tile>
+                <md-grid-tile><span jhiTranslate="market.kraken">Kraken</span></md-grid-tile>
             </md-grid-list>
             <div style="display:flex">
                 <div style="flex:1">
@@ -63,6 +64,9 @@
                 <div style="flex:1">
                     <abc-coin-price-row [coinRow]=bittrexRow [myCurrency]=myCurrency [colsNum]='1'></abc-coin-price-row>
                 </div>
+                <div style="flex:1">
+                    <abc-coin-price-row [coinRow]=krakenRow [myCurrency]=myCurrency [colsNum]='1'></abc-coin-price-row>
+                </div>
             </div>
         </div>
     </md-tab>
@@ -88,7 +92,8 @@
             <abc-coin-price-row [coinRow]=okCoinCnRow [myCurrency]=myCurrency [colsNum]='11'></abc-coin-price-row>
             <abc-coin-price-row [coinRow]=bitflyerRow [myCurrency]=myCurrency [colsNum]='11'></abc-coin-price-row>
             <abc-coin-price-row [coinRow]=bittrexRow [myCurrency]=myCurrency [colsNum]='11'></abc-coin-price-row>
-            
+            <abc-coin-price-row [coinRow]=krakenRow [myCurrency]=myCurrency [colsNum]='11'></abc-coin-price-row>
+
         </div>
     </md-tab>
 

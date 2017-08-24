@@ -4,7 +4,7 @@
             <md-icon>home</md-icon>
             <span jhiTranslate="global.title">All Blockchain</span></button>
 
-    <button md-button><span jhiTranslate="navbar.coin.title">coin</span></button>
+    <!--<button md-button><span jhiTranslate="navbar.coin.title">coin</span></button>
 
 
     <button md-button *jhiHasAnyAuthority="'ROLE_ADMIN'" [mdMenuTriggerFor]="adminMenu">
@@ -58,10 +58,10 @@
                     </button>
     </md-menu>
 
-    <!-- This fills the remaining space of the current row -->
+    &lt;!&ndash; This fills the remaining space of the current row &ndash;&gt;
     <span class="fill-remaining-space"></span>
 
-    <!--account -->
+    &lt;!&ndash;account &ndash;&gt;
     <button md-button [mdMenuTriggerFor]="accountMenu">
             <span jhiTranslate="navbar.account.title">account</span>
         </button>
@@ -84,10 +84,10 @@
             </button>
     </md-menu>
 
-
+-->
 
     <button md-button [mdMenuTriggerFor]="languageMenu" style="margin-left:auto">
-             <md-icon>language</md-icon><span jhiTranslate="navbar.language">language</span>  
+             <md-icon>language</md-icon><span jhiTranslate="navbar.language">language</span>
         </button>
     <md-menu #languageMenu="mdMenu">
         <button md-menu-item *ngFor="let language of languages" (click)="changeLanguage(language)">
@@ -109,8 +109,8 @@
     <button md-button (click)="clickMenuIcon()" class="mobile-menu-button">
         <md-icon>menu</md-icon>
     </button>
-    <span jhiTranslate="global.title" routerLink="/">All Blockchain</span>
-    <!-- This fills the remaining space of the current row -->
+   <!-- <span jhiTranslate="global.title" routerLink="/">All Blockchain</span>
+    &lt;!&ndash; This fills the remaining space of the current row &ndash;&gt;
     <span class="fill-remaining-space"></span>
     <button md-button [mdMenuTriggerFor]="accountMenuMobile" class="mobile-button">
         <span jhiTranslate="navbar.account.title">account</span>
@@ -133,7 +133,7 @@
             <span jhiTranslate="global.menu.account.password">Password</span>
             </button>
 
-    </md-menu>
+    </md-menu>-->
     <!--  <md-icon>language</md-icon>
         <span jhiTranslate="navbar.language">Language</span> -->
     <button md-button [mdMenuTriggerFor]="languageMenuMobile" class="mobile-button">

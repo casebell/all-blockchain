@@ -15,6 +15,10 @@ export class CurrencyExchangePipe implements PipeTransform {
                 currency = parseFloat(currency) * parseFloat(coin.exchangeRate.query.results.rate[2].Rate);
             }else if (coin.currency ==="CNY"  && coin.myCurrency == 'USD') {
                 currency = parseFloat(currency) * parseFloat(coin.exchangeRate.query.results.rate[5].Rate);
+            } else if (coin.currency ==="EUR"  && coin.myCurrency == 'KRW'){
+                currency = parseFloat(currency) * parseFloat(coin.exchangeRate.query.results.rate[1].Rate);
+            }else if (coin.currency ==="EUR"  && coin.myCurrency == 'USD') {
+                currency = parseFloat(currency) * parseFloat(coin.exchangeRate.query.results.rate[4].Rate);
             } else if (coin.currency ==="JPY"  && coin.myCurrency == 'KRW'){
                 currency = parseFloat(currency) * parseFloat(coin.exchangeRate.query.results.rate[3].Rate);
             }else if (coin.currency ==="JPY"  && coin.myCurrency == 'USD') {
@@ -23,7 +27,7 @@ export class CurrencyExchangePipe implements PipeTransform {
         }
           if(coin.myCurrency == 'KRW')
                 currency = parseFloat(currency).toFixed(0)
-            else 
+            else
                 currency = parseFloat(currency).toFixed(2)
         return Number(currency).toLocaleString();
     }
