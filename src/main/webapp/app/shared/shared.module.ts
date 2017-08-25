@@ -17,7 +17,7 @@ import {
     SocialService,
     JhiLoginModalComponent
 } from './';
-import {MdCheckboxModule, MdDialogModule, MdInputModule, MdButtonModule, MdIconModule} from "@angular/material";
+import { MdCheckboxModule, MdDialogModule, MdInputModule, MdButtonModule, MdIconModule, MdTabsModule } from "@angular/material";
 import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
@@ -29,7 +29,8 @@ import {ReactiveFormsModule} from "@angular/forms";
         MdButtonModule,
         MdIconModule,
         ReactiveFormsModule,
-        MdCheckboxModule
+        MdCheckboxModule,
+        MdTabsModule
     ],
     declarations: [
         JhiSocialComponent,

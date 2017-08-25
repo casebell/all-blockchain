@@ -57,7 +57,6 @@ export class JhiLoginModalComponent implements AfterViewInit {
     }
 
     login(value) {
-        console.log('login value : ', value);
         this.loginService.login(value).then(() => {
             this.authenticationError = false;
        //     this.activeModal.dismiss('login success');

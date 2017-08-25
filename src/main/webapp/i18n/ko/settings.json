@@ -14,7 +14,7 @@
                 "fail": "<strong>에러가 발생했습니다!</strong> 사용자 설정은 저장되지 않습니다.",
                 "emailexists": "<strong>이미 사용중인 이메일입니다!</strong> 다른 이메일 주소를 선택해 주세요."
             },
-            "success": "<strong>사용자 설정 저장 완료!</strong>",
+            "success": "<strong>설정 변경이 성공하였습니다. !</strong>",
             "validate": {
                 "firstname": {
                     "required": "이름을 입력해 주세요.",

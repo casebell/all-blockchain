@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Principal } from '../../shared';
 import { PasswordService } from './password.service';
 
@@ -8,12 +7,10 @@ import { PasswordService } from './password.service';
     templateUrl: './password.component.html'
 })
 export class PasswordComponent implements OnInit {
-    doNotMatch: string;
     error: string;
     success: string;
     account: any;
     password: string;
-    confirmPassword: string;
 
     constructor(
         private passwordService: PasswordService,
@@ -28,19 +25,12 @@ export class PasswordComponent implements OnInit {
     }
 
     changePassword() {
-        if (this.password !== this.confirmPassword) {
+        this.passwordService.save(this.password).subscribe(() => {
             this.error = null;
+            this.success = 'OK';
+        }, () => {
             this.success = null;
-            this.doNotMatch = 'ERROR';
-        } else {
-            this.doNotMatch = null;
-            this.passwordService.save(this.password).subscribe(() => {
-                this.error = null;
-                this.success = 'OK';
-            }, () => {
-                this.success = null;
-                this.error = 'ERROR';
-            });
-        }
+            this.error = 'ERROR';
+        });
     }
 }

@@ -1,0 +1,46 @@
+.coin-sidenav-container {
+    height: 100vh;
+    // border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+md-sidenav {
+    width: 150px;
+    display: flex;
+    overflow: visible;
+}
+
+.coin-sidenav-scrolling-content {
+    overflow: auto;
+}
+
+button {
+    width: 100%;
+    margin:5px;
+}
+
+//table
+.example-container {
+    display: flex;
+    flex-direction: column;
+    /*   max-height: 500px;
+      min-width: 300px; */
+}
+
+.example-header {
+    min-height: 64px;
+    display: flex;
+    align-items: baseline;
+    font-size: 20px;
+    justify-content: space-between;
+}
+
+.mat-input-container {
+    font-size: 14px;
+    flex-grow: 1;
+    margin: 0 15px;
+}
+
+.mat-table {
+    overflow: auto;
+    width: 150px;
+}

@@ -21,10 +21,6 @@ describe('Component Tests', () => {
                 providers: [
                     Register,
                     {
-                        provide: LoginModalService,
-                        useValue: null
-                    },
-                    {
                         provide: Renderer,
                         useValue: null
                     },

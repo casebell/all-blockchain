@@ -26,7 +26,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     registerForm:FormGroup
     constructor(
         private languageService: JhiLanguageService,
-        private loginModalService: LoginModalService,
         private registerService: Register,
         private elementRef: ElementRef,
         private renderer: Renderer,
@@ -104,9 +103,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         return this.registerForm.get('email');
     }
 
-    openLogin() {
-        this.modalRef = this.loginModalService.open();
-    }
+   
 
     private processError(response) {
         console.log('error response : ', response.error);

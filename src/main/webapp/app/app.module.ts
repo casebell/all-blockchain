@@ -14,6 +14,7 @@ import { customHttpProvider } from './blocks/interceptor/http.provider';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { BlockchainHelpModule } from './help/help.module';
 
 import 'hammerjs';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
@@ -29,6 +30,9 @@ import {
     ErrorComponent
 } from './layouts';
 import {MdButtonModule, MdButtonToggleModule, MdIconModule, MdMenuModule, MdToolbarModule} from "@angular/material";
+import { DataService } from "./shared/data.service";
+
+
 
 
 @NgModule({
@@ -43,6 +47,7 @@ import {MdButtonModule, MdButtonToggleModule, MdIconModule, MdMenuModule, MdTool
         BlockchainAdminModule,
         BlockchainAccountModule,
         BlockchainEntityModule,
+        BlockchainHelpModule,
         CoinModule,
         BrowserAnimationsModule,
         MdIconModule,
@@ -58,13 +63,14 @@ import {MdButtonModule, MdButtonToggleModule, MdIconModule, MdMenuModule, MdTool
         ErrorComponent,
         PageRibbonComponent,
         ActiveMenuDirective,
-        FooterComponent,
+        FooterComponent
     ],
     providers: [
         ProfileService,
         customHttpProvider(),
         PaginationConfig,
-        UserRouteAccessService
+        UserRouteAccessService,
+        DataService
     ],
     bootstrap: [ JhiMainComponent ]
 })

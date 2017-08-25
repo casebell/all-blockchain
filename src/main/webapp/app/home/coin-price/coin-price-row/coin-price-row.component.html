@@ -2,26 +2,26 @@
     <md-grid-tile *ngIf="colsNum==11">{{coinRow?.market}}</md-grid-tile>
     <md-grid-tile *ngFor="let coin of coinRow?.coins">
         <div [ngSwitch]="true">
-            <div *ngSwitchCase="coin?.diff>0" class="price-inc">
+            <div *ngSwitchCase="coin?.diff>0" class="price-inc"  [@valueUpdated]>
                 <p> {{coin?.price | currencyExchange :{myCurrency:myCurrency,currency:coinRow.currencies,exchangeRate:exchangeRate} }}
                 </p>
                 <p class="diff">
                     <!-- <md-icon class="material-icons">arrow_drop_up</md-icon> -->
-                   ▲ {{coin?.diff|currencyExchange :{myCurrency:myCurrency,currency:coinRow.currencies,exchangeRate:exchangeRate} }} 
+                   ▲ {{coin?.diff|currencyExchange :{myCurrency:myCurrency,currency:coinRow.currencies,exchangeRate:exchangeRate} }}
                 </p>
                 <p class="diff">
                      ({{coin?.diffPercent|number:'1.0-2'}}%)
-                 </p>   
-                    
+                 </p>
+
             </div>
-            <div *ngSwitchCase="coin?.diff == 0" class="price-equal">
+            <div *ngSwitchCase="coin?.diff == 0" class="price-equal"   [@valueUpdated]>
                 <p> {{coin?.price | currencyExchange :{myCurrency:myCurrency,currency:coinRow.currencies,exchangeRate:exchangeRate} }}
                 </p>
                 <!--    <p class="diff">
               {{coin?.diff|currencyExchange :{myCurrency:myCurrency,currency:coinRow.currencies,exchangeRate:exchangeRate}
                 }} </p> -->
             </div>
-            <div *ngSwitchCase="coin?.diff<0" class="price-dec">
+            <div *ngSwitchCase="coin?.diff<0" class="price-dec"   [@valueUpdated]>
                 <p> {{coin?.price | currencyExchange :{myCurrency:myCurrency,currency:coinRow.currencies,exchangeRate:exchangeRate} }}
                  </p>
                 <!-- ▼ -->
@@ -32,7 +32,7 @@
                 </p>
                 <p class="diff">
                      ({{coin?.diffPercent|number:'1.0-2'}}%)
-                 </p>  
+                 </p>
             </div>
         </div>
     </md-grid-tile>

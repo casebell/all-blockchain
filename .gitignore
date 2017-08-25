@@ -141,8 +141,4 @@ Desktop.ini
 # ESLint
 ######################
 .eslintcache
-#/src/main/resources/config/application-prod.yml
-#/src/main/resources/config/bootstrap-heroku.yml
-#/src/main/resources/config/application-heroku.yml
-/src/main/resources/config/
 /out

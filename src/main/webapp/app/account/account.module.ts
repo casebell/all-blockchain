@@ -20,7 +20,9 @@ import {
     SocialAuthComponent,
     accountState
 } from './';
-import { MdInputModule, MdButtonModule, MdIconModule, MdSnackBarModule, MdCardModule } from "@angular/material";
+import { MdInputModule, MdButtonModule,
+         MdIconModule, MdSnackBarModule,
+         MdCardModule, MdSelectModule } from "@angular/material";
 
 @NgModule({
     imports: [
@@ -31,6 +33,7 @@ import { MdInputModule, MdButtonModule, MdIconModule, MdSnackBarModule, MdCardMo
         MdIconModule,
         MdSnackBarModule,
         MdCardModule,
+        MdSelectModule,
         RouterModule.forRoot(accountState, { useHash: true })
     ],
     declarations: [

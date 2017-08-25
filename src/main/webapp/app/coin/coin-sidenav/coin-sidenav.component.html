@@ -1,0 +1,27 @@
+<md-sidenav-container class="coin-sidenav-container">
+    <md-sidenav #sidenav opened="true" mode="side">
+
+      <div class="coin-sidenav-scrolling-content">
+          <div class="example-container">
+          <div class="example-header">
+              <!--  <md-input-container floatPlaceholder="never">
+                  <input mdInput #filter placeholder="Filter users">
+                </md-input-container>-->
+              <button md-raised-button (click)="sidenav.toggle()"><span>닫기</span></button>
+              </div>
+
+              <md-table #table [dataSource]="dataSource">
+
+                <!-- name -->
+                <ng-container cdkColumnDef="name">
+                  <md-header-cell *cdkHeaderCellDef> ID </md-header-cell>
+                  <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+                </ng-container>
+
+                <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
+                <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
+              </md-table>
+            </div>
+      </div>
+    </md-sidenav>
+</md-sidenav-container>
