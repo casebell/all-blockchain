@@ -2,7 +2,6 @@ import { Route } from '@angular/router';
 import { UserRouteAccessService } from '../../shared/index';
 import { TermsComponent } from './terms.component';
 
-
 export const termsRoute: Route = {
     path: 'terms',
     component: TermsComponent,
@@ -12,4 +11,3 @@ export const termsRoute: Route = {
     },
     canActivate: [UserRouteAccessService]
 };
-

@@ -1,0 +1,26 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "last",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "createdat",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20170825143814",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "kraken",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}

@@ -1,9 +1,7 @@
 import { Routes } from '@angular/router';
 import { UserRouteAccessService } from '../../shared/index';
-import { QnaComponent } from "./qna.component";
-import { QnaDetailComponent } from "./qna-detail.component";
-
-
+import { QnaComponent } from './qna.component';
+import { QnaDetailComponent } from './qna-detail.component';
 
 export const qnaRoute: Routes = [
     {
@@ -24,4 +22,3 @@ export const qnaRoute: Routes = [
         canActivate: [UserRouteAccessService]
     }
 ];
-

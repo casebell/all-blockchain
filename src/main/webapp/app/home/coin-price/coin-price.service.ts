@@ -39,4 +39,7 @@ export class CoinPriceService {
     getKraken(market:string): Observable<any> {
         return   this.http.get(`https://api.kraken.com/0/public/Ticker?pair=${market}`);
     }
+    getKrakens(): Observable<any> {
+        return   this.http.get(`${this.resourceUrl}/coin-api/krakens`);
+    }
 }

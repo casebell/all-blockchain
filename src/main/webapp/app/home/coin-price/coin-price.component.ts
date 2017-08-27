@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Rx';
 import {CoinPriceService} from './coin-price.service';
 import {Currency} from '../../model/currency.model';
 import {Subscription} from 'rxjs/Subscription';
-import {zip} from "rxjs/observable/zip";
+import {zip} from 'rxjs/observable/zip';
 
 
 @Component({
@@ -25,6 +25,8 @@ export class CoinPriceComponent implements OnInit {
         {value: 'KRW', viewValue: 'KRW'}
     ];
     timeLists = [
+        {value: 5, viewValue: '5'},
+        {value: 10, viewValue: '10'},
         {value: 15, viewValue: '15'},
         {value: 30, viewValue: '30'},
         {value: 60, viewValue: '60'},
@@ -35,9 +37,9 @@ export class CoinPriceComponent implements OnInit {
     ];
     myCurrency: string;
     CURRENCY_QUERY = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20(%22USDKRW%22%2C%20%22USDCHF%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=';
-    //select * from yahoo.finance.xchange where pair in ("USDKRW", "EURKRW","CNYKRW","JPYKRW","EURUSD","CNYUSD","JPYUSD")
+    // select * from yahoo.finance.xchange where pair in ("USDKRW", "EURKRW","CNYKRW","JPYKRW","EURUSD","CNYUSD","JPYUSD")
     currency: Currency;
-    myUpdateTime = 15;
+    myUpdateTime = 5;
 
     bithumbRow = {
         market: 'Bithumb',
@@ -54,7 +56,7 @@ export class CoinPriceComponent implements OnInit {
             {name: 'xmr', price: 0, diff: 0, diffPercent: 0},
             {name: 'neo', price: 0, diff: 0, diffPercent: 0}
         ]
-    }
+    };
 
     korbitRow = {
         market: 'Korbit',
@@ -70,7 +72,7 @@ export class CoinPriceComponent implements OnInit {
             {name: 'zec', price: 0, diff: 0, diffPercent: 0},
             {name: 'xmr', price: 0, diff: 0, diffPercent: 0},
             {name: 'neo', price: 0, diff: 0, diffPercent: 0}]
-    }
+    };
     coinoneRow = {
         market: 'Coinone',
         currencies: 'KRW',
@@ -191,14 +193,14 @@ export class CoinPriceComponent implements OnInit {
     }
 
     initialCoin() {
-        //bithumb
+        // bithumb
         this.coinPriceService.getBithumb()
             .subscribe(data => {
                 for (var i = 0; i < data.length; i++) {
                     this.bithumbRow.coins[i].price = data[i].closing_price;
                 }
             });
-        //korbit
+        // korbit
         this.coinPriceService.getKorbit()
             .subscribe(data => {
                 //btc
@@ -211,7 +213,7 @@ export class CoinPriceComponent implements OnInit {
                 this.korbitRow.coins[2].price = data[3].last;
             });
 
-        //coinone
+        // coinone
         this.coinPriceService.getCoinone()
             .subscribe((data: any) => {
                 //btc
@@ -224,7 +226,7 @@ export class CoinPriceComponent implements OnInit {
                 this.coinoneRow.coins[5].price = data.etc.last;
             });
 
-        //poloniex
+        // poloniex
         this.coinPriceService.getPoloniex()
             .subscribe((data: any) => {
                 this.poloniexRow.coins[0].price = data.USDT_BTC.last;
@@ -237,7 +239,7 @@ export class CoinPriceComponent implements OnInit {
                 this.poloniexRow.coins[8].price = data.USDT_XMR.last;
             });
 
-        //okCoinChina
+        // okCoinChina
         this.coinPriceService.getOkCoinCn()
             .subscribe(data => {
                 this.okCoinCnRow.coins[0].price = data[0].last;
@@ -245,21 +247,28 @@ export class CoinPriceComponent implements OnInit {
                 this.okCoinCnRow.coins[4].price = data[2].last;
             }, error => {
             });
-        //bitflyer
+        // bitflyer
         this.coinPriceService.getBitflyer()
             .subscribe((data: any) => {
                 //btc
                 this.bitflyerRow.coins[0].price = data[0].ltp
             });
 
-        //bittrex
+        // bittrex
         this.coinPriceService.getBittrex()
             .subscribe((data: any) => {
-                for (var i = 0; i < data.length; i++) {
+                for (let i = 0; i < data.length; i++) {
                     this.bittrexRow.coins[i].price = data[i].last;
                 }
             });
-
+        this.coinPriceService.getKrakens()
+            .subscribe((data: any) => {
+            console.log('get krakens : ' + data);
+                for (let i = 0; i < data.length; i++) {
+                    this.krakenRow.coins[i].price = data[i].last;
+                }
+            });
+/*
         Observable.zip(this.coinPriceService.getKraken('BTCEUR'),
             this.coinPriceService.getKraken('ETHEUR'),
             this.coinPriceService.getKraken('XRPEUR'),
@@ -282,7 +291,7 @@ export class CoinPriceComponent implements OnInit {
                 this.krakenRow.coins[8].price = xmr.result.XXMRZEUR.c[0];
             });
 
-
+*/
     }
 
     getPoloniexBitcoin() {
@@ -360,6 +369,13 @@ export class CoinPriceComponent implements OnInit {
         this.krakenUnsubscribe = Observable
             .interval(this.myUpdateTime * 1000)
             .timeInterval()
+            .flatMap(() => this.coinPriceService.getKrakens())
+            .subscribe(data => {
+                this.setKraken(data);
+            })
+       /* this.krakenUnsubscribe = Observable
+            .interval(this.myUpdateTime * 1000)
+            .timeInterval()
             .flatMap(() => zip(this.coinPriceService.getKraken('BTCEUR'),
                 this.coinPriceService.getKraken('ETHEUR'),
                 this.coinPriceService.getKraken('XRPEUR'),
@@ -373,6 +389,7 @@ export class CoinPriceComponent implements OnInit {
             .subscribe(([btc, eth, xrp, dash, ltc, etc, bch, zec, xmr]) => {
                 this.setKraken(btc, eth, xrp, dash, ltc, etc, bch, zec, xmr);
             });
+       */
     };
 
 
@@ -418,106 +435,115 @@ export class CoinPriceComponent implements OnInit {
     }
 
     setKorbit(data) {
-        //btc
+        // btc
         this.korbitRow.coins[0].diffPercent = data[0].last * 100 / this.korbitRow.coins[0].price - 100
         this.korbitRow.coins[0].diff = data[0].last - this.korbitRow.coins[0].price;
         this.korbitRow.coins[0].price = data[0].last
-        //eth
+        // eth
         this.korbitRow.coins[1].diffPercent = data[1].last * 100 / this.korbitRow.coins[1].price - 100
         this.korbitRow.coins[1].diff = data[1].last - this.korbitRow.coins[1].price;
         this.korbitRow.coins[1].price = data[1].last
-        //etc
+        // etc
         this.korbitRow.coins[5].diffPercent = data[2].last * 100 / this.korbitRow.coins[5].price - 100
         this.korbitRow.coins[5].diff = data[2].last - this.korbitRow.coins[5].price;
         this.korbitRow.coins[5].price = data[2].last
-        //xrp
+        // xrp
         this.korbitRow.coins[2].diffPercent = data[3].last * 100 / this.korbitRow.coins[2].price - 100
         this.korbitRow.coins[2].diff = data[3].last - this.korbitRow.coins[2].price;
         this.korbitRow.coins[2].price = data[3].last
     }
 
     setCoinOne(data) {
-        //btc
+        // btc
         this.coinoneRow.coins[0].diffPercent = data.btc.last * 100 / this.coinoneRow.coins[0].price - 100
         this.coinoneRow.coins[0].diff = data.btc.last - this.coinoneRow.coins[0].price;
         this.coinoneRow.coins[0].price = data.btc.last
-        //eth
+        // eth
         this.coinoneRow.coins[1].diffPercent = data.eth.last * 100 / this.coinoneRow.coins[1].price - 100
         this.coinoneRow.coins[1].diff = data.eth.last - this.coinoneRow.coins[1].price;
         this.coinoneRow.coins[1].price = data.eth.last
-        //xrp
+        // xrp
         this.coinoneRow.coins[2].diffPercent = data.xrp.last * 100 / this.coinoneRow.coins[2].price - 100
         this.coinoneRow.coins[2].diff = data.xrp.last - this.coinoneRow.coins[2].price;
         this.coinoneRow.coins[2].price = data.xrp.last
-        //etc
+        // etc
         this.coinoneRow.coins[5].diffPercent = data.etc.last * 100 / this.coinoneRow.coins[5].price - 100
         this.coinoneRow.coins[5].diff = data.etc.last - this.coinoneRow.coins[5].price;
         this.coinoneRow.coins[5].price = data.etc.last
     }
 
     setPoloniex(data) {
-        this.poloniexRow.coins[0].diffPercent = data.USDT_BTC.last * 100 / this.poloniexRow.coins[0].price - 100
+        this.poloniexRow.coins[0].diffPercent = data.USDT_BTC.last * 100 / this.poloniexRow.coins[0].price - 100;
         this.poloniexRow.coins[0].diff = data.USDT_BTC.last - this.poloniexRow.coins[0].price;
         this.poloniexRow.coins[0].price = data.USDT_BTC.last;
 
-        this.poloniexRow.coins[1].diffPercent = data.USDT_ETH.last * 100 / this.poloniexRow.coins[1].price - 100
+        this.poloniexRow.coins[1].diffPercent = data.USDT_ETH.last * 100 / this.poloniexRow.coins[1].price - 100;
         this.poloniexRow.coins[1].diff = data.USDT_ETH.last - this.poloniexRow.coins[1].price;
         this.poloniexRow.coins[1].price = data.USDT_ETH.last;
 
-        this.poloniexRow.coins[2].diffPercent = data.USDT_XRP.last * 100 / this.poloniexRow.coins[2].price - 100
+        this.poloniexRow.coins[2].diffPercent = data.USDT_XRP.last * 100 / this.poloniexRow.coins[2].price - 100;
         this.poloniexRow.coins[2].diff = data.USDT_XRP.last - this.poloniexRow.coins[2].price;
         this.poloniexRow.coins[2].price = data.USDT_XRP.last;
 
-        this.poloniexRow.coins[3].diffPercent = data.USDT_DASH.last * 100 / this.poloniexRow.coins[3].price - 100
+        this.poloniexRow.coins[3].diffPercent = data.USDT_DASH.last * 100 / this.poloniexRow.coins[3].price - 100;
         this.poloniexRow.coins[3].diff = data.USDT_DASH.last - this.poloniexRow.coins[3].price;
         this.poloniexRow.coins[3].price = data.USDT_DASH.last;
 
-        this.poloniexRow.coins[4].diffPercent = data.USDT_LTC.last * 100 / this.poloniexRow.coins[4].price - 100
+        this.poloniexRow.coins[4].diffPercent = data.USDT_LTC.last * 100 / this.poloniexRow.coins[4].price - 100;
         this.poloniexRow.coins[4].diff = data.USDT_LTC.last - this.poloniexRow.coins[4].price;
         this.poloniexRow.coins[4].price = data.USDT_LTC.last;
 
-        this.poloniexRow.coins[5].diffPercent = data.USDT_ETC.last * 100 / this.poloniexRow.coins[5].price - 100
+        this.poloniexRow.coins[5].diffPercent = data.USDT_ETC.last * 100 / this.poloniexRow.coins[5].price - 100;
         this.poloniexRow.coins[5].diff = data.USDT_ETC.last - this.poloniexRow.coins[5].price;
         this.poloniexRow.coins[5].price = data.USDT_ETC.last;
 
-        this.poloniexRow.coins[7].diffPercent = data.USDT_ZEC.last * 100 / this.poloniexRow.coins[7].price - 100
+        this.poloniexRow.coins[7].diffPercent = data.USDT_ZEC.last * 100 / this.poloniexRow.coins[7].price - 100;
         this.poloniexRow.coins[7].diff = data.USDT_ZEC.last - this.poloniexRow.coins[7].price;
         this.poloniexRow.coins[7].price = data.USDT_ZEC.last;
 
-        this.poloniexRow.coins[8].diffPercent = data.USDT_XMR.last * 100 / this.poloniexRow.coins[8].price - 100
+        this.poloniexRow.coins[8].diffPercent = data.USDT_XMR.last * 100 / this.poloniexRow.coins[8].price - 100;
         this.poloniexRow.coins[8].diff = data.USDT_XMR.last - this.poloniexRow.coins[8].price;
         this.poloniexRow.coins[8].price = data.USDT_XMR.last;
     }
 
     setOkCoinCn(data) {
-        this.okCoinCnRow.coins[0].diffPercent = data[0].last * 100 / this.okCoinCnRow.coins[0].price - 100
+        this.okCoinCnRow.coins[0].diffPercent = data[0].last * 100 / this.okCoinCnRow.coins[0].price - 100;
         this.okCoinCnRow.coins[0].diff = data[0].last - this.okCoinCnRow.coins[0].price;
         this.okCoinCnRow.coins[0].price = data[0].last;
 
-        this.okCoinCnRow.coins[1].diffPercent = data[1].last * 100 / this.okCoinCnRow.coins[1].price - 100
+        this.okCoinCnRow.coins[1].diffPercent = data[1].last * 100 / this.okCoinCnRow.coins[1].price - 100;
         this.okCoinCnRow.coins[1].diff = data[1].last - this.okCoinCnRow.coins[1].price;
         this.okCoinCnRow.coins[1].price = data[1].last;
 
-        this.okCoinCnRow.coins[4].diffPercent = data[2].last * 100 / this.okCoinCnRow.coins[4].price - 100
+        this.okCoinCnRow.coins[4].diffPercent = data[2].last * 100 / this.okCoinCnRow.coins[4].price - 100;
         this.okCoinCnRow.coins[4].diff = data[2].last - this.okCoinCnRow.coins[4].price;
         this.okCoinCnRow.coins[4].price = data[2].last;
     }
 
     setBitflyer(data) {
-        //btc
-        this.bitflyerRow.coins[0].diffPercent = data[0].ltp * 100 / this.bitflyerRow.coins[0].price - 100
+        // btc
+        this.bitflyerRow.coins[0].diffPercent = data[0].ltp * 100 / this.bitflyerRow.coins[0].price - 100;
         this.bitflyerRow.coins[0].diff = data[0].ltp - this.bitflyerRow.coins[0].price;
         this.bitflyerRow.coins[0].price = data[0].ltp
     }
 
     setBittrex(data) {
-        for (var i = 0; i < data.length; i++) {
-            this.bittrexRow.coins[i].diffPercent = data[i].last * 100 / this.bittrexRow.coins[i].price - 100
+        for (let i = 0; i < data.length; i++) {
+            this.bittrexRow.coins[i].diffPercent = data[i].last * 100 / this.bittrexRow.coins[i].price - 100;
             this.bittrexRow.coins[i].diff = data[i].last - this.bittrexRow.coins[i].price;
             this.bittrexRow.coins[i].price = data[i].last
         }
     }
 
+    setKraken(data) {
+        for (let i = 0; i < data.length; i++) {
+            this.krakenRow.coins[i].diffPercent = data[i].last * 100 / this.krakenRow.coins[i].price - 100;
+            this.krakenRow.coins[i].diff = data[i].last - this.krakenRow.coins[i].price;
+            this.krakenRow.coins[i].price = data[i].last
+        }
+    }
+
+    /*
     private setKraken(btc: any, eth: any, xrp: any, dash: any, ltc: any, etc: any, bch: any, zec: any, xmr: any) {
         this.krakenRow.coins[0].diffPercent = btc.result.XXBTZEUR.c[0] * 100 / this.krakenRow.coins[0].price - 100;
         this.krakenRow.coins[0].diff = btc.result.XXBTZEUR.c[0] - this.krakenRow.coins[0].price;
@@ -554,7 +580,7 @@ export class CoinPriceComponent implements OnInit {
         this.krakenRow.coins[8].diffPercent = xmr.result.XXMRZEUR.c[0] * 100 / this.krakenRow.coins[8].price - 100;
         this.krakenRow.coins[8].diff = xmr.result.XXMRZEUR.c[0] - this.krakenRow.coins[8].price;
         this.krakenRow.coins[8].price = xmr.result.XXMRZEUR.c[0];
-    }
+    }*/
 
 
 }

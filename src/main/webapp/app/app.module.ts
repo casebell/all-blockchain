@@ -29,11 +29,8 @@ import {
     ActiveMenuDirective,
     ErrorComponent
 } from './layouts';
-import {MdButtonModule, MdButtonToggleModule, MdIconModule, MdMenuModule, MdToolbarModule} from "@angular/material";
-import { DataService } from "./shared/data.service";
-
-
-
+import { MdButtonModule, MdButtonToggleModule, MdIconModule, MdMenuModule, MdToolbarModule} from '@angular/material';
+import { DataService } from './shared/data.service';
 
 @NgModule({
     imports: [
