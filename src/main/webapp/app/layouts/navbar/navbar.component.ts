@@ -8,7 +8,7 @@ import {JhiLanguageHelper, Principal, LoginModalService, LoginService} from '../
 
 import {VERSION, DEBUG_INFO_ENABLED} from '../../app.constants';
 import {MdDialog, MdDialogRef} from '@angular/material';
-import {JhiLoginModalComponent} from "../../shared/login/login.component";
+import {JhiLoginModalComponent} from '../../shared/login/login.component';
 
 @Component({
     selector: 'jhi-navbar',
@@ -33,7 +33,7 @@ export class NavbarComponent implements OnInit {
     isNavbarCollapsed: boolean;
     languages: any[];
     swaggerEnabled: boolean;
-    //modalRef: NgbModalRef;
+    // modalRef: NgbModalRef;
     version: string;
     checkMenu: boolean;
     coinState: string = 'default';
@@ -52,7 +52,7 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit() {
-        var lang = navigator.language; 
+        var lang = navigator.language;
         console.log(lang);
         this.languageHelper.getAll().then((languages) => {
             console.log('languages : ',languages);
@@ -97,14 +97,14 @@ export class NavbarComponent implements OnInit {
         // this.modalRef = this.loginModalService.open();
         let dialogRef = this.dialog.open(JhiLoginModalComponent);
         dialogRef.afterClosed().subscribe(result => {
-                
+
         });
     }
 
     openCoinSidenav(){
 
     }
-    
+
     logout() {
         this.collapseNavbar();
         this.loginService.logout();

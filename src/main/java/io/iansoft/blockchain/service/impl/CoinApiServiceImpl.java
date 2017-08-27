@@ -40,27 +40,31 @@ public class CoinApiServiceImpl implements CoinApiService {
     private final BithumbMapper bithumbMapper;
     private final KorbitMapper korbitMapper;
     private final KorbitRepository korbitRepository;
+    private final KrakenRepository krakenRepository;
     private final OkCoinCnMapper okCoinCnMapper;
     private final OkCoinCnRepository okCoinCnRepository;
     private final BitflyerRepository bitflyerRepository;
     private final BitflyerMapper bitflyerMapper;
     private final BittrexRepository bittrexRepository;
     private final BittrexMapper bittrexMapper;
+    private final KrakenMapper krakenMapper;
     private final ModelMapper modelMapper;
 
     private ZonedDateTime zonedDateTime;
 
-    public CoinApiServiceImpl(BithumbRepository bithumbRepository, BithumbMapper bithumbMapper, KorbitMapper korbitMapper, KorbitRepository korbitRepository, OkCoinCnMapper okCoinCnMapper, OkCoinCnRepository okCoinCnRepository, BitflyerRepository bitflyerRepository, BitflyerMapper bitflyerMapper, BittrexRepository bittrexRepository, BittrexMapper bittrexMapper, ModelMapper modelMapper) {
+    public CoinApiServiceImpl(BithumbRepository bithumbRepository, BithumbMapper bithumbMapper, KorbitMapper korbitMapper, KorbitRepository korbitRepository, KrakenRepository krakenRepository, OkCoinCnMapper okCoinCnMapper, OkCoinCnRepository okCoinCnRepository, BitflyerRepository bitflyerRepository, BitflyerMapper bitflyerMapper, BittrexRepository bittrexRepository, BittrexMapper bittrexMapper, KrakenMapper krakenMapper, ModelMapper modelMapper) {
         this.bithumbRepository = bithumbRepository;
         this.bithumbMapper = bithumbMapper;
         this.korbitMapper = korbitMapper;
         this.korbitRepository = korbitRepository;
+        this.krakenRepository = krakenRepository;
         this.okCoinCnMapper = okCoinCnMapper;
         this.okCoinCnRepository = okCoinCnRepository;
         this.bitflyerRepository = bitflyerRepository;
         this.bitflyerMapper = bitflyerMapper;
         this.bittrexRepository = bittrexRepository;
         this.bittrexMapper = bittrexMapper;
+        this.krakenMapper = krakenMapper;
         this.modelMapper = modelMapper;
     }
 
@@ -138,6 +142,7 @@ public class CoinApiServiceImpl implements CoinApiService {
 
         getBittrexs().forEach(this::saveBittrex);
 
+        getKrakens().forEach(this::saveKraken);
     }
 
 
@@ -177,6 +182,12 @@ public class CoinApiServiceImpl implements CoinApiService {
         Bittrex bittrex = bittrexMapper.toEntity(bittrexDTO);
         bittrex.setCreatedat(zonedDateTime);
         bittrexRepository.save(bittrex);
+    }
+
+    private void saveKraken(KrakenDTO krakenDTO) {
+        Kraken kraken = krakenMapper.toEntity(krakenDTO);
+        kraken.setCreatedat(zonedDateTime);
+        krakenRepository.save(kraken);
     }
 
 
@@ -280,6 +291,67 @@ ETH https://www.okcoin.cn/api/v1/ticker.do?symbol=eth_cny
         return bittrexDTOS;
     }
 
+    private List<KrakenDTO> getKrakens() {
+        List<KrakenDTO> krakenDTOS = new ArrayList();
+
+        krakenDTOS.add(getKrakenRest("BTCEUR"));
+        krakenDTOS.add(getKrakenRest("ETHEUR"));
+        krakenDTOS.add(getKrakenRest("XRPEUR"));
+        krakenDTOS.add(getKrakenRest("DASHEUR"));
+        krakenDTOS.add(getKrakenRest("LTCEUR"));
+        krakenDTOS.add(getKrakenRest("ETCEUR"));
+        krakenDTOS.add(getKrakenRest("BCHEUR"));
+        krakenDTOS.add(getKrakenRest("ZECEUR"));
+        krakenDTOS.add(getKrakenRest("XMREUR"));
+
+        return krakenDTOS;
+    }
+
+    private KrakenDTO getKrakenRest(String market) {
+
+        RestTemplate restTemplate = new RestTemplate();
+        Map krakenMap = restTemplate.getForObject("https://api.kraken.com/0/public/Ticker?pair=" + market, Map.class);
+        KrakenDTO krakenDTO = new KrakenDTO();
+        switch (market) {
+            case "BTCEUR":
+                krakenDTO = setKrakenRest(krakenMap, krakenDTO, BTC_SYMBOL, "XXBTZEUR");
+                break;
+            case "ETHEUR":
+                krakenDTO = setKrakenRest(krakenMap, krakenDTO, ETH_SYMBOL, "XETHZEUR");
+                break;
+            case "XRPEUR":
+                krakenDTO = setKrakenRest(krakenMap, krakenDTO, XRP_SYMBOL, "XXRPZEUR");
+                break;
+            case "DASHEUR":
+                krakenDTO = setKrakenRest(krakenMap, krakenDTO, DASH_SYMBOL, "DASHEUR");
+                break;
+            case "LTCEUR":
+                krakenDTO = setKrakenRest(krakenMap, krakenDTO, LTC_SYMBOL, "XLTCZEUR");
+                break;
+            case "ETCEUR":
+                krakenDTO = setKrakenRest(krakenMap, krakenDTO, ETC_SYMBOL, "XETCZEUR");
+                break;
+            case "BCHEUR":
+                krakenDTO = setKrakenRest(krakenMap, krakenDTO, BCH_SYMBOL, "BCHEUR");
+                break;
+            case "ZECEUR":
+                krakenDTO = setKrakenRest(krakenMap, krakenDTO, ZEC_SYMBOL, "XZECZEUR");
+                break;
+            case "XMREUR":
+                krakenDTO = setKrakenRest(krakenMap, krakenDTO, XMR_SYMBOL, "XXMRZEUR");
+                break;
+        }
+
+        return krakenDTO ;
+    }
+
+    private KrakenDTO setKrakenRest(Map krakenMap, KrakenDTO krakenDTO, String symbol, String krakenSymbol) {
+        List<String> last = (List) ((Map)((Map) krakenMap.get("result")).get(krakenSymbol)).get("c");
+        krakenDTO.setLast(last.get(0));
+        krakenDTO.setSymbol(symbol);
+        return krakenDTO;
+    }
+
     private BittrexDTO getBittrexRest(String market) {
 
         RestTemplate restTemplate = new RestTemplate();
@@ -320,6 +392,7 @@ ETH https://www.okcoin.cn/api/v1/ticker.do?symbol=eth_cny
         }
         return bittrexDTO ;
     }
+
 
     private BitflyerDTO getBitflyerResBtc() {
         RestTemplate restTemplate = new RestTemplate();
