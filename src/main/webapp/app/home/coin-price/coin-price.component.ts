@@ -5,7 +5,8 @@ import {CoinPriceService} from './coin-price.service';
 import {Currency} from '../../model/currency.model';
 import {Subscription} from 'rxjs/Subscription';
 import {zip} from 'rxjs/observable/zip';
-
+import { CoinPrice } from '../../model/coin-price.model.';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'coin-all-coin-price',
@@ -36,136 +37,31 @@ export class CoinPriceComponent implements OnInit {
         {value: 600, viewValue: '600'}
     ];
     myCurrency: string;
-    CURRENCY_QUERY = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20(%22USDKRW%22%2C%20%22USDCHF%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=';
-    // select * from yahoo.finance.xchange where pair in ("USDKRW", "EURKRW","CNYKRW","JPYKRW","EURUSD","CNYUSD","JPYUSD")
     currency: Currency;
     myUpdateTime = 5;
+  
+    coins = [
+        {name: 'btc', price: 0, diff: 0, diffPercent: 0},
+        {name: 'eth', price: 0, diff: 0, diffPercent: 0},
+        {name: 'xrp', price: 0, diff: 0, diffPercent: 0},
+        {name: 'dash', price: 0, diff: 0, diffPercent: 0},
+        {name: 'ltc', price: 0, diff: 0, diffPercent: 0},
+        {name: 'etc', price: 0, diff: 0, diffPercent: 0},
+        {name: 'bch', price: 0, diff: 0, diffPercent: 0},
+        {name: 'zec', price: 0, diff: 0, diffPercent: 0},
+        {name: 'xmr', price: 0, diff: 0, diffPercent: 0},
+        {name: 'neo', price: 0, diff: 0, diffPercent: 0}
+    ];
 
-    bithumbRow = {
-        market: 'Bithumb',
-        currencies: 'KRW',
-        coins: [
-            {name: 'btc', price: 0, diff: 0, diffPercent: 0},
-            {name: 'eth', price: 0, diff: 0, diffPercent: 0},
-            {name: 'xrp', price: 0, diff: 0, diffPercent: 0},
-            {name: 'dash', price: 0, diff: 0, diffPercent: 0},
-            {name: 'ltc', price: 0, diff: 0, diffPercent: 0},
-            {name: 'etc', price: 0, diff: 0, diffPercent: 0},
-            {name: 'bch', price: 0, diff: 0, diffPercent: 0},
-            {name: 'zec', price: 0, diff: 0, diffPercent: 0},
-            {name: 'xmr', price: 0, diff: 0, diffPercent: 0},
-            {name: 'neo', price: 0, diff: 0, diffPercent: 0}
-        ]
-    };
+    bithumbRow :CoinPrice;
+    korbitRow :CoinPrice;
+    coinoneRow :CoinPrice; 
+    poloniexRow :CoinPrice;
+    okCoinCnRow :CoinPrice;
+    bitflyerRow :CoinPrice;
+    bittrexRow  :CoinPrice;
 
-    korbitRow = {
-        market: 'Korbit',
-        currencies: 'KRW',
-        coins: [
-            {name: 'btc', price: 0, diff: 0, diffPercent: 0},
-            {name: 'eth', price: 0, diff: 0, diffPercent: 0},
-            {name: 'xrp', price: 0, diff: 0, diffPercent: 0},
-            {name: 'dash', price: 0, diff: 0, diffPercent: 0},
-            {name: 'ltc', price: 0, diff: 0, diffPercent: 0},
-            {name: 'etc', price: 0, diff: 0, diffPercent: 0},
-            {name: 'bch', price: 0, diff: 0, diffPercent: 0},
-            {name: 'zec', price: 0, diff: 0, diffPercent: 0},
-            {name: 'xmr', price: 0, diff: 0, diffPercent: 0},
-            {name: 'neo', price: 0, diff: 0, diffPercent: 0}]
-    };
-    coinoneRow = {
-        market: 'Coinone',
-        currencies: 'KRW',
-        coins: [
-            {name: 'btc', price: 0, diff: 0, diffPercent: 0},
-            {name: 'eth', price: 0, diff: 0, diffPercent: 0},
-            {name: 'xrp', price: 0, diff: 0, diffPercent: 0},
-            {name: 'dash', price: 0, diff: 0, diffPercent: 0},
-            {name: 'ltc', price: 0, diff: 0, diffPercent: 0},
-            {name: 'etc', price: 0, diff: 0, diffPercent: 0},
-            {name: 'bch', price: 0, diff: 0, diffPercent: 0},
-            {name: 'zec', price: 0, diff: 0, diffPercent: 0},
-            {name: 'xmr', price: 0, diff: 0, diffPercent: 0},
-            {name: 'neo', price: 0, diff: 0, diffPercent: 0}]
-    };
-    poloniexRow = {
-        market: 'Poloniex',
-        currencies: 'USD',
-        coins: [
-            {name: 'btc', price: 0, diff: 0, diffPercent: 0},
-            {name: 'eth', price: 0, diff: 0, diffPercent: 0},
-            {name: 'xrp', price: 0, diff: 0, diffPercent: 0},
-            {name: 'dash', price: 0, diff: 0, diffPercent: 0},
-            {name: 'ltc', price: 0, diff: 0, diffPercent: 0},
-            {name: 'etc', price: 0, diff: 0, diffPercent: 0},
-            {name: 'bch', price: 0, diff: 0, diffPercent: 0},
-            {name: 'zec', price: 0, diff: 0, diffPercent: 0},
-            {name: 'xmr', price: 0, diff: 0, diffPercent: 0},
-            {name: 'neo', price: 0, diff: 0, diffPercent: 0}]
-    };
-
-    okCoinCnRow = {
-        market: 'OKCoin cn',
-        currencies: 'CNY',
-        coins: [
-            {name: 'btc', price: 0, diff: 0, diffPercent: 0},
-            {name: 'eth', price: 0, diff: 0, diffPercent: 0},
-            {name: 'xrp', price: 0, diff: 0, diffPercent: 0},
-            {name: 'dash', price: 0, diff: 0, diffPercent: 0},
-            {name: 'ltc', price: 0, diff: 0, diffPercent: 0},
-            {name: 'etc', price: 0, diff: 0, diffPercent: 0},
-            {name: 'bch', price: 0, diff: 0, diffPercent: 0},
-            {name: 'zec', price: 0, diff: 0, diffPercent: 0},
-            {name: 'xmr', price: 0, diff: 0, diffPercent: 0},
-            {name: 'neo', price: 0, diff: 0, diffPercent: 0}]
-    };
-    bitflyerRow = {
-        market: 'bitFlyer',
-        currencies: 'JPY',
-        coins: [
-            {name: 'btc', price: 0, diff: 0, diffPercent: 0},
-            {name: 'eth', price: 0, diff: 0, diffPercent: 0},
-            {name: 'xrp', price: 0, diff: 0, diffPercent: 0},
-            {name: 'dash', price: 0, diff: 0, diffPercent: 0},
-            {name: 'ltc', price: 0, diff: 0, diffPercent: 0},
-            {name: 'etc', price: 0, diff: 0, diffPercent: 0},
-            {name: 'bch', price: 0, diff: 0, diffPercent: 0},
-            {name: 'zec', price: 0, diff: 0, diffPercent: 0},
-            {name: 'xmr', price: 0, diff: 0, diffPercent: 0},
-            {name: 'neo', price: 0, diff: 0, diffPercent: 0}]
-    };
-    bittrexRow = {
-        market: 'Bittrex',
-        currencies: 'USD',
-        coins: [
-            {name: 'btc', price: 0, diff: 0, diffPercent: 0},
-            {name: 'eth', price: 0, diff: 0, diffPercent: 0},
-            {name: 'xrp', price: 0, diff: 0, diffPercent: 0},
-            {name: 'dash', price: 0, diff: 0, diffPercent: 0},
-            {name: 'ltc', price: 0, diff: 0, diffPercent: 0},
-            {name: 'etc', price: 0, diff: 0, diffPercent: 0},
-            {name: 'bch', price: 0, diff: 0, diffPercent: 0},
-            {name: 'zec', price: 0, diff: 0, diffPercent: 0},
-            {name: 'xmr', price: 0, diff: 0, diffPercent: 0},
-            {name: 'neo', price: 0, diff: 0, diffPercent: 0}]
-    };
-
-    krakenRow = {
-        market: 'Kraken',
-        currencies: 'EUR',
-        coins: [
-            {name: 'btc', price: 0, diff: 0, diffPercent: 0},
-            {name: 'eth', price: 0, diff: 0, diffPercent: 0},
-            {name: 'xrp', price: 0, diff: 0, diffPercent: 0},
-            {name: 'dash', price: 0, diff: 0, diffPercent: 0},
-            {name: 'ltc', price: 0, diff: 0, diffPercent: 0},
-            {name: 'etc', price: 0, diff: 0, diffPercent: 0},
-            {name: 'bch', price: 0, diff: 0, diffPercent: 0},
-            {name: 'zec', price: 0, diff: 0, diffPercent: 0},
-            {name: 'xmr', price: 0, diff: 0, diffPercent: 0},
-            {name: 'neo', price: 0, diff: 0, diffPercent: 0}
-        ]
-    };
+    krakenRow :CoinPrice;
 
     bithumbUnsubscribe: Subscription;
     coinoneUnsubscribe: Subscription;
@@ -178,9 +74,11 @@ export class CoinPriceComponent implements OnInit {
 
     constructor(private http: HttpClient, private coinPriceService: CoinPriceService) {
         this.myCurrency = 'KRW';
+        this.initialCoinRow();
     }
 
     ngOnInit() {
+
         this.initialCoin();
         this.getBithumb();
         this.getKorbit();
@@ -192,6 +90,48 @@ export class CoinPriceComponent implements OnInit {
         this.getKraken();
     }
 
+    initialCoinRow(){
+        this.bithumbRow = {
+            market: 'Bithumb',
+            currencies : 'KRW',
+            coins : _.cloneDeep(this.coins)
+        }
+        this.korbitRow = {
+            market: 'Korbit',
+            currencies : 'KRW',
+            coins :_.cloneDeep(this.coins)
+        }
+        this.coinoneRow = {
+            market: 'Coinone',
+            currencies : 'KRW',
+            coins : _.cloneDeep(this.coins)
+        }
+        this.poloniexRow = {
+            market: 'Poloniex',
+            currencies : 'USD',
+            coins : _.cloneDeep(this.coins)
+        }
+        this.okCoinCnRow = {
+            market: 'OKCoin',
+            currencies : 'CNY',
+            coins : _.cloneDeep(this.coins)
+        }
+        this.bitflyerRow = {
+            market: 'BitFlyer',
+            currencies : 'JPY',
+            coins : _.cloneDeep(this.coins)
+        }
+        this.bittrexRow = {
+            market: 'Bittrex',
+            currencies : 'USD',
+            coins : _.cloneDeep(this.coins)
+        }
+        this.krakenRow = {
+            market: 'Kraken',
+            currencies : 'EUR',
+            coins : _.cloneDeep(this.coins)
+        }
+    }
     initialCoin() {
         // bithumb
         this.coinPriceService.getBithumb()
@@ -263,7 +203,6 @@ export class CoinPriceComponent implements OnInit {
             });
         this.coinPriceService.getKrakens()
             .subscribe((data: any) => {
-            console.log('get krakens : ' + data);
                 for (let i = 0; i < data.length; i++) {
                     this.krakenRow.coins[i].price = data[i].last;
                 }
@@ -421,8 +360,6 @@ export class CoinPriceComponent implements OnInit {
     }
 
     currencyChange(value) {
-        console.log(value);
-        console.log('currency change : ', this.myCurrency);
 
     }
 
@@ -581,6 +518,4 @@ export class CoinPriceComponent implements OnInit {
         this.krakenRow.coins[8].diff = xmr.result.XXMRZEUR.c[0] - this.krakenRow.coins[8].price;
         this.krakenRow.coins[8].price = xmr.result.XXMRZEUR.c[0];
     }*/
-
-
 }
