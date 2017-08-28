@@ -1,5 +1,5 @@
 <md-grid-list [cols]="colsNum" rowHeight="60px">
-    <md-grid-tile *ngIf="colsNum==11">{{coinRow?.market}}</md-grid-tile>
+    <md-grid-tile *ngIf="colsNum==12" >{{coinRow?.market}}</md-grid-tile>
     <md-grid-tile *ngFor="let coin of coinRow?.coins">
         <div [ngSwitch]="true">
             <div *ngSwitchCase="coin?.diff>0" class="price-inc"  [@valueUpdated]>
