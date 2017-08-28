@@ -156,14 +156,16 @@ export class CoinPriceComponent implements OnInit {
         // coinone
         this.coinPriceService.getCoinone()
             .subscribe((data: any) => {
-                //btc
+                // btc
                 this.coinoneRow.coins[0].price = data.btc.last;
-                //eth
+                // eth
                 this.coinoneRow.coins[1].price = data.eth.last;
-                //xrp
+                // xrp
                 this.coinoneRow.coins[2].price = data.xrp.last;
-                //etc
+                // etc
                 this.coinoneRow.coins[5].price = data.etc.last;
+                // bch
+                this.coinoneRow.coins[6].price = data.bch.last;
             });
 
         // poloniex
@@ -175,6 +177,7 @@ export class CoinPriceComponent implements OnInit {
                 this.poloniexRow.coins[3].price = data.USDT_DASH.last;
                 this.poloniexRow.coins[4].price = data.USDT_LTC.last;
                 this.poloniexRow.coins[5].price = data.USDT_ETC.last;
+                this.poloniexRow.coins[6].price = data.USDT_BCH.last;
                 this.poloniexRow.coins[7].price = data.USDT_ZEC.last;
                 this.poloniexRow.coins[8].price = data.USDT_XMR.last;
             });
@@ -185,6 +188,8 @@ export class CoinPriceComponent implements OnInit {
                 this.okCoinCnRow.coins[0].price = data[0].last;
                 this.okCoinCnRow.coins[1].price = data[1].last;
                 this.okCoinCnRow.coins[4].price = data[2].last;
+                this.okCoinCnRow.coins[5].price = data[3].last;
+                this.okCoinCnRow.coins[6].price = data[4].last;
             }, error => {
             });
         // bitflyer
@@ -270,6 +275,7 @@ export class CoinPriceComponent implements OnInit {
             .timeInterval()
             .flatMap(() => this.coinPriceService.getOkCoinCn())
             .subscribe(data => {
+                console.log('ok coin cn data : ', data);
                 this.setOkCoinCn(data);
             })
     };
@@ -407,6 +413,10 @@ export class CoinPriceComponent implements OnInit {
         this.coinoneRow.coins[5].diffPercent = data.etc.last * 100 / this.coinoneRow.coins[5].price - 100
         this.coinoneRow.coins[5].diff = data.etc.last - this.coinoneRow.coins[5].price;
         this.coinoneRow.coins[5].price = data.etc.last
+        // bch
+        this.coinoneRow.coins[6].diffPercent = data.bch.last * 100 / this.coinoneRow.coins[6].price - 100
+        this.coinoneRow.coins[6].diff = data.bch.last - this.coinoneRow.coins[6].price;
+        this.coinoneRow.coins[6].price = data.bch.last
     }
 
     setPoloniex(data) {
@@ -434,6 +444,10 @@ export class CoinPriceComponent implements OnInit {
         this.poloniexRow.coins[5].diff = data.USDT_ETC.last - this.poloniexRow.coins[5].price;
         this.poloniexRow.coins[5].price = data.USDT_ETC.last;
 
+        this.poloniexRow.coins[6].diffPercent = data.USDT_BCH.last * 100 / this.poloniexRow.coins[6].price - 100;
+        this.poloniexRow.coins[6].diff = data.USDT_BCH.last - this.poloniexRow.coins[6].price;
+        this.poloniexRow.coins[6].price = data.USDT_BCH.last;
+
         this.poloniexRow.coins[7].diffPercent = data.USDT_ZEC.last * 100 / this.poloniexRow.coins[7].price - 100;
         this.poloniexRow.coins[7].diff = data.USDT_ZEC.last - this.poloniexRow.coins[7].price;
         this.poloniexRow.coins[7].price = data.USDT_ZEC.last;
@@ -455,6 +469,14 @@ export class CoinPriceComponent implements OnInit {
         this.okCoinCnRow.coins[4].diffPercent = data[2].last * 100 / this.okCoinCnRow.coins[4].price - 100;
         this.okCoinCnRow.coins[4].diff = data[2].last - this.okCoinCnRow.coins[4].price;
         this.okCoinCnRow.coins[4].price = data[2].last;
+
+        this.okCoinCnRow.coins[5].diffPercent = data[3].last * 100 / this.okCoinCnRow.coins[5].price - 100;
+        this.okCoinCnRow.coins[5].diff = data[3].last - this.okCoinCnRow.coins[5].price;
+        this.okCoinCnRow.coins[5].price = data[3].last;
+
+        this.okCoinCnRow.coins[6].diffPercent = data[4].last * 100 / this.okCoinCnRow.coins[6].price - 100;
+        this.okCoinCnRow.coins[6].diff = data[4].last - this.okCoinCnRow.coins[6].price;
+        this.okCoinCnRow.coins[6].price = data[4].last;
     }
 
     setBitflyer(data) {

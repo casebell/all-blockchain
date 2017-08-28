@@ -135,6 +135,8 @@ public class CoinApiServiceImpl implements CoinApiService {
         okCoinDTOS.add(getOkCoinCnRestBtc());
         okCoinDTOS.add(getOkCoinCnRestEth());
         okCoinDTOS.add(getOkCoinCnRestLtc());
+        okCoinDTOS.add(getOkCoinCnRestEtc());
+        okCoinDTOS.add(getOkCoinCnRestBch());
         okCoinDTOS.forEach(this::saveOkCoinCn);
 
         BitflyerDTO bitflyerDTO = getBitflyerResBtc();
@@ -248,6 +250,13 @@ ETH https://www.okcoin.cn/api/v1/ticker.do?symbol=eth_cny
         return getOkCoinCnDTO("eth_cny");
     }
 
+    private OkCoinCnDTO getOkCoinCnRestEtc() {
+        return getOkCoinCnDTO("etc_cny");
+    }
+    private OkCoinCnDTO getOkCoinCnRestBch() {
+        return getOkCoinCnDTO("bcc_cny");
+    }
+
     private OkCoinCnDTO getOkCoinCnRestLtc() {
         return getOkCoinCnDTO("ltc_cny");
     }
@@ -269,6 +278,10 @@ ETH https://www.okcoin.cn/api/v1/ticker.do?symbol=eth_cny
             okCoinCnDTO.setSymbol(ETH_SYMBOL);
         else if ("ltc_cny".equals(currency))
             okCoinCnDTO.setSymbol(LTC_SYMBOL);
+        else if ("etc_cny".equals(currency))
+            okCoinCnDTO.setSymbol(ETC_SYMBOL);
+        else if ("bcc_cny".equals(currency))
+            okCoinCnDTO.setSymbol(BCH_SYMBOL);
 
         okCoinCnDTO.setSymbol(currency);
         return okCoinCnDTO;
