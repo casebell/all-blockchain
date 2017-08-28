@@ -1,0 +1,72 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "closeprice",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "highprice",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "itemcode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lowprice",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "openprice",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "prevcloseprice",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "tradeamount",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "tradedaebi",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "tradedaebirate",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "tradedate",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "tradevolumn",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "symbol",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "createdat",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20170828045352",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "coinis",
+    "pagination": "no"
+}

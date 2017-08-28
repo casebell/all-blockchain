@@ -21,6 +21,7 @@
         "bitflyer": "bitFlyer",
         "bittrex": "Bittrex",
         "kraken": "Kraken",
+        "coinis": "Coinis",
         "coin": "Coin",
         "aboutMarket": "This price using the yahoo finance API and each market api."
     }
