@@ -48,11 +48,14 @@ public class CoinApiServiceImpl implements CoinApiService {
     private final BittrexRepository bittrexRepository;
     private final BittrexMapper bittrexMapper;
     private final KrakenMapper krakenMapper;
+    private final CoinisRepository coinisRepository;
+    private final CoinisMapper coinisMapper;
+
     private final ModelMapper modelMapper;
 
     private ZonedDateTime zonedDateTime;
 
-    public CoinApiServiceImpl(BithumbRepository bithumbRepository, BithumbMapper bithumbMapper, KorbitMapper korbitMapper, KorbitRepository korbitRepository, KrakenRepository krakenRepository, OkCoinCnMapper okCoinCnMapper, OkCoinCnRepository okCoinCnRepository, BitflyerRepository bitflyerRepository, BitflyerMapper bitflyerMapper, BittrexRepository bittrexRepository, BittrexMapper bittrexMapper, KrakenMapper krakenMapper, ModelMapper modelMapper) {
+    public CoinApiServiceImpl(BithumbRepository bithumbRepository, BithumbMapper bithumbMapper, KorbitMapper korbitMapper, KorbitRepository korbitRepository, KrakenRepository krakenRepository, OkCoinCnMapper okCoinCnMapper, OkCoinCnRepository okCoinCnRepository, BitflyerRepository bitflyerRepository, BitflyerMapper bitflyerMapper, BittrexRepository bittrexRepository, BittrexMapper bittrexMapper, KrakenMapper krakenMapper, CoinisRepository coinisRepository, CoinisMapper coinisMapper, ModelMapper modelMapper) {
         this.bithumbRepository = bithumbRepository;
         this.bithumbMapper = bithumbMapper;
         this.korbitMapper = korbitMapper;
@@ -65,6 +68,8 @@ public class CoinApiServiceImpl implements CoinApiService {
         this.bittrexRepository = bittrexRepository;
         this.bittrexMapper = bittrexMapper;
         this.krakenMapper = krakenMapper;
+        this.coinisRepository = coinisRepository;
+        this.coinisMapper = coinisMapper;
         this.modelMapper = modelMapper;
     }
 
@@ -145,6 +150,9 @@ public class CoinApiServiceImpl implements CoinApiService {
         getBittrexs().forEach(this::saveBittrex);
 
         getKrakens().forEach(this::saveKraken);
+
+        getCoinis().forEach(this::saveCoinis);
+
     }
 
 
@@ -190,6 +198,11 @@ public class CoinApiServiceImpl implements CoinApiService {
         Kraken kraken = krakenMapper.toEntity(krakenDTO);
         kraken.setCreatedat(zonedDateTime);
         krakenRepository.save(kraken);
+    }
+  private void saveCoinis(CoinisDTO coinisDTO) {
+        Coinis coinis = coinisMapper.toEntity(coinisDTO);
+        coinis.setCreatedat(zonedDateTime);
+        coinisRepository.save(coinis);
     }
 
 
@@ -320,6 +333,17 @@ ETH https://www.okcoin.cn/api/v1/ticker.do?symbol=eth_cny
         return krakenDTOS;
     }
 
+    private List<CoinisDTO> getCoinis() {
+        List<CoinisDTO> coinisDTOs = new ArrayList();
+        coinisDTOs.add(getCoinisRest("BTCKRW"));
+        coinisDTOs.add(getCoinisRest("DASHKRW"));
+        coinisDTOs.add(getCoinisRest("LTCKRW"));
+        coinisDTOs.add(getCoinisRest("ZECKRW"));
+        coinisDTOs.add(getCoinisRest("XMRKRW"));
+
+        return coinisDTOs;
+    }
+
     private KrakenDTO getKrakenRest(String market) {
 
         RestTemplate restTemplate = new RestTemplate();
@@ -327,42 +351,77 @@ ETH https://www.okcoin.cn/api/v1/ticker.do?symbol=eth_cny
         KrakenDTO krakenDTO = new KrakenDTO();
         switch (market) {
             case "BTCEUR":
-                krakenDTO = setKrakenRest(krakenMap, krakenDTO, BTC_SYMBOL, "XXBTZEUR");
+                krakenDTO = setKrakenRest(krakenMap, BTC_SYMBOL, "XXBTZEUR");
                 break;
             case "ETHEUR":
-                krakenDTO = setKrakenRest(krakenMap, krakenDTO, ETH_SYMBOL, "XETHZEUR");
+                krakenDTO = setKrakenRest(krakenMap, ETH_SYMBOL, "XETHZEUR");
                 break;
             case "XRPEUR":
-                krakenDTO = setKrakenRest(krakenMap, krakenDTO, XRP_SYMBOL, "XXRPZEUR");
+                krakenDTO = setKrakenRest(krakenMap, XRP_SYMBOL, "XXRPZEUR");
                 break;
             case "DASHEUR":
-                krakenDTO = setKrakenRest(krakenMap, krakenDTO, DASH_SYMBOL, "DASHEUR");
+                krakenDTO = setKrakenRest(krakenMap, DASH_SYMBOL, "DASHEUR");
                 break;
             case "LTCEUR":
-                krakenDTO = setKrakenRest(krakenMap, krakenDTO, LTC_SYMBOL, "XLTCZEUR");
+                krakenDTO = setKrakenRest(krakenMap, LTC_SYMBOL, "XLTCZEUR");
                 break;
             case "ETCEUR":
-                krakenDTO = setKrakenRest(krakenMap, krakenDTO, ETC_SYMBOL, "XETCZEUR");
+                krakenDTO = setKrakenRest(krakenMap, ETC_SYMBOL, "XETCZEUR");
                 break;
             case "BCHEUR":
-                krakenDTO = setKrakenRest(krakenMap, krakenDTO, BCH_SYMBOL, "BCHEUR");
+                krakenDTO = setKrakenRest(krakenMap, BCH_SYMBOL, "BCHEUR");
                 break;
             case "ZECEUR":
-                krakenDTO = setKrakenRest(krakenMap, krakenDTO, ZEC_SYMBOL, "XZECZEUR");
+                krakenDTO = setKrakenRest(krakenMap, ZEC_SYMBOL, "XZECZEUR");
                 break;
             case "XMREUR":
-                krakenDTO = setKrakenRest(krakenMap, krakenDTO, XMR_SYMBOL, "XXMRZEUR");
+                krakenDTO = setKrakenRest(krakenMap, XMR_SYMBOL, "XXMRZEUR");
                 break;
         }
 
         return krakenDTO ;
     }
 
-    private KrakenDTO setKrakenRest(Map krakenMap, KrakenDTO krakenDTO, String symbol, String krakenSymbol) {
+    private CoinisDTO getCoinisRest(String market) {
+
+        RestTemplate restTemplate = new RestTemplate();
+        Map coinisMap = restTemplate.getForObject("http://www.coinis.co.kr/api/sise/ticker?itemcode=" + market, Map.class);
+        CoinisDTO coinisDTO = new CoinisDTO();
+        switch (market) {
+            case "BTCKRW":
+                coinisDTO = setCoinisRest(coinisMap, BTC_SYMBOL);
+                break;
+            case "LTCKRW":
+                coinisDTO = setCoinisRest(coinisMap, LTC_SYMBOL);
+                break;
+            case "DASHKRW":
+                coinisDTO = setCoinisRest(coinisMap, DASH_SYMBOL);
+                break;
+            case "ZECKRW":
+                coinisDTO = setCoinisRest(coinisMap, ZEC_SYMBOL);
+                break;
+            case "XMRKRW":
+                coinisDTO = setCoinisRest(coinisMap, XMR_SYMBOL);
+                break;
+        }
+
+        return coinisDTO ;
+    }
+
+    private KrakenDTO setKrakenRest(Map krakenMap, String symbol, String krakenSymbol) {
+        KrakenDTO krakenDTO = new KrakenDTO();
         List<String> last = (List) ((Map)((Map) krakenMap.get("result")).get(krakenSymbol)).get("c");
         krakenDTO.setLast(last.get(0));
         krakenDTO.setSymbol(symbol);
         return krakenDTO;
+    }
+
+    private CoinisDTO setCoinisRest(Map coinMap, String symbol) {
+
+        CoinisDTO coinisDTO= new CoinisDTO();
+        coinisDTO.setCloseprice((String) ((Map)coinMap.get("data")).get("ClosePrice"));
+        coinisDTO.setSymbol(symbol);
+        return coinisDTO;
     }
 
     private BittrexDTO getBittrexRest(String market) {

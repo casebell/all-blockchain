@@ -39,6 +39,7 @@ public class KrakenResource {
 
 
     @GetMapping("/coin-api/krakens")
+    @Timed
     public ResponseEntity<List<KrakenDTO>> getKraken(){
         return ResponseEntity.ok(krakenService.getKraken());
     }

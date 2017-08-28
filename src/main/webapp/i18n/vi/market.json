@@ -13,6 +13,7 @@
         "zec": "ZEC",
         "xmr": "XMR",
         "neo": "NEO",
+        "qtum": "QTUM",
         "poloniex": "Poloniex",
         "bithumb": "Bithumb",
         "korbit": "Korbit",
@@ -21,6 +22,8 @@
         "bitflyer": "bitFlyer",
         "bittrex": "Bittrex",
         "kraken": "Kraken",
+        "coinis": "Coinis",
+        "yunbi": "Yunbi",
         "coin": "Coin",
         "aboutMarket": "This price using the yahoo finance API and each market api."
     }

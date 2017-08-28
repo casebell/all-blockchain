@@ -42,4 +42,10 @@ export class CoinPriceService {
     getKrakens(): Observable<any> {
         return   this.http.get(`${this.resourceUrl}/coin-api/krakens`);
     }
+    getCoinis(): Observable<any> {
+        return   this.http.get(`${this.resourceUrl}/coin-api/coinis`);
+    }
+    getYunbis(): Observable<any> {
+        return   this.http.get(`https://yunbi.com//api/v2/tickers.json`);
+    }
 }

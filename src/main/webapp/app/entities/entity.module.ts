@@ -5,11 +5,13 @@ import { BlockchainCoinBlockChainInfoModule } from "./coin/coin-block-chain-info
 import { BlockchainResourceBlockChainInfoModule } from "./resource/resource-block-chain-info.module";
 
 import { BlockchainKrakenModule } from './kraken/kraken.module';
+import { BlockchainCoinisModule } from './coinis/coinis.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
     imports: [
         BlockchainKrakenModule,
+        BlockchainCoinisModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
         BlockchainCoinBlockChainInfoModule,
         BlockchainCoinBoardCommentBlockChainInfoModule,

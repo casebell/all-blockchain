@@ -1,0 +1,34 @@
+{
+    "blockchainApp": {
+        "coinis" : {
+            "home": {
+                "title": "Coinis",
+                "createLabel": "Thêm mới một Coinis",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Coinis",
+                "search": "Tìm Coinis"
+            },
+            "created": "Một Coinis mới được tạo với định danh {{ param }}",
+            "updated": "Một Coinis cập nhật với định danh {{ param }}",
+            "deleted": "Một Coinis đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Coinis {{ id }}?"
+            },
+            "detail": {
+                "title": "Coinis"
+            },
+            "closeprice": "Closeprice",
+            "highprice": "Highprice",
+            "itemcode": "Itemcode",
+            "lowprice": "Lowprice",
+            "openprice": "Openprice",
+            "prevcloseprice": "Prevcloseprice",
+            "tradeamount": "Tradeamount",
+            "tradedaebi": "Tradedaebi",
+            "tradedaebirate": "Tradedaebirate",
+            "tradedate": "Tradedate",
+            "tradevolumn": "Tradevolumn",
+            "symbol": "Symbol",
+            "createdat": "Createdat"
+        }
+    }
+}
