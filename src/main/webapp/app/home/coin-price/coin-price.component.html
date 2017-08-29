@@ -17,7 +17,7 @@
 <md-tab-group>
     <md-tab label="Style A">
         <div class="table-header-wrapper">
-            <md-grid-list cols="11" rowHeight="60px">
+            <md-grid-list cols="12" rowHeight="60px">
                 <md-grid-tile><span jhiTranslate="market.coin">Coin</span></md-grid-tile>
                 <md-grid-tile><a jhiTranslate="market.bithumb" href="https://www.bithumb.com/" target="_blank">Bithumb</a></md-grid-tile>
                 <md-grid-tile><a jhiTranslate="market.korbit" href="https://www.korbit.co.kr/" target="_blank">Korbit</a></md-grid-tile>
@@ -25,6 +25,7 @@
                 <md-grid-tile><a href="http://www.coinis.co.kr/" target="_blank" jhiTranslate="market.coinis">Coinis</a ></md-grid-tile>
                 <md-grid-tile><a href="https://poloniex.com/" target="_blank" jhiTranslate="market.poloniex">Poloniex</a ></md-grid-tile>
                 <md-grid-tile><a href="https://bittrex.com/" target="_blank"jhiTranslate="market.bittrex">Bittrex</a ></md-grid-tile>
+                <md-grid-tile><a href="https://bitfinex.com/" target="_blank"jhiTranslate="market.bitfinex">bitfinex</a ></md-grid-tile>
                 <md-grid-tile><a href="https://www.okcoin.cn/" target="_blank" jhiTranslate="market.okcoincn">OKCoin</a ></md-grid-tile>
                 <md-grid-tile><a href="https://yunbi.com" target="_blank" jhiTranslate="market.yunbi">YUNBI</a ></md-grid-tile>
                 <md-grid-tile><a href="https://bitflyer.jp/" target="_blank" jhiTranslate="market.bitflyer">bitFlyer</a ></md-grid-tile>
@@ -65,6 +66,9 @@
                     <abc-coin-price-row [coinRow]=bittrexRow [myCurrency]=myCurrency [colsNum]='1'></abc-coin-price-row>
                 </div>
                 <div style="flex:1">
+                    <abc-coin-price-row [coinRow]=bitfinexRow [myCurrency]=myCurrency [colsNum]='1'></abc-coin-price-row>
+                </div>
+                <div style="flex:1">
                     <abc-coin-price-row [coinRow]=okCoinCnRow [myCurrency]=myCurrency [colsNum]='1'></abc-coin-price-row>
                 </div>
                 <div style="flex:1">
@@ -102,6 +106,7 @@
             <abc-coin-price-row [coinRow]=coinisRow [myCurrency]=myCurrency [colsNum]='12'></abc-coin-price-row>
             <abc-coin-price-row [coinRow]=poloniexRow [myCurrency]=myCurrency [colsNum]='12'></abc-coin-price-row>
             <abc-coin-price-row [coinRow]=bittrexRow [myCurrency]=myCurrency [colsNum]='12'></abc-coin-price-row>
+            <abc-coin-price-row [coinRow]=bitfinexRow [myCurrency]=myCurrency [colsNum]='12'></abc-coin-price-row>
             <abc-coin-price-row [coinRow]=okCoinCnRow [myCurrency]=myCurrency [colsNum]='12'></abc-coin-price-row>
             <abc-coin-price-row [coinRow]=yunbiRow [myCurrency]=myCurrency [colsNum]='12'></abc-coin-price-row>
             <abc-coin-price-row [coinRow]=bitflyerRow [myCurrency]=myCurrency [colsNum]='12'></abc-coin-price-row>

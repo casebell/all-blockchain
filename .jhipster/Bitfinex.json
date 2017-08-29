@@ -1,0 +1,55 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "coin",
+            "otherEntityName": "coin",
+            "relationshipType": "one-to-one",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "bitfinex"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "mid",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "bid",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "ask",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "last_price",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "low",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "high",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "volume",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "timestamp",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170829062903",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "bitfinex",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}

@@ -64,6 +64,7 @@ export class CoinPriceComponent implements OnInit {
     coinisRow  :CoinPrice;
     krakenRow :CoinPrice;
     yunbiRow :CoinPrice;
+    bitfinexRow :CoinPrice;
 
     bithumbUnsubscribe: Subscription;
     coinoneUnsubscribe: Subscription;
@@ -75,6 +76,7 @@ export class CoinPriceComponent implements OnInit {
     bittrexUnsubscribe: Subscription;
     coinisUnsubscribe: Subscription;
     yunbiUnsubscribe: Subscription;
+    bitfinexUnsubscribe: Subscription;
 
     constructor(private http: HttpClient, private coinPriceService: CoinPriceService) {
         this.myCurrency = 'KRW';
@@ -136,6 +138,11 @@ export class CoinPriceComponent implements OnInit {
             currencies : 'USD',
             coins : _.cloneDeep(this.coins)
         };
+        this.bitfinexRow = {
+            market: 'Bitfinex',
+            currencies : 'USD',
+            coins : _.cloneDeep(this.coins)
+        };
         this.krakenRow = {
             market: 'Kraken',
             currencies : 'EUR',
@@ -151,9 +158,10 @@ export class CoinPriceComponent implements OnInit {
         // bithumb
         this.coinPriceService.getBithumb()
             .subscribe(data => {
-                for (let i = 0; i < data.length; i++) {
+                for (let i = 0; i < data.length-1; i++) {
                     this.bithumbRow.coins[i].price = data[i].closing_price;
                 }
+                this.bithumbRow.coins[8].price = data[7].closing_price;
             });
         // korbit
         this.coinPriceService.getKorbit()
@@ -250,30 +258,35 @@ export class CoinPriceComponent implements OnInit {
                 this.yunbiRow.coins[9].price = data.anscny.ticker.last;
                 this.yunbiRow.coins[10].price = data.qtumcny.ticker.last;
             })
-/*
-        Observable.zip(this.coinPriceService.getKraken('BTCEUR'),
-            this.coinPriceService.getKraken('ETHEUR'),
-            this.coinPriceService.getKraken('XRPEUR'),
-            this.coinPriceService.getKraken('DASHEUR'),
-            this.coinPriceService.getKraken('LTCEUR'),
-            this.coinPriceService.getKraken('ETCEUR'),
-            this.coinPriceService.getKraken('BCHEUR'),
-            this.coinPriceService.getKraken('ZECEUR'),
-            this.coinPriceService.getKraken('XMREUR'))
-            .subscribe(([btc, eth, xrp, dash, ltc, etc, bch, zec, xmr]) => {
 
-                this.krakenRow.coins[0].price = btc.result.XXBTZEUR.c[0];
-                this.krakenRow.coins[1].price = eth.result.XETHZEUR.c[0];
-                this.krakenRow.coins[2].price = xrp.result.XXRPZEUR.c[0];
-                this.krakenRow.coins[3].price = dash.result.DASHEUR.c[0];
-                this.krakenRow.coins[4].price = ltc.result.XLTCZEUR.c[0];
-                this.krakenRow.coins[5].price = etc.result.XETCZEUR.c[0];
-                this.krakenRow.coins[6].price = bch.result.BCHEUR.c[0];
-                this.krakenRow.coins[7].price = zec.result.XZECZEUR.c[0];
-                this.krakenRow.coins[8].price = xmr.result.XXMRZEUR.c[0];
-            });
+        this.coinPriceService.getBitfinex()
+            .subscribe((data)=>{
+                for (let i = 0; i < data.length; i++) {
+                    this.bitfinexRow.coins[i].price = data[i].last_price;
+                }
+            })
 
-*/
+        // Observable.zip(this.coinPriceService.getBitfinex('BTCEUR'),
+        //     this.coinPriceService.getBitfinex('ETHEUR'),
+        //     this.coinPriceService.getBitfinex('XRPEUR'),
+        //     this.coinPriceService.getBitfinex('DASHEUR'),
+        //     this.coinPriceService.getBitfinex('LTCEUR'),
+        //     this.coinPriceService.getBitfinex('ETCEUR'),
+        //     this.coinPriceService.getBitfinex('BCHEUR'),
+        //     this.coinPriceService.getBitfinex('ZECEUR'),
+        //     this.coinPriceService.getBitfinex('XMREUR'))
+        //     .subscribe(([btc, eth, xrp, dash, ltc, etc, bch, zec, xmr]) => {
+        //
+        //         this.krakenRow.coins[0].price = btc.result.XXBTZEUR.c[0];
+        //         this.krakenRow.coins[1].price = eth.result.XETHZEUR.c[0];
+        //         this.krakenRow.coins[2].price = xrp.result.XXRPZEUR.c[0];
+        //         this.krakenRow.coins[3].price = dash.result.DASHEUR.c[0];
+        //         this.krakenRow.coins[4].price = ltc.result.XLTCZEUR.c[0];
+        //         this.krakenRow.coins[5].price = etc.result.XETCZEUR.c[0];
+        //         this.krakenRow.coins[6].price = bch.result.BCHEUR.c[0];
+        //         this.krakenRow.coins[7].price = zec.result.XZECZEUR.c[0];
+        //         this.krakenRow.coins[8].price = xmr.result.XXMRZEUR.c[0];
+        //     });
     }
 
     getPoloniexBitcoin() {
@@ -379,23 +392,34 @@ export class CoinPriceComponent implements OnInit {
 
     };
 
-   /* this.krakenUnsubscribe = Observable
+    getBitfinex() {
+        this.bitfinexUnsubscribe = Observable
             .interval(this.myUpdateTime * 1000)
             .timeInterval()
-            .flatMap(() => zip(this.coinPriceService.getKraken('BTCEUR'),
-                this.coinPriceService.getKraken('ETHEUR'),
-                this.coinPriceService.getKraken('XRPEUR'),
-                this.coinPriceService.getKraken('DASHEUR'),
-                this.coinPriceService.getKraken('LTCEUR'),
-                this.coinPriceService.getKraken('ETCEUR'),
-                this.coinPriceService.getKraken('BCHEUR'),
-                this.coinPriceService.getKraken('ZECEUR'),
-                this.coinPriceService.getKraken('XMREUR'),
-                this.coinPriceService.getKraken('ETHEUR')))
-            .subscribe(([btc, eth, xrp, dash, ltc, etc, bch, zec, xmr]) => {
-                this.setKraken(btc, eth, xrp, dash, ltc, etc, bch, zec, xmr);
-            });
-       */
+            .flatMap(() => this.coinPriceService.getBitfinex())
+            .subscribe(data => {
+                this.setBitfinex(data);
+            })
+
+    };
+
+    // this.bitfinexUnsubscribe = Observable
+    //         .interval(this.myUpdateTime * 1000)
+    //         .timeInterval()
+    //         .flatMap(() => zip(this.coinPriceService.getBitfinex('BTCEUR'),
+    //             this.coinPriceService.getBitfinex('ETHEUR'),
+    //             this.coinPriceService.getBitfinex('XRPEUR'),
+    //             this.coinPriceService.getBitfinex('DASHEUR'),
+    //             this.coinPriceService.getBitfinex('LTCEUR'),
+    //             this.coinPriceService.getBitfinex('ETCEUR'),
+    //             this.coinPriceService.getBitfinex('BCHEUR'),
+    //             this.coinPriceService.getBitfinex('ZECEUR'),
+    //             this.coinPriceService.getBitfinex('XMREUR'),
+    //             this.coinPriceService.getBitfinex('ETHEUR')))
+    //         .subscribe(([btc, eth, xrp, dash, ltc, etc, bch, zec, xmr]) => {
+    //             this.setKraken(btc, eth, xrp, dash, ltc, etc, bch, zec, xmr);
+    //         });
+
     timeChange() {
         if (this.bithumbUnsubscribe != null)
             this.bithumbUnsubscribe.unsubscribe();
@@ -417,6 +441,8 @@ export class CoinPriceComponent implements OnInit {
             this.coinisUnsubscribe.unsubscribe();
         if (this.yunbiUnsubscribe != null)
             this.yunbiUnsubscribe.unsubscribe();
+        if (this.bitfinexUnsubscribe != null)
+            this.bitfinexUnsubscribe.unsubscribe();
         this.getBithumb();
         this.getKorbit();
         this.getPoloniexBitcoin();
@@ -427,6 +453,7 @@ export class CoinPriceComponent implements OnInit {
         this.getKraken();
         this.getCoinis();
         this.getYunbi();
+        this.getBitfinex();
     }
 
     currencyChange(value) {
@@ -434,11 +461,15 @@ export class CoinPriceComponent implements OnInit {
     }
 
     setBithumb(data) {
-        for (var i = 0; i < data.length; i++) {
+        for (let i = 0; i < data.length-1; i++) {
             this.bithumbRow.coins[i].diffPercent = data[i].closing_price * 100 / this.bithumbRow.coins[i].price - 100
             this.bithumbRow.coins[i].diff = data[i].closing_price - this.bithumbRow.coins[i].price;
             this.bithumbRow.coins[i].price = data[i].closing_price
         }
+        //xmr
+        this.bithumbRow.coins[8].diffPercent = data[7].closing_price * 100 / this.bithumbRow.coins[8].price - 100
+        this.bithumbRow.coins[8].diff = data[7].closing_price - this.bithumbRow.coins[8].price;
+        this.bithumbRow.coins[8].price = data[7].closing_price
     }
 
     setKorbit(data) {
@@ -555,6 +586,13 @@ export class CoinPriceComponent implements OnInit {
             this.bittrexRow.coins[i].diffPercent = data[i].last * 100 / this.bittrexRow.coins[i].price - 100;
             this.bittrexRow.coins[i].diff = data[i].last - this.bittrexRow.coins[i].price;
             this.bittrexRow.coins[i].price = data[i].last
+        }
+    }
+    setBitfinex(data) {
+        for (let i = 0; i < data.length; i++) {
+            this.bitfinexRow.coins[i].diffPercent = data[i].last_price * 100 / this.bitfinexRow.coins[i].price - 100;
+            this.bitfinexRow.coins[i].diff = data[i].last_price - this.bitfinexRow.coins[i].price;
+            this.bitfinexRow.coins[i].price = data[i].last_price
         }
     }
 

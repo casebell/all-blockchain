@@ -35,6 +35,7 @@ public class CoinApiServiceImpl implements CoinApiService {
     private static final String ZEC_SYMBOL = "zec";
     private static final String XMR_SYMBOL = "xmr";
     private static final String NEO_SYMBOL = "neo";
+    private static final String QTUM_SYMBOL = "qtum";
     private final Logger log = LoggerFactory.getLogger(CoinApiServiceImpl.class);
     private final BithumbRepository bithumbRepository;
     private final BithumbMapper bithumbMapper;
@@ -50,12 +51,14 @@ public class CoinApiServiceImpl implements CoinApiService {
     private final KrakenMapper krakenMapper;
     private final CoinisRepository coinisRepository;
     private final CoinisMapper coinisMapper;
+    private final BitfinexRepository bitfinexRepository;
+    private final BitfinexMapper bitfinexMapper;
 
     private final ModelMapper modelMapper;
 
     private ZonedDateTime zonedDateTime;
 
-    public CoinApiServiceImpl(BithumbRepository bithumbRepository, BithumbMapper bithumbMapper, KorbitMapper korbitMapper, KorbitRepository korbitRepository, KrakenRepository krakenRepository, OkCoinCnMapper okCoinCnMapper, OkCoinCnRepository okCoinCnRepository, BitflyerRepository bitflyerRepository, BitflyerMapper bitflyerMapper, BittrexRepository bittrexRepository, BittrexMapper bittrexMapper, KrakenMapper krakenMapper, CoinisRepository coinisRepository, CoinisMapper coinisMapper, ModelMapper modelMapper) {
+    public CoinApiServiceImpl(BithumbRepository bithumbRepository, BithumbMapper bithumbMapper, KorbitMapper korbitMapper, KorbitRepository korbitRepository, KrakenRepository krakenRepository, OkCoinCnMapper okCoinCnMapper, OkCoinCnRepository okCoinCnRepository, BitflyerRepository bitflyerRepository, BitflyerMapper bitflyerMapper, BittrexRepository bittrexRepository, BittrexMapper bittrexMapper, KrakenMapper krakenMapper, CoinisRepository coinisRepository, CoinisMapper coinisMapper, BitfinexRepository bitfinexRepository, BitfinexMapper bitfinexMapper, ModelMapper modelMapper) {
         this.bithumbRepository = bithumbRepository;
         this.bithumbMapper = bithumbMapper;
         this.korbitMapper = korbitMapper;
@@ -70,6 +73,8 @@ public class CoinApiServiceImpl implements CoinApiService {
         this.krakenMapper = krakenMapper;
         this.coinisRepository = coinisRepository;
         this.coinisMapper = coinisMapper;
+        this.bitfinexRepository = bitfinexRepository;
+        this.bitfinexMapper = bitfinexMapper;
         this.modelMapper = modelMapper;
     }
 
@@ -116,7 +121,7 @@ public class CoinApiServiceImpl implements CoinApiService {
     }
 
     @Override
-    @Scheduled(cron = "*/15 * * * * *")
+    @Scheduled(cron = "*/5 * * * * *")
     public void getCoinApi() {
         List<BithumbDTO> bithumbDTOS = new ArrayList();
         bithumbDTOS.add(getBithumbRestBtc());
@@ -126,6 +131,7 @@ public class CoinApiServiceImpl implements CoinApiService {
         bithumbDTOS.add(getBithumbRestLtc());
         bithumbDTOS.add(getBithumbRestEtc());
         bithumbDTOS.add(getBithumbRestBch());
+        bithumbDTOS.add(getBithumbRestXmr());
         zonedDateTime = ZonedDateTime.now();
         bithumbDTOS.forEach(this::saveBithumb);
 
@@ -152,6 +158,8 @@ public class CoinApiServiceImpl implements CoinApiService {
         getKrakens().forEach(this::saveKraken);
 
         getCoinis().forEach(this::saveCoinis);
+
+        getBitfinex().forEach(this::saveBitfinex);
 
     }
 
@@ -205,6 +213,12 @@ public class CoinApiServiceImpl implements CoinApiService {
         coinisRepository.save(coinis);
     }
 
+  private void saveBitfinex(BitfinexDTO bitfinexDTO) {
+        Bitfinex bitfinex = bitfinexMapper.toEntity(bitfinexDTO);
+        bitfinex.setCreatedat(zonedDateTime);
+        bitfinexRepository.save(bitfinex);
+    }
+
 
     private KorbitDTO getKorbitRestBtc() {
         return getKorbitDTO("btc_krw");
@@ -250,11 +264,7 @@ public class CoinApiServiceImpl implements CoinApiService {
         return korbitDTO;
     }
 
-    /*
-    BTC https://www.okcoin.cn/api/v1/ticker.do?symbol=btc_cny
-LTC https://www.okcoin.cn/api/v1/ticker.do?symbol=ltc_cny
-ETH https://www.okcoin.cn/api/v1/ticker.do?symbol=eth_cny
-     */
+
     private OkCoinCnDTO getOkCoinCnRestBtc() {
         return getOkCoinCnDTO("btc_cny");
     }
@@ -344,6 +354,22 @@ ETH https://www.okcoin.cn/api/v1/ticker.do?symbol=eth_cny
         return coinisDTOs;
     }
 
+    private List<BitfinexDTO> getBitfinex() {
+        List<BitfinexDTO> bitfinexDTOs = new ArrayList();
+
+        bitfinexDTOs.add(getBitfinexRest("btcusd"));
+        bitfinexDTOs.add(getBitfinexRest("ethusd"));
+        bitfinexDTOs.add(getBitfinexRest("xrpusd"));
+        bitfinexDTOs.add(getBitfinexRest("dshusd"));
+        bitfinexDTOs.add(getBitfinexRest("ltcusd"));
+        bitfinexDTOs.add(getBitfinexRest("etcusd"));
+        bitfinexDTOs.add(getBitfinexRest("bchusd"));
+        bitfinexDTOs.add(getBitfinexRest("zecusd"));
+        bitfinexDTOs.add(getBitfinexRest("xmrusd"));
+
+        return bitfinexDTOs;
+    }
+
     private KrakenDTO getKrakenRest(String market) {
 
         RestTemplate restTemplate = new RestTemplate();
@@ -378,9 +404,46 @@ ETH https://www.okcoin.cn/api/v1/ticker.do?symbol=eth_cny
                 krakenDTO = setKrakenRest(krakenMap, XMR_SYMBOL, "XXMRZEUR");
                 break;
         }
-
         return krakenDTO ;
     }
+
+    private BitfinexDTO getBitfinexRest(String market) {
+
+        RestTemplate restTemplate = new RestTemplate();
+        BitfinexDTO bitfinexDTO = restTemplate.getForObject("https://api.bitfinex.com/v1/pubticker/" + market, BitfinexDTO.class);
+        switch (market) {
+            case "btcusd":
+                bitfinexDTO.setSymbol(BTC_SYMBOL);
+                break;
+            case "ethusd":
+                bitfinexDTO.setSymbol(ETH_SYMBOL);
+                break;
+            case "xrpusd":
+                bitfinexDTO.setSymbol(XRP_SYMBOL);
+                break;
+            case "dshusd":
+                bitfinexDTO.setSymbol(DASH_SYMBOL);
+                break;
+            case "ltcusd":
+                bitfinexDTO.setSymbol(LTC_SYMBOL);
+                break;
+            case "etcusd":
+                bitfinexDTO.setSymbol(ETC_SYMBOL);
+                break;
+            case "bchusd":
+                bitfinexDTO.setSymbol(BCH_SYMBOL);
+                break;
+            case "zecusd":
+                bitfinexDTO.setSymbol(ZEC_SYMBOL);
+                break;
+            case "xmrusd":
+                bitfinexDTO.setSymbol(XMR_SYMBOL);
+                break;
+        }
+
+        return bitfinexDTO ;
+    }
+
 
     private CoinisDTO getCoinisRest(String market) {
 
@@ -407,6 +470,7 @@ ETH https://www.okcoin.cn/api/v1/ticker.do?symbol=eth_cny
 
         return coinisDTO ;
     }
+
 
     private KrakenDTO setKrakenRest(Map krakenMap, String symbol, String krakenSymbol) {
         KrakenDTO krakenDTO = new KrakenDTO();
@@ -531,6 +595,14 @@ ETH https://www.okcoin.cn/api/v1/ticker.do?symbol=eth_cny
         BithumbDTO bithumbDTO = restTemplate
             .getForObject("https://api.bithumb.com/public/ticker/bch", BithumbDTO.class);
         bithumbDTO.getData().setSymbol(BCH_SYMBOL);
+        return bithumbDTO;
+    }
+
+    private BithumbDTO getBithumbRestXmr() {
+        RestTemplate restTemplate = new RestTemplate();
+        BithumbDTO bithumbDTO = restTemplate
+            .getForObject("https://api.bithumb.com/public/ticker/xmr", BithumbDTO.class);
+        bithumbDTO.getData().setSymbol(XMR_SYMBOL);
         return bithumbDTO;
     }
 }
