@@ -24,6 +24,7 @@
         "kraken": "Kraken",
         "coinis": "Coinis",
         "yunbi": "Yunbi",
+        "bitfinex": "Bitfinex",
         "coin": "Coin",
         "aboutMarket": "This price using the yahoo finance API and each market api."
     }

@@ -24,6 +24,7 @@
         "kraken": "크라켄",
         "coinis": "Coinis",
         "yunbi": "Yunbi",
+        "bitfinex": "Bitfinex",
         "coin":"코인",
         "aboutMarket":"위에 가격은 각 거래소별 API에서 가져온후 선택한 통화와 다를경우 야후 환율 API에서 환율 정보를 가져와 변경하여 보여주고 있습니다."
 

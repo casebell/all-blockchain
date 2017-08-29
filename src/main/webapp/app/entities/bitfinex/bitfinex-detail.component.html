@@ -1,0 +1,53 @@
+
+<div *ngIf="bitfinex">
+    <h2><span jhiTranslate="blockchainApp.bitfinex.detail.title">Bitfinex</span> {{bitfinex.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="blockchainApp.bitfinex.mid">Mid</span></dt>
+        <dd>
+            <span>{{bitfinex.mid}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.bitfinex.bid">Bid</span></dt>
+        <dd>
+            <span>{{bitfinex.bid}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.bitfinex.ask">Ask</span></dt>
+        <dd>
+            <span>{{bitfinex.ask}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.bitfinex.last_price">Last Price</span></dt>
+        <dd>
+            <span>{{bitfinex.last_price}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.bitfinex.low">Low</span></dt>
+        <dd>
+            <span>{{bitfinex.low}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.bitfinex.high">High</span></dt>
+        <dd>
+            <span>{{bitfinex.high}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.bitfinex.volume">Volume</span></dt>
+        <dd>
+            <span>{{bitfinex.volume}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.bitfinex.timestamp">Timestamp</span></dt>
+        <dd>
+            <span>{{bitfinex.timestamp}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'bitfinex/'+ bitfinex.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

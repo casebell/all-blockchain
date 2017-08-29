@@ -70,6 +70,10 @@ public class Coin implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<CoinBoard> boards = new HashSet<>();
 
+    @OneToOne
+    @JsonIgnore
+    private Bitfinex bitfinex;
+
     public Long getId() {
         return id;
     }
@@ -241,6 +245,14 @@ public class Coin implements Serializable {
         return this;
     }
 
+    public Bitfinex getBitfinex() {
+        return bitfinex;
+    }
+
+    public void setBitfinex(Bitfinex bitfinex) {
+        this.bitfinex = bitfinex;
+    }
+
     public void setBoards(Set<CoinBoard> coinBoards) {
         this.boards = coinBoards;
     }
@@ -267,17 +279,21 @@ public class Coin implements Serializable {
 
     @Override
     public String toString() {
-        return "Coin{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", founder='" + getFounder() + "'" +
-            ", consensusAlgorithms='" + getConsensusAlgorithms() + "'" +
-            ", homepage='" + getHomepage() + "'" +
-            ", whitePaper='" + getWhitePaper() + "'" +
-            ", context='" + getContext() + "'" +
-            ", releaseat='" + getReleaseat() + "'" +
-            ", createdat='" + getCreatedat() + "'" +
-            ", updatedat='" + getUpdatedat() + "'" +
-            "}";
+        final StringBuilder sb = new StringBuilder("Coin{");
+        sb.append("id=").append(id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", founder='").append(founder).append('\'');
+        sb.append(", consensusAlgorithms=").append(consensusAlgorithms);
+        sb.append(", homepage='").append(homepage).append('\'');
+        sb.append(", whitePaper='").append(whitePaper).append('\'');
+        sb.append(", context='").append(context).append('\'');
+        sb.append(", releaseat=").append(releaseat);
+        sb.append(", createdat=").append(createdat);
+        sb.append(", updatedat=").append(updatedat);
+        sb.append(", resources=").append(resources);
+        sb.append(", boards=").append(boards);
+        sb.append(", bitfinex=").append(bitfinex);
+        sb.append('}');
+        return sb.toString();
     }
 }

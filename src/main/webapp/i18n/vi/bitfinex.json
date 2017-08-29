@@ -1,0 +1,30 @@
+{
+    "blockchainApp": {
+        "bitfinex" : {
+            "home": {
+                "title": "Bitfinexes",
+                "createLabel": "Thêm mới một Bitfinex",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Bitfinex",
+                "search": "Tìm Bitfinex"
+            },
+            "created": "Một Bitfinex mới được tạo với định danh {{ param }}",
+            "updated": "Một Bitfinex cập nhật với định danh {{ param }}",
+            "deleted": "Một Bitfinex đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Bitfinex {{ id }}?"
+            },
+            "detail": {
+                "title": "Bitfinex"
+            },
+            "mid": "Mid",
+            "bid": "Bid",
+            "ask": "Ask",
+            "last_price": "Last Price",
+            "low": "Low",
+            "high": "High",
+            "volume": "Volume",
+            "timestamp": "Timestamp",
+            "coin": "Coin"
+        }
+    }
+}
