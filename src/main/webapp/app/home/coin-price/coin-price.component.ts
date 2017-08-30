@@ -7,9 +7,10 @@ import {Subscription} from 'rxjs/Subscription';
 import {zip} from 'rxjs/observable/zip';
 import { CoinPrice } from '../../model/coin-price.model.';
 import * as _ from 'lodash';
+import {ExchangeRateService} from "./coin-price-row/exchange-rate.service";
 
 @Component({
-    selector: 'coin-all-coin-price',
+    selector: 'abc-coin-price',
     templateUrl: './coin-price.component.html',
     styleUrls: ['coin-price.scss']
 })
@@ -78,13 +79,13 @@ export class CoinPriceComponent implements OnInit {
     yunbiUnsubscribe: Subscription;
     bitfinexUnsubscribe: Subscription;
 
-    constructor(private http: HttpClient, private coinPriceService: CoinPriceService) {
+    constructor(private http: HttpClient,
+                private coinPriceService: CoinPriceService) {
         this.myCurrency = 'KRW';
         this.initialCoinRow();
     }
 
     ngOnInit() {
-
         this.initialCoin();
         this.getBithumb();
         this.getKorbit();
@@ -208,11 +209,11 @@ export class CoinPriceComponent implements OnInit {
         // okCoinChina
         this.coinPriceService.getOkCoinCn()
             .subscribe(data => {
-                this.okCoinCnRow.coins[0].price = data[0].closeprice;
-                this.okCoinCnRow.coins[1].price = data[1].closeprice;
-                this.okCoinCnRow.coins[4].price = data[2].closeprice;
-                this.okCoinCnRow.coins[5].price = data[3].closeprice;
-                this.okCoinCnRow.coins[6].price = data[4].closeprice;
+                this.okCoinCnRow.coins[0].price = data[0].last;
+                this.okCoinCnRow.coins[1].price = data[1].last;
+                this.okCoinCnRow.coins[4].price = data[2].last;
+                this.okCoinCnRow.coins[5].price = data[3].last;
+                this.okCoinCnRow.coins[6].price = data[4].last;
             }, error => {
             });
         // bitflyer

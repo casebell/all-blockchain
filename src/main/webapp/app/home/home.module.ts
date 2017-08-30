@@ -7,6 +7,7 @@ import { CoinPriceService } from './coin-price/coin-price.service';
 import { MdGridListModule, MdIconModule, MdSelectModule, MdTabsModule } from '@angular/material';
 import { CoinPriceRowComponent } from './coin-price/coin-price-row/coin-price-row.component';
 import { ExchangeRateService } from './coin-price/coin-price-row/exchange-rate.service';
+import { ExchangeRateComponent } from './exchange-rate/exchange-rate.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { ExchangeRateService } from './coin-price/coin-price-row/exchange-rate.s
         HomeComponent,
         CoinPriceComponent,
         CoinPriceRowComponent,
+        ExchangeRateComponent,
     ],
     entryComponents: [
     ],
