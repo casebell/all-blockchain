@@ -1,4 +1,3 @@
-
 <div class="select-wrapper">
     <div style="margin-left:auto">
         <md-select [placeholder]="'market.time' | translate" (change)="timeChange()" [(ngModel)]="myUpdateTime" style="margin-right:10px">
@@ -20,17 +19,50 @@
         <div class="table-header-wrapper">
             <md-grid-list cols="12" rowHeight="60px">
                 <md-grid-tile><span jhiTranslate="market.coin">Coin</span></md-grid-tile>
-                <md-grid-tile><a jhiTranslate="market.bithumb" href="https://www.bithumb.com/" target="_blank">Bithumb</a></md-grid-tile>
-                <md-grid-tile><a jhiTranslate="market.korbit" href="https://www.korbit.co.kr/" target="_blank">Korbit</a></md-grid-tile>
-                <md-grid-tile><a jhiTranslate="market.coinone" href="https://coinone.co.kr/" target="_blank">Coinone</a></md-grid-tile>
-                <md-grid-tile><a href="http://www.coinis.co.kr/" target="_blank" jhiTranslate="market.coinis">Coinis</a ></md-grid-tile>
-                <md-grid-tile><a href="https://poloniex.com/" target="_blank" jhiTranslate="market.poloniex">Poloniex</a ></md-grid-tile>
-                <md-grid-tile><a href="https://bittrex.com/" target="_blank"jhiTranslate="market.bittrex">Bittrex</a ></md-grid-tile>
-                <md-grid-tile><a href="https://bitfinex.com/" target="_blank"jhiTranslate="market.bitfinex">bitfinex</a ></md-grid-tile>
-                <md-grid-tile><a href="https://www.okcoin.cn/" target="_blank" jhiTranslate="market.okcoincn">OKCoin</a ></md-grid-tile>
-                <md-grid-tile><a href="https://yunbi.com" target="_blank" jhiTranslate="market.yunbi">YUNBI</a ></md-grid-tile>
-                <md-grid-tile><a href="https://bitflyer.jp/" target="_blank" jhiTranslate="market.bitflyer">bitFlyer</a ></md-grid-tile>
-                <md-grid-tile><a href="https://www.kraken.com/" target="_blank" jhiTranslate="market.kraken">Kraken</a ></md-grid-tile>
+                <md-grid-tile>
+                    <a jhiTranslate="market.bithumb" href="https://www.bithumb.com/" target="_blank">Bithumb</a>
+                    <p><span class="flag-icon flag-icon-kr"></span></p>
+                </md-grid-tile>
+                <md-grid-tile>
+                    <a jhiTranslate="market.korbit" href="https://www.korbit.co.kr/" target="_blank">Korbit</a>
+                    <p><span class="flag-icon flag-icon-kr"></span></p>
+                </md-grid-tile>
+                <md-grid-tile>
+                    <a jhiTranslate="market.coinone" href="https://coinone.co.kr/" target="_blank">Coinone</a>
+                    <p><span class="flag-icon flag-icon-kr"></span></p>
+                </md-grid-tile>
+                <md-grid-tile>
+                    <a href="http://www.coinis.co.kr/" target="_blank" jhiTranslate="market.coinis">Coinis</a >
+                    <p><span class="flag-icon flag-icon-kr"></span></p>
+                    </md-grid-tile>
+                <md-grid-tile>
+                    <a href="https://poloniex.com/" target="_blank" jhiTranslate="market.poloniex">Poloniex</a >
+                        <p><span class="flag-icon flag-icon-us"></span></p>
+                    </md-grid-tile>
+                <md-grid-tile>
+                    <a href="https://bittrex.com/" target="_blank"jhiTranslate="market.bittrex">Bittrex</a >
+                    <p><span class="flag-icon flag-icon-us"></span></p>
+                </md-grid-tile>
+                <md-grid-tile>
+                    <a href="https://bitfinex.com/" target="_blank"jhiTranslate="market.bitfinex">bitfinex</a >
+                    <p><span class="flag-icon flag-icon-us"></span></p>
+                    </md-grid-tile>
+                <md-grid-tile>
+                    <a href="https://www.okcoin.cn/" target="_blank" jhiTranslate="market.okcoincn">OKCoin</a >
+                    <p><span class="flag-icon flag-icon-cn"></span></p>
+                </md-grid-tile>
+                <md-grid-tile>
+                    <a href="https://yunbi.com" target="_blank" jhiTranslate="market.yunbi">YUNBI</a >
+                    <p><span class="flag-icon flag-icon-cn"></span></p>
+                </md-grid-tile>
+                <md-grid-tile>
+                    <a href="https://bitflyer.jp/" target="_blank" jhiTranslate="market.bitflyer">bitFlyer</a >
+                        <p><span class="flag-icon flag-icon-jp"></span></p>
+                    </md-grid-tile>
+                <md-grid-tile>
+                    <a href="https://www.kraken.com/" target="_blank" jhiTranslate="market.kraken">Kraken</a >
+                        <p><span class="flag-icon flag-icon-eu"></span></p>
+                </md-grid-tile>
             </md-grid-list>
             <div style="display:flex">
                 <div style="flex:1">

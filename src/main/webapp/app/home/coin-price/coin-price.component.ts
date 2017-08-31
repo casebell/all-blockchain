@@ -190,6 +190,8 @@ export class CoinPriceComponent implements OnInit {
                 this.coinoneRow.coins[5].price = data.etc.last;
                 // bch
                 this.coinoneRow.coins[6].price = data.bch.last;
+
+                this.coinoneRow.coins[10].price = data.qtum.last;
             });
 
         // poloniex
