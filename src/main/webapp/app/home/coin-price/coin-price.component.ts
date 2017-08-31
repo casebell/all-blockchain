@@ -515,6 +515,10 @@ export class CoinPriceComponent implements OnInit {
         this.coinoneRow.coins[6].diffPercent = data.bch.last * 100 / this.coinoneRow.coins[6].price - 100
         this.coinoneRow.coins[6].diff = data.bch.last - this.coinoneRow.coins[6].price;
         this.coinoneRow.coins[6].price = data.bch.last
+
+        this.coinoneRow.coins[10].diffPercent = data.qtum.last * 100 / this.coinoneRow.coins[10].price - 100
+        this.coinoneRow.coins[10].diff = data.qtum.last - this.coinoneRow.coins[10].price;
+        this.coinoneRow.coins[10].price = data.qtum.last
     }
 
     setPoloniex(data) {
