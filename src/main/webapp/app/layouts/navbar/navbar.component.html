@@ -4,7 +4,8 @@
             <md-icon>home</md-icon>
             <span jhiTranslate="global.title">All Blockchain</span></button>
 
-  <button md-button><span jhiTranslate="navbar.coin.title">coin</span></button>
+  <button md-button  routerLink="coin/home"><span jhiTranslate="navbar.coin.title">coin</span></button>
+
     <button md-button *jhiHasAnyAuthority="'ROLE_ADMIN'" [mdMenuTriggerFor]="adminMenu">
         Admin
     </button>
@@ -57,7 +58,8 @@
     </md-menu>
 
     <span class="fill-remaining-space"></span>
-    <button md-button [mdMenuTriggerFor]="accountMenu">
+
+   <button md-button [mdMenuTriggerFor]="accountMenu">
             <span jhiTranslate="navbar.account.title">account</span>
         </button>
 
@@ -80,7 +82,6 @@
     </md-menu>
 
 
-
     <button md-button [mdMenuTriggerFor]="languageMenu" style="margin-left:auto">
              <md-icon>language</md-icon><span jhiTranslate="navbar.language">language</span>
         </button>
@@ -101,9 +102,35 @@
 <!--mobile -->
 
 <md-toolbar color="primary" [ngSwitch]="isAuthenticated()" class="mobile">
-    <button md-button (click)="clickMenuIcon()" class="mobile-menu-button">
-        <md-icon>menu</md-icon>
+
+    <!-- home -->
+    <button md-button routerLink="/">
+        <md-icon>home</md-icon>
     </button>
+
+    <!-- coins-->
+    <button md-button routerLink="coin/home">
+        <span jhiTranslate="navbar.coin.title">Coin</span>
+        <!--<md-icon>keyboard_arrow_right</md-icon>-->
+    </button>
+
+    <span class="fill-remaining-space"></span>
+
+
+    <!--language -->
+    <button md-button [mdMenuTriggerFor]="languageMenuMobile" class="mobile-button">
+        <md-icon>language</md-icon>
+    </button>
+    <md-menu #languageMenuMobile="mdMenu">
+        <button md-menu-item *ngFor="let language of languages" (click)="changeLanguage(language)">
+            {{language | findLanguageFromKey}}
+        </button>
+    </md-menu>
+
+</md-toolbar>
+    <!--<button md-button (click)="clickMenuIcon()" class="mobile-menu-button">
+        <md-icon>menu</md-icon>
+    </button>-->
    <!-- <span jhiTranslate="global.title" routerLink="/">All Blockchain</span>
     &lt;!&ndash; This fills the remaining space of the current row &ndash;&gt;
     <span class="fill-remaining-space"></span>
@@ -131,14 +158,8 @@
     </md-menu>-->
     <!--  <md-icon>language</md-icon>
         <span jhiTranslate="navbar.language">Language</span> -->
-    <button md-button [mdMenuTriggerFor]="languageMenuMobile" class="mobile-button">
-            <md-icon>language</md-icon>
-        </button>
-    <md-menu #languageMenuMobile="mdMenu">
-        <button md-menu-item *ngFor="let language of languages" (click)="changeLanguage(language)">
-              {{language | findLanguageFromKey}}
-            </button>
-    </md-menu>
+
+
     <!-- <md-toolbar-row *ngIf="languageState =='rotated'">
           <button md-button (click)="changeLanguage(language)" *ngFor="let language of languages">
           {{language | findLanguageFromKey}}
@@ -178,7 +199,7 @@
        <md-icon class="example-icon">favorite</md-icon>
        <md-icon class="example-icon">delete</md-icon>
    </md-toolbar-row>-->
-</md-toolbar>
+
 <!--<md-menu x-position="before" #menu="mdMenu">
     <button md-menu-item >Products</button>
     <button md-menu-item >Dashboard</button>

@@ -1,36 +1,59 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { CoinSidenavService,
-         CoinSidenavSource } from './coin-sidenav.service';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import {
+    CoinSidenavService,
+    CoinSidenavSource
+} from './coin-sidenav.service';
+import { CoinService } from '../coin.service';
+import { Subscription } from 'rxjs/Subscription';
+import { MdSidenav } from '@angular/material';
 
 @Component({
-  selector: 'abc-coin-sidenav',
-  templateUrl: './coin-sidenav.component.html',
-  styleUrls: ['coin-sidenav.scss']
+    selector: 'abc-coin-sidenav',
+    templateUrl: './coin-sidenav.component.html',
+    styleUrls: ['coin-sidenav.scss']
 })
-export class CoinSidenavComponent implements OnInit {
+export class CoinSidenavComponent implements OnInit, OnDestroy {
 
-  displayedColumns = ['name'];
-  dataSource: CoinSidenavSource | null;
+    displayedColumns = ['name'];
+    dataSource: CoinSidenavSource | null;
+    buttonSubscription: Subscription;
+    @ViewChild('sidenav') sidenav: MdSidenav;
 
- // @ViewChild('filter') filter: ElementRef;
+    // @ViewChild('filter') filter: ElementRef;
 
-  constructor(private coinSidenavService:CoinSidenavService) { }
+    constructor(private coinSidenavService: CoinSidenavService,
+                private coinService: CoinService) {
+        this.buttonSubscription = this.coinService.sideNavOpenButtonChanged
+            .subscribe(message => {
+                if (message == 'open')
+                    this.sidenav.open();
+            });
+    }
 
-  ngOnInit() {
+    ngOnInit() {
 
-    this.coinSidenavService.findAll().subscribe(
-        coins=>{
-            console.log('coins : ', coins);
-            this.dataSource = new CoinSidenavSource(coins)
-        }
-    );
-/*    Observable.fromEvent(this.filter.nativeElement, 'keyup')
-      .debounceTime(150)
-      .distinctUntilChanged()
-      .subscribe(() => {
-        if (!this.dataSource) { return; }
-        this.dataSource.filter = this.filter.nativeElement.value;
-      });*/
-  }
+        this.coinSidenavService.findAll().subscribe(
+            coins => {
+                console.log('coins : ', coins);
+                this.dataSource = new CoinSidenavSource(coins)
+            }
+        );
+        /*    Observable.fromEvent(this.filter.nativeElement, 'keyup')
+              .debounceTime(150)
+              .distinctUntilChanged()
+              .subscribe(() => {
+                if (!this.dataSource) { return; }
+                this.dataSource.filter = this.filter.nativeElement.value;
+              });*/
+    }
+
+    ngOnDestroy(): void {
+        this.buttonSubscription.unsubscribe();
+    }
+
+    sideNavCloseButton() {
+        this.sidenav.close();
+        this.coinService.sendSideNavCloseButton('close');
+    }
 
 }
