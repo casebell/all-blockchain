@@ -4,11 +4,12 @@ import { coinState } from './coin.route';
 import { CoinComponent } from './coin.component';
 import { CoinHomeComponent } from './coin-home/coin-home.component';
 import { CoinSidenavComponent} from './coin-sidenav/coin-sidenav.component';
-import { MdSidenavModule,
-         MdButtonModule,
-         MdTableModule,
-         MdInputModule } from '@angular/material';
-import { CdkTableModule } from '@angular/cdk';
+import {
+    MdSidenavModule,
+    MdButtonModule,
+    MdTableModule,
+    MdInputModule, MdIconModule
+} from '@angular/material';
 import { CoinSidenavService } from './coin-sidenav/coin-sidenav.service';
 import { BlockchainSharedModule } from '../shared/shared.module';
 import { CoinService } from './coin.service';
@@ -20,7 +21,7 @@ import { CoinService } from './coin.service';
         MdButtonModule,
         MdTableModule,
         MdInputModule,
-        CdkTableModule,
+        MdIconModule,
         BlockchainSharedModule,
         RouterModule.forRoot(coinState, {useHash: true})
     ],

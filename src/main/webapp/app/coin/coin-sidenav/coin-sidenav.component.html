@@ -1,27 +1,30 @@
 <md-sidenav-container class="coin-sidenav-container">
     <md-sidenav #sidenav opened="true" mode="side">
 
-      <div class="coin-sidenav-scrolling-content">
-          <div class="example-container">
-          <div class="example-header">
-              <!--  <md-input-container floatPlaceholder="never">
-                  <input mdInput #filter placeholder="Filter users">
-                </md-input-container>-->
-              <button md-raised-button (click)="sideNavCloseButton()"><span>닫기</span></button>
-              </div>
+        <div class="coin-sidenav-scrolling-content">
+            <div class="example-container">
+                <div class="example-header">
+                    <!--  <md-input-container floatPlaceholder="never">
+                        <input mdInput #filter placeholder="Filter users">
+                      </md-input-container>-->
+                    <button md-raised-button (click)="sideNavCloseButton()">
+                       <!--<span jhiTranslate="global.close">Close</span>-->
+                        <md-icon>menu</md-icon>
+                    </button>
+                </div>
 
-              <md-table #table [dataSource]="dataSource">
+                <md-table #table [dataSource]="dataSource">
 
-                <!-- name -->
-                <ng-container cdkColumnDef="name">
-                  <md-header-cell *cdkHeaderCellDef> ID </md-header-cell>
-                  <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
-                </ng-container>
+                    <!-- name -->
+                    <ng-container mdColumnDef="name">
+                        <md-header-cell *mdHeaderCellDef> </md-header-cell>
+                        <md-cell *mdCellDef="let row"> {{row.name}}</md-cell>
+                    </ng-container>
 
-                <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
-                <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
-              </md-table>
+                    <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
+                    <md-row *mdRowDef="let row; columns: displayedColumns;"></md-row>
+                </md-table>
             </div>
-      </div>
+        </div>
     </md-sidenav>
 </md-sidenav-container>
