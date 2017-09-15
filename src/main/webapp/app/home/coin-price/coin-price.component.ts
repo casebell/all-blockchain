@@ -7,7 +7,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {zip} from 'rxjs/observable/zip';
 import { CoinPrice } from '../../model/coin-price.model.';
 import * as _ from 'lodash';
-import {ExchangeRateService} from "./coin-price-row/exchange-rate.service";
+import {ExchangeRateService} from './coin-price-row/exchange-rate.service';
 
 @Component({
     selector: 'abc-coin-price',
@@ -55,17 +55,17 @@ export class CoinPriceComponent implements OnInit {
         {name: 'qtum', price: 0, diff: 0, diffPercent: 0}
     ];
 
-    bithumbRow :CoinPrice;
-    korbitRow :CoinPrice;
-    coinoneRow :CoinPrice;
-    poloniexRow :CoinPrice;
-    okCoinCnRow :CoinPrice;
-    bitflyerRow :CoinPrice;
-    bittrexRow  :CoinPrice;
-    coinisRow  :CoinPrice;
-    krakenRow :CoinPrice;
-    yunbiRow :CoinPrice;
-    bitfinexRow :CoinPrice;
+    bithumbRow : CoinPrice;
+    korbitRow : CoinPrice;
+    coinoneRow : CoinPrice;
+    poloniexRow : CoinPrice;
+    okCoinCnRow : CoinPrice;
+    bitflyerRow : CoinPrice;
+    bittrexRow  : CoinPrice;
+    coinisRow  : CoinPrice;
+    krakenRow : CoinPrice;
+    yunbiRow : CoinPrice;
+    bitfinexRow : CoinPrice;
 
     bithumbUnsubscribe: Subscription;
     coinoneUnsubscribe: Subscription;
@@ -98,7 +98,7 @@ export class CoinPriceComponent implements OnInit {
         this.getCoinis();
     }
 
-    initialCoinRow(){
+    initialCoinRow() {
         this.bithumbRow = {
             market: 'Bithumb',
             currencies : 'KRW',
@@ -158,8 +158,8 @@ export class CoinPriceComponent implements OnInit {
     initialCoin() {
         // bithumb
         this.coinPriceService.getBithumb()
-            .subscribe(data => {
-                for (let i = 0; i < data.length-1; i++) {
+            .subscribe((data) => {
+                for (let i = 0; i < data.length -1; i++) {
                     this.bithumbRow.coins[i].price = data[i].closing_price;
                 }
                 this.bithumbRow.coins[8].price = data[7].closing_price;
@@ -210,13 +210,13 @@ export class CoinPriceComponent implements OnInit {
 
         // okCoinChina
         this.coinPriceService.getOkCoinCn()
-            .subscribe(data => {
+            .subscribe((data) => {
                 this.okCoinCnRow.coins[0].price = data[0].last;
                 this.okCoinCnRow.coins[1].price = data[1].last;
                 this.okCoinCnRow.coins[4].price = data[2].last;
                 this.okCoinCnRow.coins[5].price = data[3].last;
                 this.okCoinCnRow.coins[6].price = data[4].last;
-            }, error => {
+            }, (error) => {
             });
         // bitflyer
         this.coinPriceService.getBitflyer()
@@ -250,6 +250,7 @@ export class CoinPriceComponent implements OnInit {
             });
 
 
+/*
         this.coinPriceService.getYunbis()
             .subscribe((data:any) => {
 
@@ -261,6 +262,7 @@ export class CoinPriceComponent implements OnInit {
                 this.yunbiRow.coins[9].price = data.anscny.ticker.last;
                 this.yunbiRow.coins[10].price = data.qtumcny.ticker.last;
             })
+*/
 
         this.coinPriceService.getBitfinex()
             .subscribe((data)=>{
@@ -442,8 +444,8 @@ export class CoinPriceComponent implements OnInit {
             this.krakenUnsubscribe.unsubscribe();
         if (this.coinisUnsubscribe != null)
             this.coinisUnsubscribe.unsubscribe();
-        if (this.yunbiUnsubscribe != null)
-            this.yunbiUnsubscribe.unsubscribe();
+  /*      if (this.yunbiUnsubscribe != null)
+            this.yunbiUnsubscribe.unsubscribe();*/
         if (this.bitfinexUnsubscribe != null)
             this.bitfinexUnsubscribe.unsubscribe();
         this.getBithumb();
@@ -455,7 +457,7 @@ export class CoinPriceComponent implements OnInit {
         this.getBittrex();
         this.getKraken();
         this.getCoinis();
-        this.getYunbi();
+        // this.getYunbi();
         this.getBitfinex();
     }
 
