@@ -8,6 +8,7 @@ import { MdGridListModule, MdIconModule, MdSelectModule, MdTabsModule } from '@a
 import { CoinPriceRowComponent } from './coin-price/coin-price-row/coin-price-row.component';
 import { ExchangeRateService } from './coin-price/coin-price-row/exchange-rate.service';
 import { ExchangeRateComponent } from './exchange-rate/exchange-rate.component';
+import { WebsocketService } from '../shared/websocket.service';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { ExchangeRateComponent } from './exchange-rate/exchange-rate.component';
     ],
     providers: [
         CoinPriceService,
+        WebsocketService,
         ExchangeRateService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -16,7 +16,7 @@
         "polyfills": "app/polyfills.ts",
         "test": "",
         "tsconfig": "../../../tsconfig.json",
-        "prefix": "abc",
+        "prefix": "jhi",
         "mobile": false,
         "styles": [
             "content/scss/vendor.scss",

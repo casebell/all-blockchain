@@ -1,15 +1,16 @@
 import {Injectable} from '@angular/core';
-import {API_SERVER_URL} from '../../app.constants';
+import {SERVER_API_URL} from '../../app.constants';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/Rx';
+import {Observable, Subject} from 'rxjs/Rx';
 
 @Injectable()
 export class CoinPriceService {
 
-    private resourceUrl = API_SERVER_URL;
+    private resourceUrl = SERVER_API_URL;
+    public poloniexMessage: Subject<any>;
+    public bitfinexMessage: Subject<any>;
 
     constructor(private http: HttpClient) {
-
     }
 
     getBithumb(): Observable<any>{

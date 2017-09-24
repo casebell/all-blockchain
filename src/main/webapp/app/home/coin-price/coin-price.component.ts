@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Rx';
 import {CoinPriceService} from './coin-price.service';
@@ -8,13 +8,18 @@ import {zip} from 'rxjs/observable/zip';
 import { CoinPrice } from '../../model/coin-price.model.';
 import * as _ from 'lodash';
 import {ExchangeRateService} from "./coin-price-row/exchange-rate.service";
+import { WebsocketService } from '../../shared/websocket.service';
+
+const POLONIEX_WS_URL = 'wss://api.poloniex.com';
+const BITFINEX_WS_URL = 'wss://api.bitfinex.com/ws/2';
 
 @Component({
     selector: 'abc-coin-price',
     templateUrl: './coin-price.component.html',
     styleUrls: ['coin-price.scss']
 })
-export class CoinPriceComponent implements OnInit {
+export class CoinPriceComponent implements OnInit, OnDestroy {
+    
     /*     currencyLists = [
             { value: 'USD', viewValue: 'USD' },
             { value: 'KRW', viewValue: 'KRW' },
@@ -40,7 +45,7 @@ export class CoinPriceComponent implements OnInit {
     myCurrency: string;
     currency: Currency;
     myUpdateTime = 5;
-
+    testString;
     coins = [
         {name: 'btc', price: 0, diff: 0, diffPercent: 0},
         {name: 'eth', price: 0, diff: 0, diffPercent: 0},
@@ -80,9 +85,43 @@ export class CoinPriceComponent implements OnInit {
     bitfinexUnsubscribe: Subscription;
 
     constructor(private http: HttpClient,
-                private coinPriceService: CoinPriceService) {
+                private coinPriceService: CoinPriceService,
+                private websocketService: WebsocketService) {
         this.myCurrency = 'KRW';
         this.initialCoinRow();
+        // this.coinPriceService.poloniexMessage.subscribe(msg=> {
+        //     console.log('websocket poloniex message : ', msg);
+        // })
+       /*  coinPriceService.bitfinexMessage.subscribe(msg=> {
+            console.log('websocket bitfinexMessage  : ', msg);
+        })
+        coinPriceService.bitfinexMessage.next({ 
+            event: 'subscribe', 
+            channel: 'ticker', 
+            symbol: 'tBTCUSD' 
+          }); */
+
+        //   var ws = new WebSocket('wss://api.bitfinex.com/ws');
+          
+          // Create function to send on open
+         /*  ws.onopen = function() {
+            ws.send(JSON.stringify({"event":"subscribe", "channel":"ticker", "pair":"BTCUSD"}));
+          }; */
+          
+          // Tell function what to do when message is received and log messages to "btc" div
+         /*  ws.onmessage = function(msg) {
+            // create a variable for response and parse the json data
+            var response = JSON.parse(msg.data);
+            console.log('ws fitfinex : response' , response);
+          };
+ */
+          websocketService.connect(BITFINEX_WS_URL,{"event":"subscribe", "channel":"ticker", "pair":"BTCUSD"});
+
+
+
+    }
+    ngOnDestroy(): void {
+        this.websocketService.close();
     }
 
     ngOnInit() {
@@ -96,6 +135,23 @@ export class CoinPriceComponent implements OnInit {
         this.getBittrex();
         this.getKraken();
         this.getCoinis();
+
+        this.websocketService.getEventListener().subscribe(event => {
+            if(event.type == "message") {
+               console.log('message : ', event.data)
+               let res = event.data
+               if(res[1] != 'hb'){
+                   this.testString= res[1]
+                   //this.testString = testArray[1]
+               }
+            }
+            if(event.type == "close") {
+                console.log('close')
+            }
+            if(event.type == "open") {
+                console.log('open')
+            }
+        });
     }
 
     initialCoinRow(){
@@ -250,7 +306,7 @@ export class CoinPriceComponent implements OnInit {
             });
 
 
-        this.coinPriceService.getYunbis()
+   /*      this.coinPriceService.getYunbis()
             .subscribe((data:any) => {
 
                 this.yunbiRow.coins[0].price = data.btccny.ticker.last;
@@ -260,7 +316,7 @@ export class CoinPriceComponent implements OnInit {
                 this.yunbiRow.coins[7].price = data.zeccny.ticker.last;
                 this.yunbiRow.coins[9].price = data.anscny.ticker.last;
                 this.yunbiRow.coins[10].price = data.qtumcny.ticker.last;
-            })
+            }) */
 
         this.coinPriceService.getBitfinex()
             .subscribe((data)=>{
@@ -384,7 +440,7 @@ export class CoinPriceComponent implements OnInit {
 
     };
 
-    getYunbi() {
+   /*  getYunbi() {
         this.yunbiUnsubscribe = Observable
             .interval(this.myUpdateTime * 1000)
             .timeInterval()
@@ -393,7 +449,7 @@ export class CoinPriceComponent implements OnInit {
                 this.setYunbis(data);
             })
 
-    };
+    }; */
 
     getBitfinex() {
         this.bitfinexUnsubscribe = Observable
@@ -455,7 +511,7 @@ export class CoinPriceComponent implements OnInit {
         this.getBittrex();
         this.getKraken();
         this.getCoinis();
-        this.getYunbi();
+        // this.getYunbi();
         this.getBitfinex();
     }
 
