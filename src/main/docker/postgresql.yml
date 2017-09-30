@@ -1,7 +1,7 @@
 version: '2'
 services:
     blockchain-postgresql:
-        image: postgres:9.6.2
+        image: postgres:9.6.5
         # volumes:
         #     - ~/volumes/jhipster/blockchain/postgresql/:/var/lib/postgresql/data/
         environment:
