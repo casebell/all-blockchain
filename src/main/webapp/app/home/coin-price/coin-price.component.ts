@@ -19,7 +19,7 @@ const BITFINEX_WS_URL = 'wss://api.bitfinex.com/ws/2';
     styleUrls: ['coin-price.scss']
 })
 export class CoinPriceComponent implements OnInit, OnDestroy {
-    
+
     /*     currencyLists = [
             { value: 'USD', viewValue: 'USD' },
             { value: 'KRW', viewValue: 'KRW' },
@@ -69,7 +69,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
     bittrexRow  :CoinPrice;
     coinisRow  :CoinPrice;
     krakenRow :CoinPrice;
-    yunbiRow :CoinPrice;
+  //  yunbiRow :CoinPrice;
     bitfinexRow :CoinPrice;
 
     bithumbUnsubscribe: Subscription;
@@ -95,19 +95,19 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
        /*  coinPriceService.bitfinexMessage.subscribe(msg=> {
             console.log('websocket bitfinexMessage  : ', msg);
         })
-        coinPriceService.bitfinexMessage.next({ 
-            event: 'subscribe', 
-            channel: 'ticker', 
-            symbol: 'tBTCUSD' 
+        coinPriceService.bitfinexMessage.next({
+            event: 'subscribe',
+            channel: 'ticker',
+            symbol: 'tBTCUSD'
           }); */
 
         //   var ws = new WebSocket('wss://api.bitfinex.com/ws');
-          
+
           // Create function to send on open
          /*  ws.onopen = function() {
             ws.send(JSON.stringify({"event":"subscribe", "channel":"ticker", "pair":"BTCUSD"}));
           }; */
-          
+
           // Tell function what to do when message is received and log messages to "btc" div
          /*  ws.onmessage = function(msg) {
             // create a variable for response and parse the json data
@@ -205,11 +205,11 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
             currencies : 'EUR',
             coins : _.cloneDeep(this.coins)
         };
-        this.yunbiRow = {
+    /*    this.yunbiRow = {
             market: 'Yunbi',
             currencies : 'CNY',
             coins : _.cloneDeep(this.coins)
-        };
+        };*/
     }
     initialCoin() {
         // bithumb
@@ -498,8 +498,8 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
             this.krakenUnsubscribe.unsubscribe();
         if (this.coinisUnsubscribe != null)
             this.coinisUnsubscribe.unsubscribe();
-        if (this.yunbiUnsubscribe != null)
-            this.yunbiUnsubscribe.unsubscribe();
+        // if (this.yunbiUnsubscribe != null)
+        //     this.yunbiUnsubscribe.unsubscribe();
         if (this.bitfinexUnsubscribe != null)
             this.bitfinexUnsubscribe.unsubscribe();
         this.getBithumb();
@@ -689,7 +689,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
         this.coinisRow.coins[8].diff = data[4].closeprice - this.coinisRow.coins[8].price;
         this.coinisRow.coins[8].price = data[4].closeprice;
     }
-
+/*
     setYunbis(data) {
         this.yunbiRow.coins[0].diffPercent = data.btccny.ticker.last * 100 / this.yunbiRow.coins[0].price - 100;
         this.yunbiRow.coins[0].diff = data.btccny.ticker.last - this.yunbiRow.coins[0].price;
@@ -718,7 +718,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
         this.yunbiRow.coins[10].diffPercent = data.qtumcny.ticker.last * 100 / this.yunbiRow.coins[10].price - 100;
         this.yunbiRow.coins[10].diff = data.qtumcny.ticker.last - this.yunbiRow.coins[10].price;
         this.yunbiRow.coins[10].price = data.qtumcny.ticker.last;
-    }
+    }*/
 
     /*
     private setKraken(btc: any, eth: any, xrp: any, dash: any, ltc: any, etc: any, bch: any, zec: any, xmr: any) {

@@ -67,7 +67,7 @@ public class AccountResource {
         }
         return userRepository.findOneByLogin(managedUserVM.getLogin().toLowerCase())
             .map(user -> new ResponseEntity<>(new ErrorResponse("duplicated.login.exception","login already in use"), HttpStatus.BAD_REQUEST))
-            .orElseGet(() -> userRepository.findOneByEmail(managedUserVM.getEmail())
+            .orElseGet(() -> userRepository.findOneByEmailIgnoreCase(managedUserVM.getEmail())
                 .map(user -> new ResponseEntity<>(new ErrorResponse("duplicated.email.exception","email address already in use"), HttpStatus.BAD_REQUEST))
                 .orElseGet(() -> {
                     User user = userService

@@ -8,7 +8,6 @@ import io.iansoft.blockchain.repository.search.CoinSearchRepository;
 import io.iansoft.blockchain.service.dto.CoinDTO;
 import io.iansoft.blockchain.service.dto.KorbitDTO;
 import io.iansoft.blockchain.service.mapper.CoinMapper;
-import io.reactivex.Observable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
@@ -19,7 +18,6 @@ import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 

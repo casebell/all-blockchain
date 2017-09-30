@@ -41,43 +41,43 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
             ],
             exclude: ['node_modules/generator-jhipster']
         },
-        {
-            test: /\.ts$/,
-            use: [
-                {
-                    loader: 'ngc-webpack',
-                    options: {
-                        disable: false,
-                        tsConfigPath: 'tsconfig-aot.json'
+            {
+                test: /\.ts$/,
+                use: [
+                    {
+                        loader: 'ngc-webpack',
+                        options: {
+                            disable: false,
+                            tsConfigPath: 'tsconfig-aot.json'
+                        }
                     }
-                }
-            ],
-            exclude: /(polyfills\.ts|vendor\.ts|Reflect\.ts)/
-        },
-        {
-            test: /\.scss$/,
-            loaders: ['to-string-loader', 'css-loader', 'sass-loader'],
-            exclude: /(vendor\.scss|global\.scss)/
-        },
-        {
-            test: /(vendor\.scss|global\.scss)/,
-            use: extractSASS.extract({
-                fallback: 'style-loader',
-                use: ['css-loader', 'postcss-loader', 'sass-loader']
-            })
-        },
-        {
-            test: /\.css$/,
-            loaders: ['to-string-loader', 'css-loader'],
-            exclude: /(vendor\.css|global\.css)/
-        },
-        {
-            test: /(vendor\.css|global\.css)/,
-            use: extractCSS.extract({
-                fallback: 'style-loader',
-                use: ['css-loader']
-            })
-        }]
+                ],
+                exclude: /(polyfills\.ts|vendor\.ts|Reflect\.ts)/
+            },
+            {
+                test: /\.scss$/,
+                loaders: ['to-string-loader', 'css-loader', 'sass-loader'],
+                exclude: /(vendor\.scss|global\.scss)/
+            },
+            {
+                test: /(vendor\.scss|global\.scss)/,
+                use: extractSASS.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader', 'postcss-loader', 'sass-loader']
+                })
+            },
+            {
+                test: /\.css$/,
+                loaders: ['to-string-loader', 'css-loader'],
+                exclude: /(vendor\.css|global\.css)/
+            },
+            {
+                test: /(vendor\.css|global\.css)/,
+                use: extractCSS.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader']
+                })
+            }]
     },
     plugins: [
         extractSASS,
