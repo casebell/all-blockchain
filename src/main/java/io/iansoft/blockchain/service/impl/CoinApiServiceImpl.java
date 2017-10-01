@@ -6,7 +6,6 @@ import io.iansoft.blockchain.domain.*;
 import io.iansoft.blockchain.repository.*;
 import io.iansoft.blockchain.service.CoinApiService;
 import io.iansoft.blockchain.service.dto.*;
-import io.iansoft.blockchain.service.mapper.*;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +14,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
-
 import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.util.*;
@@ -38,43 +36,35 @@ public class CoinApiServiceImpl implements CoinApiService {
     private static final String QTUM_SYMBOL = "qtum";
     private final Logger log = LoggerFactory.getLogger(CoinApiServiceImpl.class);
     private final BithumbRepository bithumbRepository;
-    private final BithumbMapper bithumbMapper;
-    private final KorbitMapper korbitMapper;
     private final KorbitRepository korbitRepository;
     private final KrakenRepository krakenRepository;
-    private final OkCoinCnMapper okCoinCnMapper;
     private final OkCoinCnRepository okCoinCnRepository;
     private final BitflyerRepository bitflyerRepository;
-    private final BitflyerMapper bitflyerMapper;
     private final BittrexRepository bittrexRepository;
-    private final BittrexMapper bittrexMapper;
-    private final KrakenMapper krakenMapper;
     private final CoinisRepository coinisRepository;
-    private final CoinisMapper coinisMapper;
     private final BitfinexRepository bitfinexRepository;
-    private final BitfinexMapper bitfinexMapper;
 
     private final ModelMapper modelMapper;
 
     private ZonedDateTime zonedDateTime;
 
-    public CoinApiServiceImpl(BithumbRepository bithumbRepository, BithumbMapper bithumbMapper, KorbitMapper korbitMapper, KorbitRepository korbitRepository, KrakenRepository krakenRepository, OkCoinCnMapper okCoinCnMapper, OkCoinCnRepository okCoinCnRepository, BitflyerRepository bitflyerRepository, BitflyerMapper bitflyerMapper, BittrexRepository bittrexRepository, BittrexMapper bittrexMapper, KrakenMapper krakenMapper, CoinisRepository coinisRepository, CoinisMapper coinisMapper, BitfinexRepository bitfinexRepository, BitfinexMapper bitfinexMapper, ModelMapper modelMapper) {
+    public CoinApiServiceImpl(BithumbRepository bithumbRepository,
+                              KorbitRepository korbitRepository,
+                              KrakenRepository krakenRepository,
+                              OkCoinCnRepository okCoinCnRepository,
+                              BitflyerRepository bitflyerRepository,
+                              BittrexRepository bittrexRepository,
+                              CoinisRepository coinisRepository,
+                              BitfinexRepository bitfinexRepository,
+                              ModelMapper modelMapper) {
         this.bithumbRepository = bithumbRepository;
-        this.bithumbMapper = bithumbMapper;
-        this.korbitMapper = korbitMapper;
         this.korbitRepository = korbitRepository;
         this.krakenRepository = krakenRepository;
-        this.okCoinCnMapper = okCoinCnMapper;
         this.okCoinCnRepository = okCoinCnRepository;
         this.bitflyerRepository = bitflyerRepository;
-        this.bitflyerMapper = bitflyerMapper;
         this.bittrexRepository = bittrexRepository;
-        this.bittrexMapper = bittrexMapper;
-        this.krakenMapper = krakenMapper;
         this.coinisRepository = coinisRepository;
-        this.coinisMapper = coinisMapper;
         this.bitfinexRepository = bitfinexRepository;
-        this.bitfinexMapper = bitfinexMapper;
         this.modelMapper = modelMapper;
     }
 
@@ -83,7 +73,7 @@ public class CoinApiServiceImpl implements CoinApiService {
     @Transactional(readOnly = true)
     public List<BithumbDataDTO> getBithumb() {
         return bithumbRepository.findBihumbs().stream()
-            .map(bithumbMapper::toDto)
+            .map(bithumb -> modelMapper.map(bithumb,BithumbDataDTO.class))
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
@@ -91,7 +81,7 @@ public class CoinApiServiceImpl implements CoinApiService {
     @Transactional(readOnly = true)
     public List<KorbitDTO> getKorbit() {
         return korbitRepository.findKorbits().stream()
-            .map(korbitMapper::toDto)
+            .map( korbit -> modelMapper.map(korbit,KorbitDTO.class))
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
@@ -99,7 +89,7 @@ public class CoinApiServiceImpl implements CoinApiService {
     @Transactional(readOnly = true)
     public List<OkCoinCnDTO> getOkCoinCn() {
         return okCoinCnRepository.findOkCOinCn().stream()
-            .map(okCoinCnMapper::toDto)
+            .map(okCoinCn -> modelMapper.map(okCoinCn,OkCoinCnDTO.class))
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
@@ -108,7 +98,7 @@ public class CoinApiServiceImpl implements CoinApiService {
     @Transactional(readOnly = true)
     public List<BitflyerDTO> getBitflyer() {
         return bitflyerRepository.findBitflyers().stream()
-            .map(bitflyerMapper::toDto)
+            .map( bitflyer -> modelMapper.map(bitflyer,BitflyerDTO.class))
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
@@ -116,7 +106,7 @@ public class CoinApiServiceImpl implements CoinApiService {
     @Transactional(readOnly = true)
     public List<BittrexDTO> getBittrex() {
         return bittrexRepository.findBittrexs().stream()
-            .map(bittrexMapper::toDto)
+            .map(bittrex -> modelMapper.map(bittrex,BittrexDTO.class))
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
@@ -167,7 +157,7 @@ public class CoinApiServiceImpl implements CoinApiService {
     private void saveBithumb(BithumbDTO bithumbDTO) {
         if ("0000".equals(bithumbDTO.getStatus())) {
             //log.debug("bitcoinDto = {} getting time is {} ", bithumbDTO.toString(), LocalDateTime.now());
-            Bithumb bithumb = bithumbMapper.toEntity(bithumbDTO.getData());
+            Bithumb bithumb = modelMapper.map(bithumbDTO.getData(),Bithumb.class);
             bithumb.setCreatedat(zonedDateTime);
             bithumbRepository.save(bithumb);
         } else {
@@ -178,43 +168,43 @@ public class CoinApiServiceImpl implements CoinApiService {
 
     private void saveKorbit(KorbitDTO korbitDTO) {
         //log.debug("korbinDto = {} getting time is {} ", korbitDTO.toString(), LocalDateTime.now());
-        Korbit korbit = korbitMapper.toEntity(korbitDTO);
+        Korbit korbit = modelMapper.map(korbitDTO,Korbit.class);
         korbit.setCreatedat(zonedDateTime);
         korbitRepository.save(korbit);
     }
 
     private void saveOkCoinCn(OkCoinCnDTO okCoinCnDTO) {
         // log.debug("bitcoinDto = {} getting time is {} ", korbitDTO.toString(), LocalDateTime.now());
-        OkCoinCn okCoinCn = okCoinCnMapper.toEntity(okCoinCnDTO);
+        OkCoinCn okCoinCn = modelMapper.map(okCoinCnDTO, OkCoinCn.class);
         okCoinCn.setCreatedat(zonedDateTime);
         okCoinCnRepository.save(okCoinCn);
     }
 
     private void saveBitflyer(BitflyerDTO bitflyerDTO) {
-        Bitflyer bitflyer = bitflyerMapper.toEntity(bitflyerDTO);
+        Bitflyer bitflyer = modelMapper.map(bitflyerDTO,Bitflyer.class);
         bitflyer.setCreatedat(zonedDateTime);
         bitflyerRepository.save(bitflyer);
     }
 
     private void saveBittrex(BittrexDTO bittrexDTO) {
-        Bittrex bittrex = bittrexMapper.toEntity(bittrexDTO);
+        Bittrex bittrex = modelMapper.map(bittrexDTO,Bittrex.class);
         bittrex.setCreatedat(zonedDateTime);
         bittrexRepository.save(bittrex);
     }
 
     private void saveKraken(KrakenDTO krakenDTO) {
-        Kraken kraken = krakenMapper.toEntity(krakenDTO);
+        Kraken kraken = modelMapper.map(krakenDTO, Kraken.class);
         kraken.setCreatedat(zonedDateTime);
         krakenRepository.save(kraken);
     }
   private void saveCoinis(CoinisDTO coinisDTO) {
-        Coinis coinis = coinisMapper.toEntity(coinisDTO);
+        Coinis coinis = modelMapper.map(coinisDTO, Coinis.class);
         coinis.setCreatedat(zonedDateTime);
         coinisRepository.save(coinis);
     }
 
   private void saveBitfinex(BitfinexDTO bitfinexDTO) {
-        Bitfinex bitfinex = bitfinexMapper.toEntity(bitfinexDTO);
+        Bitfinex bitfinex = modelMapper.map(bitfinexDTO, Bitfinex.class);
         bitfinex.setCreatedat(zonedDateTime);
         bitfinexRepository.save(bitfinex);
     }

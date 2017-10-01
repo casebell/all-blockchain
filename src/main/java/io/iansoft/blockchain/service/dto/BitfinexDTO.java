@@ -1,6 +1,8 @@
 package io.iansoft.blockchain.service.dto;
 
 
+import io.iansoft.blockchain.domain.Bitfinex;
+
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
@@ -12,6 +14,30 @@ import java.util.Objects;
  * A DTO for the Bitfinex entity.
  */
 public class BitfinexDTO implements Serializable {
+
+    public BitfinexDTO() {
+
+    }
+
+    public BitfinexDTO(Bitfinex bitfinex){
+        this(bitfinex.getId(), bitfinex.getMid(), bitfinex.getBid(),
+            bitfinex.getAsk(), bitfinex.getLast_price(),bitfinex.getLow(),
+            bitfinex.getHigh(),bitfinex.getVolume(),bitfinex.getTimestamp()
+        ,bitfinex.getCreatedat(),bitfinex.getSymbol());
+    }
+    public BitfinexDTO(Long id, String mid, String bid, String ask, String last_price, String low, String high, String volume, String timestamp, ZonedDateTime createdat, String symbol) {
+        this.id = id;
+        this.mid = mid;
+        this.bid = bid;
+        this.ask = ask;
+        this.last_price = last_price;
+        this.low = low;
+        this.high = high;
+        this.volume = volume;
+        this.timestamp = timestamp;
+        this.createdat = createdat;
+        this.symbol = symbol;
+    }
 
     private Long id;
 

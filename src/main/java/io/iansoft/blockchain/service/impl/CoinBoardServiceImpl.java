@@ -5,7 +5,7 @@ import io.iansoft.blockchain.domain.CoinBoard;
 import io.iansoft.blockchain.repository.CoinBoardRepository;
 import io.iansoft.blockchain.repository.search.CoinBoardSearchRepository;
 import io.iansoft.blockchain.service.dto.CoinBoardDTO;
-import io.iansoft.blockchain.service.mapper.CoinBoardMapper;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -27,14 +27,14 @@ public class CoinBoardServiceImpl implements CoinBoardService{
 
     private final CoinBoardRepository coinBoardRepository;
 
-    private final CoinBoardMapper coinBoardMapper;
-
     private final CoinBoardSearchRepository coinBoardSearchRepository;
 
-    public CoinBoardServiceImpl(CoinBoardRepository coinBoardRepository, CoinBoardMapper coinBoardMapper, CoinBoardSearchRepository coinBoardSearchRepository) {
+    private final ModelMapper modelMapper;
+
+    public CoinBoardServiceImpl(CoinBoardRepository coinBoardRepository, CoinBoardSearchRepository coinBoardSearchRepository, ModelMapper modelMapper) {
         this.coinBoardRepository = coinBoardRepository;
-        this.coinBoardMapper = coinBoardMapper;
         this.coinBoardSearchRepository = coinBoardSearchRepository;
+        this.modelMapper = modelMapper;
     }
 
     /**
@@ -46,9 +46,9 @@ public class CoinBoardServiceImpl implements CoinBoardService{
     @Override
     public CoinBoardDTO save(CoinBoardDTO coinBoardDTO) {
         log.debug("Request to save CoinBoard : {}", coinBoardDTO);
-        CoinBoard coinBoard = coinBoardMapper.toEntity(coinBoardDTO);
+        CoinBoard coinBoard = modelMapper.map(coinBoardDTO, CoinBoard.class);
         coinBoard = coinBoardRepository.save(coinBoard);
-        CoinBoardDTO result = coinBoardMapper.toDto(coinBoard);
+        CoinBoardDTO result = modelMapper.map(coinBoard,CoinBoardDTO.class );
         coinBoardSearchRepository.save(coinBoard);
         return result;
     }
@@ -64,7 +64,7 @@ public class CoinBoardServiceImpl implements CoinBoardService{
     public Page<CoinBoardDTO> findAll(Pageable pageable) {
         log.debug("Request to get all CoinBoards");
         return coinBoardRepository.findAll(pageable)
-            .map(coinBoardMapper::toDto);
+            .map( coinBoard -> modelMapper.map(coinBoard,CoinBoardDTO.class));
     }
 
     /**
@@ -78,7 +78,7 @@ public class CoinBoardServiceImpl implements CoinBoardService{
     public CoinBoardDTO findOne(Long id) {
         log.debug("Request to get CoinBoard : {}", id);
         CoinBoard coinBoard = coinBoardRepository.findOne(id);
-        return coinBoardMapper.toDto(coinBoard);
+        return modelMapper.map(coinBoard, CoinBoardDTO.class);
     }
 
     /**
@@ -105,6 +105,6 @@ public class CoinBoardServiceImpl implements CoinBoardService{
     public Page<CoinBoardDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of CoinBoards for query {}", query);
         Page<CoinBoard> result = coinBoardSearchRepository.search(queryStringQuery(query), pageable);
-        return result.map(coinBoardMapper::toDto);
+        return result.map( coinBoard -> modelMapper.map(coinBoard, CoinBoardDTO.class));
     }
 }
