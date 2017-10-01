@@ -3,7 +3,7 @@ import { BlockchainSharedModule } from '../shared';
 import { RouterModule } from '@angular/router';
 import { helpState } from './help.route';
 import { TermsComponent } from './terms/terms.component';
-import { MdTabsModule } from '@angular/material';
+import { MatTabsModule } from '@angular/material';
 import { NoticeComponent } from './notice/notice.component';
 import { QnaComponent } from './qna/qna.component';
 import { AboutComponent } from './about/about.component';
@@ -12,7 +12,7 @@ import { QnaDetailComponent } from './qna/qna-detail.component';
 @NgModule({
   imports: [
     BlockchainSharedModule,
-    MdTabsModule,
+    MatTabsModule,
     RouterModule.forRoot(helpState, { useHash: true })
   ],
   declarations: [TermsComponent,

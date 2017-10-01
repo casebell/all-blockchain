@@ -5,10 +5,10 @@ import { CoinComponent } from './coin.component';
 import { CoinHomeComponent } from './coin-home/coin-home.component';
 import { CoinSidenavComponent} from './coin-sidenav/coin-sidenav.component';
 import {
-    MdSidenavModule,
-    MdButtonModule,
-    MdTableModule,
-    MdInputModule, MdIconModule
+    MatSidenavModule,
+    MatButtonModule,
+    MatTableModule,
+    MatInputModule, MatIconModule
 } from '@angular/material';
 import { CoinSidenavService } from './coin-sidenav/coin-sidenav.service';
 import { BlockchainSharedModule } from '../shared/shared.module';
@@ -17,11 +17,11 @@ import { CoinService } from './coin.service';
 
 @NgModule({
     imports: [
-        MdSidenavModule,
-        MdButtonModule,
-        MdTableModule,
-        MdInputModule,
-        MdIconModule,
+        MatSidenavModule,
+        MatButtonModule,
+        MatTableModule,
+        MatInputModule,
+        MatIconModule,
         BlockchainSharedModule,
         RouterModule.forRoot(coinState, {useHash: true})
     ],

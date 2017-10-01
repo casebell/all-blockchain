@@ -5,7 +5,7 @@ import {
 } from './coin-sidenav.service';
 import { CoinService } from '../coin.service';
 import { Subscription } from 'rxjs/Subscription';
-import { MdSidenav } from '@angular/material';
+import { MatSidenav } from '@angular/material';
 
 @Component({
     selector: 'abc-coin-sidenav',
@@ -17,7 +17,7 @@ export class CoinSidenavComponent implements OnInit, OnDestroy {
     displayedColumns = ['name'];
     dataSource: CoinSidenavSource | null;
     buttonSubscription: Subscription;
-    @ViewChild('sidenav') sidenav: MdSidenav;
+    @ViewChild('sidenav') sidenav: MatSidenav;
 
     // @ViewChild('filter') filter: ElementRef;
 

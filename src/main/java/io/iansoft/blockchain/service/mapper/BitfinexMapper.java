@@ -10,9 +10,9 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring", uses = {})
 public interface BitfinexMapper extends EntityMapper <BitfinexDTO, Bitfinex> {
-    
+
     @Mapping(target = "coin", ignore = true)
-    Bitfinex toEntity(BitfinexDTO bitfinexDTO); 
+    Bitfinex toEntity(BitfinexDTO bitfinexDTO);
     default Bitfinex fromId(Long id) {
         if (id == null) {
             return null;

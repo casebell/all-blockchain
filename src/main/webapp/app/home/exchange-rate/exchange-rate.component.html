@@ -1,47 +1,47 @@
 <div class="exchange-rate-header"  jhiTranslate="market.exchange-rate">환율</div>
 
-<md-grid-list cols="6" rowHeight="60px">
-    <md-grid-tile class="grid-header"></md-grid-tile>
-    <md-grid-tile class="grid-header"><span class="flag-icon flag-icon-kr"></span></md-grid-tile>
-    <md-grid-tile class="grid-header"><span class="flag-icon flag-icon-us"></span></md-grid-tile>
-    <md-grid-tile class="grid-header"><span class="flag-icon flag-icon-eu"></span></md-grid-tile>
-    <md-grid-tile class="grid-header"><span class="flag-icon flag-icon-cn"></span></md-grid-tile>
-    <md-grid-tile class="grid-header"><span class="flag-icon flag-icon-jp"></span></md-grid-tile>
+<mat-grid-list cols="6" rowHeight="60px">
+    <mat-grid-tile class="grid-header"></mat-grid-tile>
+    <mat-grid-tile class="grid-header"><span class="flag-icon flag-icon-kr"></span></mat-grid-tile>
+    <mat-grid-tile class="grid-header"><span class="flag-icon flag-icon-us"></span></mat-grid-tile>
+    <mat-grid-tile class="grid-header"><span class="flag-icon flag-icon-eu"></span></mat-grid-tile>
+    <mat-grid-tile class="grid-header"><span class="flag-icon flag-icon-cn"></span></mat-grid-tile>
+    <mat-grid-tile class="grid-header"><span class="flag-icon flag-icon-jp"></span></mat-grid-tile>
 
-    <md-grid-tile class="grid-header"><span class="flag-icon flag-icon-kr"></span></md-grid-tile>
-    <md-grid-tile><span>1</span></md-grid-tile>
-    <md-grid-tile>{{exchangeRateKR?.rates.USD |number:'1.0-4'}}</md-grid-tile>
-    <md-grid-tile>{{exchangeRateKR?.rates.EUR |number:'1.0-4'}}</md-grid-tile>
-    <md-grid-tile>{{exchangeRateKR?.rates.CNY |number:'1.0-4'}}</md-grid-tile>
-    <md-grid-tile>{{exchangeRateKR?.rates.JPY |number:'1.0-4'}}</md-grid-tile>
+    <mat-grid-tile class="grid-header"><span class="flag-icon flag-icon-kr"></span></mat-grid-tile>
+    <mat-grid-tile><span>1</span></mat-grid-tile>
+    <mat-grid-tile>{{exchangeRateKR?.rates.USD |number:'1.0-4'}}</mat-grid-tile>
+    <mat-grid-tile>{{exchangeRateKR?.rates.EUR |number:'1.0-4'}}</mat-grid-tile>
+    <mat-grid-tile>{{exchangeRateKR?.rates.CNY |number:'1.0-4'}}</mat-grid-tile>
+    <mat-grid-tile>{{exchangeRateKR?.rates.JPY |number:'1.0-4'}}</mat-grid-tile>
 
-    <md-grid-tile class="grid-header"><span class="flag-icon flag-icon-us"></span></md-grid-tile>
-    <md-grid-tile>{{exchangeRateUS?.rates.KRW}}</md-grid-tile>
-    <md-grid-tile><span>1</span></md-grid-tile>
-    <md-grid-tile>{{exchangeRateUS?.rates.EUR}}</md-grid-tile>
-    <md-grid-tile>{{exchangeRateUS?.rates.CNY}}</md-grid-tile>
-    <md-grid-tile>{{exchangeRateUS?.rates.JPY}}</md-grid-tile>
+    <mat-grid-tile class="grid-header"><span class="flag-icon flag-icon-us"></span></mat-grid-tile>
+    <mat-grid-tile>{{exchangeRateUS?.rates.KRW}}</mat-grid-tile>
+    <mat-grid-tile><span>1</span></mat-grid-tile>
+    <mat-grid-tile>{{exchangeRateUS?.rates.EUR}}</mat-grid-tile>
+    <mat-grid-tile>{{exchangeRateUS?.rates.CNY}}</mat-grid-tile>
+    <mat-grid-tile>{{exchangeRateUS?.rates.JPY}}</mat-grid-tile>
 
-    <md-grid-tile class="grid-header"><span class="flag-icon flag-icon-eu"></span></md-grid-tile>
-    <md-grid-tile>{{exchangeRateEU?.rates.KRW}}</md-grid-tile>
-    <md-grid-tile>{{exchangeRateEU?.rates.USD}}</md-grid-tile>
-    <md-grid-tile>1</md-grid-tile>
-    <md-grid-tile>{{exchangeRateEU?.rates.CNY}}</md-grid-tile>
-    <md-grid-tile>{{exchangeRateEU?.rates.JPY}}</md-grid-tile>
+    <mat-grid-tile class="grid-header"><span class="flag-icon flag-icon-eu"></span></mat-grid-tile>
+    <mat-grid-tile>{{exchangeRateEU?.rates.KRW}}</mat-grid-tile>
+    <mat-grid-tile>{{exchangeRateEU?.rates.USD}}</mat-grid-tile>
+    <mat-grid-tile>1</mat-grid-tile>
+    <mat-grid-tile>{{exchangeRateEU?.rates.CNY}}</mat-grid-tile>
+    <mat-grid-tile>{{exchangeRateEU?.rates.JPY}}</mat-grid-tile>
 
-    <md-grid-tile class="grid-header"><span class="flag-icon flag-icon-cn"></span></md-grid-tile>
-    <md-grid-tile>{{exchangeRateCN?.rates.KRW}}</md-grid-tile>
-    <md-grid-tile>{{exchangeRateCN?.rates.USD}}</md-grid-tile>
-    <md-grid-tile>{{exchangeRateCN?.rates.EUR}}</md-grid-tile>
-    <md-grid-tile>1</md-grid-tile>
-    <md-grid-tile>{{exchangeRateCN?.rates.JPY}}</md-grid-tile>
+    <mat-grid-tile class="grid-header"><span class="flag-icon flag-icon-cn"></span></mat-grid-tile>
+    <mat-grid-tile>{{exchangeRateCN?.rates.KRW}}</mat-grid-tile>
+    <mat-grid-tile>{{exchangeRateCN?.rates.USD}}</mat-grid-tile>
+    <mat-grid-tile>{{exchangeRateCN?.rates.EUR}}</mat-grid-tile>
+    <mat-grid-tile>1</mat-grid-tile>
+    <mat-grid-tile>{{exchangeRateCN?.rates.JPY}}</mat-grid-tile>
 
-    <md-grid-tile class="grid-header"><span class="flag-icon flag-icon-jp"></span></md-grid-tile>
-    <md-grid-tile>{{exchangeRateJP?.rates.KRW}}</md-grid-tile>
-    <md-grid-tile>{{exchangeRateJP?.rates.USD |number:'1.0-4'}}</md-grid-tile>
-    <md-grid-tile>{{exchangeRateJP?.rates.EUR |number:'1.0-4'}}</md-grid-tile>
-    <md-grid-tile>{{exchangeRateJP?.rates.CNY |number:'1.0-4'}}</md-grid-tile>
-    <md-grid-tile>1</md-grid-tile>
-</md-grid-list>
+    <mat-grid-tile class="grid-header"><span class="flag-icon flag-icon-jp"></span></mat-grid-tile>
+    <mat-grid-tile>{{exchangeRateJP?.rates.KRW}}</mat-grid-tile>
+    <mat-grid-tile>{{exchangeRateJP?.rates.USD |number:'1.0-4'}}</mat-grid-tile>
+    <mat-grid-tile>{{exchangeRateJP?.rates.EUR |number:'1.0-4'}}</mat-grid-tile>
+    <mat-grid-tile>{{exchangeRateJP?.rates.CNY |number:'1.0-4'}}</mat-grid-tile>
+    <mat-grid-tile>1</mat-grid-tile>
+</mat-grid-list>
 
 <p style="margin-top:5px;"> 환율정보는 <a href="http://fixer.io/" target="_blank">fixer.io</a> (<a href="http://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html">ECB</a>) 에서 가져와서 보여주고 있습니다.</p>

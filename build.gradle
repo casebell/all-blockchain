@@ -200,7 +200,7 @@ dependencies {
     compile "io.springfox:springfox-bean-validators:${springfox_version}"
     compile "org.postgresql:postgresql"
     compile "com.h2database:h2"
-    compile "org.mapstruct:mapstruct-jdk8:${mapstruct_version}"
+    compile "org.mapstruct:mapstruct:${mapstruct_version}"
     compile "org.apache.httpcomponents:httpclient"
     compile "org.springframework.social:spring-social-security"
     compile "org.springframework.social:spring-social-google:${spring_social_google_version}"

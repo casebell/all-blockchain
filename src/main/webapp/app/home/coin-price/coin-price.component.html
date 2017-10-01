@@ -1,84 +1,84 @@
 <div class="select-wrapper">
     <div style="margin-left:auto">
-        <md-select [placeholder]="'market.time' | translate" (change)="timeChange()" [(ngModel)]="myUpdateTime" style="margin-right:10px">
-            <md-option *ngFor="let time of timeLists" [value]="time.value">
+        <mat-select [placeholder]="'market.time' | translate" (change)="timeChange()" [(ngModel)]="myUpdateTime" style="margin-right:10px">
+            <mat-option *ngFor="let time of timeLists" [value]="time.value">
                 {{ time.viewValue }}
-            </md-option>
-        </md-select>
+            </mat-option>
+        </mat-select>
 
-        <md-select [placeholder]="'market.currency' | translate" [(ngModel)]="myCurrency" (change)="currencyChange($event)">
-            <md-option *ngFor="let currency of currencyLists" [value]="currency.value">
+        <mat-select [placeholder]="'market.currency' | translate" [(ngModel)]="myCurrency" (change)="currencyChange($event)">
+            <mat-option *ngFor="let currency of currencyLists" [value]="currency.value">
                 {{ currency.viewValue }}
-            </md-option>
-        </md-select>
+            </mat-option>
+        </mat-select>
     </div>
 </div>
 
-<md-tab-group>
-    <md-tab label="Style A">
+<mat-tab-group>
+    <mat-tab label="Style A">
         <div class="table-header-wrapper">
-            <md-grid-list cols="11" rowHeight="60px">
-                <md-grid-tile><span jhiTranslate="market.coin">Coin</span></md-grid-tile>
-                <md-grid-tile>
+            <mat-grid-list cols="11" rowHeight="60px">
+                <mat-grid-tile><span jhiTranslate="market.coin">Coin</span></mat-grid-tile>
+                <mat-grid-tile>
                     <a jhiTranslate="market.bithumb" href="https://www.bithumb.com/" target="_blank">Bithumb</a>
                     <p><span class="flag-icon flag-icon-kr"></span></p>
-                </md-grid-tile>
-                <md-grid-tile>
+                </mat-grid-tile>
+                <mat-grid-tile>
                     <a jhiTranslate="market.korbit" href="https://www.korbit.co.kr/" target="_blank">Korbit</a>
                     <p><span class="flag-icon flag-icon-kr"></span></p>
-                </md-grid-tile>
-                <md-grid-tile>
+                </mat-grid-tile>
+                <mat-grid-tile>
                     <a jhiTranslate="market.coinone" href="https://coinone.co.kr/" target="_blank">Coinone</a>
                     <p><span class="flag-icon flag-icon-kr"></span></p>
-                </md-grid-tile>
-                <md-grid-tile>
+                </mat-grid-tile>
+                <mat-grid-tile>
                     <a href="http://www.coinis.co.kr/" target="_blank" jhiTranslate="market.coinis">Coinis</a >
                     <p><span class="flag-icon flag-icon-kr"></span></p>
-                    </md-grid-tile>
-                <md-grid-tile>
+                    </mat-grid-tile>
+                <mat-grid-tile>
                     <a href="https://poloniex.com/" target="_blank" jhiTranslate="market.poloniex">Poloniex</a >
                         <p><span class="flag-icon flag-icon-us"></span></p>
-                    </md-grid-tile>
-                <md-grid-tile>
+                    </mat-grid-tile>
+                <mat-grid-tile>
                     <a href="https://bittrex.com/" target="_blank"jhiTranslate="market.bittrex">Bittrex</a >
                     <p><span class="flag-icon flag-icon-us"></span></p>
-                </md-grid-tile>
-                <md-grid-tile>
+                </mat-grid-tile>
+                <mat-grid-tile>
                     <a href="https://bitfinex.com/" target="_blank"jhiTranslate="market.bitfinex">bitfinex</a >
                     <p><span class="flag-icon flag-icon-us"></span></p>
-                    </md-grid-tile>
-                <md-grid-tile>
+                    </mat-grid-tile>
+                <mat-grid-tile>
                     <a href="https://www.okcoin.cn/" target="_blank" jhiTranslate="market.okcoincn">OKCoin</a >
                     <p><span class="flag-icon flag-icon-cn"></span></p>
-                </md-grid-tile>
-                <!-- <md-grid-tile>
+                </mat-grid-tile>
+                <!-- <mat-grid-tile>
                     <a href="https://yunbi.com" target="_blank" jhiTranslate="market.yunbi">YUNBI</a >
                     <p><span class="flag-icon flag-icon-cn"></span></p>
-                </md-grid-tile> -->
-                <md-grid-tile>
+                </mat-grid-tile> -->
+                <mat-grid-tile>
                     <a href="https://bitflyer.jp/" target="_blank" jhiTranslate="market.bitflyer">bitFlyer</a >
                         <p><span class="flag-icon flag-icon-jp"></span></p>
-                    </md-grid-tile>
-                <md-grid-tile>
+                    </mat-grid-tile>
+                <mat-grid-tile>
                     <a href="https://www.kraken.com/" target="_blank" jhiTranslate="market.kraken">Kraken</a >
                         <p><span class="flag-icon flag-icon-eu"></span></p>
-                </md-grid-tile>
-            </md-grid-list>
+                </mat-grid-tile>
+            </mat-grid-list>
             <div style="display:flex">
                 <div style="flex:1">
-                    <md-grid-list cols="1" rowHeight="60px">
-                        <md-grid-tile><span jhiTranslate="market.btc">BTC</span></md-grid-tile>
-                        <md-grid-tile><span jhiTranslate="market.eth">ETH</span></md-grid-tile>
-                        <md-grid-tile><span jhiTranslate="market.xrp">XRP</span></md-grid-tile>
-                        <md-grid-tile><span jhiTranslate="market.dash">DASH</span></md-grid-tile>
-                        <md-grid-tile><span jhiTranslate="market.ltc">LTC</span></md-grid-tile>
-                        <md-grid-tile><span jhiTranslate="market.etc">ETC</span></md-grid-tile>
-                        <md-grid-tile><span jhiTranslate="market.bch">BCH</span></md-grid-tile>
-                        <md-grid-tile><span jhiTranslate="market.zec">ZEC</span></md-grid-tile>
-                        <md-grid-tile><span jhiTranslate="market.xmr">XMR</span></md-grid-tile>
-                        <md-grid-tile><span jhiTranslate="market.neo">NEO</span></md-grid-tile>
-                        <md-grid-tile><span jhiTranslate="market.qtum">QTUM</span></md-grid-tile>
-                    </md-grid-list>
+                    <mat-grid-list cols="1" rowHeight="60px">
+                        <mat-grid-tile><span jhiTranslate="market.btc">BTC</span></mat-grid-tile>
+                        <mat-grid-tile><span jhiTranslate="market.eth">ETH</span></mat-grid-tile>
+                        <mat-grid-tile><span jhiTranslate="market.xrp">XRP</span></mat-grid-tile>
+                        <mat-grid-tile><span jhiTranslate="market.dash">DASH</span></mat-grid-tile>
+                        <mat-grid-tile><span jhiTranslate="market.ltc">LTC</span></mat-grid-tile>
+                        <mat-grid-tile><span jhiTranslate="market.etc">ETC</span></mat-grid-tile>
+                        <mat-grid-tile><span jhiTranslate="market.bch">BCH</span></mat-grid-tile>
+                        <mat-grid-tile><span jhiTranslate="market.zec">ZEC</span></mat-grid-tile>
+                        <mat-grid-tile><span jhiTranslate="market.xmr">XMR</span></mat-grid-tile>
+                        <mat-grid-tile><span jhiTranslate="market.neo">NEO</span></mat-grid-tile>
+                        <mat-grid-tile><span jhiTranslate="market.qtum">QTUM</span></mat-grid-tile>
+                    </mat-grid-list>
                 </div>
                 <div style="flex:1">
                     <abc-coin-price-row [coinRow]=bithumbRow [myCurrency]=myCurrency [colsNum]='1'></abc-coin-price-row>
@@ -116,23 +116,23 @@
                 </div>
             </div>
         </div>
-    </md-tab>
-    <md-tab label="Style B">
+    </mat-tab>
+    <mat-tab label="Style B">
         <div class="table-header-wrapperb">
-            <md-grid-list cols="12" rowHeight="60px" style="font-size: 0.9rem;">
-                <md-grid-tile><span jhiTranslate="market.market-name">NAME</span></md-grid-tile>
-                <md-grid-tile><span jhiTranslate="market.btc">BTC</span></md-grid-tile>
-                <md-grid-tile><span jhiTranslate="market.eth">ETH</span></md-grid-tile>
-                <md-grid-tile><span jhiTranslate="market.xrp">XRP</span></md-grid-tile>
-                <md-grid-tile><span jhiTranslate="market.dash">DASH</span></md-grid-tile>
-                <md-grid-tile><span jhiTranslate="market.ltc">LTC</span></md-grid-tile>
-                <md-grid-tile><span jhiTranslate="market.etc">ETC</span></md-grid-tile>
-                <md-grid-tile><span jhiTranslate="market.bch">BCH</span></md-grid-tile>
-                <md-grid-tile><span jhiTranslate="market.zec">ZEC</span></md-grid-tile>
-                <md-grid-tile><span jhiTranslate="market.xmr">XMR</span></md-grid-tile>
-                <md-grid-tile><span jhiTranslate="market.neo">NEO</span></md-grid-tile>
-                <md-grid-tile><span jhiTranslate="market.qtum">QTUM</span></md-grid-tile>
-            </md-grid-list>
+            <mat-grid-list cols="12" rowHeight="60px" style="font-size: 0.9rem;">
+                <mat-grid-tile><span jhiTranslate="market.market-name">NAME</span></mat-grid-tile>
+                <mat-grid-tile><span jhiTranslate="market.btc">BTC</span></mat-grid-tile>
+                <mat-grid-tile><span jhiTranslate="market.eth">ETH</span></mat-grid-tile>
+                <mat-grid-tile><span jhiTranslate="market.xrp">XRP</span></mat-grid-tile>
+                <mat-grid-tile><span jhiTranslate="market.dash">DASH</span></mat-grid-tile>
+                <mat-grid-tile><span jhiTranslate="market.ltc">LTC</span></mat-grid-tile>
+                <mat-grid-tile><span jhiTranslate="market.etc">ETC</span></mat-grid-tile>
+                <mat-grid-tile><span jhiTranslate="market.bch">BCH</span></mat-grid-tile>
+                <mat-grid-tile><span jhiTranslate="market.zec">ZEC</span></mat-grid-tile>
+                <mat-grid-tile><span jhiTranslate="market.xmr">XMR</span></mat-grid-tile>
+                <mat-grid-tile><span jhiTranslate="market.neo">NEO</span></mat-grid-tile>
+                <mat-grid-tile><span jhiTranslate="market.qtum">QTUM</span></mat-grid-tile>
+            </mat-grid-list>
             <abc-coin-price-row [coinRow]=bithumbRow [myCurrency]=myCurrency [colsNum]='12'></abc-coin-price-row>
             <abc-coin-price-row [coinRow]=korbitRow [myCurrency]=myCurrency [colsNum]='12'></abc-coin-price-row>
             <abc-coin-price-row [coinRow]=coinoneRow [myCurrency]=myCurrency [colsNum]='12'></abc-coin-price-row>
@@ -145,14 +145,14 @@
             <abc-coin-price-row [coinRow]=bitflyerRow [myCurrency]=myCurrency [colsNum]='12'></abc-coin-price-row>
             <abc-coin-price-row [coinRow]=krakenRow [myCurrency]=myCurrency [colsNum]='12'></abc-coin-price-row>
         </div>
-    </md-tab>
+    </mat-tab>
 
-    <!-- <md-tab label="{{'market.bithumb' | translate}}">
+    <!-- <mat-tab label="{{'market.bithumb' | translate}}">
 
-    </md-tab>
-    <md-tab label="{{'market.korbit' | translate}}"><img src="../../../content/images/coming-soon.jpg" width="100%"></md-tab>
-    <md-tab label="{{'market.coinone' | translate}}"><img src="../../../content/images/coming-soon.jpg" width="100%"></md-tab> -->
-</md-tab-group>
+    </mat-tab>
+    <mat-tab label="{{'market.korbit' | translate}}"><img src="../../../content/images/coming-soon.jpg" width="100%"></mat-tab>
+    <mat-tab label="{{'market.coinone' | translate}}"><img src="../../../content/images/coming-soon.jpg" width="100%"></mat-tab> -->
+</mat-tab-group>
 <!--
 <div>
     <h1>test String : {{testString}}</h1>

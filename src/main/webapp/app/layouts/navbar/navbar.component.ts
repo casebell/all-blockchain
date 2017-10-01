@@ -7,7 +7,7 @@ import {ProfileService} from '../profiles/profile.service';
 import {JhiLanguageHelper, Principal, LoginModalService, LoginService} from '../../shared';
 
 import {VERSION, DEBUG_INFO_ENABLED} from '../../app.constants';
-import {MdDialog, MdDialogRef} from '@angular/material';
+import {MatDialog, MatDialogRef} from '@angular/material';
 import {JhiLoginModalComponent} from '../../shared/login/login.component';
 
 @Component({
@@ -45,7 +45,7 @@ export class NavbarComponent implements OnInit {
                 private loginModalService: LoginModalService,
                 private profileService: ProfileService,
                 private router: Router,
-                private dialog: MdDialog) {
+                private dialog: MatDialog) {
         this.version = VERSION ? 'v' + VERSION : '';
         this.isNavbarCollapsed = true;
         this.checkMenu = false;

@@ -5,7 +5,7 @@ import { JhiLanguageService } from 'ng-jhipster';
 import { Register } from './register.service';
 import { LoginModalService } from '../../shared';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { TranslateService } from "@ngx-translate/core";
 
 @Component({
@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         private elementRef: ElementRef,
         private renderer: Renderer,
         private fb: FormBuilder,
-        private snackBar: MdSnackBar,
+        private snackBar: MatSnackBar,
         private translateService: TranslateService
     ) {
         this.registerForm = this.fb.group({

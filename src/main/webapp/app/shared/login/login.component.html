@@ -1,4 +1,4 @@
-<h2 md-dialog-title jhiTranslate="login.title">Login</h2>
+<h2 matDialogTitle jhiTranslate="login.title">Login</h2>
 
 <!-- <div class="modal-header">
     <h4 class="modal-title" jhiTranslate="login.title">Sign in</h4>
@@ -6,27 +6,27 @@
     </button>
 </div> -->
 
-<md-dialog-content>
+<mat-dialog-content>
     <div *ngIf="authenticationError" jhiTranslate="login.messages.error.authentication" style="font-size:13px">
         <strong>Failed to sign in!</strong> Please check your credentials and try again.
     </div>
     <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
-        <md-input-container class="full-width">
-            <input mdInput placeholder="{{'global.form.username.placeholder' | translate}}" formControlName="username">
-            <md-error *ngIf="loginForm.controls.username.touched && loginForm.controls.username.hasError('required')">
+        <mat-form-field class="full-width">
+            <input matInput placeholder="{{'global.form.username.placeholder' | translate}}" formControlName="username">
+            <mat-error *ngIf="loginForm.controls.username.touched && loginForm.controls.username.hasError('required')">
                 Username is <strong>required</strong>
-            </md-error>
-        </md-input-container>
-        <md-input-container class="full-width" style="margin-bottom:20px">
-            <input mdInput placeholder="{{'login.form.password.placeholder' | translate}}" formControlName="password" type="password">
-            <md-error *ngIf="loginForm.controls.password.touched &&  loginForm.controls.password.hasError('required')">
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width" style="margin-bottom:20px">
+            <input matInput placeholder="{{'login.form.password.placeholder' | translate}}" formControlName="password" type="password">
+            <mat-error *ngIf="loginForm.controls.password.touched &&  loginForm.controls.password.hasError('required')">
                 Password is <strong>required</strong>
-            </md-error>
-        </md-input-container>
+            </mat-error>
+        </mat-form-field>
         <div style="margin-bottom:10px;position:relative">
-            <md-checkbox formControlName="rememberMe" style="font-size:13px; margin-right:10px;"><span jhiTranslate="login.form.rememberme">Remember me</span>
-            </md-checkbox>
-            <button md-raised-button color="primary" style="position:absolute; right:10px"><span jhiTranslate="login.form.button">Sign in</span></button>
+            <mat-checkbox formControlName="rememberMe" style="font-size:13px; margin-right:10px;"><span jhiTranslate="login.form.rememberme">Remember me</span>
+            </mat-checkbox>
+            <button mat-raised-button color="primary" style="position:absolute; right:10px"><span jhiTranslate="login.form.button">Sign in</span></button>
         </div>
     </form>
     <div style="margin-bottom:5px;">
@@ -45,7 +45,7 @@
         <jhi-social provider="facebook"></jhi-social>
         <jhi-social provider="twitter"></jhi-social>
     </div>
-</md-dialog-content>
+</mat-dialog-content>
 <!--<div class="modal-body">
     <div class="row">
       &lt;!&ndash;   <div class="col-12">

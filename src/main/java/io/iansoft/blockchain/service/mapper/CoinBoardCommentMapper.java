@@ -11,15 +11,17 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {CoinBoardMapper.class, UserMapper.class, })
 public interface CoinBoardCommentMapper extends EntityMapper <CoinBoardCommentDTO, CoinBoardComment> {
 
-    @Mapping(source = "coinBoard.id", target = "coinBoardId")
+    @Mappings({
+        @Mapping(source = "coinBoard.id", target = "coinBoardId"),
+        @Mapping(source = "user.id", target = "userId")
+    })
+    CoinBoardCommentDTO toDto(CoinBoardComment coinBoardComment);
 
-    @Mapping(source = "user.id", target = "userId")
-    CoinBoardCommentDTO toDto(CoinBoardComment coinBoardComment); 
-
-    @Mapping(source = "coinBoardId", target = "coinBoard")
-
-    @Mapping(source = "userId", target = "user")
-    CoinBoardComment toEntity(CoinBoardCommentDTO coinBoardCommentDTO); 
+    @Mappings({
+        @Mapping(source = "coinBoardId", target = "coinBoard"),
+        @Mapping(source = "userId", target = "user")
+    })
+    CoinBoardComment toEntity(CoinBoardCommentDTO coinBoardCommentDTO);
     default CoinBoardComment fromId(Long id) {
         if (id == null) {
             return null;

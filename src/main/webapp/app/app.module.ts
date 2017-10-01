@@ -29,7 +29,8 @@ import {
     ActiveMenuDirective,
     ErrorComponent
 } from './layouts';
-import { MdButtonModule, MdButtonToggleModule, MdIconModule, MdMenuModule, MdToolbarModule} from '@angular/material';
+import { MatButtonModule, MatButtonToggleModule, MatIconModule, MatMenuModule, MatToolbarModule,
+    MATERIAL_COMPATIBILITY_MODE} from '@angular/material';
 import { DataService } from './shared/data.service';
 
 @NgModule({
@@ -47,11 +48,11 @@ import { DataService } from './shared/data.service';
         BlockchainHelpModule,
         CoinModule,
         BrowserAnimationsModule,
-        MdIconModule,
-        MdButtonModule,
-        MdMenuModule,
-        MdToolbarModule,
-        MdButtonToggleModule,
+        MatIconModule,
+        MatButtonModule,
+        MatMenuModule,
+        MatToolbarModule,
+        MatButtonToggleModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [
@@ -67,6 +68,7 @@ import { DataService } from './shared/data.service';
         customHttpProvider(),
         PaginationConfig,
         UserRouteAccessService,
+        {provide : MATERIAL_COMPATIBILITY_MODE, useValue: true},
         DataService
     ],
     bootstrap: [ JhiMainComponent ]
