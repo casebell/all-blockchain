@@ -15,6 +15,7 @@ import { PaginationConfig } from './blocks/config/uib-pagination.config';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BlockchainHelpModule } from './help/help.module';
+import { AdsenseModule } from 'ng2-adsense';
 
 import 'hammerjs';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
@@ -53,6 +54,10 @@ import { DataService } from './shared/data.service';
         MatMenuModule,
         MatToolbarModule,
         MatButtonToggleModule,
+        AdsenseModule.forRoot({
+            adClient: 'ca-pub-3429112291996061',
+            adSlot: 7386502521,
+          })
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [

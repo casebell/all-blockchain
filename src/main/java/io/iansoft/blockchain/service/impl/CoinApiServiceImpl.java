@@ -42,7 +42,7 @@ public class CoinApiServiceImpl implements CoinApiService {
     private final BitflyerRepository bitflyerRepository;
     private final BittrexRepository bittrexRepository;
     private final CoinisRepository coinisRepository;
-    private final BitfinexRepository bitfinexRepository;
+   // private final BitfinexRepository bitfinexRepository;
 
     private final ModelMapper modelMapper;
 
@@ -55,7 +55,7 @@ public class CoinApiServiceImpl implements CoinApiService {
                               BitflyerRepository bitflyerRepository,
                               BittrexRepository bittrexRepository,
                               CoinisRepository coinisRepository,
-                              BitfinexRepository bitfinexRepository,
+                             // BitfinexRepository bitfinexRepository,
                               ModelMapper modelMapper) {
         this.bithumbRepository = bithumbRepository;
         this.korbitRepository = korbitRepository;
@@ -64,7 +64,7 @@ public class CoinApiServiceImpl implements CoinApiService {
         this.bitflyerRepository = bitflyerRepository;
         this.bittrexRepository = bittrexRepository;
         this.coinisRepository = coinisRepository;
-        this.bitfinexRepository = bitfinexRepository;
+     //   this.bitfinexRepository = bitfinexRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -72,9 +72,10 @@ public class CoinApiServiceImpl implements CoinApiService {
     @Override
     @Transactional(readOnly = true)
     public List<BithumbDataDTO> getBithumb() {
-        return bithumbRepository.findBihumbs().stream()
+        List<BithumbDataDTO> getBithumb = bithumbRepository.findBihumbs().stream()
             .map(bithumb -> modelMapper.map(bithumb,BithumbDataDTO.class))
             .collect(Collectors.toCollection(LinkedList::new));
+        return getBithumb;
     }
 
     @Override
@@ -121,9 +122,19 @@ public class CoinApiServiceImpl implements CoinApiService {
         bithumbDTOS.add(getBithumbRestLtc());
         bithumbDTOS.add(getBithumbRestEtc());
         bithumbDTOS.add(getBithumbRestBch());
+        bithumbDTOS.add(getBithumbRestZec());
         bithumbDTOS.add(getBithumbRestXmr());
         zonedDateTime = ZonedDateTime.now();
         bithumbDTOS.forEach(this::saveBithumb);
+
+        List<Bithumb> bithumbs = bithumbRepository.findAll();
+
+        for(Bithumb bithumb : bithumbs)
+        {
+
+            log.debug(String.valueOf(bithumb.getId()));
+            log.debug(String.valueOf(bithumb.getClosing_price()));
+        }
 
         List<KorbitDTO> korbitDTOS = new ArrayList();
         korbitDTOS.add(getKorbitRestBtc());
@@ -149,7 +160,7 @@ public class CoinApiServiceImpl implements CoinApiService {
 
         getCoinis().forEach(this::saveCoinis);
 
-        getBitfinex().forEach(this::saveBitfinex);
+       // getBitfinex().forEach(this::saveBitfinex);
 
     }
 
@@ -203,12 +214,12 @@ public class CoinApiServiceImpl implements CoinApiService {
         coinisRepository.save(coinis);
     }
 
-  private void saveBitfinex(BitfinexDTO bitfinexDTO) {
+/*   private void saveBitfinex(BitfinexDTO bitfinexDTO) {
         Bitfinex bitfinex = modelMapper.map(bitfinexDTO, Bitfinex.class);
         bitfinex.setCreatedat(zonedDateTime);
         bitfinexRepository.save(bitfinex);
     }
-
+ */
 
     private KorbitDTO getKorbitRestBtc() {
         return getKorbitDTO("btc_krw");
@@ -344,7 +355,7 @@ public class CoinApiServiceImpl implements CoinApiService {
         return coinisDTOs;
     }
 
-    private List<BitfinexDTO> getBitfinex() {
+   /*  private List<BitfinexDTO> getBitfinex() {
         List<BitfinexDTO> bitfinexDTOs = new ArrayList();
 
         bitfinexDTOs.add(getBitfinexRest("btcusd"));
@@ -358,7 +369,7 @@ public class CoinApiServiceImpl implements CoinApiService {
         bitfinexDTOs.add(getBitfinexRest("xmrusd"));
 
         return bitfinexDTOs;
-    }
+    } */
 
     private KrakenDTO getKrakenRest(String market) {
 
@@ -396,7 +407,7 @@ public class CoinApiServiceImpl implements CoinApiService {
         }
         return krakenDTO ;
     }
-
+/* 
     private BitfinexDTO getBitfinexRest(String market) {
 
         RestTemplate restTemplate = new RestTemplate();
@@ -433,7 +444,7 @@ public class CoinApiServiceImpl implements CoinApiService {
 
         return bitfinexDTO ;
     }
-
+ */
 
     private CoinisDTO getCoinisRest(String market) {
 
@@ -522,8 +533,25 @@ public class CoinApiServiceImpl implements CoinApiService {
 
     private BitflyerDTO getBitflyerResBtc() {
         RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.valueOf("text/plain;charset=utf-8"));
+        headers.add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
+        HttpEntity<String> entity = new HttpEntity<String>("", headers);
+        ResponseEntity<String> bitflyerRes = restTemplate
+            .exchange("https://api.bitflyer.jp/v1/ticker", HttpMethod.GET, entity, String.class);
+
+        ObjectMapper mapper = new ObjectMapper();
+        BitflyerDTO bitflyerDTO = new BitflyerDTO();
+        try {
+            bitflyerDTO = mapper.readValue(bitflyerRes.getBody(), BitflyerDTO.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        /*
+        RestTemplate restTemplate = new RestTemplate();
         BitflyerDTO bitflyerDTO = restTemplate
-            .getForObject("https://api.bitflyer.jp/v1/ticker", BitflyerDTO.class);
+            .getForObject("https://api.bitflyer.jp/v1/ticker", BitflyerDTO.class);*/
         bitflyerDTO.setSymbol(BTC_SYMBOL);
         return bitflyerDTO;
     }
@@ -593,6 +621,14 @@ public class CoinApiServiceImpl implements CoinApiService {
         BithumbDTO bithumbDTO = restTemplate
             .getForObject("https://api.bithumb.com/public/ticker/xmr", BithumbDTO.class);
         bithumbDTO.getData().setSymbol(XMR_SYMBOL);
+        return bithumbDTO;
+    }
+
+    private BithumbDTO getBithumbRestZec() {
+        RestTemplate restTemplate = new RestTemplate();
+        BithumbDTO bithumbDTO = restTemplate
+            .getForObject("https://api.bithumb.com/public/ticker/zec", BithumbDTO.class);
+        bithumbDTO.getData().setSymbol(ZEC_SYMBOL);
         return bithumbDTO;
     }
 }

@@ -215,6 +215,10 @@
   version "6.0.84"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.84.tgz#193ffe5a9f42864d425ffd9739d95b753c6a1eab"
 
+"@types/pusher-js@^3.0.29":
+  version "3.0.29"
+  resolved "https://registry.yarnpkg.com/@types/pusher-js/-/pusher-js-3.0.29.tgz#c2d798a46a784799a236bb3aea396e165c53ec30"
+
 "@types/q@^0.0.32":
   version "0.0.32"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-0.0.32.tgz#bd284e57c84f1325da702babfc82a5328190c0c5"
@@ -2798,6 +2802,12 @@ fastseries@^1.7.0:
     reusify "^1.0.0"
     xtend "^4.0.0"
 
+faye-websocket@0.9.4:
+  version "0.9.4"
+  resolved "https://registry.yarnpkg.com/faye-websocket/-/faye-websocket-0.9.4.tgz#885934c79effb0409549e0c0a3801ed17a40cdad"
+  dependencies:
+    websocket-driver ">=0.5.1"
+
 faye-websocket@^0.10.0:
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/faye-websocket/-/faye-websocket-0.10.0.tgz#4e492f8d04dfb6f89003507f6edbf2d501e7c6f4"
@@ -5318,6 +5328,10 @@ ng-jhipster@0.2.12:
     "@ngx-translate/core" "7.0.0"
     "@ngx-translate/http-loader" "0.1.0"
 
+ng2-adsense@^4.0.12:
+  version "4.0.12"
+  resolved "https://registry.yarnpkg.com/ng2-adsense/-/ng2-adsense-4.0.12.tgz#1fcd82eab12dc7a7dd4f73ae91867cd63e7aaefa"
+
 ng2-webstorage@1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/ng2-webstorage/-/ng2-webstorage-1.8.0.tgz#02bac5f29cecc2b7a4dfea17d9cebc720edf6b49"
@@ -6411,6 +6425,13 @@ puppeteer@0.10.2:
     proxy-from-env "^1.0.0"
     rimraf "^2.6.1"
     ws "^3.0.0"
+
+pusher-js@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/pusher-js/-/pusher-js-4.2.1.tgz#7c10e2f981b8ed4390c1cbed448eb5c0967aaa22"
+  dependencies:
+    faye-websocket "0.9.4"
+    xmlhttprequest "^1.8.0"
 
 q@1.4.1:
   version "1.4.1"
@@ -8773,6 +8794,10 @@ xmldom@^0.1.19, xmldom@^0.1.22:
 xmlhttprequest-ssl@1.5.3:
   version "1.5.3"
   resolved "https://registry.yarnpkg.com/xmlhttprequest-ssl/-/xmlhttprequest-ssl-1.5.3.tgz#185a888c04eca46c3e4070d99f7b49de3528992d"
+
+xmlhttprequest@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/xmlhttprequest/-/xmlhttprequest-1.8.0.tgz#67fe075c5c24fef39f9d65f5f7b7fe75171968fc"
 
 xtend@^4.0.0, xtend@^4.0.1, xtend@~4.0.0, xtend@~4.0.1:
   version "4.0.1"

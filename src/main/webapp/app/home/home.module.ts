@@ -8,7 +8,8 @@ import { MatGridListModule, MatIconModule, MatSelectModule, MatTabsModule } from
 import { CoinPriceRowComponent } from './coin-price/coin-price-row/coin-price-row.component';
 import { ExchangeRateService } from './coin-price/coin-price-row/exchange-rate.service';
 import { ExchangeRateComponent } from './exchange-rate/exchange-rate.component';
-import { WebsocketService } from '../shared/websocket.service';
+import { BitfinexWebsocketService } from './coin-price/bitfinex-websocket.service';
+import { PuserService } from './coin-price/pusher.service';
 
 
 @NgModule({
@@ -30,8 +31,9 @@ import { WebsocketService } from '../shared/websocket.service';
     ],
     providers: [
         CoinPriceService,
-        WebsocketService,
-        ExchangeRateService
+        BitfinexWebsocketService,
+        ExchangeRateService,
+        PuserService,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
