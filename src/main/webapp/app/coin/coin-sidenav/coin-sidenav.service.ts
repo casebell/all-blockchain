@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { API_SERVER_URL } from '../../app.constants';
+import { SERVER_API_URL } from '../../app.constants';
 import { Observable } from 'rxjs/Observable';
-import { DataSource } from '@angular/cdk';
 import { Coin } from '../../model/coin.model';
+import { DataSource } from '@angular/cdk/collections';
 
 @Injectable()
 export class CoinSidenavService {
 
-  private resourceUrl = API_SERVER_URL;
+  private resourceUrl = SERVER_API_URL;
 
   constructor(private http: HttpClient) {
 

@@ -2,3 +2,7 @@
 <abc-coin-sidenav></abc-coin-sidenav>
 <router-outlet></router-outlet>
 </div>
+<button mat-raised-button class="side-nav-close-button"
+        *ngIf="closeButton" (click)="sideNaveOpenButton()">
+    <span jhiTranslate="global.open">Open</span>
+</button>

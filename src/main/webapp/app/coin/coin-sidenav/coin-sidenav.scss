@@ -3,7 +3,7 @@
     // border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
-md-sidenav {
+mat-sidenav {
     width: 150px;
     display: flex;
     overflow: visible;
@@ -34,7 +34,7 @@ button {
     justify-content: space-between;
 }
 
-.mat-input-container {
+.mat-form-field {
     font-size: 14px;
     flex-grow: 1;
     margin: 0 15px;

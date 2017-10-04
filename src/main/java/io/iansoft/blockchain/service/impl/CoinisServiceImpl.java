@@ -5,7 +5,7 @@ import io.iansoft.blockchain.domain.Coinis;
 import io.iansoft.blockchain.repository.CoinisRepository;
 import io.iansoft.blockchain.repository.search.CoinisSearchRepository;
 import io.iansoft.blockchain.service.dto.CoinisDTO;
-import io.iansoft.blockchain.service.mapper.CoinisMapper;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -29,14 +29,15 @@ public class CoinisServiceImpl implements CoinisService{
 
     private final CoinisRepository coinisRepository;
 
-    private final CoinisMapper coinisMapper;
-
     private final CoinisSearchRepository coinisSearchRepository;
 
-    public CoinisServiceImpl(CoinisRepository coinisRepository, CoinisMapper coinisMapper, CoinisSearchRepository coinisSearchRepository) {
+    private final ModelMapper modelMapper;
+
+    public CoinisServiceImpl(CoinisRepository coinisRepository,
+                             CoinisSearchRepository coinisSearchRepository, ModelMapper modelMapper) {
         this.coinisRepository = coinisRepository;
-        this.coinisMapper = coinisMapper;
         this.coinisSearchRepository = coinisSearchRepository;
+        this.modelMapper = modelMapper;
     }
 
 
@@ -44,7 +45,7 @@ public class CoinisServiceImpl implements CoinisService{
     @Transactional(readOnly = true)
     public List<CoinisDTO> getCoinis() {
         return coinisRepository.findCoinis().stream()
-            .map(coinisMapper::toDto)
+            .map( coinis -> modelMapper.map(coinis,CoinisDTO.class))
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
@@ -57,9 +58,9 @@ public class CoinisServiceImpl implements CoinisService{
     @Override
     public CoinisDTO save(CoinisDTO coinisDTO) {
         log.debug("Request to save Coinis : {}", coinisDTO);
-        Coinis coinis = coinisMapper.toEntity(coinisDTO);
+        Coinis coinis = modelMapper.map(coinisDTO, Coinis.class);
         coinis = coinisRepository.save(coinis);
-        CoinisDTO result = coinisMapper.toDto(coinis);
+        CoinisDTO result = modelMapper.map(coinis, CoinisDTO.class);
         coinisSearchRepository.save(coinis);
         return result;
     }
@@ -74,7 +75,7 @@ public class CoinisServiceImpl implements CoinisService{
     public List<CoinisDTO> findAll() {
         log.debug("Request to get all Coinis");
         return coinisRepository.findAll().stream()
-            .map(coinisMapper::toDto)
+            .map(coinis -> modelMapper.map(coinis,CoinisDTO.class))
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
@@ -89,7 +90,7 @@ public class CoinisServiceImpl implements CoinisService{
     public CoinisDTO findOne(Long id) {
         log.debug("Request to get Coinis : {}", id);
         Coinis coinis = coinisRepository.findOne(id);
-        return coinisMapper.toDto(coinis);
+        return modelMapper.map(coinis, CoinisDTO.class);
     }
 
     /**
@@ -116,7 +117,7 @@ public class CoinisServiceImpl implements CoinisService{
         log.debug("Request to search Coinis for query {}", query);
         return StreamSupport
             .stream(coinisSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(coinisMapper::toDto)
+            .map( coinis -> modelMapper.map(coinis,CoinisDTO.class))
             .collect(Collectors.toList());
     }
 }

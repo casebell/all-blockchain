@@ -25,6 +25,7 @@
         "coinis": "Coinis",
         "yunbi": "Yunbi",
         "bitfinex": "Bitfinex",
+        "bitstamp": "Bitstamp",
         "coin": "Coin",
         "exchange-rate":"Exchange Rate",
         "aboutMarket": "This price using the yahoo finance API and each market api."

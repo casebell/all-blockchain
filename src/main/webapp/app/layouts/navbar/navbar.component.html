@@ -1,189 +1,210 @@
-<md-toolbar color="primary" class="desktop">
+<mat-toolbar color="primary" class="desktop">
 
-    <button md-button routerLink="/">
-            <md-icon>home</md-icon>
-            <span jhiTranslate="global.title">All Blockchain</span></button>
+    <button mat-button routerLink="/">
+            <mat-icon>home</mat-icon>
+            <span jhiTranslate="global.title">All Blockchain</span>
+    </button>
+<!--
+  <button mat-button  routerLink="coin/home"><span jhiTranslate="navbar.coin.title">coin</span></button>
 
-  <button md-button><span jhiTranslate="navbar.coin.title">coin</span></button>
-    <button md-button *jhiHasAnyAuthority="'ROLE_ADMIN'" [mdMenuTriggerFor]="adminMenu">
+    <button mat-button *jhiHasAnyAuthority="'ROLE_ADMIN'" [matMenuTriggerFor]="adminMenu">
         Admin
     </button>
 
-    <md-menu #adminMenu="mdMenu">
-        <button md-menu-item routerLink="user-management" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    <mat-menu #adminMenu="matMenu">
+        <button mat-menu-item routerLink="user-management" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                     <span jhiTranslate="global.menu.admin.userManagement">User management</span>
                 </button>
-        <button md-menu-item routerLink="jhi-metrics" routerLinkActive="active">
+        <button mat-menu-item routerLink="jhi-metrics" routerLinkActive="active">
                     <span jhiTranslate="global.menu.admin.metrics">Metrics</span>
                 </button>
 
-        <button md-menu-item outerLink="jhi-health" routerLinkActive="active">
+        <button mat-menu-item outerLink="jhi-health" routerLinkActive="active">
                     <span jhiTranslate="global.menu.admin.health">Health</span>
                 </button>
-        <button md-menu-item routerLink="jhi-configuration" routerLinkActive="active">
+        <button mat-menu-item routerLink="jhi-configuration" routerLinkActive="active">
                     <span jhiTranslate="global.menu.admin.configuration">Configuration</span>
                 </button>
-        <button md-menu-item routerLink="audits" routerLinkActive="active">
+        <button mat-menu-item routerLink="audits" routerLinkActive="active">
                     <span jhiTranslate="global.menu.admin.audits">Audits</span>
                 </button>
-        <button md-menu-item routerLink="logs" routerLinkActive="active">
+        <button mat-menu-item routerLink="logs" routerLinkActive="active">
                     <span jhiTranslate="global.menu.admin.logs">Audits</span>
                 </button>
-        <button md-menu-item routerLink="docs" routerLinkActive="active">
+        <button mat-menu-item routerLink="docs" routerLinkActive="active">
                     <span jhiTranslate="global.menu.admin.apidocs">API</span>
                 </button>
-        <button md-menu-item href='./h2-console' target="_tab" routerLinkActive="active">
+        <button mat-menu-item href='./h2-console' target="_tab" routerLinkActive="active">
                 <span jhiTranslate="global.menu.admin.database">Database</span>
                 </button>
-    </md-menu>
+    </mat-menu>
 
-    <button md-button *jhiHasAnyAuthority="'ROLE_ADMIN'" [mdMenuTriggerFor]="entityMenu">
+    <button mat-button *jhiHasAnyAuthority="'ROLE_ADMIN'" [matMenuTriggerFor]="entityMenu">
                 Entity
             </button>
 
-    <md-menu #entityMenu="mdMenu">
-        <button md-menu-item routerLink="coin-block-chain-info" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    <mat-menu #entityMenu="matMenu">
+        <button mat-menu-item routerLink="coin-block-chain-info" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                             <span >Coin </span>
                     </button>
-        <button md-menu-item routerLink="coin-board-block-chain-info" routerLinkActive="active">
+        <button mat-menu-item routerLink="coin-board-block-chain-info" routerLinkActive="active">
                             <span>Coin-Board</span>
                     </button>
-        <button md-menu-item routerLink="coin-board-comment-block-chain-info" routerLinkActive="active">
+        <button mat-menu-item routerLink="coin-board-comment-block-chain-info" routerLinkActive="active">
                             <span>Coin Board Comment</span>
                     </button>
-        <button md-menu-item routerLink="resource-block-chain-info" routerLinkActive="active">
+        <button mat-menu-item routerLink="resource-block-chain-info" routerLinkActive="active">
                            <span >Resource</span>
                     </button>
-    </md-menu>
+    </mat-menu>
 
     <span class="fill-remaining-space"></span>
-    <button md-button [mdMenuTriggerFor]="accountMenu">
+
+   <button mat-button [matMenuTriggerFor]="accountMenu">
             <span jhiTranslate="navbar.account.title">account</span>
         </button>
 
-    <md-menu #accountMenu="mdMenu" [ngSwitch]="isAuthenticated()">
-        <button md-menu-item (click)="logout()" *ngSwitchCase="true">
+    <mat-menu #accountMenu="matMenu" [ngSwitch]="isAuthenticated()">
+        <button mat-menu-item (click)="logout()" *ngSwitchCase="true">
                 <span jhiTranslate="navbar.account.logout">로그아웃</span>
             </button>
-        <button md-menu-item (click)="login()" *ngSwitchCase="false">
+        <button mat-menu-item (click)="login()" *ngSwitchCase="false">
                 <span jhiTranslate="navbar.account.login">로그인</span>
             </button>
-        <button *ngSwitchCase="false" md-menu-item routerLink="register" routerLinkActive="active">
+        <button *ngSwitchCase="false" mat-menu-item routerLink="register" routerLinkActive="active">
                 <span jhiTranslate="navbar.account.register">회원가입</span>
             </button>
-        <button *ngSwitchCase="true" md-menu-item routerLink="settings" routerLinkActive="active">
+        <button *ngSwitchCase="true" mat-menu-item routerLink="settings" routerLinkActive="active">
             <span jhiTranslate="global.menu.account.settings">Settings</span>
             </button>
-        <button *ngSwitchCase="true" md-menu-item routerLink="password" routerLinkActive="active">
+        <button *ngSwitchCase="true" mat-menu-item routerLink="password" routerLinkActive="active">
             <span jhiTranslate="global.menu.account.password">Password</span>
             </button>
-    </md-menu>
+    </mat-menu>-->
 
 
-
-    <button md-button [mdMenuTriggerFor]="languageMenu" style="margin-left:auto">
-             <md-icon>language</md-icon><span jhiTranslate="navbar.language">language</span>
+    <button mat-button [matMenuTriggerFor]="languageMenu" style="margin-left:auto">
+             <mat-icon>language</mat-icon><span jhiTranslate="navbar.language">language</span>
         </button>
-    <md-menu #languageMenu="mdMenu">
-        <button md-menu-item *ngFor="let language of languages" (click)="changeLanguage(language)">
+    <mat-menu #languageMenu="matMenu">
+        <button mat-menu-item *ngFor="let language of languages" (click)="changeLanguage(language)">
           {{language | findLanguageFromKey}}
         </button>
-    </md-menu>
-    <!--   <button md-button [mdMenuTriggerFor]="menu" fxHide="false" fxHide.gt-sm>
-           <md-icon>menu</md-icon>
+    </mat-menu>
+    <!--   <button mat-button [matMenuTriggerFor]="menu" fxHide="false" fxHide.gt-sm>
+           <mat-icon>menu</mat-icon>
        </button>-->
-
-</md-toolbar>
+</mat-toolbar>
 
 
 
 
 <!--mobile -->
 
-<md-toolbar color="primary" [ngSwitch]="isAuthenticated()" class="mobile">
-    <button md-button (click)="clickMenuIcon()" class="mobile-menu-button">
-        <md-icon>menu</md-icon>
+<mat-toolbar color="primary" [ngSwitch]="isAuthenticated()" class="mobile">
+
+    <!-- home -->
+    <button mat-button routerLink="/">
+        <mat-icon>home</mat-icon>
     </button>
+
+    <!-- coins-->
+    <!--
+    <button mat-button routerLink="coin/home">
+        <span jhiTranslate="navbar.coin.title">Coin</span>
+    </button>
+-->
+    <span class="fill-remaining-space"></span>
+
+
+    <!--language -->
+    <button mat-button [matMenuTriggerFor]="languageMenuMobile" class="mobile-button">
+        <mat-icon>language</mat-icon>
+    </button>
+    <mat-menu #languageMenuMobile="matMenu">
+        <button mat-menu-item *ngFor="let language of languages" (click)="changeLanguage(language)">
+            {{language | findLanguageFromKey}}
+        </button>
+    </mat-menu>
+
+</mat-toolbar>
+    <!--<button mat-button (click)="clickMenuIcon()" class="mobile-menu-button">
+        <mat-icon>menu</mat-icon>
+    </button>-->
    <!-- <span jhiTranslate="global.title" routerLink="/">All Blockchain</span>
     &lt;!&ndash; This fills the remaining space of the current row &ndash;&gt;
     <span class="fill-remaining-space"></span>
-    <button md-button [mdMenuTriggerFor]="accountMenuMobile" class="mobile-button">
+    <button mat-button [matMenuTriggerFor]="accountMenuMobile" class="mobile-button">
         <span jhiTranslate="navbar.account.title">account</span>
     </button>
 
-    <md-menu #accountMenuMobile="mdMenu" [ngSwitch]="isAuthenticated()">
-        <button md-menu-item (click)="logout()" *ngSwitchCase="true">
+    <mat-menu #accountMenuMobile="matMenu" [ngSwitch]="isAuthenticated()">
+        <button mat-menu-item (click)="logout()" *ngSwitchCase="true">
             <span jhiTranslate="navbar.account.logout">로그아웃</span>
         </button>
-        <button md-menu-item (click)="login()" *ngSwitchCase="false">
+        <button mat-menu-item (click)="login()" *ngSwitchCase="false">
             <span jhiTranslate="navbar.account.login">로그인</span>
         </button>
-        <button *ngSwitchCase="false" md-menu-item routerLink="register" routerLinkActive="active">
+        <button *ngSwitchCase="false" mat-menu-item routerLink="register" routerLinkActive="active">
             <span jhiTranslate="navbar.account.register">회원가입</span>
         </button>
-        <button *ngSwitchCase="true" md-menu-item routerLink="settings" routerLinkActive="active">
+        <button *ngSwitchCase="true" mat-menu-item routerLink="settings" routerLinkActive="active">
             <span jhiTranslate="global.menu.account.settings">Settings</span>
             </button>
-        <button *ngSwitchCase="true" md-menu-item routerLink="password" routerLinkActive="active">
+        <button *ngSwitchCase="true" mat-menu-item routerLink="password" routerLinkActive="active">
             <span jhiTranslate="global.menu.account.password">Password</span>
             </button>
 
-    </md-menu>-->
-    <!--  <md-icon>language</md-icon>
+    </mat-menu>-->
+    <!--  <mat-icon>language</mat-icon>
         <span jhiTranslate="navbar.language">Language</span> -->
-    <button md-button [mdMenuTriggerFor]="languageMenuMobile" class="mobile-button">
-            <md-icon>language</md-icon>
-        </button>
-    <md-menu #languageMenuMobile="mdMenu">
-        <button md-menu-item *ngFor="let language of languages" (click)="changeLanguage(language)">
-              {{language | findLanguageFromKey}}
-            </button>
-    </md-menu>
-    <!-- <md-toolbar-row *ngIf="languageState =='rotated'">
-          <button md-button (click)="changeLanguage(language)" *ngFor="let language of languages">
+
+
+    <!-- <mat-toolbar-row *ngIf="languageState =='rotated'">
+          <button mat-button (click)="changeLanguage(language)" *ngFor="let language of languages">
           {{language | findLanguageFromKey}}
         </button>
-    </md-toolbar-row> -->
-    <!--  <md-toolbar-row *ngIf="checkMenu">
+    </mat-toolbar-row> -->
+    <!--  <mat-toolbar-row *ngIf="checkMenu">
         <span jhiTranslate="navbar.coin.title">Coin</span>
-        <button md-button (click)="rotate('coinState')">
-            <md-icon  [@toolbarIcon]='coinState' >keyboard_arrow_right</md-icon>
+        <button mat-button (click)="rotate('coinState')">
+            <mat-icon  [@toolbarIcon]='coinState' >keyboard_arrow_right</mat-icon>
         </button>
-    </md-toolbar-row>
-    <md-toolbar-row *ngIf="checkMenu">
+    </mat-toolbar-row>
+    <mat-toolbar-row *ngIf="checkMenu">
         <span jhiTranslate="navbar.account.title">account</span>
-        <button md-button (click)="rotate('accountState')">
-            <md-icon  [@toolbarIcon]='accountState' >keyboard_arrow_right</md-icon>
+        <button mat-button (click)="rotate('accountState')">
+            <mat-icon  [@toolbarIcon]='accountState' >keyboard_arrow_right</mat-icon>
         </button>
-    </md-toolbar-row>
-    <md-toolbar-row *ngIf="accountState =='rotated' && this.principal.isAuthenticated()">
-           <button md-button (click)="logout()" >
+    </mat-toolbar-row>
+    <mat-toolbar-row *ngIf="accountState =='rotated' && this.principal.isAuthenticated()">
+           <button mat-button (click)="logout()" >
                 <span jhiTranslate="navbar.account.logout">로그아웃</span>
             </button>
-    </md-toolbar-row>
-      <md-toolbar-row *ngIf="accountState =='rotated' && !this.principal.isAuthenticated()">
-        <button md-button (click)="login()" >
+    </mat-toolbar-row>
+      <mat-toolbar-row *ngIf="accountState =='rotated' && !this.principal.isAuthenticated()">
+        <button mat-button (click)="login()" >
                 <span jhiTranslate="navbar.account.login">로그인</span>
         </button>
-    </md-toolbar-row>
-      <md-toolbar-row *ngIf="accountState =='rotated' && !this.principal.isAuthenticated()">
-            <button md-button routerLink="register" routerLinkActive="active">
+    </mat-toolbar-row>
+      <mat-toolbar-row *ngIf="accountState =='rotated' && !this.principal.isAuthenticated()">
+            <button mat-button routerLink="register" routerLinkActive="active">
                 <span jhiTranslate="navbar.account.register">회원가입</span>
             </button>
-    </md-toolbar-row> -->
+    </mat-toolbar-row> -->
 
-    <!--<md-toolbar-row>
+    <!--<mat-toolbar-row>
        <span>Third Line</span>
        <span class="example-spacer"></span>
-       <md-icon class="example-icon">favorite</md-icon>
-       <md-icon class="example-icon">delete</md-icon>
-   </md-toolbar-row>-->
-</md-toolbar>
-<!--<md-menu x-position="before" #menu="mdMenu">
-    <button md-menu-item >Products</button>
-    <button md-menu-item >Dashboard</button>
-    &lt;!&ndash;<button md-menu-item>Help</button>&ndash;&gt;
-</md-menu>-->
+       <mat-icon class="example-icon">favorite</mat-icon>
+       <mat-icon class="example-icon">delete</mat-icon>
+   </mat-toolbar-row>-->
+
+<!--<mat-menu x-position="before" #menu="matMenu">
+    <button mat-menu-item >Products</button>
+    <button mat-menu-item >Dashboard</button>
+    &lt;!&ndash;<button mat-menu-item>Help</button>&ndash;&gt;
+</mat-menu>-->
 <!--
 <nav class="navbar navbar-inverse navbar-toggleable-md jh-navbar">
     <div class="jh-logo-container float-left">

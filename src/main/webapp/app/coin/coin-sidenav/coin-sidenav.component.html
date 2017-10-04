@@ -1,27 +1,30 @@
-<md-sidenav-container class="coin-sidenav-container">
-    <md-sidenav #sidenav opened="true" mode="side">
+<mat-sidenav-container class="coin-sidenav-container">
+    <mat-sidenav #sidenav opened="true" mode="side">
 
-      <div class="coin-sidenav-scrolling-content">
-          <div class="example-container">
-          <div class="example-header">
-              <!--  <md-input-container floatPlaceholder="never">
-                  <input mdInput #filter placeholder="Filter users">
-                </md-input-container>-->
-              <button md-raised-button (click)="sidenav.toggle()"><span>닫기</span></button>
-              </div>
+        <div class="coin-sidenav-scrolling-content">
+            <div class="example-container">
+                <div class="example-header">
+                    <!--  <mat-form-field floatPlaceholder="never">
+                        <input matInput #filter placeholder="Filter users">
+                      </mat-form-field>-->
+                    <button mat-raised-button (click)="sideNavCloseButton()">
+                       <!--<span jhiTranslate="global.close">Close</span>-->
+                        <mat-icon>menu</mat-icon>
+                    </button>
+                </div>
 
-              <md-table #table [dataSource]="dataSource">
+                <mat-table #table [dataSource]="dataSource">
 
-                <!-- name -->
-                <ng-container cdkColumnDef="name">
-                  <md-header-cell *cdkHeaderCellDef> ID </md-header-cell>
-                  <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
-                </ng-container>
+                    <!-- name -->
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{row.name}}</mat-cell>
+                    </ng-container>
 
-                <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
-                <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
-              </md-table>
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
             </div>
-      </div>
-    </md-sidenav>
-</md-sidenav-container>
+        </div>
+    </mat-sidenav>
+</mat-sidenav-container>

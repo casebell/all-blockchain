@@ -5,7 +5,7 @@ import io.iansoft.blockchain.domain.Resource;
 import io.iansoft.blockchain.repository.ResourceRepository;
 import io.iansoft.blockchain.repository.search.ResourceSearchRepository;
 import io.iansoft.blockchain.service.dto.ResourceDTO;
-import io.iansoft.blockchain.service.mapper.ResourceMapper;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -29,13 +29,13 @@ public class ResourceServiceImpl implements ResourceService{
 
     private final ResourceRepository resourceRepository;
 
-    private final ResourceMapper resourceMapper;
+    private final ModelMapper modelMapper;
 
     private final ResourceSearchRepository resourceSearchRepository;
 
-    public ResourceServiceImpl(ResourceRepository resourceRepository, ResourceMapper resourceMapper, ResourceSearchRepository resourceSearchRepository) {
+    public ResourceServiceImpl(ResourceRepository resourceRepository, ModelMapper modelMapper, ResourceSearchRepository resourceSearchRepository) {
         this.resourceRepository = resourceRepository;
-        this.resourceMapper = resourceMapper;
+        this.modelMapper = modelMapper;
         this.resourceSearchRepository = resourceSearchRepository;
     }
 
@@ -48,9 +48,9 @@ public class ResourceServiceImpl implements ResourceService{
     @Override
     public ResourceDTO save(ResourceDTO resourceDTO) {
         log.debug("Request to save Resource : {}", resourceDTO);
-        Resource resource = resourceMapper.toEntity(resourceDTO);
+        Resource resource = modelMapper.map(resourceDTO, Resource.class);
         resource = resourceRepository.save(resource);
-        ResourceDTO result = resourceMapper.toDto(resource);
+        ResourceDTO result = modelMapper.map(resource, ResourceDTO.class);
         resourceSearchRepository.save(resource);
         return result;
     }
@@ -65,7 +65,7 @@ public class ResourceServiceImpl implements ResourceService{
     public List<ResourceDTO> findAll() {
         log.debug("Request to get all Resources");
         return resourceRepository.findAll().stream()
-            .map(resourceMapper::toDto)
+            .map(resource -> modelMapper.map(resource,ResourceDTO.class))
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
@@ -80,7 +80,7 @@ public class ResourceServiceImpl implements ResourceService{
     public ResourceDTO findOne(Long id) {
         log.debug("Request to get Resource : {}", id);
         Resource resource = resourceRepository.findOne(id);
-        return resourceMapper.toDto(resource);
+        return modelMapper.map(resource, ResourceDTO.class);
     }
 
     /**
@@ -107,7 +107,7 @@ public class ResourceServiceImpl implements ResourceService{
         log.debug("Request to search Resources for query {}", query);
         return StreamSupport
             .stream(resourceSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(resourceMapper::toDto)
+            .map(resource -> modelMapper.map(resource,ResourceDTO.class))
             .collect(Collectors.toList());
     }
 }

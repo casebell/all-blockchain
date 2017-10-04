@@ -7,7 +7,7 @@ import io.iansoft.blockchain.repository.BitfinexRepository;
 import io.iansoft.blockchain.service.BitfinexService;
 import io.iansoft.blockchain.repository.search.BitfinexSearchRepository;
 import io.iansoft.blockchain.service.dto.BitfinexDTO;
-import io.iansoft.blockchain.service.mapper.BitfinexMapper;
+import io.iansoft.blockchain.service.mapper.mapstruct.BitfinexMastruct;
 import io.iansoft.blockchain.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -69,7 +69,7 @@ public class BitfinexResourceIntTest {
     private BitfinexRepository bitfinexRepository;
 
     @Autowired
-    private BitfinexMapper bitfinexMapper;
+    private BitfinexMastruct bitfinexMapper;
 
     @Autowired
     private BitfinexService bitfinexService;

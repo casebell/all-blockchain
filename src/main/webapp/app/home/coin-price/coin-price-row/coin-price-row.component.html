@@ -1,12 +1,12 @@
-<md-grid-list [cols]="colsNum" rowHeight="60px">
-    <md-grid-tile *ngIf="colsNum==12" >{{coinRow?.market}}</md-grid-tile>
-    <md-grid-tile *ngFor="let coin of coinRow?.coins">
+<mat-grid-list [cols]="colsNum" rowHeight="60px">
+    <mat-grid-tile *ngIf="colsNum==12" >{{coinRow?.market}}</mat-grid-tile>
+    <mat-grid-tile *ngFor="let coin of coinRow?.coins">
         <div [ngSwitch]="true">
             <div *ngSwitchCase="coin?.diff>0" class="price-inc"  [@valueUpdated]>
                 <p> {{coin?.price | currencyExchange :{myCurrency:myCurrency,currency:coinRow.currencies,exchangeRate:exchangeRate} }}
                 </p>
                 <p class="diff">
-                    <!-- <md-icon class="material-icons">arrow_drop_up</md-icon> -->
+                    <!-- <mat-icon class="material-icons">arrow_drop_up</mat-icon> -->
                    ▲ {{coin?.diff|currencyExchange :{myCurrency:myCurrency,currency:coinRow.currencies,exchangeRate:exchangeRate} }}
                 </p>
                 <p class="diff">
@@ -26,7 +26,7 @@
                  </p>
                 <!-- ▼ -->
                 <p class="diff">
-                   <!--  <md-icon class="material-icons">arrow_drop_down</md-icon> -->
+                   <!--  <mat-icon class="material-icons">arrow_drop_down</mat-icon> -->
                    ▼
                     {{coin?.diff|currencyExchange :{myCurrency:myCurrency,currency:coinRow.currencies,exchangeRate:exchangeRate} }}
                 </p>
@@ -35,5 +35,5 @@
                  </p>
             </div>
         </div>
-    </md-grid-tile>
-</md-grid-list>
+    </mat-grid-tile>
+</mat-grid-list>

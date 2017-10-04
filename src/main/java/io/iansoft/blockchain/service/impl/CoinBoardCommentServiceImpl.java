@@ -5,7 +5,7 @@ import io.iansoft.blockchain.domain.CoinBoardComment;
 import io.iansoft.blockchain.repository.CoinBoardCommentRepository;
 import io.iansoft.blockchain.repository.search.CoinBoardCommentSearchRepository;
 import io.iansoft.blockchain.service.dto.CoinBoardCommentDTO;
-import io.iansoft.blockchain.service.mapper.CoinBoardCommentMapper;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -26,15 +26,13 @@ public class CoinBoardCommentServiceImpl implements CoinBoardCommentService{
     private final Logger log = LoggerFactory.getLogger(CoinBoardCommentServiceImpl.class);
 
     private final CoinBoardCommentRepository coinBoardCommentRepository;
-
-    private final CoinBoardCommentMapper coinBoardCommentMapper;
-
     private final CoinBoardCommentSearchRepository coinBoardCommentSearchRepository;
+    private final ModelMapper modelMapper;
 
-    public CoinBoardCommentServiceImpl(CoinBoardCommentRepository coinBoardCommentRepository, CoinBoardCommentMapper coinBoardCommentMapper, CoinBoardCommentSearchRepository coinBoardCommentSearchRepository) {
+    public CoinBoardCommentServiceImpl(CoinBoardCommentRepository coinBoardCommentRepository, CoinBoardCommentSearchRepository coinBoardCommentSearchRepository, ModelMapper modelMapper) {
         this.coinBoardCommentRepository = coinBoardCommentRepository;
-        this.coinBoardCommentMapper = coinBoardCommentMapper;
         this.coinBoardCommentSearchRepository = coinBoardCommentSearchRepository;
+        this.modelMapper = modelMapper;
     }
 
     /**
@@ -46,9 +44,9 @@ public class CoinBoardCommentServiceImpl implements CoinBoardCommentService{
     @Override
     public CoinBoardCommentDTO save(CoinBoardCommentDTO coinBoardCommentDTO) {
         log.debug("Request to save CoinBoardComment : {}", coinBoardCommentDTO);
-        CoinBoardComment coinBoardComment = coinBoardCommentMapper.toEntity(coinBoardCommentDTO);
+        CoinBoardComment coinBoardComment = modelMapper.map(coinBoardCommentDTO, CoinBoardComment.class);
         coinBoardComment = coinBoardCommentRepository.save(coinBoardComment);
-        CoinBoardCommentDTO result = coinBoardCommentMapper.toDto(coinBoardComment);
+        CoinBoardCommentDTO result = modelMapper.map(coinBoardComment, CoinBoardCommentDTO.class);
         coinBoardCommentSearchRepository.save(coinBoardComment);
         return result;
     }
@@ -64,7 +62,7 @@ public class CoinBoardCommentServiceImpl implements CoinBoardCommentService{
     public Page<CoinBoardCommentDTO> findAll(Pageable pageable) {
         log.debug("Request to get all CoinBoardComments");
         return coinBoardCommentRepository.findAll(pageable)
-            .map(coinBoardCommentMapper::toDto);
+            .map( coinBoardComment -> modelMapper.map(coinBoardComment,CoinBoardCommentDTO.class));
     }
 
     /**
@@ -78,7 +76,7 @@ public class CoinBoardCommentServiceImpl implements CoinBoardCommentService{
     public CoinBoardCommentDTO findOne(Long id) {
         log.debug("Request to get CoinBoardComment : {}", id);
         CoinBoardComment coinBoardComment = coinBoardCommentRepository.findOne(id);
-        return coinBoardCommentMapper.toDto(coinBoardComment);
+        return modelMapper.map(coinBoardComment, CoinBoardCommentDTO.class);
     }
 
     /**
@@ -105,6 +103,6 @@ public class CoinBoardCommentServiceImpl implements CoinBoardCommentService{
     public Page<CoinBoardCommentDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of CoinBoardComments for query {}", query);
         Page<CoinBoardComment> result = coinBoardCommentSearchRepository.search(queryStringQuery(query), pageable);
-        return result.map(coinBoardCommentMapper::toDto);
+        return result.map(coinBoardComment-> modelMapper.map(coinBoardComment, CoinBoardCommentDTO.class));
     }
 }

@@ -7,8 +7,7 @@ import io.iansoft.blockchain.repository.CoinRepository;
 import io.iansoft.blockchain.repository.search.CoinSearchRepository;
 import io.iansoft.blockchain.service.dto.CoinDTO;
 import io.iansoft.blockchain.service.dto.KorbitDTO;
-import io.iansoft.blockchain.service.mapper.CoinMapper;
-import io.reactivex.Observable;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
@@ -19,7 +18,6 @@ import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -33,17 +31,14 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class CoinServiceImpl implements CoinService{
 
     private final Logger log = LoggerFactory.getLogger(CoinServiceImpl.class);
-
     private final CoinRepository coinRepository;
-
-    private final CoinMapper coinMapper;
-
     private final CoinSearchRepository coinSearchRepository;
+    private final ModelMapper modelMapper;
 
-    public CoinServiceImpl(CoinRepository coinRepository, CoinMapper coinMapper, CoinSearchRepository coinSearchRepository) {
+    public CoinServiceImpl(CoinRepository coinRepository, CoinSearchRepository coinSearchRepository, ModelMapper modelMapper) {
         this.coinRepository = coinRepository;
-        this.coinMapper = coinMapper;
         this.coinSearchRepository = coinSearchRepository;
+        this.modelMapper = modelMapper;
     }
 
 
@@ -98,9 +93,9 @@ public class CoinServiceImpl implements CoinService{
     @Override
     public CoinDTO save(CoinDTO coinDTO) {
         log.debug("Request to save Coin : {}", coinDTO);
-        Coin coin = coinMapper.toEntity(coinDTO);
+        Coin coin = modelMapper.map(coinDTO, Coin.class);
         coin = coinRepository.save(coin);
-        CoinDTO result = coinMapper.toDto(coin);
+        CoinDTO result = modelMapper.map(coin, CoinDTO.class);
         coinSearchRepository.save(coin);
         return result;
     }
@@ -115,7 +110,7 @@ public class CoinServiceImpl implements CoinService{
     public List<CoinDTO> findAll() {
         log.debug("Request to get all Coins");
         return coinRepository.findAll().stream()
-            .map(coinMapper::toDto)
+            .map( coin-> modelMapper.map(coin,CoinDTO.class))
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
@@ -130,7 +125,7 @@ public class CoinServiceImpl implements CoinService{
     public CoinDTO findOne(Long id) {
         log.debug("Request to get Coin : {}", id);
         Coin coin = coinRepository.findOne(id);
-        return coinMapper.toDto(coin);
+        return modelMapper.map(coin, CoinDTO.class);
     }
 
     /**
@@ -157,7 +152,7 @@ public class CoinServiceImpl implements CoinService{
         log.debug("Request to search Coins for query {}", query);
         return StreamSupport
             .stream(coinSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(coinMapper::toDto)
+            .map(coin-> modelMapper.map(coin,CoinDTO.class))
             .collect(Collectors.toList());
     }
 }

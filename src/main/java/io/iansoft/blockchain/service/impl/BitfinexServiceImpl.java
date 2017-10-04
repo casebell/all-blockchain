@@ -5,7 +5,7 @@ import io.iansoft.blockchain.domain.Bitfinex;
 import io.iansoft.blockchain.repository.BitfinexRepository;
 import io.iansoft.blockchain.repository.search.BitfinexSearchRepository;
 import io.iansoft.blockchain.service.dto.BitfinexDTO;
-import io.iansoft.blockchain.service.mapper.BitfinexMapper;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -29,12 +29,12 @@ public class BitfinexServiceImpl implements BitfinexService{
 
     private final BitfinexRepository bitfinexRepository;
 
-    private final BitfinexMapper bitfinexMapper;
+    private final ModelMapper modelMapper;
 
     private final BitfinexSearchRepository bitfinexSearchRepository;
-    public BitfinexServiceImpl(BitfinexRepository bitfinexRepository, BitfinexMapper bitfinexMapper, BitfinexSearchRepository bitfinexSearchRepository) {
+    public BitfinexServiceImpl(BitfinexRepository bitfinexRepository, ModelMapper modelMapper, BitfinexSearchRepository bitfinexSearchRepository) {
         this.bitfinexRepository = bitfinexRepository;
-        this.bitfinexMapper = bitfinexMapper;
+        this.modelMapper = modelMapper;
         this.bitfinexSearchRepository = bitfinexSearchRepository;
     }
 
@@ -42,7 +42,7 @@ public class BitfinexServiceImpl implements BitfinexService{
     @Transactional(readOnly = true)
     public List<BitfinexDTO> getBitfinex() {
         return bitfinexRepository.findBitfinex().stream()
-            .map(bitfinexMapper::toDto)
+            .map(bitfinex ->  modelMapper.map(bitfinex,BitfinexDTO.class))
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
@@ -55,9 +55,9 @@ public class BitfinexServiceImpl implements BitfinexService{
     @Override
     public BitfinexDTO save(BitfinexDTO bitfinexDTO) {
         log.debug("Request to save Bitfinex : {}", bitfinexDTO);
-        Bitfinex bitfinex = bitfinexMapper.toEntity(bitfinexDTO);
+        Bitfinex bitfinex =  modelMapper.map(bitfinexDTO,Bitfinex.class);
         bitfinex = bitfinexRepository.save(bitfinex);
-        BitfinexDTO result = bitfinexMapper.toDto(bitfinex);
+        BitfinexDTO result = modelMapper.map(bitfinex,BitfinexDTO.class);
         bitfinexSearchRepository.save(bitfinex);
         return result;
     }
@@ -72,7 +72,7 @@ public class BitfinexServiceImpl implements BitfinexService{
     public List<BitfinexDTO> findAll() {
         log.debug("Request to get all Bitfinexes");
         return bitfinexRepository.findAll().stream()
-            .map(bitfinexMapper::toDto)
+            .map(bitfinex ->  modelMapper.map(bitfinex,BitfinexDTO.class))
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
@@ -87,7 +87,7 @@ public class BitfinexServiceImpl implements BitfinexService{
         return StreamSupport
             .stream(bitfinexRepository.findAll().spliterator(), false)
             .filter(bitfinex -> bitfinex.getCoin() == null)
-            .map(bitfinexMapper::toDto)
+            .map(bitfinex ->  modelMapper.map(bitfinex,BitfinexDTO.class))
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
@@ -102,7 +102,7 @@ public class BitfinexServiceImpl implements BitfinexService{
     public BitfinexDTO findOne(Long id) {
         log.debug("Request to get Bitfinex : {}", id);
         Bitfinex bitfinex = bitfinexRepository.findOne(id);
-        return bitfinexMapper.toDto(bitfinex);
+        return modelMapper.map(bitfinex,BitfinexDTO.class);
     }
 
     /**
@@ -129,7 +129,7 @@ public class BitfinexServiceImpl implements BitfinexService{
         log.debug("Request to search Bitfinexes for query {}", query);
         return StreamSupport
             .stream(bitfinexSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(bitfinexMapper::toDto)
+            .map(bitfinex ->  modelMapper.map(bitfinex,BitfinexDTO.class))
             .collect(Collectors.toList());
     }
 }

@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-import { HttpClient } from "@angular/common/http";
-
+import { SERVER_API_URL } from '../../app.constants';
 
 @Injectable()
 export class Register {
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: Http) {}
 
     save(account: any): Observable<any> {
-        return this.http.post('api/register', account);
+        return this.http.post(SERVER_API_URL + 'api/register', account);
     }
-
-
 }
-

@@ -10,10 +10,12 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring", uses = {})
 public interface CoinMapper extends EntityMapper <CoinDTO, Coin> {
-    
-    @Mapping(target = "resources", ignore = true)
-    @Mapping(target = "boards", ignore = true)
-    Coin toEntity(CoinDTO coinDTO); 
+
+    @Mappings({
+        @Mapping(target = "resources", ignore = true),
+        @Mapping(target = "boards", ignore = true)
+    })
+    Coin toEntity(CoinDTO coinDTO);
     default Coin fromId(Long id) {
         if (id == null) {
             return null;

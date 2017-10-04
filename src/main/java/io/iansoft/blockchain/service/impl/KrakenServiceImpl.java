@@ -5,12 +5,11 @@ import io.iansoft.blockchain.domain.Kraken;
 import io.iansoft.blockchain.repository.KrakenRepository;
 import io.iansoft.blockchain.repository.search.KrakenSearchRepository;
 import io.iansoft.blockchain.service.dto.KrakenDTO;
-import io.iansoft.blockchain.service.mapper.KrakenMapper;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,15 +25,13 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class KrakenServiceImpl implements KrakenService{
 
     private final Logger log = LoggerFactory.getLogger(KrakenServiceImpl.class);
-
     private final KrakenRepository krakenRepository;
-
-    private final KrakenMapper krakenMapper;
+    private final ModelMapper modelMapper;
 
     private final KrakenSearchRepository krakenSearchRepository;
-    public KrakenServiceImpl(KrakenRepository krakenRepository, KrakenMapper krakenMapper, KrakenSearchRepository krakenSearchRepository) {
+    public KrakenServiceImpl(KrakenRepository krakenRepository, ModelMapper modelMapper, KrakenSearchRepository krakenSearchRepository) {
         this.krakenRepository = krakenRepository;
-        this.krakenMapper = krakenMapper;
+        this.modelMapper = modelMapper;
         this.krakenSearchRepository = krakenSearchRepository;
     }
 
@@ -43,7 +40,7 @@ public class KrakenServiceImpl implements KrakenService{
     @Transactional(readOnly = true)
     public List<KrakenDTO> getKraken() {
         return krakenRepository.findKrakens().stream()
-            .map(krakenMapper::toDto)
+            .map(kraken -> modelMapper.map(kraken, KrakenDTO.class))
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
@@ -56,9 +53,9 @@ public class KrakenServiceImpl implements KrakenService{
     @Override
     public KrakenDTO save(KrakenDTO krakenDTO) {
         log.debug("Request to save Kraken : {}", krakenDTO);
-        Kraken kraken = krakenMapper.toEntity(krakenDTO);
+        Kraken kraken = modelMapper.map(krakenDTO, Kraken.class);
         kraken = krakenRepository.save(kraken);
-        KrakenDTO result = krakenMapper.toDto(kraken);
+        KrakenDTO result = modelMapper.map(kraken, KrakenDTO.class);
         krakenSearchRepository.save(kraken);
         return result;
     }
@@ -73,7 +70,7 @@ public class KrakenServiceImpl implements KrakenService{
     public List<KrakenDTO> findAll() {
         log.debug("Request to get all Krakens");
         return krakenRepository.findAll().stream()
-            .map(krakenMapper::toDto)
+            .map(kraken -> modelMapper.map(kraken, KrakenDTO.class))
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
@@ -88,7 +85,7 @@ public class KrakenServiceImpl implements KrakenService{
     public KrakenDTO findOne(Long id) {
         log.debug("Request to get Kraken : {}", id);
         Kraken kraken = krakenRepository.findOne(id);
-        return krakenMapper.toDto(kraken);
+        return modelMapper.map(kraken,KrakenDTO.class);
     }
 
     /**
@@ -115,7 +112,7 @@ public class KrakenServiceImpl implements KrakenService{
         log.debug("Request to search Krakens for query {}", query);
         return StreamSupport
             .stream(krakenSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(krakenMapper::toDto)
+            .map( kraken -> modelMapper.map(kraken, KrakenDTO.class))
             .collect(Collectors.toList());
     }
 }

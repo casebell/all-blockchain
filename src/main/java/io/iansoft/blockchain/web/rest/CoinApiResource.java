@@ -20,11 +20,13 @@ public class CoinApiResource {
 
     @GetMapping("/coin-api/bithumb")
     public ResponseEntity<List<BithumbDataDTO>> getBithumb(){
+
         return ResponseEntity.ok(coinApiService.getBithumb());
     }
 
     @GetMapping("/coin-api/korbit")
     public ResponseEntity<List<KorbitDTO>> getKorbit(){
+
         return ResponseEntity.ok( coinApiService.getKorbit());
     }
 

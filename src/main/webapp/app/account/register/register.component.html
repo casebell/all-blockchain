@@ -1,9 +1,9 @@
 <div class="register-wrapper">
-    <md-card *ngIf="success; else registerTemplate">
+    <mat-card *ngIf="success; else registerTemplate">
         <p jhiTranslate="register.messages.success">
             <strong>Registration saved!</strong> Please check your email for confirmation.
         </p>
-    </md-card>
+    </mat-card>
     <ng-template #registerTemplate>
         <h5 jhiTranslate="register.social">편하게 가입하기 </h5>
         <div class="social-cointainer">
@@ -19,51 +19,51 @@
         </div>
         <h5 style="margin-bottom:20px" jhiTranslate="register.email">직접 가입하기</h5>
         <form [formGroup]="registerForm" (ngSubmit)="register(registerForm)" style="font-size:0.8em;font-weight:400">
-            <md-input-container class="full-width">
-                <input mdInput placeholder="{{'global.form.username.placeholder' | translate}}" formControlName="login">
-                <md-error *ngIf="getLogin.touched && getLogin.hasError('required')" jhiTranslate="register.messages.validate.login.required">
+            <mat-form-field class="full-width">
+                <input matInput placeholder="{{'global.form.username.placeholder' | translate}}" formControlName="login">
+                <mat-error *ngIf="getLogin.touched && getLogin.hasError('required')" jhiTranslate="register.messages.validate.login.required">
                     Username is <strong>required</strong>
-                </md-error>
-                <md-error *ngIf="getLogin.touched && getLogin.hasError('minlength')" jhiTranslate="register.messages.validate.login.minlength">
+                </mat-error>
+                <mat-error *ngIf="getLogin.touched && getLogin.hasError('minlength')" jhiTranslate="register.messages.validate.login.minlength">
                     Username is <strong>required</strong>
-                </md-error>
-                <md-error *ngIf="getLogin.touched && getLogin.hasError('maxlength')" jhiTranslate="register.messages.validate.login.maxlength">
+                </mat-error>
+                <mat-error *ngIf="getLogin.touched && getLogin.hasError('maxlength')" jhiTranslate="register.messages.validate.login.maxlength">
                     Username is <strong>required</strong>
-                </md-error>
-            </md-input-container>
-            <md-input-container class="full-width">
-                <input mdInput placeholder="{{'global.form.newpassword.placeholder' | translate}}" formControlName="password" type="password">
-                <md-error *ngIf="getPassword.touched &&  getPassword.hasError('required')" jhiTranslate="register.messages.validate.password.required">
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="full-width">
+                <input matInput placeholder="{{'global.form.newpassword.placeholder' | translate}}" formControlName="password" type="password">
+                <mat-error *ngIf="getPassword.touched &&  getPassword.hasError('required')" jhiTranslate="register.messages.validate.password.required">
                     Password is <strong>required</strong>
-                </md-error>
-                <md-error *ngIf="getPassword.touched &&  getPassword.hasError('passwordPattern')" jhiTranslate="register.messages.validate.password.pattern">
+                </mat-error>
+                <mat-error *ngIf="getPassword.touched &&  getPassword.hasError('passwordPattern')" jhiTranslate="register.messages.validate.password.pattern">
                     Password is <strong>6~20 1charater 1 number</strong>
-                </md-error>
-            </md-input-container>
+                </mat-error>
+            </mat-form-field>
 
-            <md-input-container class="full-width">
-                <input mdInput placeholder="{{'global.form.email.placeholder' | translate}}" formControlName="email" email>
-                <md-error *ngIf="getEmail.touched && getEmail.hasError('required')" jhiTranslate="register.messages.validate.email.required">
+            <mat-form-field class="full-width">
+                <input matInput placeholder="{{'global.form.email.placeholder' | translate}}" formControlName="email" email>
+                <mat-error *ngIf="getEmail.touched && getEmail.hasError('required')" jhiTranslate="register.messages.validate.email.required">
                     Username is <strong>required</strong>
-                </md-error>
-                <md-error *ngIf="getEmail.touched && getEmail.hasError('email')" jhiTranslate="register.messages.validate.email.pattern">
+                </mat-error>
+                <mat-error *ngIf="getEmail.touched && getEmail.hasError('email')" jhiTranslate="register.messages.validate.email.pattern">
                     email is <strong>not email type</strong>
-                </md-error>
-            </md-input-container>
+                </mat-error>
+            </mat-form-field>
             <div style="margin-top:15px">
-                <button md-raised-button color="primary" [disabled]="registerForm.invalid"><span jhiTranslate="register.form.button">Register</span>
+                <button mat-raised-button color="primary" [disabled]="registerForm.invalid"><span jhiTranslate="register.form.button">Register</span>
             </button>
             </div>
-            <md-error style="margin-top:15px" *ngIf="errorUserExists" jhiTranslate="register.messages.error.userexists">
+            <mat-error style="margin-top:15px" *ngIf="errorUserExists" jhiTranslate="register.messages.error.userexists">
                 <strong>Login name already registered!</strong> Please choose another one.
-            </md-error>
-            <md-error style="margin-top:15px" *ngIf="errorEmailExists" jhiTranslate="register.messages.error.emailexists">
+            </mat-error>
+            <mat-error style="margin-top:15px" *ngIf="errorEmailExists" jhiTranslate="register.messages.error.emailexists">
                 <strong>Email is already in use!</strong> Please choose another one.
-            </md-error>
+            </mat-error>
 
-            <md-error style="margin-top:15px" *ngIf="error" jhiTranslate="register.messages.error.fail">
+            <mat-error style="margin-top:15px" *ngIf="error" jhiTranslate="register.messages.error.fail">
                 <strong>Registration failed!</strong> Please try again later.
-            </md-error>
+            </mat-error>
         </form>
     </ng-template>
 </div>
