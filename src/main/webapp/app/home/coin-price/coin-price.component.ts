@@ -161,7 +161,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
         this.getCoinis();
     }
 
-    initialCoinRow(){
+    initialCoinRow() {
         this.bithumbRow = {
             market: 'Bithumb',
             currencies : 'KRW',
@@ -278,13 +278,13 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
 
         // okCoinChina
         this.coinPriceService.getOkCoinCn()
-            .subscribe(data => {
+            .subscribe((data) => {
                 this.okCoinCnRow.coins[0].price = data[0].last;
                 this.okCoinCnRow.coins[1].price = data[1].last;
                 this.okCoinCnRow.coins[4].price = data[2].last;
                 this.okCoinCnRow.coins[5].price = data[3].last;
                 this.okCoinCnRow.coins[6].price = data[4].last;
-            }, error => {
+            }, (error) => {
             });
         // bitflyer
         this.coinPriceService.getBitflyer()
@@ -316,7 +316,6 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
                 this.coinisRow.coins[7].price = data[3].closeprice;
                 this.coinisRow.coins[8].price = data[4].closeprice;
             });
-
         
         // socket service start
 
