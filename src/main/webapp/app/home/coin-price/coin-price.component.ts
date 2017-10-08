@@ -12,7 +12,6 @@ import { BitfinexWebsocketService } from './bitfinex-websocket.service';
 import { PuserService } from './pusher.service';
 
 const POLONIEX_WS_URL = 'wss://api.poloniex.com';
-const BITSTAMP_PUSHER_KEY = 'de504dc5763aeef9ff52';
 @Component({
     selector: 'abc-coin-price',
     templateUrl: './coin-price.component.html',
@@ -67,9 +66,10 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
     okCoinCnRow :CoinPrice;
     bitflyerRow :CoinPrice;
     bittrexRow  :CoinPrice;
+    bitstampUsdRow :CoinPrice;    
     coinisRow  :CoinPrice;
     krakenRow :CoinPrice;
-    bitstampRow :CoinPrice;
+    bitstampEuRow :CoinPrice;
   //  yunbiRow :CoinPrice;
     bitfinexRow :CoinPrice;
 
@@ -131,10 +131,10 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
  */
 
     bitfinexWebsocketService.connect();
-    pusherService.connectBTC(BITSTAMP_PUSHER_KEY,'trade','live_trades_btceur');      
-    pusherService.connectETH(BITSTAMP_PUSHER_KEY,'trade','live_trades_etheur');      
+    pusherService.connect();      
+    /* pusherService.connectETH(BITSTAMP_PUSHER_KEY,'trade','live_trades_etheur');      
     pusherService.connectLTC(BITSTAMP_PUSHER_KEY,'trade','live_trades_ltceur');      
-    pusherService.connectXRP(BITSTAMP_PUSHER_KEY,'trade','live_trades_xrpeur');  
+    pusherService.connectXRP(BITSTAMP_PUSHER_KEY,'trade','live_trades_xrpeur');   */
     }
     ngOnDestroy(): void {
         this.bitfinexWebsocketService.socketClose();
@@ -204,9 +204,14 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
             currencies : 'EUR',
             coins : _.cloneDeep(this.coins)
         };
-        this.bitstampRow = {
+        this.bitstampEuRow = {
             market: 'Bitstamp',
             currencies : 'EUR',
+            coins : _.cloneDeep(this.coins)
+        };
+        this.bitstampUsdRow = {
+            market: 'Bitstamp',
+            currencies : 'USD',
             coins : _.cloneDeep(this.coins)
         };
     /*    this.yunbiRow = {
@@ -453,48 +458,96 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
           // bitstamp 
           
           // btc
-          this.pusherService.getBTCListener().subscribe(
+          this.pusherService.getBTCEURListener().subscribe(
               message => {
-                  if (this.bitstampRow.coins[0].price == 0) {
-                      this.bitstampRow.coins[0].price = message.price;
+                  if (this.bitstampEuRow.coins[0].price == 0) {
+                      this.bitstampEuRow.coins[0].price = message.price;
                   } else {
-                    this.bitstampRow.coins[0].diffPercent = message.price * 100 / this.bitstampRow.coins[0].price - 100;
-                    this.bitstampRow.coins[0].diff = message.price - this.bitstampRow.coins[0].price;
-                    this.bitstampRow.coins[0].price = message.price;
+                    this.bitstampEuRow.coins[0].diffPercent = message.price * 100 / this.bitstampEuRow.coins[0].price - 100;
+                    this.bitstampEuRow.coins[0].diff = message.price - this.bitstampEuRow.coins[0].price;
+                    this.bitstampEuRow.coins[0].price = message.price;
                   }
               }); 
           
           // eth
-          this.pusherService.getETHListener().subscribe(
+           this.pusherService.getETHEURListener().subscribe(
               message => {
-                  if (this.bitstampRow.coins[1].price == 0) {
-                      this.bitstampRow.coins[1].price = message.price;
+                  if (this.bitstampEuRow.coins[1].price == 0) {
+                      this.bitstampEuRow.coins[1].price = message.price;
                   } else {
-                    this.bitstampRow.coins[1].diffPercent = message.price * 100 / this.bitstampRow.coins[1].price - 100;
-                    this.bitstampRow.coins[1].diff = message.price - this.bitstampRow.coins[1].price;
-                    this.bitstampRow.coins[1].price = message.price;
-                  }
-              }); 
-          // xrp
-          this.pusherService.getXRPListener().subscribe(
-              message => {
-                  if (this.bitstampRow.coins[2].price == 0) {
-                      this.bitstampRow.coins[2].price = message.price;
-                  } else {
-                    this.bitstampRow.coins[2].diffPercent = message.price * 100 / this.bitstampRow.coins[2].price - 100;
-                    this.bitstampRow.coins[2].diff = message.price - this.bitstampRow.coins[2].price;
-                    this.bitstampRow.coins[2].price = message.price;
+                    this.bitstampEuRow.coins[1].diffPercent = message.price * 100 / this.bitstampEuRow.coins[1].price - 100;
+                    this.bitstampEuRow.coins[1].diff = message.price - this.bitstampEuRow.coins[1].price;
+                    this.bitstampEuRow.coins[1].price = message.price;
                   }
               });  
-          // ltc
-          this.pusherService.getLTCListener().subscribe(
+          // xrp
+           this.pusherService.getXRPEURListener().subscribe(
               message => {
-                  if (this.bitstampRow.coins[4].price == 0) {
-                      this.bitstampRow.coins[4].price = message.price;
+                  if (this.bitstampEuRow.coins[2].price == 0) {
+                      this.bitstampEuRow.coins[2].price = message.price;
                   } else {
-                    this.bitstampRow.coins[4].diffPercent = message.price * 100 / this.bitstampRow.coins[4].price - 100;
-                    this.bitstampRow.coins[4].diff = message.price - this.bitstampRow.coins[4].price;
-                    this.bitstampRow.coins[4].price = message.price;
+                    this.bitstampEuRow.coins[2].diffPercent = message.price * 100 / this.bitstampEuRow.coins[2].price - 100;
+                    this.bitstampEuRow.coins[2].diff = message.price - this.bitstampEuRow.coins[2].price;
+                    this.bitstampEuRow.coins[2].price = message.price;
+                  }
+              });   
+
+          // ltc
+          this.pusherService.getLTCEURListener().subscribe(
+              message => {
+                  if (this.bitstampEuRow.coins[4].price == 0) {
+                      this.bitstampEuRow.coins[4].price = message.price;
+                  } else {
+                    this.bitstampEuRow.coins[4].diffPercent = message.price * 100 / this.bitstampEuRow.coins[4].price - 100;
+                    this.bitstampEuRow.coins[4].diff = message.price - this.bitstampEuRow.coins[4].price;
+                    this.bitstampEuRow.coins[4].price = message.price;
+                  }
+              });  
+          
+          // btcusd
+          this.pusherService.getBTCUSDListener().subscribe(
+              message => {
+                  if (this.bitstampUsdRow.coins[0].price == 0) {
+                      this.bitstampUsdRow.coins[0].price = message.price;
+                  } else {
+                    this.bitstampUsdRow.coins[0].diffPercent = message.price * 100 / this.bitstampUsdRow.coins[0].price - 100;
+                    this.bitstampUsdRow.coins[0].diff = message.price - this.bitstampUsdRow.coins[0].price;
+                    this.bitstampUsdRow.coins[0].price = message.price;
+                  }
+              }); 
+          
+          // ethusd
+           this.pusherService.getETHUSDListener().subscribe(
+              message => {
+                  if (this.bitstampUsdRow.coins[1].price == 0) {
+                      this.bitstampUsdRow.coins[1].price = message.price;
+                  } else {
+                    this.bitstampUsdRow.coins[1].diffPercent = message.price * 100 / this.bitstampUsdRow.coins[1].price - 100;
+                    this.bitstampUsdRow.coins[1].diff = message.price - this.bitstampUsdRow.coins[1].price;
+                    this.bitstampUsdRow.coins[1].price = message.price;
+                  }
+              });  
+          // xrpusd
+           this.pusherService.getXRPUSDListener().subscribe(
+              message => {
+                  if (this.bitstampUsdRow.coins[2].price == 0) {
+                      this.bitstampUsdRow.coins[2].price = message.price;
+                  } else {
+                    this.bitstampUsdRow.coins[2].diffPercent = message.price * 100 / this.bitstampUsdRow.coins[2].price - 100;
+                    this.bitstampUsdRow.coins[2].diff = message.price - this.bitstampUsdRow.coins[2].price;
+                    this.bitstampUsdRow.coins[2].price = message.price;
+                  }
+              });   
+
+          // ltc
+          this.pusherService.getLTCUSDListener().subscribe(
+              message => {
+                  if (this.bitstampUsdRow.coins[4].price == 0) {
+                      this.bitstampUsdRow.coins[4].price = message.price;
+                  } else {
+                    this.bitstampUsdRow.coins[4].diffPercent = message.price * 100 / this.bitstampUsdRow.coins[4].price - 100;
+                    this.bitstampUsdRow.coins[4].diff = message.price - this.bitstampUsdRow.coins[4].price;
+                    this.bitstampUsdRow.coins[4].price = message.price;
                   }
               });  
 
