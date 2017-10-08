@@ -12,7 +12,6 @@ import { BitfinexWebsocketService } from './bitfinex-websocket.service';
 import { PuserService } from './pusher.service';
 
 const POLONIEX_WS_URL = 'wss://api.poloniex.com';
-const BITFINEX_WS_URL = 'wss://api.bitfinex.com/ws/2';
 const BITSTAMP_PUSHER_KEY = 'de504dc5763aeef9ff52';
 @Component({
     selector: 'abc-coin-price',
@@ -85,6 +84,18 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
     coinisUnsubscribe: Subscription;
     yunbiUnsubscribe: Subscription;
     bitfinexUnsubscribe: Subscription;
+    
+    // bitfinex websocket channelId;
+    bitfinexBTCChannelId:number;
+    bitfinexETHChannelId:number;
+    bitfinexXRPChannelId:number;
+    bitfinexDASHChannelId:number;
+    bitfinexLTCChannelId:number;
+    bitfinexETCChannelId:number;
+    bitfinexBCHChannelId:number;
+    bitfinexZECChannelId:number;
+    bitfinexXMRChannelId:number;
+    bitfinexNEOChannelId:number;
 
     constructor(private http: HttpClient,
                 private coinPriceService: CoinPriceService,
@@ -119,33 +130,14 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
           };
  */
 
-    bitfinexWebsocketService.connectBTC(BITFINEX_WS_URL,{"event":"subscribe", "channel":"ticker", "symbol": 'tBTCUSD'});
-    bitfinexWebsocketService.connectXRP(BITFINEX_WS_URL,{"event":"subscribe", "channel":"ticker", "symbol": "tXRPUSD"});
-    bitfinexWebsocketService.connectETH(BITFINEX_WS_URL,{"event":"subscribe", "channel":"ticker", "symbol": "tETHUSD"});
-    bitfinexWebsocketService.connectDASH(BITFINEX_WS_URL,{"event":"subscribe", "channel":"ticker", "symbol": "tDSHUSD"});
-    bitfinexWebsocketService.connectLTC(BITFINEX_WS_URL,{"event":"subscribe", "channel":"ticker", "symbol": "tLTCUSD"});
-    bitfinexWebsocketService.connectETC(BITFINEX_WS_URL,{"event":"subscribe", "channel":"ticker", "symbol": "tETCUSD"});
-    bitfinexWebsocketService.connectBCH(BITFINEX_WS_URL,{"event":"subscribe", "channel":"ticker", "symbol": "tBCHUSD"});
-    bitfinexWebsocketService.connectZEC(BITFINEX_WS_URL,{"event":"subscribe", "channel":"ticker", "symbol": "tZECUSD"});
-    bitfinexWebsocketService.connectXMR(BITFINEX_WS_URL,{"event":"subscribe", "channel":"ticker", "symbol": "tXMRUSD"});
-    bitfinexWebsocketService.connectNEO(BITFINEX_WS_URL,{"event":"subscribe", "channel":"ticker", "symbol": "tNEOUSD"});
+    bitfinexWebsocketService.connect();
     pusherService.connectBTC(BITSTAMP_PUSHER_KEY,'trade','live_trades_btceur');      
     pusherService.connectETH(BITSTAMP_PUSHER_KEY,'trade','live_trades_etheur');      
     pusherService.connectLTC(BITSTAMP_PUSHER_KEY,'trade','live_trades_ltceur');      
     pusherService.connectXRP(BITSTAMP_PUSHER_KEY,'trade','live_trades_xrpeur');  
     }
     ngOnDestroy(): void {
-        this.bitfinexWebsocketService.btcClose();
-        this.bitfinexWebsocketService.ethClose();
-        this.bitfinexWebsocketService.xrpClose();
-        this.bitfinexWebsocketService.dashClose();
-        this.bitfinexWebsocketService.ltcClose();
-        this.bitfinexWebsocketService.etcClose();
-        this.bitfinexWebsocketService.bchClose();
-        this.bitfinexWebsocketService.zecClose();
-        this.bitfinexWebsocketService.xmrClose();
-        this.bitfinexWebsocketService.xmrClose();
-        this.bitfinexWebsocketService.neoClose();
+        this.bitfinexWebsocketService.socketClose();
     }
 
     ngOnInit() {
@@ -321,173 +313,143 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
         // socket service start
 
         // bitfinex btcusd
-        this.bitfinexWebsocketService.btcGetEventListener().subscribe(event => {
-                 if(event.data[0] != 'hb') {
-                     let res = event.data[1];
-                     if(Array.isArray(res)){
-                         if(this.bitfinexRow.coins[0].price==0){
-                            this.bitfinexRow.coins[0].price = res[6]
-                         } else {
-                            this.bitfinexRow.coins[0].diffPercent = res[6] * 100 / this.bitfinexRow.coins[0].price - 100;
-                            this.bitfinexRow.coins[0].diff = res[6] - this.bitfinexRow.coins[0].price;
-                            this.bitfinexRow.coins[0].price = res[6]
-                         }
-                     } 
-                 }     
+        this.bitfinexWebsocketService.getEventListener().subscribe(event => {
+            // init bitfinex websocket
+            if(!Array.isArray(event.data)){
+                switch(event.data.pair){
+                    case 'BTCUSD':
+                        this.bitfinexBTCChannelId=event.data.chanId;
+                        break;     
+                    case 'ETHUSD':
+                        this.bitfinexETHChannelId=event.data.chanId;
+                        break;
+                    case 'XRPUSD':
+                        this.bitfinexXRPChannelId=event.data.chanId;
+                        break;
+                    case 'DSHUSD':
+                        this.bitfinexDASHChannelId=event.data.chanId;
+                        break;
+                    case 'LTCUSD':
+                        this.bitfinexLTCChannelId=event.data.chanId;
+                        break;
+                    case 'ETCUSD':
+                        this.bitfinexETCChannelId=event.data.chanId;
+                        break;
+                    case 'BCHUSD':
+                        this.bitfinexBCHChannelId=event.data.chanId;
+                        break;
+                    case 'ZECUSD':
+                        this.bitfinexZECChannelId=event.data.chanId;
+                        break;
+                    case 'XMRUSD':
+                        this.bitfinexXMRChannelId=event.data.chanId;
+                        break;
+                    case 'NEOUSD':
+                        this.bitfinexNEOChannelId=event.data.chanId;
+                        break;
+                }
+            }else {
+                // update bitfinex
+                let channelId = event.data[0]
+                let res = event.data[1];
+                if(res!= 'hb') {
+                    switch(channelId){
+                        case this.bitfinexBTCChannelId:
+                            if(this.bitfinexRow.coins[0].price==0){
+                                this.bitfinexRow.coins[0].price = res[6]
+                            } else {
+                                this.bitfinexRow.coins[0].diffPercent = res[6] * 100 / this.bitfinexRow.coins[0].price - 100;
+                                this.bitfinexRow.coins[0].diff = res[6] - this.bitfinexRow.coins[0].price;
+                                this.bitfinexRow.coins[0].price = res[6]
+                            }
+                            break;
+                        case this.bitfinexETHChannelId:
+                            if(this.bitfinexRow.coins[1].price==0){
+                                this.bitfinexRow.coins[1].price = res[6]
+                            } else {
+                                this.bitfinexRow.coins[1].diffPercent = res[6] * 100 / this.bitfinexRow.coins[1].price - 100;
+                                this.bitfinexRow.coins[1].diff = res[6] - this.bitfinexRow.coins[1].price;
+                                this.bitfinexRow.coins[1].price = res[6]
+                            }
+                            break;
+                        case this.bitfinexXRPChannelId:
+                            if(this.bitfinexRow.coins[2].price==0){
+                                this.bitfinexRow.coins[2].price = res[6]
+                            } else {
+                                this.bitfinexRow.coins[2].diffPercent = res[6] * 100 / this.bitfinexRow.coins[2].price - 100;
+                                this.bitfinexRow.coins[2].diff = res[6] - this.bitfinexRow.coins[2].price;
+                                this.bitfinexRow.coins[2].price = res[6]
+                            }
+                            break;
+                        case this.bitfinexDASHChannelId:
+                            if(this.bitfinexRow.coins[3].price==0){
+                                this.bitfinexRow.coins[3].price = res[6]
+                            } else {
+                                this.bitfinexRow.coins[3].diffPercent = res[6] * 100 / this.bitfinexRow.coins[3].price - 100;
+                                this.bitfinexRow.coins[3].diff = res[6] - this.bitfinexRow.coins[3].price;
+                                this.bitfinexRow.coins[3].price = res[6]
+                            }
+                            break;
+                        case this.bitfinexLTCChannelId:
+                            if(this.bitfinexRow.coins[4].price==0){
+                                this.bitfinexRow.coins[4].price = res[6]
+                            } else {
+                                this.bitfinexRow.coins[4].diffPercent = res[6] * 100 / this.bitfinexRow.coins[4].price - 100;
+                                this.bitfinexRow.coins[4].diff = res[6] - this.bitfinexRow.coins[4].price;
+                                this.bitfinexRow.coins[4].price = res[6]
+                            }
+                            break;
+                        case this.bitfinexETCChannelId:
+                            if(this.bitfinexRow.coins[5].price==0){
+                                this.bitfinexRow.coins[5].price = res[6]
+                            } else {
+                                this.bitfinexRow.coins[5].diffPercent = res[6] * 100 / this.bitfinexRow.coins[5].price - 100;
+                                this.bitfinexRow.coins[5].diff = res[6] - this.bitfinexRow.coins[5].price;
+                                this.bitfinexRow.coins[5].price = res[6]
+                            }
+                            break;
+                        case this.bitfinexBCHChannelId:
+                            if(this.bitfinexRow.coins[6].price==0){
+                                this.bitfinexRow.coins[6].price = res[6]
+                            } else {
+                                this.bitfinexRow.coins[6].diffPercent = res[6] * 100 / this.bitfinexRow.coins[6].price - 100;
+                                this.bitfinexRow.coins[6].diff = res[6] - this.bitfinexRow.coins[6].price;
+                                this.bitfinexRow.coins[6].price = res[6]
+                            }
+                            break;
+                        case this.bitfinexZECChannelId:
+                            if(this.bitfinexRow.coins[7].price==0){
+                                this.bitfinexRow.coins[7].price = res[6]
+                            } else {
+                                this.bitfinexRow.coins[7].diffPercent = res[6] * 100 / this.bitfinexRow.coins[7].price - 100;
+                                this.bitfinexRow.coins[7].diff = res[6] - this.bitfinexRow.coins[7].price;
+                                this.bitfinexRow.coins[7].price = res[6]
+                            }
+                            break;
+                        case this.bitfinexXMRChannelId: 
+                            if(this.bitfinexRow.coins[8].price==0){
+                                this.bitfinexRow.coins[8].price = res[6]
+                            } else {
+                                this.bitfinexRow.coins[8].diffPercent = res[6] * 100 / this.bitfinexRow.coins[8].price - 100;
+                                this.bitfinexRow.coins[8].diff = res[6] - this.bitfinexRow.coins[8].price;
+                                this.bitfinexRow.coins[8].price = res[6]
+                            }
+                            break;
+                        case this.bitfinexNEOChannelId: 
+                            if(this.bitfinexRow.coins[9].price==0){
+                                this.bitfinexRow.coins[9].price = res[6]
+                            } else {
+                                this.bitfinexRow.coins[9].diffPercent = res[6] * 100 / this.bitfinexRow.coins[9].price - 100;
+                                this.bitfinexRow.coins[9].diff = res[6] - this.bitfinexRow.coins[9].price;
+                                this.bitfinexRow.coins[9].price = res[6]
+                            }
+                            break;
+                    }
+                }
+            }
+                    
           });
   
-          // bitfinex ethusd
-          this.bitfinexWebsocketService.ethGetEventListener().subscribe(event => {
-                 let res = event.data
-                 if(event.data[0] != 'hb') {
-                      let res = event.data[1];
-                      if(Array.isArray(res)){
-                        if(this.bitfinexRow.coins[1].price==0){
-                           this.bitfinexRow.coins[1].price = res[6]
-                        } else {
-                           this.bitfinexRow.coins[1].diffPercent = res[6] * 100 / this.bitfinexRow.coins[1].price - 100;
-                           this.bitfinexRow.coins[1].diff = res[6] - this.bitfinexRow.coins[1].price;
-                           this.bitfinexRow.coins[1].price = res[6]
-                        }
-                    }  
-                  }
-          });
-
-          // bitfinex xrpusd
-          this.bitfinexWebsocketService.xrpGetEventListener().subscribe(event => {
-                 let res = event.data
-                 if(event.data[0] != 'hb') {
-                      let res = event.data[1];
-                      if(Array.isArray(res)){
-                        if(this.bitfinexRow.coins[2].price==0){
-                           this.bitfinexRow.coins[2].price = res[6]
-                        } else {
-                           this.bitfinexRow.coins[2].diffPercent = res[6] * 100 / this.bitfinexRow.coins[2].price - 100;
-                           this.bitfinexRow.coins[2].diff = res[6] - this.bitfinexRow.coins[2].price;
-                           this.bitfinexRow.coins[2].price = res[6]
-                        }
-                    }  
-                  }
-          });
-
-          // bitfinex dashusd
-          this.bitfinexWebsocketService.dashGetEventListener().subscribe(event => {
-                 let res = event.data
-                 if(event.data[0] != 'hb') {
-                      let res = event.data[1];
-                      if(Array.isArray(res)){
-                        if(this.bitfinexRow.coins[3].price==0){
-                           this.bitfinexRow.coins[3].price = res[6]
-                        } else {
-                           this.bitfinexRow.coins[3].diffPercent = res[6] * 100 / this.bitfinexRow.coins[3].price - 100;
-                           this.bitfinexRow.coins[3].diff = res[6] - this.bitfinexRow.coins[3].price;
-                           this.bitfinexRow.coins[3].price = res[6]
-                        }
-                    }  
-                  }
-          });
-
-          // bitfinex ltcusd
-          this.bitfinexWebsocketService.ltcGetEventListener().subscribe(event => {
-                 let res = event.data
-                 if(event.data[0] != 'hb') {
-                      let res = event.data[1];
-                      if(Array.isArray(res)){
-                        if(this.bitfinexRow.coins[4].price==0){
-                           this.bitfinexRow.coins[4].price = res[6]
-                        } else {
-                           this.bitfinexRow.coins[4].diffPercent = res[6] * 100 / this.bitfinexRow.coins[4].price - 100;
-                           this.bitfinexRow.coins[4].diff = res[6] - this.bitfinexRow.coins[4].price;
-                           this.bitfinexRow.coins[4].price = res[6]
-                        }
-                    }  
-                  }
-          });
-
-          // bitfinex etcusd
-          this.bitfinexWebsocketService.etcGetEventListener().subscribe(event => {
-                 let res = event.data
-                 if(event.data[0] != 'hb') {
-                      let res = event.data[1];
-                      if(Array.isArray(res)){
-                        if(this.bitfinexRow.coins[5].price==0){
-                           this.bitfinexRow.coins[5].price = res[6]
-                        } else {
-                           this.bitfinexRow.coins[5].diffPercent = res[6] * 100 / this.bitfinexRow.coins[5].price - 100;
-                           this.bitfinexRow.coins[5].diff = res[6] - this.bitfinexRow.coins[5].price;
-                           this.bitfinexRow.coins[5].price = res[6]
-                        }
-                    }  
-                  }
-          });
-
-          // bitfinex bchusd
-          this.bitfinexWebsocketService.bchGetEventListener().subscribe(event => {
-                 let res = event.data
-                 if(event.data[0] != 'hb') {
-                      let res = event.data[1];
-                      if(Array.isArray(res)){
-                        if(this.bitfinexRow.coins[6].price==0){
-                           this.bitfinexRow.coins[6].price = res[6]
-                        } else {
-                           this.bitfinexRow.coins[6].diffPercent = res[6] * 100 / this.bitfinexRow.coins[6].price - 100;
-                           this.bitfinexRow.coins[6].diff = res[6] - this.bitfinexRow.coins[6].price;
-                           this.bitfinexRow.coins[6].price = res[6]
-                        }
-                    }  
-                  }
-          });
-
-          // bitfinex zec   usd
-          this.bitfinexWebsocketService.zecGetEventListener().subscribe(event => {
-                 let res = event.data   
-                 if(event.data[0] != 'hb') {
-                      let res = event.data[1];
-                      if(Array.isArray(res)){
-                        if(this.bitfinexRow.coins[7].price==0){
-                           this.bitfinexRow.coins[7].price = res[6]
-                        } else {
-                           this.bitfinexRow.coins[7].diffPercent = res[6] * 100 / this.bitfinexRow.coins[7].price - 100;
-                           this.bitfinexRow.coins[7].diff = res[6] - this.bitfinexRow.coins[7].price;
-                           this.bitfinexRow.coins[7].price = res[6]
-                        }
-                    }  
-                  }
-          });
-
-          // bitfinex xmrusd
-          this.bitfinexWebsocketService.xmrGetEventListener().subscribe(event => {
-                 let res = event.data
-                 if(event.data[0] != 'hb') {
-                      let res = event.data[1];
-                      if(Array.isArray(res)){
-                        if(this.bitfinexRow.coins[8].price==0){
-                           this.bitfinexRow.coins[8].price = res[6]
-                        } else {
-                           this.bitfinexRow.coins[8].diffPercent = res[6] * 100 / this.bitfinexRow.coins[8].price - 100;
-                           this.bitfinexRow.coins[8].diff = res[6] - this.bitfinexRow.coins[8].price;
-                           this.bitfinexRow.coins[8].price = res[6]
-                        }
-                    }  
-                  }
-          });
-
-          // bitfinex neousd
-          this.bitfinexWebsocketService.neoGetEventListener().subscribe(event => {
-                 let res = event.data
-                 if(event.data[0] != 'hb') {
-                      let res = event.data[1];
-                      if(Array.isArray(res)){
-                        if(this.bitfinexRow.coins[9].price==0){
-                           this.bitfinexRow.coins[9].price = res[6]
-                        } else {
-                           this.bitfinexRow.coins[9].diffPercent = res[6] * 100 / this.bitfinexRow.coins[9].price - 100;
-                           this.bitfinexRow.coins[9].diff = res[6] - this.bitfinexRow.coins[9].price;
-                           this.bitfinexRow.coins[9].price = res[6]
-                        }
-                    }  
-                  }
-          });
 
           // bitstamp 
           
@@ -659,7 +621,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
             .subscribe(data => {
                 this.setKraken(data);
             })
-        };
+        };x
 
     getCoinis() {
         this.coinisUnsubscribe = Observable
