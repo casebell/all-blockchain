@@ -1,17 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Rx';
 import {CoinPriceService} from './coin-price.service';
 import {Currency} from '../../model/currency.model';
 import {Subscription} from 'rxjs/Subscription';
-import {zip} from 'rxjs/observable/zip';
 import { CoinPrice } from '../../model/coin-price.model.';
 import * as _ from 'lodash';
-import {ExchangeRateService} from "./coin-price-row/exchange-rate.service";
 import { BitfinexWebsocketService } from './bitfinex-websocket.service';
 import { PuserService } from './pusher.service';
+import { GDAXWebsocketService } from './gdax-websocket.service';
 
-const POLONIEX_WS_URL = 'wss://api.poloniex.com';
+
 @Component({
     selector: 'abc-coin-price',
     templateUrl: './coin-price.component.html',
@@ -66,7 +64,8 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
     okCoinCnRow :CoinPrice;
     bitflyerRow :CoinPrice;
     bittrexRow  :CoinPrice;
-    bitstampUsdRow :CoinPrice;    
+    bitstampUsdRow :CoinPrice;
+    gdaxUsdRow :CoinPrice;
     coinisRow  :CoinPrice;
     krakenRow :CoinPrice;
     bitstampEuRow :CoinPrice;
@@ -84,7 +83,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
     coinisUnsubscribe: Subscription;
     yunbiUnsubscribe: Subscription;
     bitfinexUnsubscribe: Subscription;
-    
+
     // bitfinex websocket channelId;
     bitfinexBTCChannelId:number;
     bitfinexETHChannelId:number;
@@ -97,44 +96,17 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
     bitfinexXMRChannelId:number;
     bitfinexNEOChannelId:number;
 
-    constructor(private http: HttpClient,
+    constructor(
                 private coinPriceService: CoinPriceService,
                 private bitfinexWebsocketService: BitfinexWebsocketService,
+                private gdaxWebsocketService: GDAXWebsocketService,
                 private pusherService: PuserService) {
         this.myCurrency = 'KRW';
         this.initialCoinRow();
-        // this.coinPriceService.poloniexMessage.subscribe(msg=> {
-        //     console.log('websocket poloniex message : ', msg);
-        // })
-       /*  coinPriceService.bitfinexMessage.subscribe(msg=> {
-            console.log('websocket bitfinexMessage  : ', msg);
-        })
-        coinPriceService.bitfinexMessage.next({
-            event: 'subscribe',
-            channel: 'ticker',
-            symbol: 'tBTCUSD'
-          }); */
-
-        //   var ws = new WebSocket('wss://api.bitfinex.com/ws');
-
-          // Create function to send on open
-         /*  ws.onopen = function() {
-            ws.send(JSON.stringify({"event":"subscribe", "channel":"ticker", "pair":"BTCUSD"}));
-          }; */
-
-          // Tell function what to do when message is received and log messages to "btc" div
-         /*  ws.onmessage = function(msg) {
-            // create a variable for response and parse the json data
-            var response = JSON.parse(msg.data);
-            console.log('ws fitfinex : response' , response);
-          };
- */
 
     bitfinexWebsocketService.connect();
-    pusherService.connect();      
-    /* pusherService.connectETH(BITSTAMP_PUSHER_KEY,'trade','live_trades_etheur');      
-    pusherService.connectLTC(BITSTAMP_PUSHER_KEY,'trade','live_trades_ltceur');      
-    pusherService.connectXRP(BITSTAMP_PUSHER_KEY,'trade','live_trades_xrpeur');   */
+    gdaxWebsocketService.connect();
+    pusherService.connect();
     }
     ngOnDestroy(): void {
         this.bitfinexWebsocketService.socketClose();
@@ -211,6 +183,11 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
         };
         this.bitstampUsdRow = {
             market: 'Bitstamp',
+            currencies : 'USD',
+            coins : _.cloneDeep(this.coins)
+        };
+        this.gdaxUsdRow = {
+            market: 'GDAX',
             currencies : 'USD',
             coins : _.cloneDeep(this.coins)
         };
@@ -313,7 +290,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
                 this.coinisRow.coins[7].price = data[3].closeprice;
                 this.coinisRow.coins[8].price = data[4].closeprice;
             });
-        
+
         // socket service start
 
         // bitfinex btcusd
@@ -323,7 +300,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
                 switch(event.data.pair){
                     case 'BTCUSD':
                         this.bitfinexBTCChannelId=event.data.chanId;
-                        break;     
+                        break;
                     case 'ETHUSD':
                         this.bitfinexETHChannelId=event.data.chanId;
                         break;
@@ -430,7 +407,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
                                 this.bitfinexRow.coins[7].price = res[6]
                             }
                             break;
-                        case this.bitfinexXMRChannelId: 
+                        case this.bitfinexXMRChannelId:
                             if(this.bitfinexRow.coins[8].price==0){
                                 this.bitfinexRow.coins[8].price = res[6]
                             } else {
@@ -439,7 +416,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
                                 this.bitfinexRow.coins[8].price = res[6]
                             }
                             break;
-                        case this.bitfinexNEOChannelId: 
+                        case this.bitfinexNEOChannelId:
                             if(this.bitfinexRow.coins[9].price==0){
                                 this.bitfinexRow.coins[9].price = res[6]
                             } else {
@@ -451,12 +428,12 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
                     }
                 }
             }
-                    
-          });
-  
 
-          // bitstamp 
-          
+          });
+
+
+          // bitstamp
+
           // btc
           this.pusherService.getBTCEURListener().subscribe(
               message => {
@@ -467,8 +444,8 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
                     this.bitstampEuRow.coins[0].diff = message.price - this.bitstampEuRow.coins[0].price;
                     this.bitstampEuRow.coins[0].price = message.price;
                   }
-              }); 
-          
+              });
+
           // eth
            this.pusherService.getETHEURListener().subscribe(
               message => {
@@ -479,7 +456,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
                     this.bitstampEuRow.coins[1].diff = message.price - this.bitstampEuRow.coins[1].price;
                     this.bitstampEuRow.coins[1].price = message.price;
                   }
-              });  
+              });
           // xrp
            this.pusherService.getXRPEURListener().subscribe(
               message => {
@@ -490,7 +467,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
                     this.bitstampEuRow.coins[2].diff = message.price - this.bitstampEuRow.coins[2].price;
                     this.bitstampEuRow.coins[2].price = message.price;
                   }
-              });   
+              });
 
           // ltc
           this.pusherService.getLTCEURListener().subscribe(
@@ -502,8 +479,8 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
                     this.bitstampEuRow.coins[4].diff = message.price - this.bitstampEuRow.coins[4].price;
                     this.bitstampEuRow.coins[4].price = message.price;
                   }
-              });  
-          
+              });
+
           // btcusd
           this.pusherService.getBTCUSDListener().subscribe(
               message => {
@@ -514,8 +491,8 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
                     this.bitstampUsdRow.coins[0].diff = message.price - this.bitstampUsdRow.coins[0].price;
                     this.bitstampUsdRow.coins[0].price = message.price;
                   }
-              }); 
-          
+              });
+
           // ethusd
            this.pusherService.getETHUSDListener().subscribe(
               message => {
@@ -526,7 +503,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
                     this.bitstampUsdRow.coins[1].diff = message.price - this.bitstampUsdRow.coins[1].price;
                     this.bitstampUsdRow.coins[1].price = message.price;
                   }
-              });  
+              });
           // xrpusd
            this.pusherService.getXRPUSDListener().subscribe(
               message => {
@@ -537,7 +514,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
                     this.bitstampUsdRow.coins[2].diff = message.price - this.bitstampUsdRow.coins[2].price;
                     this.bitstampUsdRow.coins[2].price = message.price;
                   }
-              });   
+              });
 
           // ltc
           this.pusherService.getLTCUSDListener().subscribe(
@@ -549,8 +526,43 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
                     this.bitstampUsdRow.coins[4].diff = message.price - this.bitstampUsdRow.coins[4].price;
                     this.bitstampUsdRow.coins[4].price = message.price;
                   }
-              });  
+              });
 
+            // GDAX
+            this.gdaxWebsocketService.getEventListener().subscribe(
+                message => {
+                    switch(message.data.product_id){
+                        case 'BTC-USD':
+                            if (this.gdaxUsdRow.coins[0].price == 0) {
+                                this.gdaxUsdRow.coins[0].price = message.data.price;
+                            } else {
+                                this.gdaxUsdRow.coins[0].diffPercent = message.data.price * 100 / this.gdaxUsdRow.coins[0].price - 100;
+                                this.gdaxUsdRow.coins[0].diff = message.data.price - this.gdaxUsdRow.coins[0].price;
+                                this.gdaxUsdRow.coins[0].price = message.data.price;
+                            }
+                            break;
+                        case 'ETH-USD':
+                            if (this.gdaxUsdRow.coins[1].price == 0) {
+                                this.gdaxUsdRow.coins[1].price = message.data.price;
+                            } else {
+                                this.gdaxUsdRow.coins[1].diffPercent = message.data.price * 100 / this.gdaxUsdRow.coins[1].price - 100;
+                                this.gdaxUsdRow.coins[1].diff = message.data.price - this.gdaxUsdRow.coins[1].price;
+                                this.gdaxUsdRow.coins[1].price = message.data.price;
+                            }
+                            break;
+                        case 'LTC-USD':
+                            if (this.gdaxUsdRow.coins[4].price == 0) {
+                                this.gdaxUsdRow.coins[4].price = message.data.price;
+                            } else {
+                                this.gdaxUsdRow.coins[4].diffPercent = message.data.price * 100 / this.gdaxUsdRow.coins[4].price - 100;
+                                this.gdaxUsdRow.coins[4].diff = message.data.price - this.gdaxUsdRow.coins[4].price;
+                                this.gdaxUsdRow.coins[4].price = message.data.price;
+                            }
+                            break;
+
+                    }
+                }
+            )
    /*      this.coinPriceService.getYunbis()
             .subscribe((data:any) => {
 
@@ -663,7 +675,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
             .subscribe(data => {
                 this.setBittrex(data);
             })
-    }; 
+    };
 
     getKraken() {
         this.krakenUnsubscribe = Observable
@@ -739,7 +751,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
         if (this.bitflyerUnsubscribe != null)
             this.bitflyerUnsubscribe.unsubscribe();
          if (this.bittrexUnsubscribe != null)
-            this.bittrexUnsubscribe.unsubscribe(); 
+            this.bittrexUnsubscribe.unsubscribe();
         if (this.krakenUnsubscribe != null)
             this.krakenUnsubscribe.unsubscribe();
         if (this.coinisUnsubscribe != null)

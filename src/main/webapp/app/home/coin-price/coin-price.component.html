@@ -17,7 +17,7 @@
 <mat-tab-group>
     <mat-tab label="Style A">
         <div class="table-header-wrapper">
-            <mat-grid-list cols="13" rowHeight="60px">
+            <mat-grid-list cols="14" rowHeight="60px">
                 <mat-grid-tile><span jhiTranslate="market.coin">Coin</span></mat-grid-tile>
                 <mat-grid-tile>
                     <a jhiTranslate="market.bithumb" href="https://www.bithumb.com/" target="_blank">Bithumb</a>
@@ -49,6 +49,10 @@
                 </mat-grid-tile>
                 <mat-grid-tile>
                     <a href="https://www.bitstamp.net/" target="_blank" jhiTranslate="market.bitstamp">Bitstamp</a >
+                        <p><span class="flag-icon flag-icon-us"></span></p>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <a href="https://www.gdax.com" target="_blank" jhiTranslate="market.gdax">GDAX</a >
                         <p><span class="flag-icon flag-icon-us"></span></p>
                 </mat-grid-tile>
                 <mat-grid-tile>
@@ -113,6 +117,9 @@
                     <abc-coin-price-row [coinRow]=bitstampUsdRow [myCurrency]=myCurrency [colsNum]='1'></abc-coin-price-row>
                 </div>
                 <div style="flex:1">
+                    <abc-coin-price-row [coinRow]=gdaxUsdRow [myCurrency]=myCurrency [colsNum]='1'></abc-coin-price-row>
+                </div>
+                <div style="flex:1">
                     <abc-coin-price-row [coinRow]=okCoinCnRow [myCurrency]=myCurrency [colsNum]='1'></abc-coin-price-row>
                 </div>
                 <!-- <div style="flex:1">
@@ -155,7 +162,8 @@
             <abc-coin-price-row [coinRow]=poloniexRow [myCurrency]=myCurrency [colsNum]='12'></abc-coin-price-row>
             <abc-coin-price-row [coinRow]=bittrexRow [myCurrency]=myCurrency [colsNum]='12'></abc-coin-price-row>
             <abc-coin-price-row [coinRow]=bitfinexRow [myCurrency]=myCurrency [colsNum]='12'></abc-coin-price-row>
-            <abc-coin-price-row [coinRow]=bitstampUsdRow [myCurrency]=myCurrency [colsNum]='12'></abc-coin-price-row>            
+            <abc-coin-price-row [coinRow]=bitstampUsdRow [myCurrency]=myCurrency [colsNum]='12'></abc-coin-price-row>
+            <abc-coin-price-row [coinRow]=gdaxUsdRow [myCurrency]=myCurrency [colsNum]='12'></abc-coin-price-row>
             <abc-coin-price-row [coinRow]=okCoinCnRow [myCurrency]=myCurrency [colsNum]='12'></abc-coin-price-row>
             <!-- <abc-coin-price-row [coinRow]=yunbiRow [myCurrency]=myCurrency [colsNum]='12'></abc-coin-price-row> -->
             <abc-coin-price-row [coinRow]=bitflyerRow [myCurrency]=myCurrency [colsNum]='12'></abc-coin-price-row>

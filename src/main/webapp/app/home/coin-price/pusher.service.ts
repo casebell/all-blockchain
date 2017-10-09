@@ -1,6 +1,5 @@
 import * as Pusher from 'pusher-js';
 import { Injectable, EventEmitter } from '@angular/core';
-import * as Rx from 'rxjs/Rx'
 const BITSTAMP_PUSHER_KEY = 'de504dc5763aeef9ff52';
 const BITSTAMP_PUSHER_EVENT = 'trade';
 const BITSTAMP_PUSHER_BTCEUR_CHANNEL = 'live_trades_btceur';
@@ -22,13 +21,13 @@ export class PuserService {
   private LTCEURMessageListener: EventEmitter<any> = new EventEmitter();
   private XRPEURMessageListener: EventEmitter<any> = new EventEmitter();
   private XRPUSDMessageListener: EventEmitter<any> = new EventEmitter();
-  
-  constructor() { 
+
+  constructor() {
     this.pusher = new Pusher(BITSTAMP_PUSHER_KEY)
   }
 
   public connect() {
-    
+
     var BTCUSDTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_BTCUSD_CHANNEL)
     BTCUSDTradesChannel.bind(BITSTAMP_PUSHER_EVENT, (data) =>{
       this.BTCUSDMessageListener.emit(data);

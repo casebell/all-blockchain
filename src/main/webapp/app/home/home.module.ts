@@ -10,6 +10,7 @@ import { ExchangeRateService } from './coin-price/coin-price-row/exchange-rate.s
 import { ExchangeRateComponent } from './exchange-rate/exchange-rate.component';
 import { BitfinexWebsocketService } from './coin-price/bitfinex-websocket.service';
 import { PuserService } from './coin-price/pusher.service';
+import { GDAXWebsocketService } from './coin-price/gdax-websocket.service';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { PuserService } from './coin-price/pusher.service';
     providers: [
         CoinPriceService,
         BitfinexWebsocketService,
+        GDAXWebsocketService,
         ExchangeRateService,
         PuserService,
     ],
