@@ -44,12 +44,12 @@ mat-icon {
 
 }
 
-@media (max-width: 880px) {
+@media (max-width: 980px) {
 
     .table-header-wrapper {
         overflow-x: -moz-scrollbars-none;
         white-space: nowrap;
-        width: 820px;
+        width: 980px;
     }
 
     .table-header-wrapper::-webkit-scrollbar {
@@ -58,11 +58,11 @@ mat-icon {
 
 }
 
-@media (max-width: 950px) {
+@media (max-width: 1050px) {
     .table-header-wrapperb {
         overflow-x: -moz-scrollbars-none;
         white-space: nowrap;
-        width: 900px;
+        width: 1050px;
     }
     .table-header-wrapperb::-webkit-scrollbar {
         display: none; // Safari and Chrome
