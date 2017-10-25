@@ -66,7 +66,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
     bittrexRow  :CoinPrice;
     bitstampUsdRow :CoinPrice;
     gdaxUsdRow :CoinPrice;
-    coinisRow  :CoinPrice;
+   // coinisRow  :CoinPrice;
     krakenRow :CoinPrice;
     bitstampEuRow :CoinPrice;
   //  yunbiRow :CoinPrice;
@@ -80,7 +80,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
     krakenUnsubscribe: Subscription;
     poloniexUnsubscribe: Subscription;
     bittrexUnsubscribe: Subscription;
-    coinisUnsubscribe: Subscription;
+    //coinisUnsubscribe: Subscription;
     yunbiUnsubscribe: Subscription;
     bitfinexUnsubscribe: Subscription;
 
@@ -122,7 +122,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
         this.getBitflyer();
         this.getBittrex();
         this.getKraken();
-        this.getCoinis();
+      //  this.getCoinis();
     }
 
     initialCoinRow() {
@@ -141,11 +141,11 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
             currencies : 'KRW',
             coins : _.cloneDeep(this.coins)
         };
-        this.coinisRow = {
+      /*  this.coinisRow = {
             market: 'Coinis',
             currencies : 'KRW',
             coins : _.cloneDeep(this.coins)
-        };
+        };*/
         this.poloniexRow = {
             market: 'Poloniex',
             currencies : 'USD',
@@ -201,9 +201,10 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
         // bithumb
         this.coinPriceService.getBithumb()
             .subscribe(data => {
-                for (let i = 0; i < data.length; i++) {
+                for (let i = 0; i < 9; i++) {
                     this.bithumbRow.coins[i].price = data[i].closing_price;
                 }
+                this.bithumbRow.coins[10].price = data[9].closing_price
                 //this.bithumbRow.coins[8].price = data[7].closing_price;
             });
         // korbit
@@ -282,14 +283,14 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
                 }
             });
 
-        this.coinPriceService.getCoinis()
+   /*     this.coinPriceService.getCoinis()
             .subscribe((data: any) => {
                 this.coinisRow.coins[0].price = data[0].closeprice;
                 this.coinisRow.coins[3].price = data[1].closeprice;
                 this.coinisRow.coins[4].price = data[2].closeprice;
                 this.coinisRow.coins[7].price = data[3].closeprice;
                 this.coinisRow.coins[8].price = data[4].closeprice;
-            });
+            });*/
 
         // socket service start
 
@@ -687,7 +688,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
             })
         };x
 
-    getCoinis() {
+/*    getCoinis() {
         this.coinisUnsubscribe = Observable
             .interval(this.myUpdateTime * 1000)
             .timeInterval()
@@ -696,7 +697,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
                 this.setCoinis(data);
             })
 
-    };
+    };*/
 
    /*  getYunbi() {
         this.yunbiUnsubscribe = Observable
@@ -719,7 +720,6 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
             })
 
     }; */
-
     // this.bitfinexUnsubscribe = Observable
     //         .interval(this.myUpdateTime * 1000)
     //         .timeInterval()
@@ -754,8 +754,8 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
             this.bittrexUnsubscribe.unsubscribe();
         if (this.krakenUnsubscribe != null)
             this.krakenUnsubscribe.unsubscribe();
-        if (this.coinisUnsubscribe != null)
-            this.coinisUnsubscribe.unsubscribe();
+    /*    if (this.coinisUnsubscribe != null)
+            this.coinisUnsubscribe.unsubscribe();*/
         // if (this.yunbiUnsubscribe != null)
         //     this.yunbiUnsubscribe.unsubscribe();
         /* if (this.bitfinexUnsubscribe != null)
@@ -768,7 +768,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
         this.getBitflyer();
         this.getBittrex();
         this.getKraken();
-        this.getCoinis();
+      //  this.getCoinis();
         // this.getYunbi();
        // this.getBitfinex();
     }
@@ -778,11 +778,16 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
     }
 
     setBithumb(data) {
-        for (let i = 0; i < data.length; i++) {
-            this.bithumbRow.coins[i].diffPercent = data[i].closing_price * 100 / this.bithumbRow.coins[i].price - 100
+        for (let i = 0; i < 9; i++) {
+            this.bithumbRow.coins[i].diffPercent = data[i].closing_price * 100 / this.bithumbRow.coins[i].price - 100;
             this.bithumbRow.coins[i].diff = data[i].closing_price - this.bithumbRow.coins[i].price;
             this.bithumbRow.coins[i].price = data[i].closing_price
         }
+        //qtum
+        this.bithumbRow.coins[10].diffPercent = data[9].closing_price * 100 / this.bithumbRow.coins[10].price - 100;
+        this.bithumbRow.coins[10].diff = data[9].closing_price - this.bithumbRow.coins[10].price;
+        this.bithumbRow.coins[10].price = data[9].closing_price
+
         //xmr
         // this.bithumbRow.coins[8].diffPercent = data[7].closing_price * 100 / this.bithumbRow.coins[8].price - 100
         // this.bithumbRow.coins[8].diff = data[7].closing_price - this.bithumbRow.coins[8].price;
@@ -925,7 +930,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
         }
     }
 
-    setCoinis(data) {
+    /*setCoinis(data) {
         //3478
         this.coinisRow.coins[0].diffPercent = data[0].closeprice * 100 / this.coinisRow.coins[0].price - 100;
         this.coinisRow.coins[0].diff = data[0].closeprice - this.coinisRow.coins[0].price;
@@ -946,7 +951,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
         this.coinisRow.coins[8].diffPercent = data[4].closeprice * 100 / this.coinisRow.coins[8].price - 100;
         this.coinisRow.coins[8].diff = data[4].closeprice - this.coinisRow.coins[8].price;
         this.coinisRow.coins[8].price = data[4].closeprice;
-    }
+    }*/
 /*
     setYunbis(data) {
         this.yunbiRow.coins[0].diffPercent = data.btccny.ticker.last * 100 / this.yunbiRow.coins[0].price - 100;

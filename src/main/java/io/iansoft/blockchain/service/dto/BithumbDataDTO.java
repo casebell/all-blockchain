@@ -17,8 +17,8 @@ public class BithumbDataDTO implements Serializable {
     private String volume_7day;
     private String buy_price;
     private String sell_price;
-    private String date;
     private ZonedDateTime createdat;
+
 
     public Long getId() {
         return id;
@@ -137,29 +137,22 @@ public class BithumbDataDTO implements Serializable {
         return this;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public BithumbDataDTO setDate(String date) {
-        this.date = date;
-        return this;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("BithumbDataDTO{");
-        sb.append("opening_price='").append(opening_price).append('\'');
-        sb.append(", closing_price='").append(closing_price).append('\'');
-        sb.append(", min_price='").append(min_price).append('\'');
-        sb.append(", max_price='").append(max_price).append('\'');
-        sb.append(", average_price='").append(average_price).append('\'');
-        sb.append(", units_traded='").append(units_traded).append('\'');
-        sb.append(", volume_1day='").append(volume_1day).append('\'');
-        sb.append(", volume_7day='").append(volume_7day).append('\'');
-        sb.append(", buy_price='").append(buy_price).append('\'');
-        sb.append(", sell_price='").append(sell_price).append('\'');
-        sb.append(", date='").append(date).append('\'');
+    @java.lang.Override
+    public java.lang.String toString() {
+        final java.lang.StringBuilder sb = new java.lang.StringBuilder("BithumbDataDTO{");
+        sb.append("id=").append(id);
+        sb.append(", symbol=").append(symbol);
+        sb.append(", opening_price=").append(opening_price);
+        sb.append(", closing_price=").append(closing_price);
+        sb.append(", min_price=").append(min_price);
+        sb.append(", max_price=").append(max_price);
+        sb.append(", average_price=").append(average_price);
+        sb.append(", units_traded=").append(units_traded);
+        sb.append(", volume_1day=").append(volume_1day);
+        sb.append(", volume_7day=").append(volume_7day);
+        sb.append(", buy_price=").append(buy_price);
+        sb.append(", sell_price=").append(sell_price);
+        sb.append(", createdat=").append(createdat);
         sb.append('}');
         return sb.toString();
     }

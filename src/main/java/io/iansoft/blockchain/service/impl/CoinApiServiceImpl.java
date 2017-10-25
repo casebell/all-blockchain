@@ -41,7 +41,6 @@ public class CoinApiServiceImpl implements CoinApiService {
     private final OkCoinCnRepository okCoinCnRepository;
     private final BitflyerRepository bitflyerRepository;
     private final BittrexRepository bittrexRepository;
-    private final CoinisRepository coinisRepository;
    // private final BitfinexRepository bitfinexRepository;
 
     private final ModelMapper modelMapper;
@@ -54,7 +53,6 @@ public class CoinApiServiceImpl implements CoinApiService {
                               OkCoinCnRepository okCoinCnRepository,
                               BitflyerRepository bitflyerRepository,
                               BittrexRepository bittrexRepository,
-                              CoinisRepository coinisRepository,
                              // BitfinexRepository bitfinexRepository,
                               ModelMapper modelMapper) {
         this.bithumbRepository = bithumbRepository;
@@ -63,7 +61,6 @@ public class CoinApiServiceImpl implements CoinApiService {
         this.okCoinCnRepository = okCoinCnRepository;
         this.bitflyerRepository = bitflyerRepository;
         this.bittrexRepository = bittrexRepository;
-        this.coinisRepository = coinisRepository;
      //   this.bitfinexRepository = bitfinexRepository;
         this.modelMapper = modelMapper;
     }
@@ -114,27 +111,8 @@ public class CoinApiServiceImpl implements CoinApiService {
     @Override
     @Scheduled(cron = "*/5 * * * * *")
     public void getCoinApi() {
-        List<BithumbDTO> bithumbDTOS = new ArrayList();
-        bithumbDTOS.add(getBithumbRestBtc());
-        bithumbDTOS.add(getBithumbRestEth());
-        bithumbDTOS.add(getBithumbRestXrp());
-        bithumbDTOS.add(getBithumbRestDash());
-        bithumbDTOS.add(getBithumbRestLtc());
-        bithumbDTOS.add(getBithumbRestEtc());
-        bithumbDTOS.add(getBithumbRestBch());
-        bithumbDTOS.add(getBithumbRestZec());
-        bithumbDTOS.add(getBithumbRestXmr());
         zonedDateTime = ZonedDateTime.now();
-        bithumbDTOS.forEach(this::saveBithumb);
-
-        List<Bithumb> bithumbs = bithumbRepository.findAll();
-
-        for(Bithumb bithumb : bithumbs)
-        {
-
-            log.debug(String.valueOf(bithumb.getId()));
-            log.debug(String.valueOf(bithumb.getClosing_price()));
-        }
+        getBithumbRest().forEach(this::saveBithumb);
 
         List<KorbitDTO> korbitDTOS = new ArrayList();
         korbitDTOS.add(getKorbitRestBtc());
@@ -158,22 +136,17 @@ public class CoinApiServiceImpl implements CoinApiService {
 
         getKrakens().forEach(this::saveKraken);
 
-        getCoinis().forEach(this::saveCoinis);
 
        // getBitfinex().forEach(this::saveBitfinex);
 
     }
 
 
-    private void saveBithumb(BithumbDTO bithumbDTO) {
-        if ("0000".equals(bithumbDTO.getStatus())) {
-            //log.debug("bitcoinDto = {} getting time is {} ", bithumbDTO.toString(), LocalDateTime.now());
-            Bithumb bithumb = modelMapper.map(bithumbDTO.getData(),Bithumb.class);
+    private void saveBithumb(BithumbDataDTO bithumbDTO) {
+            Bithumb bithumb = modelMapper.map(bithumbDTO,Bithumb.class);
             bithumb.setCreatedat(zonedDateTime);
-            bithumbRepository.save(bithumb);
-        } else {
-            log.error("get bithumb api error  code : {} ", bithumbDTO.getStatus());
-        }
+        Bithumb test = bithumbRepository.save(bithumb);
+        log.debug(test.toString());
     }
 
 
@@ -207,11 +180,6 @@ public class CoinApiServiceImpl implements CoinApiService {
         Kraken kraken = modelMapper.map(krakenDTO, Kraken.class);
         kraken.setCreatedat(zonedDateTime);
         krakenRepository.save(kraken);
-    }
-  private void saveCoinis(CoinisDTO coinisDTO) {
-        Coinis coinis = modelMapper.map(coinisDTO, Coinis.class);
-        coinis.setCreatedat(zonedDateTime);
-        coinisRepository.save(coinis);
     }
 
 /*   private void saveBitfinex(BitfinexDTO bitfinexDTO) {
@@ -344,16 +312,6 @@ public class CoinApiServiceImpl implements CoinApiService {
         return krakenDTOS;
     }
 
-    private List<CoinisDTO> getCoinis() {
-        List<CoinisDTO> coinisDTOs = new ArrayList();
-        coinisDTOs.add(getCoinisRest("BTCKRW"));
-        coinisDTOs.add(getCoinisRest("DASHKRW"));
-        coinisDTOs.add(getCoinisRest("LTCKRW"));
-        coinisDTOs.add(getCoinisRest("ZECKRW"));
-        coinisDTOs.add(getCoinisRest("XMRKRW"));
-
-        return coinisDTOs;
-    }
 
    /*  private List<BitfinexDTO> getBitfinex() {
         List<BitfinexDTO> bitfinexDTOs = new ArrayList();
@@ -407,7 +365,7 @@ public class CoinApiServiceImpl implements CoinApiService {
         }
         return krakenDTO ;
     }
-/* 
+/*
     private BitfinexDTO getBitfinexRest(String market) {
 
         RestTemplate restTemplate = new RestTemplate();
@@ -446,31 +404,6 @@ public class CoinApiServiceImpl implements CoinApiService {
     }
  */
 
-    private CoinisDTO getCoinisRest(String market) {
-
-        RestTemplate restTemplate = new RestTemplate();
-        Map coinisMap = restTemplate.getForObject("http://www.coinis.co.kr/api/sise/ticker?itemcode=" + market, Map.class);
-        CoinisDTO coinisDTO = new CoinisDTO();
-        switch (market) {
-            case "BTCKRW":
-                coinisDTO = setCoinisRest(coinisMap, BTC_SYMBOL);
-                break;
-            case "LTCKRW":
-                coinisDTO = setCoinisRest(coinisMap, LTC_SYMBOL);
-                break;
-            case "DASHKRW":
-                coinisDTO = setCoinisRest(coinisMap, DASH_SYMBOL);
-                break;
-            case "ZECKRW":
-                coinisDTO = setCoinisRest(coinisMap, ZEC_SYMBOL);
-                break;
-            case "XMRKRW":
-                coinisDTO = setCoinisRest(coinisMap, XMR_SYMBOL);
-                break;
-        }
-
-        return coinisDTO ;
-    }
 
 
     private KrakenDTO setKrakenRest(Map krakenMap, String symbol, String krakenSymbol) {
@@ -479,14 +412,6 @@ public class CoinApiServiceImpl implements CoinApiService {
         krakenDTO.setLast(last.get(0));
         krakenDTO.setSymbol(symbol);
         return krakenDTO;
-    }
-
-    private CoinisDTO setCoinisRest(Map coinMap, String symbol) {
-
-        CoinisDTO coinisDTO= new CoinisDTO();
-        coinisDTO.setCloseprice((String) ((Map)coinMap.get("data")).get("ClosePrice"));
-        coinisDTO.setSymbol(symbol);
-        return coinisDTO;
     }
 
     private BittrexDTO getBittrexRest(String market) {
@@ -547,25 +472,55 @@ public class CoinApiServiceImpl implements CoinApiService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        /*
-        RestTemplate restTemplate = new RestTemplate();
-        BitflyerDTO bitflyerDTO = restTemplate
-            .getForObject("https://api.bitflyer.jp/v1/ticker", BitflyerDTO.class);*/
         bitflyerDTO.setSymbol(BTC_SYMBOL);
         return bitflyerDTO;
     }
 
 
-    private BithumbDTO getBithumbRestBtc() {
+    private List<BithumbDataDTO> getBithumbRest() {
         RestTemplate restTemplate = new RestTemplate();
-        BithumbDTO bithumbDTO = restTemplate
-            .getForObject("https://api.bithumb.com/public/ticker/btc", BithumbDTO.class);
-        bithumbDTO.getData().setSymbol(BTC_SYMBOL);
-        return bithumbDTO;
+        Map bithumbsMap = restTemplate
+            .getForObject("https://api.bithumb.com/public/ticker/all", Map.class);
+        Map<Object, Object> bithumbMap = (Map<Object, Object>) bithumbsMap.get("data");
+        List<BithumbDataDTO> bithumbDataDTOS = new ArrayList<>();
+        BithumbDataDTO bithumbDTOBtc = modelMapper.map(bithumbMap.get("BTC"), BithumbDataDTO.class);
+        bithumbDTOBtc.setSymbol(BTC_SYMBOL);
+        BithumbDataDTO bithumbDTOEth = modelMapper.map(bithumbMap.get("ETH"), BithumbDataDTO.class);
+        bithumbDTOEth.setSymbol(ETH_SYMBOL);
+        BithumbDataDTO bithumbDTODash = modelMapper.map(bithumbMap.get("DASH"), BithumbDataDTO.class);
+        bithumbDTODash.setSymbol(DASH_SYMBOL);
+        BithumbDataDTO bithumbDTOLtc = modelMapper.map(bithumbMap.get("LTC"), BithumbDataDTO.class);
+        bithumbDTOLtc.setSymbol(LTC_SYMBOL);
+        BithumbDataDTO bithumbDTOEtc = modelMapper.map(bithumbMap.get("ETC"), BithumbDataDTO.class);
+        bithumbDTOEtc.setSymbol(ETC_SYMBOL);
+        BithumbDataDTO bithumbDTOXrp = modelMapper.map(bithumbMap.get("XRP"), BithumbDataDTO.class);
+        bithumbDTOXrp.setSymbol(XRP_SYMBOL);
+        BithumbDataDTO bithumbDTOBch = modelMapper.map(bithumbMap.get("BCH"), BithumbDataDTO.class);
+        bithumbDTOBch.setSymbol(BCH_SYMBOL);
+        BithumbDataDTO bithumbDTOXmr = modelMapper.map(bithumbMap.get("XMR"), BithumbDataDTO.class);
+        bithumbDTOXmr.setSymbol(XMR_SYMBOL);
+        BithumbDataDTO bithumbDTOZec = modelMapper.map(bithumbMap.get("ZEC"), BithumbDataDTO.class);
+        bithumbDTOZec.setSymbol(ZEC_SYMBOL);
+        BithumbDataDTO bithumbDTOQtum = modelMapper.map(bithumbMap.get("QTUM"), BithumbDataDTO.class);
+        bithumbDTOQtum.setSymbol(QTUM_SYMBOL);
+
+        bithumbDataDTOS.add(bithumbDTOBtc);
+        bithumbDataDTOS.add(bithumbDTOEth);
+        bithumbDataDTOS.add(bithumbDTOXrp);
+        bithumbDataDTOS.add(bithumbDTODash);
+        bithumbDataDTOS.add(bithumbDTOLtc);
+        bithumbDataDTOS.add(bithumbDTOEtc);
+
+        bithumbDataDTOS.add(bithumbDTOBch);
+        bithumbDataDTOS.add(bithumbDTOZec);
+        bithumbDataDTOS.add(bithumbDTOXmr);
+
+        bithumbDataDTOS.add(bithumbDTOQtum);
+
+        return bithumbDataDTOS;
     }
 
-
+/*
     private BithumbDTO getBithumbRestEth() {
         RestTemplate restTemplate = new RestTemplate();
         BithumbDTO bithumbDTO = restTemplate
@@ -615,6 +570,13 @@ public class CoinApiServiceImpl implements CoinApiService {
         bithumbDTO.getData().setSymbol(BCH_SYMBOL);
         return bithumbDTO;
     }
+    private BithumbDTO getBithumbRest() {
+        RestTemplate restTemplate = new RestTemplate();
+        BithumbDTO bithumbDTO = restTemplate
+            .getForObject("https://api.bithumb.com/public/ticker/bch", BithumbDTO.class);
+        bithumbDTO.getData().setSymbol(BCH_SYMBOL);
+        return bithumbDTO;
+    }
 
     private BithumbDTO getBithumbRestXmr() {
         RestTemplate restTemplate = new RestTemplate();
@@ -630,5 +592,5 @@ public class CoinApiServiceImpl implements CoinApiService {
             .getForObject("https://api.bithumb.com/public/ticker/zec", BithumbDTO.class);
         bithumbDTO.getData().setSymbol(ZEC_SYMBOL);
         return bithumbDTO;
-    }
+    }*/
 }
