@@ -1,5 +1,6 @@
 package io.iansoft.blockchain.web.rest.errors;
 
+import io.iansoft.blockchain.web.rest.util.HeaderUtil;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.dao.ConcurrencyFailureException;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import org.zalando.problem.spring.web.advice.validation.ConstraintViolationProbl
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -34,7 +36,7 @@ public class ExceptionTranslator implements ProblemHandling {
      * Post-process Problem payload to add the message key for front-end if needed
      */
     @Override
-    public ResponseEntity<Problem> process(@Nullable ResponseEntity<Problem> entity) {
+    public ResponseEntity<Problem> process(@Nullable ResponseEntity<Problem> entity, NativeWebRequest request) {
         if (entity == null || entity.getBody() == null) {
             return entity;
         }
@@ -45,7 +47,9 @@ public class ExceptionTranslator implements ProblemHandling {
         ProblemBuilder builder = Problem.builder()
             .withType(Problem.DEFAULT_TYPE.equals(problem.getType()) ? ErrorConstants.DEFAULT_TYPE : problem.getType())
             .withStatus(problem.getStatus())
-            .withTitle(problem.getTitle());
+            .withTitle(problem.getTitle())
+            .with("path", request.getNativeRequest(HttpServletRequest.class).getRequestURI());
+
 
         if (problem instanceof ConstraintViolationProblem) {
             builder
@@ -82,24 +86,9 @@ public class ExceptionTranslator implements ProblemHandling {
         return create(ex, problem, request);
     }
 
-    /**
-     * Override default handler to take ResponseStatus annotation into account
-     */
-    @Override
-    public ResponseEntity<Problem> handleThrowable(
-        @Nonnull final Throwable throwable,
-        @Nonnull final NativeWebRequest request) {
-        ResponseStatus responseStatus = AnnotationUtils.findAnnotation(throwable.getClass(), ResponseStatus.class);
-        if (responseStatus != null) {
-            Problem problem = Problem.builder()
-                .withStatus(new HttpStatusAdapter(responseStatus.value()))
-                .withTitle(responseStatus.reason().isEmpty() ? responseStatus.value().getReasonPhrase() : responseStatus.reason() )
-                .withDetail(throwable.getMessage())
-                .build();
-            return create(throwable, problem, request);
-        } else {
-            return create(Status.INTERNAL_SERVER_ERROR, throwable, request);
-        }
+    @ExceptionHandler(BadRequestAlertException.class)
+    public ResponseEntity<Problem> handleBadRequestAlertException(BadRequestAlertException ex, NativeWebRequest request) {
+        return create(ex, request, HeaderUtil.createFailureAlert(ex.getEntityName(), ex.getErrorKey(), ex.getMessage()));
     }
 
     @ExceptionHandler(ConcurrencyFailureException.class)

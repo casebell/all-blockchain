@@ -5,6 +5,7 @@ import io.iansoft.blockchain.domain.Authority;
 import io.iansoft.blockchain.domain.User;
 import io.iansoft.blockchain.repository.AuthorityRepository;
 import io.iansoft.blockchain.repository.UserRepository;
+import io.iansoft.blockchain.security.AuthoritiesConstants;
 import io.iansoft.blockchain.repository.search.UserSearchRepository;
 import io.iansoft.blockchain.service.MailService;
 
@@ -193,7 +194,7 @@ public class SocialServiceIntTest {
         User user = userRepository.findOneByEmailIgnoreCase("mail@mail.com").get();
         assertThat(user.getActivated()).isEqualTo(true);
         assertThat(user.getPassword()).isNotEmpty();
-        Authority userAuthority = authorityRepository.findOne("ROLE_USER");
+        Authority userAuthority = authorityRepository.findOne(AuthoritiesConstants.USER);
         assertThat(user.getAuthorities().toArray()).containsExactly(userAuthority);
 
         // Teardown

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Rx';
 import { JhiLanguageService } from 'ng-jhipster';
 import { MockLanguageService } from '../../../helpers/mock-language.service';
 import { BlockchainTestModule } from '../../../test.module';
-import { LoginModalService } from '../../../../../../main/webapp/app/shared';
+import { LoginModalService, EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE } from '../../../../../../main/webapp/app/shared';
 import { Register } from '../../../../../../main/webapp/app/account/register/register.service';
 import { RegisterComponent } from '../../../../../../main/webapp/app/account/register/register.component';
 
@@ -20,6 +20,10 @@ describe('Component Tests', () => {
                 declarations: [RegisterComponent],
                 providers: [
                     Register,
+                    {
+                        provide: LoginModalService,
+                        useValue: null
+                    },
                     {
                         provide: Renderer,
                         useValue: null
@@ -39,20 +43,22 @@ describe('Component Tests', () => {
             comp.ngOnInit();
         });
 
-    /*     it('should ensure the two passwords entered match', () => {
+        it('should ensure the two passwords entered match', () => {
             comp.registerAccount.password = 'password';
+            comp.confirmPassword = 'non-matching';
+
             comp.register();
 
             expect(comp.doNotMatch).toEqual('ERROR');
-        }); */
+        });
 
         it('should update success to OK after creating an account',
             inject([Register, JhiLanguageService],
                 fakeAsync((service: Register, mockTranslate: MockLanguageService) => {
                     spyOn(service, 'save').and.returnValue(Observable.of({}));
-                    comp.registerAccount.password = 'password';
+                    comp.registerAccount.password = comp.confirmPassword = 'password';
 
-                    comp.register(null);
+                    comp.register();
                     tick();
 
                     expect(service.save).toHaveBeenCalledWith({
@@ -74,11 +80,13 @@ describe('Component Tests', () => {
                 fakeAsync((service: Register) => {
                     spyOn(service, 'save').and.returnValue(Observable.throw({
                         status: 400,
-                        _body: 'login already in use'
+                        json() {
+                            return {type : LOGIN_ALREADY_USED_TYPE}
+                        }
                     }));
-                    comp.registerAccount.password  = 'password';
+                    comp.registerAccount.password = comp.confirmPassword = 'password';
 
-                    comp.register(null);
+                    comp.register();
                     tick();
 
                     expect(comp.errorUserExists).toEqual('ERROR');
@@ -93,11 +101,13 @@ describe('Component Tests', () => {
                 fakeAsync((service: Register) => {
                     spyOn(service, 'save').and.returnValue(Observable.throw({
                         status: 400,
-                        _body: 'email address already in use'
+                        json() {
+                            return {type : EMAIL_ALREADY_USED_TYPE}
+                        }
                     }));
-                    comp.registerAccount.password = 'password';
+                    comp.registerAccount.password = comp.confirmPassword = 'password';
 
-                    comp.register(null);
+                    comp.register();
                     tick();
 
                     expect(comp.errorEmailExists).toEqual('ERROR');
@@ -113,9 +123,9 @@ describe('Component Tests', () => {
                     spyOn(service, 'save').and.returnValue(Observable.throw({
                         status: 503
                     }));
-                    comp.registerAccount.password = 'password';
+                    comp.registerAccount.password = comp.confirmPassword = 'password';
 
-                    comp.register(null);
+                    comp.register();
                     tick();
 
                     expect(comp.errorUserExists).toBeNull();

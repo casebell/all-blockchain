@@ -7,6 +7,7 @@ import { LoginModalService } from '../../shared';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { TranslateService } from "@ngx-translate/core";
+import { LoginModalService, EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE } from '../../shared';
 
 @Component({
     selector: 'jhi-register',
@@ -103,16 +104,15 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         return this.registerForm.get('email');
     }
 
-   
+
 
     private processError(response) {
         console.log('error response : ', response.error);
         console.log('error response : ', response.error.code);
         console.log('translate ', this.translateService.instant('blockchainApp.resource.home.title'))
-        if (response.status === 400 && response.error.code === 'duplicated.login.exception') {
-            console.log('test');
-            this.errorUserExists='ERROR';
-        } else if (response.status === 400 && response.error.code === 'duplicated.email.exception') {
+        if (response.status === 400 && response.json().type === LOGIN_ALREADY_USED_TYPE) {
+            this.errorUserExists = 'ERROR';
+        } else if (response.status === 400 && response.json().type === EMAIL_ALREADY_USED_TYPE) {
             this.errorEmailExists = 'ERROR';
         } else {
             this.error ='ERROR';

@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static io.iansoft.blockchain.repository.CustomAuditEventRepository.EVENT_DATA_COLUMN_MAX_LENGTH;
 
 /**
- * Test class for the CustomAuditEventRepository customAuditEventRepository class.
+ * Test class for the CustomAuditEventRepository class.
  *
  * @see CustomAuditEventRepository
  */
@@ -192,7 +192,7 @@ public class CustomAuditEventRepositoryIntTest {
         assertThat(persistentAuditEvent.getAuditEventDate()).isEqualTo(event.getTimestamp().toInstant());
     }
 
-    @Test
+   @Test
     public void testAddEventWithWebAuthenticationDetails() {
         HttpSession session = new MockHttpSession(null, "test-session-id");
         MockHttpServletRequest request = new MockHttpServletRequest();

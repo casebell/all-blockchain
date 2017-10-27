@@ -200,7 +200,7 @@ dependencies {
     compile "io.springfox:springfox-bean-validators:${springfox_version}"
     compile "org.postgresql:postgresql"
     compile "com.h2database:h2"
-    compile "org.mapstruct:mapstruct:${mapstruct_version}"
+    compile "org.mapstruct:mapstruct-jdk8:${mapstruct_version}"
     compile "org.apache.httpcomponents:httpclient"
     compile "org.springframework.social:spring-social-security"
     compile "org.springframework.social:spring-social-google:${spring_social_google_version}"
@@ -221,7 +221,7 @@ dependencies {
     testCompile "org.mockito:mockito-core"
     testCompile "com.mattbertolini:liquibase-slf4j:${liquibase_slf4j_version}"
     testCompile "org.hamcrest:hamcrest-library"
-    testCompile "io.gatling.highcharts:gatling-charts-highcharts:${gatling_version}"
+//    testCompile "io.gatling.highcharts:gatling-charts-highcharts:${gatling_version}"
     optional ("org.springframework.boot:spring-boot-configuration-processor:${spring_boot_version}") {
         exclude group: 'com.vaadin.external.google', module: 'android-json'
     }
@@ -236,9 +236,11 @@ task cleanResources(type: Delete) {
     delete 'build/resources'
 }
 
+/*
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.1'
+    gradleVersion = '4.2.1'
 }
+*/
 
 task stage(dependsOn: 'bootRepackage') {
 }
