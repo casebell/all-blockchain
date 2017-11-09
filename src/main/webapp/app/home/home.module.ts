@@ -11,6 +11,7 @@ import { ExchangeRateComponent } from './exchange-rate/exchange-rate.component';
 import { BitfinexWebsocketService } from './coin-price/bitfinex-websocket.service';
 import { PuserService } from './coin-price/pusher.service';
 import { GDAXWebsocketService } from './coin-price/gdax-websocket.service';
+import { OkcoincnWebsocketService } from './coin-price/okcoincn-websocket.service';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { GDAXWebsocketService } from './coin-price/gdax-websocket.service';
         BitfinexWebsocketService,
         GDAXWebsocketService,
         ExchangeRateService,
+        OkcoincnWebsocketService,
         PuserService,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

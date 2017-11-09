@@ -30,12 +30,6 @@ public class CoinApiResource {
         return ResponseEntity.ok( coinApiService.getKorbit());
     }
 
-    @GetMapping("/coin-api/okcoin-cn")
-    public ResponseEntity<List<OkCoinCnDTO>> getOkCoinCn(){
-        return ResponseEntity.ok( coinApiService.getOkCoinCn());
-    }
-
-
     @GetMapping("/coin-api/bitflyer")
     public ResponseEntity<List<BitflyerDTO>> getBitflyer(){
         return ResponseEntity.ok( coinApiService.getBitflyer());

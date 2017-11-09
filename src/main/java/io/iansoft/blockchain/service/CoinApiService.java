@@ -13,8 +13,6 @@ public interface CoinApiService {
 
     List<KorbitDTO> getKorbit();
 
-    List<OkCoinCnDTO> getOkCoinCn();
-
     List<BitflyerDTO> getBitflyer();
 
     List<BittrexDTO> getBittrex();

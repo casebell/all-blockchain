@@ -1,9 +1,7 @@
 import { Component, OnInit, AfterViewInit, Renderer, ElementRef, ViewEncapsulation } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiLanguageService } from 'ng-jhipster';
-
 import { Register } from './register.service';
-import { LoginModalService } from '../../shared';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { TranslateService } from "@ngx-translate/core";
@@ -46,8 +44,8 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     ngOnInit() {
         this.success = false;
         this.registerAccount = {};
-        console.log('translate ', this.translateService.instant('blockchainApp.resource.home.title'))
-        console.log('translate ', this.translateService.instant('global.form.email.placeholder'))
+        console.log('translate ', this.translateService.instant('blockchainApp.resource.home.title'));
+        console.log('translate ', this.translateService.instant('global.form.email.placeholder'));
     }
 
     ngAfterViewInit() {
