@@ -1,9 +1,4 @@
 
-.select-wrapper {
-    display: flex;
-    margin: 15px 0;
-}
-
 .inc {
     color: red !important;
 }
@@ -32,9 +27,7 @@ mat-icon {
     vertical-align: middle;
 }
 
-.mat-select /deep/ .mat-select-trigger {
-    min-width: 80px;
-}
+
 
 /*
 .table-header-wrapper{

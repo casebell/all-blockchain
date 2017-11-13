@@ -1,19 +1,20 @@
-<div class="select-wrapper">
-    <div style="margin-left:auto">
-        <mat-select [placeholder]="'market.time' | translate" (change)="timeChange()" [(ngModel)]="myUpdateTime" style="margin-right:10px">
-            <mat-option *ngFor="let time of timeLists" [value]="time.value">
-                {{ time.viewValue }}
-            </mat-option>
-        </mat-select>
+<div style="display:flex;">
+        <mat-form-field  style="margin-left:auto;margin-right:10px; width:80px;">
+            <mat-select [placeholder]="'market.time' | translate" (change)="timeChange()" [(ngModel)]="myUpdateTime">
+                <mat-option *ngFor="let time of timeLists" [value]="time.value">
+                    {{ time.viewValue }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
 
-        <mat-select [placeholder]="'market.currency' | translate" [(ngModel)]="myCurrency" (change)="currencyChange($event)">
-            <mat-option *ngFor="let currency of currencyLists" [value]="currency.value">
-                {{ currency.viewValue }}
-            </mat-option>
-        </mat-select>
-    </div>
+        <mat-form-field style="width:80px;">
+            <mat-select [placeholder]="'market.currency' | translate" [(ngModel)]="myCurrency" (change)="currencyChange($event)">
+                <mat-option *ngFor="let currency of currencyLists" [value]="currency.value">
+                    {{ currency.viewValue }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
 </div>
-
 <mat-tab-group>
     <mat-tab label="Style A">
         <div class="table-header-wrapper">

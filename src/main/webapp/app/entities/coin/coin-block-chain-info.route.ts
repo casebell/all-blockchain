@@ -1,15 +1,12 @@
-import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActivate } from '@angular/router';
+import { Routes } from '@angular/router';
 
 import { UserRouteAccessService } from '../../shared';
-import { JhiPaginationUtil } from 'ng-jhipster';
 
 import { CoinBlockChainInfoComponent } from './coin-block-chain-info.component';
 import { CoinBlockChainInfoDetailComponent } from './coin-block-chain-info-detail.component';
 import { CoinBlockChainInfoPopupComponent } from './coin-block-chain-info-dialog.component';
 import { CoinBlockChainInfoDeletePopupComponent } from './coin-block-chain-info-delete-dialog.component';
 
-import { Principal } from '../../shared';
 
 export const coinRoute: Routes = [
     {

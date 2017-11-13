@@ -1,4 +1,4 @@
-import { browser, element, by, $ } from 'protractor';
+import { browser, element, by } from 'protractor';
 import { NavBarPage } from './../page-objects/jhi-page-objects';
 const path = require('path');
 
@@ -9,7 +9,6 @@ describe('Bitfinex e2e test', () => {
     let bitfinexComponentsPage: BitfinexComponentsPage;
     const fileToUpload = '../../../../main/webapp/content/images/logo-jhipster.png';
     const absolutePath = path.resolve(__dirname, fileToUpload);
-    
 
     beforeAll(() => {
         browser.get('/');
@@ -53,7 +52,7 @@ describe('Bitfinex e2e test', () => {
         expect(bitfinexDialogPage.getTimestampInput()).toMatch('timestamp');
         bitfinexDialogPage.save();
         expect(bitfinexDialogPage.getSaveButton().isPresent()).toBeFalsy();
-    }); 
+    });
 
     afterAll(() => {
         navBarPage.autoSignOut();
@@ -90,67 +89,67 @@ export class BitfinexDialogPage {
         return this.modalTitle.getAttribute('jhiTranslate');
     }
 
-    setMidInput = function (mid) {
+    setMidInput = function(mid) {
         this.midInput.sendKeys(mid);
     }
 
-    getMidInput = function () {
+    getMidInput = function() {
         return this.midInput.getAttribute('value');
     }
 
-    setBidInput = function (bid) {
+    setBidInput = function(bid) {
         this.bidInput.sendKeys(bid);
     }
 
-    getBidInput = function () {
+    getBidInput = function() {
         return this.bidInput.getAttribute('value');
     }
 
-    setAskInput = function (ask) {
+    setAskInput = function(ask) {
         this.askInput.sendKeys(ask);
     }
 
-    getAskInput = function () {
+    getAskInput = function() {
         return this.askInput.getAttribute('value');
     }
 
-    setLast_priceInput = function (last_price) {
+    setLast_priceInput = function(last_price) {
         this.last_priceInput.sendKeys(last_price);
     }
 
-    getLast_priceInput = function () {
+    getLast_priceInput = function() {
         return this.last_priceInput.getAttribute('value');
     }
 
-    setLowInput = function (low) {
+    setLowInput = function(low) {
         this.lowInput.sendKeys(low);
     }
 
-    getLowInput = function () {
+    getLowInput = function() {
         return this.lowInput.getAttribute('value');
     }
 
-    setHighInput = function (high) {
+    setHighInput = function(high) {
         this.highInput.sendKeys(high);
     }
 
-    getHighInput = function () {
+    getHighInput = function() {
         return this.highInput.getAttribute('value');
     }
 
-    setVolumeInput = function (volume) {
+    setVolumeInput = function(volume) {
         this.volumeInput.sendKeys(volume);
     }
 
-    getVolumeInput = function () {
+    getVolumeInput = function() {
         return this.volumeInput.getAttribute('value');
     }
 
-    setTimestampInput = function (timestamp) {
+    setTimestampInput = function(timestamp) {
         this.timestampInput.sendKeys(timestamp);
     }
 
-    getTimestampInput = function () {
+    getTimestampInput = function() {
         return this.timestampInput.getAttribute('value');
     }
 

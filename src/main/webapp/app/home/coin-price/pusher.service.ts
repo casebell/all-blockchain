@@ -28,43 +28,43 @@ export class PuserService {
 
   public connect() {
 
-    var BTCUSDTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_BTCUSD_CHANNEL)
-    BTCUSDTradesChannel.bind(BITSTAMP_PUSHER_EVENT, (data) =>{
+    let BTCUSDTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_BTCUSD_CHANNEL)
+    BTCUSDTradesChannel.bind(BITSTAMP_PUSHER_EVENT, (data) => {
       this.BTCUSDMessageListener.emit(data);
     });
 
-    var BTCEURTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_BTCEUR_CHANNEL)
-    BTCEURTradesChannel.bind(BITSTAMP_PUSHER_EVENT, (data) =>{
+    let BTCEURTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_BTCEUR_CHANNEL)
+    BTCEURTradesChannel.bind(BITSTAMP_PUSHER_EVENT, (data) => {
       this.BTCEURMessageListener.emit(data);
     });
 
-    var ETHEURTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_ETHEUR_CHANNEL)
-    ETHEURTradesChannel.bind(BITSTAMP_PUSHER_EVENT, (data) =>{
+    let ETHEURTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_ETHEUR_CHANNEL)
+    ETHEURTradesChannel.bind(BITSTAMP_PUSHER_EVENT, (data) => {
       this.ETHEURMessageListener.emit(data);
     });
 
-    var ETHUSDTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_ETHUSD_CHANNEL)
-    ETHUSDTradesChannel.bind(BITSTAMP_PUSHER_EVENT, (data) =>{
+    let ETHUSDTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_ETHUSD_CHANNEL)
+    ETHUSDTradesChannel.bind(BITSTAMP_PUSHER_EVENT, (data) => {
       this.ETHUSDMessageListener.emit(data);
     });
 
-    var LTCEURTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_LTCEUR_CHANNEL)
-    LTCEURTradesChannel.bind(BITSTAMP_PUSHER_EVENT, (data) =>{
+    let LTCEURTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_LTCEUR_CHANNEL)
+    LTCEURTradesChannel.bind(BITSTAMP_PUSHER_EVENT, (data) => {
       this.LTCEURMessageListener.emit(data);
     });
 
-    var LTCUSDTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_LTCUSD_CHANNEL)
-    LTCUSDTradesChannel.bind(BITSTAMP_PUSHER_EVENT, (data) =>{
+    let LTCUSDTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_LTCUSD_CHANNEL)
+    LTCUSDTradesChannel.bind(BITSTAMP_PUSHER_EVENT, (data) => {
       this.LTCUSDMessageListener.emit(data);
     });
 
-    var XRPEURTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_XRPEUR_CHANNEL)
-    XRPEURTradesChannel.bind(BITSTAMP_PUSHER_EVENT, (data) =>{
+    let XRPEURTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_XRPEUR_CHANNEL)
+    XRPEURTradesChannel.bind(BITSTAMP_PUSHER_EVENT, (data) => {
       this.XRPEURMessageListener.emit(data);
     });
 
-    var XRPUSDTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_XRPUSD_CHANNEL)
-    XRPUSDTradesChannel.bind(BITSTAMP_PUSHER_EVENT, (data) =>{
+    let XRPUSDTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_XRPUSD_CHANNEL)
+    XRPUSDTradesChannel.bind(BITSTAMP_PUSHER_EVENT, (data) => {
       this.XRPUSDMessageListener.emit(data);
     });
   }

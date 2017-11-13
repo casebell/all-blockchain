@@ -1,10 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {JhiEventManager} from 'ng-jhipster';
-import * as _ from 'lodash';
 import {Account, LoginModalService, Principal} from '../shared';
 import {Bithumb} from '../model/bithumb.model';
-import {Observable} from 'rxjs/Rx';
 
 @Component({
     selector: 'jhi-home',
@@ -30,9 +28,7 @@ export class HomeComponent implements OnInit {
         });
         this.registerAuthenticationSuccess();
 
-
     }
-
 
     registerAuthenticationSuccess() {
         this.eventManager.subscribe('authenticationSuccess', (message) => {

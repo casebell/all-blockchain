@@ -14,7 +14,6 @@ import { CoinSidenavService } from './coin-sidenav/coin-sidenav.service';
 import { BlockchainSharedModule } from '../shared/shared.module';
 import { CoinService } from './coin.service';
 
-
 @NgModule({
     imports: [
         MatSidenavModule,
@@ -28,7 +27,7 @@ import { CoinService } from './coin.service';
     declarations: [CoinComponent,
                    CoinSidenavComponent,
                    CoinHomeComponent],
-    providers: [CoinSidenavService,CoinService],
+    providers: [CoinSidenavService, CoinService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class CoinModule {}

@@ -21,9 +21,9 @@ spring:
             enabled: false
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: 
-        
-        
+        url: ${ABC_DB_HOST}
+        username: ${ABC_DB_USERNAME}
+        password: ${ABC_DB_PASSWORD}
     jpa:
         database-platform: io.github.jhipster.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL
@@ -44,10 +44,10 @@ spring:
             cluster-name:
             cluster-nodes: localhost:9300
     mail:
-        host: smtp.gmail.com
-        port: 587
-        
-        
+        host: ${ABC_MAIL_HOST}
+        port: ${ABC_MAIL_PORT}
+        username: ${ABC_MAIL_USERNAME}
+        password: ${ABC_MAIL_PASSWORD}
         protocol: smtp
         tls: true
         properties.mail.smtp:
@@ -89,7 +89,6 @@ server:
 #
 # Full reference is available at: https://jhipster.github.io/common-application-properties/
 # ===================================================================
-
 jhipster:
     http:
         version: V_1_1 # To use HTTP/2 you will need SSL support (see above the "server.ssl" configuration)
@@ -102,7 +101,7 @@ jhipster:
     security:
         authentication:
             jwt:
-                
+                secret: ${JWT_SECRET}
                 # Token is valid 24 hours
                 token-validity-in-seconds: 86400
                 token-validity-in-seconds-for-remember-me: 2592000

@@ -1,4 +1,4 @@
-import { browser, element, by, $ } from 'protractor';
+import { browser, element, by } from 'protractor';
 import { NavBarPage } from './../page-objects/jhi-page-objects';
 const path = require('path');
 
@@ -9,7 +9,6 @@ describe('Kraken e2e test', () => {
     let krakenComponentsPage: KrakenComponentsPage;
     const fileToUpload = '../../../../main/webapp/content/images/logo-jhipster.png';
     const absolutePath = path.resolve(__dirname, fileToUpload);
-    
 
     beforeAll(() => {
         browser.get('/');
@@ -41,7 +40,7 @@ describe('Kraken e2e test', () => {
         expect(krakenDialogPage.getCreatedatInput()).toMatch('2001-12-31T02:30');
         krakenDialogPage.save();
         expect(krakenDialogPage.getSaveButton().isPresent()).toBeFalsy();
-    }); 
+    });
 
     afterAll(() => {
         navBarPage.autoSignOut();
@@ -72,19 +71,19 @@ export class KrakenDialogPage {
         return this.modalTitle.getAttribute('jhiTranslate');
     }
 
-    setLastInput = function (last) {
+    setLastInput = function(last) {
         this.lastInput.sendKeys(last);
     }
 
-    getLastInput = function () {
+    getLastInput = function() {
         return this.lastInput.getAttribute('value');
     }
 
-    setCreatedatInput = function (createdat) {
+    setCreatedatInput = function(createdat) {
         this.createdatInput.sendKeys(createdat);
     }
 
-    getCreatedatInput = function () {
+    getCreatedatInput = function() {
         return this.createdatInput.getAttribute('value');
     }
 

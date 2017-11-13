@@ -14,11 +14,10 @@ export class CoinSidenavService {
 
   }
 
-  findAll() :Observable<any> {
+  findAll(): Observable<any> {
     return this.http.get(`${this.resourceUrl}/coins`);
   }
 }
-
 
 export class CoinSidenavSource extends DataSource<Coin> {
 

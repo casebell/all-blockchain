@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import {
     CoinSidenavService,
     CoinSidenavSource
@@ -24,7 +24,7 @@ export class CoinSidenavComponent implements OnInit, OnDestroy {
     constructor(private coinSidenavService: CoinSidenavService,
                 private coinService: CoinService) {
         this.buttonSubscription = this.coinService.sideNavOpenButtonChanged
-            .subscribe(message => {
+            .subscribe((message) => {
                 if (message == 'open')
                     this.sidenav.open();
             });
@@ -33,7 +33,7 @@ export class CoinSidenavComponent implements OnInit, OnDestroy {
     ngOnInit() {
 
         this.coinSidenavService.findAll().subscribe(
-            coins => {
+            (coins) => {
                 console.log('coins : ', coins);
                 this.dataSource = new CoinSidenavSource(coins)
             }

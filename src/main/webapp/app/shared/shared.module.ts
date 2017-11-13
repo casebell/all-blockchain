@@ -17,20 +17,23 @@ import {
     SocialService,
     JhiLoginModalComponent
 } from './';
-import { MdCheckboxModule, MdDialogModule, MdInputModule, MdButtonModule, MdIconModule, MdTabsModule } from "@angular/material";
-import {ReactiveFormsModule} from "@angular/forms";
+import {ReactiveFormsModule} from '@angular/forms';
+import {
+    MatButtonModule, MatCheckboxModule, MatDialogModule, MatIconModule, MatInputModule,
+    MatTabsModule
+} from '@angular/material';
 
 @NgModule({
     imports: [
         BlockchainSharedLibsModule,
         BlockchainSharedCommonModule,
-        MdDialogModule,
-        MdInputModule,
-        MdButtonModule,
-        MdIconModule,
+        MatDialogModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
         ReactiveFormsModule,
-        MdCheckboxModule,
-        MdTabsModule
+        MatCheckboxModule,
+        MatTabsModule
     ],
     declarations: [
         JhiSocialComponent,

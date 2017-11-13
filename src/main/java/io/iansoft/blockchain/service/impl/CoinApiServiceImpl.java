@@ -101,10 +101,9 @@ public class CoinApiServiceImpl implements CoinApiService {
     @Override
     @Scheduled(cron = "*/5 * * * * *")
     public void getCoinApi() {
-        getBithumbRest().forEach(this::saveBithumb);
-
         zonedDateTime = ZonedDateTime.now();
 
+        getBithumbRest().forEach(this::saveBithumb);
         List<KorbitDTO> korbitDTOS = new ArrayList();
         korbitDTOS.add(getKorbitRestBtc());
         korbitDTOS.add(getKorbitRestEth());
@@ -127,8 +126,7 @@ public class CoinApiServiceImpl implements CoinApiService {
     private void saveBithumb(BithumbDataDTO bithumbDTO) {
         Bithumb bithumb = modelMapper.map(bithumbDTO,Bithumb.class);
         bithumb.setCreatedat(zonedDateTime);
-        Bithumb test = bithumbRepository.save(bithumb);
-        log.debug(test.toString());
+        bithumbRepository.save(bithumb);
     }
 
 

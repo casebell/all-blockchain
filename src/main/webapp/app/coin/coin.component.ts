@@ -15,8 +15,8 @@ export class CoinComponent implements OnInit, OnDestroy {
 
     constructor(private coinService: CoinService) {
         this.buttonSubscription = this.coinService.sideNavCloseButtonChanged
-            .subscribe(message => {
-                if(message == 'close')
+            .subscribe((message) => {
+                if (message == 'close')
                     this.closeButton = true;
             })
     }

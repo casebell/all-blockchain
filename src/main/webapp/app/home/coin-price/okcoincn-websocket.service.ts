@@ -1,8 +1,8 @@
 import { Injectable, EventEmitter } from '@angular/core';
 const OKCOINCN_WS_URL = 'wss://real.okcoin.cn:10440/websocket/okcoinapi';
 const REQUEST = {
-    "event": "addChannel",
-    "channel": "ok_sub_spotcny_btc_ticker"
+    'event': 'addChannel',
+    'channel': 'ok_sub_spotcny_btc_ticker'
 };
 
 @Injectable()
@@ -17,25 +17,24 @@ export class OkcoincnWebsocketService {
   public connect(){
     this.socket = new WebSocket('wss://real.okcoin.cn:10440/websocket/okcoinapi');
 
-    this.socket.onopen = event => {
+    this.socket.onopen = (event) => {
         this.send(JSON.stringify(REQUEST));
     };
 
-    this.socket.onclose = event => {
+    this.socket.onclose = (event) => {
       //  this.listener.emit({"type": "close", "data": event});
 
-
     };
 
-    this.socket.onmessage = event => {
-        this.listener.emit({"type": "message", "data": JSON.parse(event.data)});
+    this.socket.onmessage = (event) => {
+        this.listener.emit({'type': 'message', 'data': JSON.parse(event.data)});
     };
 
-    this.socket.onerror = event => {
+    this.socket.onerror = (event) => {
       this.socket.close();
-      setTimeout(()=>{
+      setTimeout(() => {
         this.connect();
-      },1000)
+      }, 1000)
     }
   }
 

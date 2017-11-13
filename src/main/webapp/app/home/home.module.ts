@@ -13,7 +13,6 @@ import { PuserService } from './coin-price/pusher.service';
 import { GDAXWebsocketService } from './coin-price/gdax-websocket.service';
 import { OkcoincnWebsocketService } from './coin-price/okcoincn-websocket.service';
 
-
 @NgModule({
     imports: [
         BlockchainSharedModule,

@@ -3,9 +3,7 @@ import { Routes } from '@angular/router';
 
 import { UserRouteAccessService } from '../../shared';
 
-
-
-import {CoinBoardComponent} from "./coin-board.component";
+import {CoinBoardComponent} from './coin-board.component';
 
 export const coinBoardRoute: Routes = [
     {
@@ -18,5 +16,3 @@ export const coinBoardRoute: Routes = [
         canActivate: [UserRouteAccessService]
     }
 ];
-
-

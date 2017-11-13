@@ -8,7 +8,7 @@ import {ExchangeRateService} from '../coin-price/coin-price-row/exchange-rate.se
 })
 export class ExchangeRateComponent implements OnInit {
 
-  constructor( private exchangeRateService:ExchangeRateService ) {}
+  constructor( private exchangeRateService: ExchangeRateService ) {}
 
   exchangeRateKR;
   exchangeRateUS;
@@ -17,20 +17,29 @@ export class ExchangeRateComponent implements OnInit {
   exchangeRateJP;
 
   ngOnInit() {
-      Observable.zip( this.exchangeRateService.getExchangeRate('KRW'),
-          this.exchangeRateService.getExchangeRate('USD'),
-          this.exchangeRateService.getExchangeRate('EUR'),
-          this.exchangeRateService.getExchangeRate('CNY'),
-          this.exchangeRateService.getExchangeRate('JPY'))
-          .subscribe(([krw,usd,eur,cny,jpy]) => {
+      let parseString = require('xml2js').parseString;
+       this.exchangeRateService.getExchangeRate()
+          .subscribe((xml) => {
 
-              this.exchangeRateKR=krw;
-              this.exchangeRateUS=usd;
-              this.exchangeRateEU=eur;
-              this.exchangeRateCN=cny;
-              this.exchangeRateJP=jpy;
+              parseString(xml, (err,result)=>{
+                  console.log('xml result : ', result)
+              })
 
           });
+      // Observable.zip( this.exchangeRateService.getExchangeRate('KRW'),
+      //     this.exchangeRateService.getExchangeRate('USD'),
+      //     this.exchangeRateService.getExchangeRate('EUR'),
+      //     this.exchangeRateService.getExchangeRate('CNY'),
+      //     this.exchangeRateService.getExchangeRate('JPY'))
+      //     .subscribe(([krw, usd, eur, cny, jpy]) => {
+      //
+      //         this.exchangeRateKR = krw;
+      //         this.exchangeRateUS = usd;
+      //         this.exchangeRateEU = eur;
+      //         this.exchangeRateCN = cny;
+      //         this.exchangeRateJP = jpy;
+      //
+      //     });
   }
 
 }

@@ -18,7 +18,7 @@ export class PoloniexWebsocketService {
   }
 
   public connect(){
-      this.ws = new Wampy('wss://api.poloniex.com',  {realm: "realm1"});
+      this.ws = new Wampy('wss://api.poloniex.com',  {realm: 'realm1'});
       this.ws.subscribe('ticker', (data) => {
           console.log(data);
 

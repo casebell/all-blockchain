@@ -82,8 +82,6 @@ if (OperatingSystem.current().isWindows()) {
 }
 
 test {
-    include '**/*UnitTest*'
-    include '**/*IntTest*'
     exclude '**/CucumberTest*'
 
     // uncomment if the tests reports are not generated

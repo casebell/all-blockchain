@@ -57,48 +57,48 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
         {name: 'qtum', price: 0, diff: 0, diffPercent: 0}
     ];
 
-    bithumbRow : CoinPrice;
-    korbitRow : CoinPrice;
-    coinoneRow : CoinPrice;
-    poloniexRow : CoinPrice;
-    okCoinCnRow : CoinPrice;
-    bitflyerRow : CoinPrice;
-    bittrexRow  : CoinPrice;
-    bitstampUsdRow : CoinPrice;
-    gdaxUsdRow : CoinPrice;
-    krakenRow : CoinPrice;
-    bitstampEuRow : CoinPrice;
+    bithumbRow: CoinPrice;
+    korbitRow: CoinPrice;
+    coinoneRow: CoinPrice;
+    poloniexRow: CoinPrice;
+    okCoinCnRow: CoinPrice;
+    bitflyerRow: CoinPrice;
+    bittrexRow: CoinPrice;
+    bitstampUsdRow: CoinPrice;
+    gdaxUsdRow: CoinPrice;
+    krakenRow: CoinPrice;
+    bitstampEuRow: CoinPrice;
   //  yunbiRow :CoinPrice;
-    bitfinexRow : CoinPrice;
+    bitfinexRow: CoinPrice;
 
-    bithumbUnsubscribe : Subscription;
-    coinoneUnsubscribe : Subscription;
-    korbitUnsubscribe : Subscription;
-    okCoinCnUnsubscribe : Subscription;
-    bitflyerUnsubscribe : Subscription;
-    krakenUnsubscribe : Subscription;
-    poloniexUnsubscribe : Subscription;
-    bittrexUnsubscribe : Subscription;
-    yunbiUnsubscribe : Subscription;
-    bitfinexUnsubscribe : Subscription;
+    bithumbUnsubscribe: Subscription;
+    coinoneUnsubscribe: Subscription;
+    korbitUnsubscribe: Subscription;
+    okCoinCnUnsubscribe: Subscription;
+    bitflyerUnsubscribe: Subscription;
+    krakenUnsubscribe: Subscription;
+    poloniexUnsubscribe: Subscription;
+    bittrexUnsubscribe: Subscription;
+    yunbiUnsubscribe: Subscription;
+    bitfinexUnsubscribe: Subscription;
 
     // bitfinex websocket channelId;
-    bitfinexBTCChannelId : number;
-    bitfinexETHChannelId : number;
-    bitfinexXRPChannelId : number;
-    bitfinexDASHChannelId : number;
-    bitfinexLTCChannelId : number;
-    bitfinexETCChannelId : number;
-    bitfinexBCHChannelId : number;
-    bitfinexZECChannelId : number;
-    bitfinexXMRChannelId : number;
-    bitfinexNEOChannelId : number;
+    bitfinexBTCChannelId: number;
+    bitfinexETHChannelId: number;
+    bitfinexXRPChannelId: number;
+    bitfinexDASHChannelId: number;
+    bitfinexLTCChannelId: number;
+    bitfinexETCChannelId: number;
+    bitfinexBCHChannelId: number;
+    bitfinexZECChannelId: number;
+    bitfinexXMRChannelId: number;
+    bitfinexNEOChannelId: number;
 
     constructor(
-                private coinPriceService : CoinPriceService,
-                private bitfinexWebsocketService : BitfinexWebsocketService,
-                private gdaxWebsocketService : GDAXWebsocketService,
-                private okcoincnWebsocketService : OkcoincnWebsocketService,
+                private coinPriceService: CoinPriceService,
+                private bitfinexWebsocketService: BitfinexWebsocketService,
+                private gdaxWebsocketService: GDAXWebsocketService,
+                private okcoincnWebsocketService: OkcoincnWebsocketService,
                 private pusherService: PuserService) {
         this.myCurrency = 'KRW';
         this.initialCoinRow();
@@ -132,7 +132,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
         this.korbitRow = {
             market: 'Korbit',
             currencies : 'KRW',
-            coins :_.cloneDeep(this.coins)
+            coins : _.cloneDeep(this.coins)
         };
         this.coinoneRow = {
             market: 'Coinone',
@@ -193,7 +193,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
     initialCoin() {
         // bithumb
         this.coinPriceService.getBithumb()
-            .subscribe(data => {
+            .subscribe((data) => {
                 for (let i = 0; i < 9; i++) {
                     this.bithumbRow.coins[i].price = data[i].closing_price;
                 }
@@ -202,7 +202,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
             });
         // korbit
         this.coinPriceService.getKorbit()
-            .subscribe(data => {
+            .subscribe((data) => {
                 //btc
                 this.korbitRow.coins[0].price = data[0].last;
                 //eth
@@ -244,7 +244,6 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
                 this.poloniexRow.coins[8].price = data.USDT_XMR.last;
             });
 
-
         // bitflyer
         this.coinPriceService.getBitflyer()
             .subscribe((data: any) => {
@@ -270,49 +269,49 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
         // socket service start
 
         // bitfinex btcusd
-        this.bitfinexWebsocketService.getEventListener().subscribe(event => {
+        this.bitfinexWebsocketService.getEventListener().subscribe((event) => {
             // init bitfinex websocket
-            if(!Array.isArray(event.data)){
-                switch(event.data.pair){
+            if (!Array.isArray(event.data)){
+                switch (event.data.pair){
                     case 'BTCUSD':
-                        this.bitfinexBTCChannelId=event.data.chanId;
+                        this.bitfinexBTCChannelId = event.data.chanId;
                         break;
                     case 'ETHUSD':
-                        this.bitfinexETHChannelId=event.data.chanId;
+                        this.bitfinexETHChannelId = event.data.chanId;
                         break;
                     case 'XRPUSD':
-                        this.bitfinexXRPChannelId=event.data.chanId;
+                        this.bitfinexXRPChannelId = event.data.chanId;
                         break;
                     case 'DSHUSD':
-                        this.bitfinexDASHChannelId=event.data.chanId;
+                        this.bitfinexDASHChannelId = event.data.chanId;
                         break;
                     case 'LTCUSD':
-                        this.bitfinexLTCChannelId=event.data.chanId;
+                        this.bitfinexLTCChannelId = event.data.chanId;
                         break;
                     case 'ETCUSD':
-                        this.bitfinexETCChannelId=event.data.chanId;
+                        this.bitfinexETCChannelId = event.data.chanId;
                         break;
                     case 'BCHUSD':
-                        this.bitfinexBCHChannelId=event.data.chanId;
+                        this.bitfinexBCHChannelId = event.data.chanId;
                         break;
                     case 'ZECUSD':
-                        this.bitfinexZECChannelId=event.data.chanId;
+                        this.bitfinexZECChannelId = event.data.chanId;
                         break;
                     case 'XMRUSD':
-                        this.bitfinexXMRChannelId=event.data.chanId;
+                        this.bitfinexXMRChannelId = event.data.chanId;
                         break;
                     case 'NEOUSD':
-                        this.bitfinexNEOChannelId=event.data.chanId;
+                        this.bitfinexNEOChannelId = event.data.chanId;
                         break;
                 }
             }else {
                 // update bitfinex
-                let channelId = event.data[0];
-                let res = event.data[1];
-                if(res!= 'hb') {
-                    switch(channelId){
+                const channelId = event.data[0];
+                const res = event.data[1];
+                if (res != 'hb') {
+                    switch (channelId){
                         case this.bitfinexBTCChannelId:
-                            if(this.bitfinexRow.coins[0].price==0){
+                            if (this.bitfinexRow.coins[0].price == 0){
                                 this.bitfinexRow.coins[0].price = res[6]
                             } else {
                                 this.bitfinexRow.coins[0].diffPercent = res[6] * 100 / this.bitfinexRow.coins[0].price - 100;
@@ -321,7 +320,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
                             }
                             break;
                         case this.bitfinexETHChannelId:
-                            if(this.bitfinexRow.coins[1].price==0){
+                            if (this.bitfinexRow.coins[1].price == 0){
                                 this.bitfinexRow.coins[1].price = res[6]
                             } else {
                                 this.bitfinexRow.coins[1].diffPercent = res[6] * 100 / this.bitfinexRow.coins[1].price - 100;
@@ -330,7 +329,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
                             }
                             break;
                         case this.bitfinexXRPChannelId:
-                            if(this.bitfinexRow.coins[2].price==0){
+                            if (this.bitfinexRow.coins[2].price == 0){
                                 this.bitfinexRow.coins[2].price = res[6]
                             } else {
                                 this.bitfinexRow.coins[2].diffPercent = res[6] * 100 / this.bitfinexRow.coins[2].price - 100;
@@ -339,7 +338,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
                             }
                             break;
                         case this.bitfinexDASHChannelId:
-                            if(this.bitfinexRow.coins[3].price==0){
+                            if (this.bitfinexRow.coins[3].price == 0){
                                 this.bitfinexRow.coins[3].price = res[6]
                             } else {
                                 this.bitfinexRow.coins[3].diffPercent = res[6] * 100 / this.bitfinexRow.coins[3].price - 100;
@@ -348,7 +347,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
                             }
                             break;
                         case this.bitfinexLTCChannelId:
-                            if(this.bitfinexRow.coins[4].price==0){
+                            if (this.bitfinexRow.coins[4].price == 0){
                                 this.bitfinexRow.coins[4].price = res[6]
                             } else {
                                 this.bitfinexRow.coins[4].diffPercent = res[6] * 100 / this.bitfinexRow.coins[4].price - 100;
@@ -357,7 +356,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
                             }
                             break;
                         case this.bitfinexETCChannelId:
-                            if(this.bitfinexRow.coins[5].price==0){
+                            if (this.bitfinexRow.coins[5].price == 0){
                                 this.bitfinexRow.coins[5].price = res[6]
                             } else {
                                 this.bitfinexRow.coins[5].diffPercent = res[6] * 100 / this.bitfinexRow.coins[5].price - 100;
@@ -366,7 +365,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
                             }
                             break;
                         case this.bitfinexBCHChannelId:
-                            if(this.bitfinexRow.coins[6].price==0){
+                            if (this.bitfinexRow.coins[6].price == 0){
                                 this.bitfinexRow.coins[6].price = res[6]
                             } else {
                                 this.bitfinexRow.coins[6].diffPercent = res[6] * 100 / this.bitfinexRow.coins[6].price - 100;
@@ -375,7 +374,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
                             }
                             break;
                         case this.bitfinexZECChannelId:
-                            if(this.bitfinexRow.coins[7].price==0){
+                            if (this.bitfinexRow.coins[7].price == 0){
                                 this.bitfinexRow.coins[7].price = res[6]
                             } else {
                                 this.bitfinexRow.coins[7].diffPercent = res[6] * 100 / this.bitfinexRow.coins[7].price - 100;
@@ -384,7 +383,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
                             }
                             break;
                         case this.bitfinexXMRChannelId:
-                            if(this.bitfinexRow.coins[8].price==0){
+                            if (this.bitfinexRow.coins[8].price == 0){
                                 this.bitfinexRow.coins[8].price = res[6]
                             } else {
                                 this.bitfinexRow.coins[8].diffPercent = res[6] * 100 / this.bitfinexRow.coins[8].price - 100;
@@ -393,7 +392,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
                             }
                             break;
                         case this.bitfinexNEOChannelId:
-                            if(this.bitfinexRow.coins[9].price==0){
+                            if (this.bitfinexRow.coins[9].price == 0){
                                 this.bitfinexRow.coins[9].price = res[6]
                             } else {
                                 this.bitfinexRow.coins[9].diffPercent = res[6] * 100 / this.bitfinexRow.coins[9].price - 100;
@@ -407,12 +406,11 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
 
           });
 
-
           // bitstamp
 
           // btc
           this.pusherService.getBTCEURListener().subscribe(
-              message => {
+              (message) => {
                   if (this.bitstampEuRow.coins[0].price == 0) {
                       this.bitstampEuRow.coins[0].price = message.price;
                   } else {
@@ -424,7 +422,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
 
           // eth
            this.pusherService.getETHEURListener().subscribe(
-              message => {
+              (message) => {
                   if (this.bitstampEuRow.coins[1].price == 0) {
                       this.bitstampEuRow.coins[1].price = message.price;
                   } else {
@@ -435,7 +433,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
               });
           // xrp
            this.pusherService.getXRPEURListener().subscribe(
-              message => {
+              (message) => {
                   if (this.bitstampEuRow.coins[2].price == 0) {
                       this.bitstampEuRow.coins[2].price = message.price;
                   } else {
@@ -447,7 +445,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
 
           // ltc
           this.pusherService.getLTCEURListener().subscribe(
-              message => {
+              (message) => {
                   if (this.bitstampEuRow.coins[4].price == 0) {
                       this.bitstampEuRow.coins[4].price = message.price;
                   } else {
@@ -459,7 +457,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
 
           // btcusd
           this.pusherService.getBTCUSDListener().subscribe(
-              message => {
+              (message) => {
                   if (this.bitstampUsdRow.coins[0].price == 0) {
                       this.bitstampUsdRow.coins[0].price = message.price;
                   } else {
@@ -471,7 +469,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
 
           // ethusd
            this.pusherService.getETHUSDListener().subscribe(
-              message => {
+              (message) => {
                   if (this.bitstampUsdRow.coins[1].price == 0) {
                       this.bitstampUsdRow.coins[1].price = message.price;
                   } else {
@@ -482,7 +480,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
               });
           // xrpusd
            this.pusherService.getXRPUSDListener().subscribe(
-              message => {
+              (message) => {
                   if (this.bitstampUsdRow.coins[2].price == 0) {
                       this.bitstampUsdRow.coins[2].price = message.price;
                   } else {
@@ -494,7 +492,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
 
           // ltc
           this.pusherService.getLTCUSDListener().subscribe(
-              message => {
+              (message) => {
                   if (this.bitstampUsdRow.coins[4].price == 0) {
                       this.bitstampUsdRow.coins[4].price = message.price;
                   } else {
@@ -506,8 +504,8 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
 
             // GDAX
             this.gdaxWebsocketService.getEventListener().subscribe(
-                message => {
-                    switch(message.data.product_id){
+                (message) => {
+                    switch (message.data.product_id){
                         case 'BTC-USD':
                             if (this.gdaxUsdRow.coins[0].price == 0) {
                                 this.gdaxUsdRow.coins[0].price = message.data.price;
@@ -558,8 +556,6 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
                 this.yunbiRow.coins[10].price = data.qtumcny.ticker.last;
             }) */
 
-
-
         // Observable.zip(this.coinPriceService.getBitfinex('BTCEUR'),
         //     this.coinPriceService.getBitfinex('ETHEUR'),
         //     this.coinPriceService.getBitfinex('XRPEUR'),
@@ -608,7 +604,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
             .interval(this.myUpdateTime * 1000)
             .timeInterval()
             .flatMap(() => this.coinPriceService.getKorbit())
-            .subscribe(data => {
+            .subscribe((data) => {
                 this.setKorbit(data);
             })
     };
@@ -618,7 +614,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
             .interval(this.myUpdateTime * 1000)
             .timeInterval()
             .flatMap(() => this.coinPriceService.getBitflyer())
-            .subscribe(data => {
+            .subscribe((data) => {
                 this.setBitflyer(data);
             })
     };
@@ -638,7 +634,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
             .interval(this.myUpdateTime * 1000)
             .timeInterval()
             .flatMap(() => this.coinPriceService.getBittrex())
-            .subscribe(data => {
+            .subscribe((data) => {
                 this.setBittrex(data);
             })
     };
@@ -648,7 +644,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
             .interval(this.myUpdateTime * 1000)
             .timeInterval()
             .flatMap(() => this.coinPriceService.getKrakens())
-            .subscribe(data => {
+            .subscribe((data) => {
                 this.setKraken(data);
             })
         };
@@ -663,7 +659,6 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
             })
 
     }; */
-
 
     // this.bitfinexUnsubscribe = Observable
     //         .interval(this.myUpdateTime * 1000)
@@ -857,73 +852,4 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
             this.krakenRow.coins[i].price = data[i].last
         }
     }
-/*
-    setYunbis(data) {
-        this.yunbiRow.coins[0].diffPercent = data.btccny.ticker.last * 100 / this.yunbiRow.coins[0].price - 100;
-        this.yunbiRow.coins[0].diff = data.btccny.ticker.last - this.yunbiRow.coins[0].price;
-        this.yunbiRow.coins[0].price = data.btccny.ticker.last;
-
-        this.yunbiRow.coins[1].diffPercent = data.ethcny.ticket.last * 400 / this.yunbiRow.coins[1].price - 100;
-        this.yunbiRow.coins[1].diff = data.ethcny.ticker.last - this.yunbiRow.coins[1].price;
-        this.yunbiRow.coins[1].price = data.ethcny.ticker.last;
-
-        this.yunbiRow.coins[5].diffPercent = data.etccny.ticker.last * 100 / this.yunbiRow.coins[5].price - 100;
-        this.yunbiRow.coins[5].diff = data.etccny.ticker.last - this.yunbiRow.coins[5].price;
-        this.yunbiRow.coins[5].price = data.etccny.ticker.last;
-
-        this.yunbiRow.coins[6].diffPercent = data.bcccny.ticker.last * 100 / this.yunbiRow.coins[6].price - 100;
-        this.yunbiRow.coins[6].diff = data.bcccny.ticker.last - this.yunbiRow.coins[6].price;
-        this.yunbiRow.coins[6].price = data.bcccny.ticker.last;
-
-        this.yunbiRow.coins[7].diffPercent = data.zeccny.ticker.last * 100 / this.yunbiRow.coins[7].price - 100;
-        this.yunbiRow.coins[7].diff = data.zeccny.ticker.last - this.yunbiRow.coins[7].price;
-        this.yunbiRow.coins[7].price = data.zeccny.ticker.last;
-
-        this.yunbiRow.coins[9].diffPercent = data.anscny.ticker.last * 100 / this.yunbiRow.coins[9].price - 100;
-        this.yunbiRow.coins[9].diff = data.anscny.ticker.last - this.yunbiRow.coins[9].price;
-        this.yunbiRow.coins[9].price = data.anscny.ticker.last;
-
-        this.yunbiRow.coins[10].diffPercent = data.qtumcny.ticker.last * 100 / this.yunbiRow.coins[10].price - 100;
-        this.yunbiRow.coins[10].diff = data.qtumcny.ticker.last - this.yunbiRow.coins[10].price;
-        this.yunbiRow.coins[10].price = data.qtumcny.ticker.last;
-    }*/
-
-    /*
-    private setKraken(btc: any, eth: any, xrp: any, dash: any, ltc: any, etc: any, bch: any, zec: any, xmr: any) {
-        this.krakenRow.coins[0].diffPercent = btc.result.XXBTZEUR.c[0] * 100 / this.krakenRow.coins[0].price - 100;
-        this.krakenRow.coins[0].diff = btc.result.XXBTZEUR.c[0] - this.krakenRow.coins[0].price;
-        this.krakenRow.coins[0].price = btc.result.XXBTZEUR.c[0];
-
-        this.krakenRow.coins[1].diffPercent = eth.result.XETHZEUR.c[0] * 100 / this.krakenRow.coins[1].price - 100;
-        this.krakenRow.coins[1].diff = eth.result.XETHZEUR.c[0] - this.krakenRow.coins[1].price;
-        this.krakenRow.coins[1].price = eth.result.XETHZEUR.c[0];
-
-        this.krakenRow.coins[2].diffPercent = xrp.result.XXRPZEUR.c[0] * 100 / this.krakenRow.coins[2].price - 100;
-        this.krakenRow.coins[2].diff = xrp.result.XXRPZEUR.c[0] - this.krakenRow.coins[2].price;
-        this.krakenRow.coins[2].price = xrp.result.XXRPZEUR.c[0];
-
-        this.krakenRow.coins[3].diffPercent = dash.result.DASHEUR.c[0] * 100 / this.krakenRow.coins[3].price - 100;
-        this.krakenRow.coins[3].diff = dash.result.DASHEUR.c[0] - this.krakenRow.coins[3].price;
-        this.krakenRow.coins[3].price = dash.result.DASHEUR.c[0];
-
-        this.krakenRow.coins[4].diffPercent = ltc.result.XLTCZEUR.c[0] * 100 / this.krakenRow.coins[4].price - 100;
-        this.krakenRow.coins[4].diff = ltc.result.XLTCZEUR.c[0] - this.krakenRow.coins[4].price;
-        this.krakenRow.coins[4].price = ltc.result.XLTCZEUR.c[0];
-
-        this.krakenRow.coins[5].diffPercent = etc.result.XETCZEUR.c[0] * 100 / this.krakenRow.coins[5].price - 100;
-        this.krakenRow.coins[5].diff = etc.result.XETCZEUR.c[0] - this.krakenRow.coins[5].price;
-        this.krakenRow.coins[5].price = etc.result.XETCZEUR.c[0];
-
-        this.krakenRow.coins[6].diffPercent = bch.result.BCHEUR.c[0] * 100 / this.krakenRow.coins[6].price - 100;
-        this.krakenRow.coins[6].diff = bch.result.BCHEUR.c[0] - this.krakenRow.coins[6].price;
-        this.krakenRow.coins[6].price = bch.result.BCHEUR.c[0];
-
-        this.krakenRow.coins[7].diffPercent = zec.result.XZECZEUR.c[0] * 100 / this.krakenRow.coins[7].price - 100;
-        this.krakenRow.coins[7].diff = zec.result.XZECZEUR.c[0] - this.krakenRow.coins[7].price;
-        this.krakenRow.coins[7].price = zec.result.XZECZEUR.c[0];
-
-        this.krakenRow.coins[8].diffPercent = xmr.result.XXMRZEUR.c[0] * 100 / this.krakenRow.coins[8].price - 100;
-        this.krakenRow.coins[8].diff = xmr.result.XXMRZEUR.c[0] - this.krakenRow.coins[8].price;
-        this.krakenRow.coins[8].price = xmr.result.XXMRZEUR.c[0];
-    }*/
 }

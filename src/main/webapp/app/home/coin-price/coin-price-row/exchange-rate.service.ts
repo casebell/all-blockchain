@@ -5,10 +5,11 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class ExchangeRateService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  getExchangeRate(market):Observable<any>{
-      return this.http.get(`http://api.fixer.io/latest?base=${market}`)
+  getExchangeRate(): Observable<any>{
+      console.log('get Exchange service');
+      return this.http.get(`http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml`)
   }
 
 }
