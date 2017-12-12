@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { JhiEventManager} from 'ng-jhipster';
 import { Subscription } from 'rxjs/Rx';
 
 @Component({
@@ -19,7 +19,7 @@ export class JhiAlertErrorComponent implements OnDestroy {
     alerts: any[];
     cleanHttpErrorListener: Subscription;
     // tslint:disable-next-line: no-unused-variable
-    constructor(private alertService: JhiAlertService, private eventManager: JhiEventManager, private translateService: TranslateService) {
+    constructor( private eventManager: JhiEventManager, private translateService: TranslateService) {
         this.alerts = [];
 
         this.cleanHttpErrorListener = eventManager.subscribe('blockchainApp.httpError', (response) => {
@@ -28,7 +28,7 @@ export class JhiAlertErrorComponent implements OnDestroy {
             switch (httpResponse.status) {
                 // connection refused, server not reachable
                 case 0:
-                    this.addErrorAlert('Server not reachable', 'error.server.not.reachable');
+                   // this.addErrorAlert('Server not reachable', 'error.server.not.reachable');
                     break;
 
                 case 400:
@@ -48,7 +48,7 @@ export class JhiAlertErrorComponent implements OnDestroy {
                     }
                     if (errorHeader) {
                         const entityName = translateService.instant('global.menu.entities.' + entityKey);
-                        this.addErrorAlert(errorHeader, errorHeader, { entityName });
+                   //     this.addErrorAlert(errorHeader, errorHeader, { entityName });
                     } else if (httpResponse.text() !== '' && httpResponse.json() && httpResponse.json().fieldErrors) {
                         const fieldErrors = httpResponse.json().fieldErrors;
                         for (i = 0; i < fieldErrors.length; i++) {
@@ -57,25 +57,25 @@ export class JhiAlertErrorComponent implements OnDestroy {
                             const convertedField = fieldError.field.replace(/\[\d*\]/g, '[]');
                             const fieldName = translateService.instant('blockchainApp.' +
                                 fieldError.objectName + '.' + convertedField);
-                            this.addErrorAlert(
-                                'Error on field "' + fieldName + '"', 'error.' + fieldError.message, { fieldName });
+                            // this.addErrorAlert(
+                            //     'Error on field "' + fieldName + '"', 'error.' + fieldError.message, { fieldName });
                         }
                     } else if (httpResponse.text() !== '' && httpResponse.json() && httpResponse.json().message) {
-                        this.addErrorAlert(httpResponse.json().message, httpResponse.json().message, httpResponse.json().params);
+                        //this.addErrorAlert(httpResponse.json().message, httpResponse.json().message, httpResponse.json().params);
                     } else {
-                        this.addErrorAlert(httpResponse.text());
+                        //this.addErrorAlert(httpResponse.text());
                     }
                     break;
 
                 case 404:
-                    this.addErrorAlert('Not found', 'error.url.not.found');
+                  //  this.addErrorAlert('Not found', 'error.url.not.found');
                     break;
 
                 default:
                     if (httpResponse.text() !== '' && httpResponse.json() && httpResponse.json().message) {
-                        this.addErrorAlert(httpResponse.json().message);
+                      //  this.addErrorAlert(httpResponse.json().message);
                     } else {
-                        this.addErrorAlert(httpResponse.text());
+                       // this.addErrorAlert(httpResponse.text());
                     }
             }
         });
@@ -88,20 +88,20 @@ export class JhiAlertErrorComponent implements OnDestroy {
         }
     }
 
-    addErrorAlert(message, key?, data?) {
-        key = (key && key !== null) ? key : message;
-        this.alerts.push(
-            this.alertService.addAlert(
-                {
-                    type: 'danger',
-                    msg: key,
-                    params: data,
-                    timeout: 5000,
-                    toast: this.alertService.isToast(),
-                    scoped: true
-                },
-                this.alerts
-            )
-        );
-    }
+    // addErrorAlert(message, key?, data?) {
+    //     key = (key && key !== null) ? key : message;
+    //     this.alerts.push(
+    //         this.alertService.addAlert(
+    //             {
+    //                 type: 'danger',
+    //                 msg: key,
+    //                 params: data,
+    //                 timeout: 5000,
+    //                 toast: this.alertService.isToast(),
+    //                 scoped: true
+    //             },
+    //             this.alerts
+    //         )
+    //     );
+    // }
 }

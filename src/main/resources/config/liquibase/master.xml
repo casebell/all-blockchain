@@ -8,6 +8,10 @@
     <include file="config/liquibase/changelog/20170825143814_added_entity_Kraken.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20170828045352_added_entity_Coinis.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20170829062903_added_entity_Bitfinex.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171121141256_added_entity_NewsBoard.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171121142033_added_entity_NewsLike.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20171121141256_added_entity_constraints_NewsBoard.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171121142033_added_entity_constraints_NewsLike.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

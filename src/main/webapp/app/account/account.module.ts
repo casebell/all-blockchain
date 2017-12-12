@@ -34,7 +34,7 @@ import {
         MatSnackBarModule,
         MatCardModule,
         MatSelectModule,
-        RouterModule.forRoot(accountState, { useHash: true })
+        RouterModule.forChild(accountState)
     ],
     declarations: [
         SocialRegisterComponent,

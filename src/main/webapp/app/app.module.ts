@@ -3,7 +3,7 @@ import './vendor.ts';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Ng2Webstorage } from 'ng2-webstorage';
+import { Ng2Webstorage } from 'ngx-webstorage';
 import { BlockchainSharedModule, UserRouteAccessService } from './shared';
 import { BlockchainHomeModule } from './home/home.module';
 import { BlockchainAdminModule } from './admin/admin.module';
@@ -13,7 +13,6 @@ import { CoinModule } from './coin/coin.module';
 import { customHttpProvider } from './blocks/interceptor/http.provider';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
 import { HttpClientModule } from '@angular/common/http';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { BlockchainHelpModule } from './help/help.module';
 import { AdsenseModule } from 'ng2-adsense';
 
@@ -22,7 +21,6 @@ import 'hammerjs';
 
 import {
     JhiMainComponent,
-    LayoutRoutingModule,
     NavbarComponent,
     FooterComponent,
     ProfileService,
@@ -30,16 +28,15 @@ import {
     ActiveMenuDirective,
     ErrorComponent
 } from './layouts';
-import { MatButtonModule, MatButtonToggleModule, MatIconModule, MatMenuModule, MatToolbarModule,
-    MATERIAL_COMPATIBILITY_MODE} from '@angular/material';
-import { DataService } from './shared/data.service';
+import { MatButtonModule, MatButtonToggleModule, MatIconModule, MatMenuModule, MatToolbarModule} from '@angular/material';
+import { NewsModule } from './news/news.module';
+import { BlockchainAppRoutingModule } from './app-routing.module';
 
 @NgModule({
     imports: [
         BrowserModule,
         HttpClientModule,
-        FlexLayoutModule,
-        LayoutRoutingModule,
+        BlockchainAppRoutingModule,
         Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-'}),
         BlockchainSharedModule,
         BlockchainHomeModule,
@@ -48,6 +45,7 @@ import { DataService } from './shared/data.service';
         BlockchainEntityModule,
         BlockchainHelpModule,
         CoinModule,
+        NewsModule,
         BrowserAnimationsModule,
         MatIconModule,
         MatButtonModule,
@@ -72,9 +70,7 @@ import { DataService } from './shared/data.service';
         ProfileService,
         customHttpProvider(),
         PaginationConfig,
-        UserRouteAccessService,
-        {provide : MATERIAL_COMPATIBILITY_MODE, useValue: true},
-        DataService
+        UserRouteAccessService
     ],
     bootstrap: [ JhiMainComponent ]
 })

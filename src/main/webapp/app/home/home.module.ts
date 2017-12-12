@@ -20,7 +20,7 @@ import { OkcoincnWebsocketService } from './coin-price/okcoincn-websocket.servic
         MatIconModule,
         MatTabsModule,
         MatSelectModule,
-        RouterModule.forRoot([ HOME_ROUTE ], { useHash: true })
+        RouterModule.forChild([ HOME_ROUTE ])
     ],
     declarations: [
         HomeComponent,

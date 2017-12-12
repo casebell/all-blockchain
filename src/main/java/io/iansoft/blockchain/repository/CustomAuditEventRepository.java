@@ -3,6 +3,7 @@ package io.iansoft.blockchain.repository;
 import io.iansoft.blockchain.config.Constants;
 import io.iansoft.blockchain.config.audit.AuditEventConverter;
 import io.iansoft.blockchain.domain.PersistentAuditEvent;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.actuate.audit.AuditEvent;
@@ -86,7 +87,7 @@ public class CustomAuditEventRepository implements AuditEventRepository {
         }
     }
 
-      /**
+    /**
      * Truncate event data that might exceed column length.
      */
     private Map<String, String> truncate(Map<String, String> data) {

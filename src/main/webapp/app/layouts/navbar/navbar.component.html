@@ -4,8 +4,8 @@
             <mat-icon>home</mat-icon>
             <span jhiTranslate="global.title">All Blockchain</span>
     </button>
-
-  <!--<button mat-button  routerLink="coin/home"><span jhiTranslate="navbar.coin.title">coin</span></button>-->
+    <button mat-button  routerLink="news/home"><span jhiTranslate="navbar.news.title">News</span></button>
+      <button mat-button  routerLink="coin/home"><span jhiTranslate="navbar.coin.title">coin</span></button>
 
     <button mat-button *jhiHasAnyAuthority="'ROLE_ADMIN'" [matMenuTriggerFor]="adminMenu">
         Admin
@@ -60,9 +60,9 @@
 
     <span class="fill-remaining-space"></span>
 
-   <!--<button mat-button [matMenuTriggerFor]="accountMenu">-->
-            <!--<span jhiTranslate="navbar.account.title">account</span>-->
-        <!--</button>-->
+   <button mat-button [matMenuTriggerFor]="accountMenu">
+            <span jhiTranslate="navbar.account.title">account</span>
+  </button>
 
     <mat-menu #accountMenu="matMenu" [ngSwitch]="isAuthenticated()">
         <button mat-menu-item (click)="logout()" *ngSwitchCase="true">
@@ -71,7 +71,7 @@
         <button mat-menu-item (click)="login()" *ngSwitchCase="false">
                 <span jhiTranslate="navbar.account.login">로그인</span>
             </button>
-        <button *ngSwitchCase="false" mat-menu-item routerLink="register" routerLinkActive="active">
+        <button *ngSwitchCase="false" mat-menu-item routerLink="/register" routerLinkActive="active">
                 <span jhiTranslate="navbar.account.register">회원가입</span>
             </button>
         <button *ngSwitchCase="true" mat-menu-item routerLink="settings" routerLinkActive="active">
@@ -109,6 +109,9 @@
     <!-- coins-->
     <button mat-button routerLink="coin/home">
         <span jhiTranslate="navbar.coin.title">Coin</span>
+    </button>
+    <button mat-button  routerLink="news/home">
+        <span jhiTranslate="navbar.news.title">News</span>
     </button>
 
     <span class="fill-remaining-space"></span>

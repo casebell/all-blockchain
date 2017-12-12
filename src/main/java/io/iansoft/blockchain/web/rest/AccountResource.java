@@ -2,7 +2,6 @@ package io.iansoft.blockchain.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 
-
 import io.iansoft.blockchain.domain.User;
 import io.iansoft.blockchain.repository.UserRepository;
 import io.iansoft.blockchain.security.SecurityUtils;
@@ -13,11 +12,9 @@ import io.iansoft.blockchain.web.rest.errors.*;
 import io.iansoft.blockchain.web.rest.vm.KeyAndPasswordVM;
 import io.iansoft.blockchain.web.rest.vm.ManagedUserVM;
 
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,7 +61,7 @@ public class AccountResource {
         }
         userRepository.findOneByLogin(managedUserVM.getLogin().toLowerCase()).ifPresent(u -> {throw new LoginAlreadyUsedException();});
         userRepository.findOneByEmailIgnoreCase(managedUserVM.getEmail()).ifPresent(u -> {throw new EmailAlreadyUsedException();});
-        User user = userService.registerUser(managedUserVM);
+        User user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
         mailService.sendActivationEmail(user);
     }
 
@@ -80,7 +77,7 @@ public class AccountResource {
         Optional<User> user = userService.activateRegistration(key);
         if (!user.isPresent()) {
             throw new InternalServerErrorException("No user was found for this reset key");
-        };
+        }
     }
 
     /**
@@ -105,7 +102,7 @@ public class AccountResource {
     @GetMapping("/account")
     @Timed
     public UserDTO getAccount() {
-        return Optional.ofNullable(userService.getUserWithAuthorities())
+        return userService.getUserWithAuthorities()
             .map(UserDTO::new)
             .orElseThrow(() -> new InternalServerErrorException("User could not be found"));
     }
@@ -120,7 +117,7 @@ public class AccountResource {
     @PostMapping("/account")
     @Timed
     public void saveAccount(@Valid @RequestBody UserDTO userDTO) {
-        final String userLogin = SecurityUtils.getCurrentUserLogin();
+        final String userLogin = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
         Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(userDTO.getEmail());
         if (existingUser.isPresent() && (!existingUser.get().getLogin().equalsIgnoreCase(userLogin))) {
             throw new EmailAlreadyUsedException();
@@ -131,7 +128,7 @@ public class AccountResource {
         }
         userService.updateUser(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(),
             userDTO.getLangKey(), userDTO.getImageUrl());
-    }
+   }
 
     /**
      * POST  /account/change-password : changes the current user's password
@@ -146,7 +143,7 @@ public class AccountResource {
             throw new InvalidPasswordException();
         }
         userService.changePassword(password);
-    }
+   }
 
     /**
      * POST   /account/reset-password/init : Send an email to reset the password of the user
@@ -157,14 +154,14 @@ public class AccountResource {
     @PostMapping(path = "/account/reset-password/init")
     @Timed
     public void requestPasswordReset(@RequestBody String mail) {
-        mailService.sendPasswordResetMail(
-            userService.requestPasswordReset(mail)
-                .orElseThrow(EmailNotFoundException::new)
-        );
+       mailService.sendPasswordResetMail(
+           userService.requestPasswordReset(mail)
+               .orElseThrow(EmailNotFoundException::new)
+       );
     }
 
     /**
-    * POST   /account/reset-password/finish : Finish to reset the password of the user
+     * POST   /account/reset-password/finish : Finish to reset the password of the user
      *
      * @param keyAndPassword the generated key and the new password
      * @throws InvalidPasswordException 400 (Bad Request) if the password is incorrect

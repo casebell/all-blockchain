@@ -1,6 +1,7 @@
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-
+import { registerLocaleData } from '@angular/common';
+import localeKo from '@angular/common/locales/ko';
 import {
     BlockchainSharedLibsModule,
     JhiLanguageHelper,
@@ -36,4 +37,8 @@ import {
         JhiAlertErrorComponent
     ]
 })
-export class BlockchainSharedCommonModule {}
+export class BlockchainSharedCommonModule {
+    constructor() {
+        registerLocaleData(localeKo);
+    }
+}

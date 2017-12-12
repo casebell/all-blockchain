@@ -6,6 +6,9 @@
             "bitcoin":"BITCOIN",
             "ethereum":"ETHEREUM"
         },
+        "news": {
+            "title":"News"
+        },
         "account": {
             "title":"Account",
             "login":"Login",

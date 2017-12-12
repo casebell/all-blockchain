@@ -28,8 +28,7 @@ public class ExchangeRateServiceImpl implements ExchangeRateService{
     }
 
     @Override
-   // @Scheduled(cron = "0 1 * * * ?")
-    @Scheduled(cron = "*/10 * * * * *")
+    @Scheduled(cron = "0 5 0 * * ?")
     public void getExchangeRate(){
 
 
@@ -37,6 +36,7 @@ public class ExchangeRateServiceImpl implements ExchangeRateService{
         exchangeRateRest("EUR");
         exchangeRateRest("CNY");
         exchangeRateRest("JPY");
+        exchangeRateRest("KRW");
         //fixerExchangeRatesRepository.save(exchangeRates);
     }
 
@@ -47,6 +47,7 @@ public class ExchangeRateServiceImpl implements ExchangeRateService{
         fixerExchangeRates.add(getFixer("EUR"));
         fixerExchangeRates.add(getFixer("CNY"));
         fixerExchangeRates.add(getFixer("JPY"));
+        fixerExchangeRates.add(getFixer("KRW"));
         return fixerExchangeRates;
     }
 

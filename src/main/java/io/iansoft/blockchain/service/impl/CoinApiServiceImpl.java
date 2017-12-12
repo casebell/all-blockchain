@@ -1,7 +1,6 @@
 package io.iansoft.blockchain.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import groovy.util.logging.Slf4j;
 import io.iansoft.blockchain.domain.*;
 import io.iansoft.blockchain.repository.*;
 import io.iansoft.blockchain.service.CoinApiService;
@@ -21,7 +20,6 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-@Slf4j
 public class CoinApiServiceImpl implements CoinApiService {
 
     private static final String BTC_SYMBOL = "btc";

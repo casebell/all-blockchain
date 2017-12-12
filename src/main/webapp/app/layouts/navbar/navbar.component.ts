@@ -7,7 +7,7 @@ import {JhiLanguageHelper, Principal, LoginModalService, LoginService} from '../
 
 import {VERSION} from '../../app.constants';
 import {MatDialog} from '@angular/material';
-import {JhiLoginModalComponent} from '../../shared/login/login.component';
+import {JhiLoginModalComponent} from '../../shared';
 
 @Component({
     selector: 'jhi-navbar',
@@ -58,7 +58,7 @@ export class NavbarComponent implements OnInit {
             this.languages = languages;
         });
 
-        this.profileService.getProfileInfo().subscribe((profileInfo) => {
+        this.profileService.getProfileInfo().then((profileInfo) => {
             this.inProduction = profileInfo.inProduction;
             this.swaggerEnabled = profileInfo.swaggerEnabled;
         });
