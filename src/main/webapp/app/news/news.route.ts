@@ -7,6 +7,5 @@ const NEWS_ROUTES = [
 
 export const newsState: Routes = [{
     path: 'news',
-    component: NewsComponent,
     children: NEWS_ROUTES
 }];

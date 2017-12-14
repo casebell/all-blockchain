@@ -50,7 +50,8 @@ public class UserService {
 
     private final CacheManager cacheManager;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, SocialService socialService, UserSearchRepository userSearchRepository, AuthorityRepository authorityRepository, CacheManager cacheManager) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, SocialService socialService,
+                       UserSearchRepository userSearchRepository, AuthorityRepository authorityRepository, CacheManager cacheManager) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.socialService = socialService;

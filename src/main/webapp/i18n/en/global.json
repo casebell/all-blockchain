@@ -5,6 +5,7 @@
         "coin":"coin",
         "close" : "Close",
         "open" : "Open",
+        "write" : "Write",
         "menu": {
             "home": "Home",
             "language": "Language",

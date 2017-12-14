@@ -5,6 +5,7 @@
         "coin":"코인",
         "close" : "닫기",
         "open" : "열기",
+        "write" : "글쓰기",
         "menu": {
             "home": "홈",
             "language": "언어",
