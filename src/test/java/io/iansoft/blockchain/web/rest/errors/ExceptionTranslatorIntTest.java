@@ -121,7 +121,6 @@ public class ExceptionTranslatorIntTest {
             .andExpect(jsonPath("$.detail").value("test authentication failed!"));
     }
 
-
     @Test
     public void testMethodNotSupported() throws Exception {
         mockMvc.perform(post("/test/access-denied"))

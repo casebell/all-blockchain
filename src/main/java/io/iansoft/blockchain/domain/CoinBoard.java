@@ -21,7 +21,7 @@ import io.iansoft.blockchain.domain.enumeration.CoinBoardType;
 @Table(name = "coin_board")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Document(indexName = "coinboard")
-public class CoinBoard implements Serializable {
+public class CoinBoard extends AbstractAuditingEntity  implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -39,12 +39,6 @@ public class CoinBoard implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "conin_board_type")
     private CoinBoardType coninBoardType;
-
-    @Column(name = "createdat")
-    private ZonedDateTime createdat;
-
-    @Column(name = "updatedat")
-    private ZonedDateTime updatedat;
 
     @ManyToOne
     private Coin coin;
@@ -102,32 +96,6 @@ public class CoinBoard implements Serializable {
 
     public void setConinBoardType(CoinBoardType coninBoardType) {
         this.coninBoardType = coninBoardType;
-    }
-
-    public ZonedDateTime getCreatedat() {
-        return createdat;
-    }
-
-    public CoinBoard createdat(ZonedDateTime createdat) {
-        this.createdat = createdat;
-        return this;
-    }
-
-    public void setCreatedat(ZonedDateTime createdat) {
-        this.createdat = createdat;
-    }
-
-    public ZonedDateTime getUpdatedat() {
-        return updatedat;
-    }
-
-    public CoinBoard updatedat(ZonedDateTime updatedat) {
-        this.updatedat = updatedat;
-        return this;
-    }
-
-    public void setUpdatedat(ZonedDateTime updatedat) {
-        this.updatedat = updatedat;
     }
 
     public Coin getCoin() {
@@ -208,8 +176,6 @@ public class CoinBoard implements Serializable {
             ", title='" + getTitle() + "'" +
             ", context='" + getContext() + "'" +
             ", coninBoardType='" + getConinBoardType() + "'" +
-            ", createdat='" + getCreatedat() + "'" +
-            ", updatedat='" + getUpdatedat() + "'" +
             "}";
     }
 }

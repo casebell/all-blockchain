@@ -68,7 +68,7 @@ describe('Component Tests', () => {
                     mockStateStorageService.setResponse({redirect: 'dummy'});
 
                     // WHEN/
-                    comp.login();
+               //     comp.login();
                     tick(); // simulate async
 
                     // THEN
@@ -100,7 +100,7 @@ describe('Component Tests', () => {
                     mockStateStorageService.setResponse(null);
 
                     // WHEN
-                    comp.login();
+              //      comp.login();
                     tick(); // simulate async
 
                     // THEN

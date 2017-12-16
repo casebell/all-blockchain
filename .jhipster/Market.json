@@ -1,0 +1,45 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "coin",
+            "otherEntityName": "coin",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "market"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "255"
+        },
+        {
+            "fieldName": "country",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "url",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "255"
+        },
+        {
+            "fieldName": "currency",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20171216043127",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "market",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}

@@ -9,6 +9,9 @@
         "news": {
             "title":"News"
         },
+        "ticker": {
+            "title":"Ticker"
+        },
         "account": {
             "title":"Account",
             "login":"Login",

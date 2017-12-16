@@ -69,35 +69,35 @@ export class PuserService {
     });
   }
 
-  public getBTCUSDListener(){
+  public getBTCUSDListener() {
     return this.BTCUSDMessageListener;
   }
 
-  public getBTCEURListener(){
+  public getBTCEURListener() {
     return this.BTCEURMessageListener;
   }
 
-  public getETHUSDListener(){
+  public getETHUSDListener() {
     return this.ETHUSDMessageListener;
   }
 
-  public getETHEURListener(){
+  public getETHEURListener() {
     return this.ETHEURMessageListener;
   }
 
-  public getLTCUSDListener(){
+  public getLTCUSDListener() {
     return this.LTCUSDMessageListener;
   }
 
-  public getLTCEURListener(){
+  public getLTCEURListener() {
     return this.LTCEURMessageListener;
   }
 
-  public getXRPUSDListener(){
+  public getXRPUSDListener() {
     return this.XRPUSDMessageListener;
   }
 
-  public getXRPEURListener(){
+  public getXRPEURListener() {
     return this.XRPEURMessageListener;
   }
 }

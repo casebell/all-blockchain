@@ -96,6 +96,19 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
 
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Ticker> tickers = new HashSet<>();
+
+    public Set<Ticker> getTickers() {
+        return tickers;
+    }
+
+    public void setTickers(Set<Ticker> tickers) {
+        this.tickers = tickers;
+    }
+
     public Long getId() {
         return id;
     }

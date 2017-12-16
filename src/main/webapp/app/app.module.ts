@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Ng2Webstorage } from 'ngx-webstorage';
 import { BlockchainSharedModule, UserRouteAccessService } from './shared';
-import { BlockchainHomeModule } from './home/home.module';
+import { BlockchainHomeModule } from './home';
 import { BlockchainAdminModule } from './admin/admin.module';
 import { BlockchainAccountModule } from './account/account.module';
 import { BlockchainEntityModule } from './entities/entity.module';
@@ -31,6 +31,7 @@ import {
 import { MatButtonModule, MatButtonToggleModule, MatIconModule, MatMenuModule, MatToolbarModule} from '@angular/material';
 import { NewsModule } from './news/news.module';
 import { BlockchainAppRoutingModule } from './app-routing.module';
+import { TickerModule } from './ticker/ticker.module';
 
 @NgModule({
     imports: [
@@ -46,6 +47,7 @@ import { BlockchainAppRoutingModule } from './app-routing.module';
         BlockchainHelpModule,
         CoinModule,
         NewsModule,
+        TickerModule,
         BrowserAnimationsModule,
         MatIconModule,
         MatButtonModule,

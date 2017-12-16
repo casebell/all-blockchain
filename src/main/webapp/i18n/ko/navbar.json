@@ -9,6 +9,9 @@
         "news": {
             "title":"뉴스"
         },
+        "ticker": {
+            "title":"내시세판"
+        },
         "account": {
             "title":"계정",
             "login":"로그인",

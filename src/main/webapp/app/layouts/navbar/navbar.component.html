@@ -6,6 +6,7 @@
     </button>
     <button mat-button  routerLink="news/home"><span jhiTranslate="navbar.news.title">News</span></button>
       <button mat-button  routerLink="coin/home"><span jhiTranslate="navbar.coin.title">coin</span></button>
+      <button mat-button  routerLink="ticker"><span jhiTranslate="navbar.ticker.title">ticker</span></button>
 
     <button mat-button *jhiHasAnyAuthority="'ROLE_ADMIN'" [matMenuTriggerFor]="adminMenu">
         Admin
@@ -299,6 +300,12 @@
                             <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
                             <span
                                 jhiTranslate="global.menu.entities.resourceBlockChainInfo">Resource Block Chain Info</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="market" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.entities.market">Market</span>
                         </a>
                     </li>
                     &lt;!&ndash; jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here &ndash;&gt;

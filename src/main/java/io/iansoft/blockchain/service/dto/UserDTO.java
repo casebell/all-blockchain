@@ -3,6 +3,7 @@ package io.iansoft.blockchain.service.dto;
 import io.iansoft.blockchain.config.Constants;
 
 import io.iansoft.blockchain.domain.Authority;
+import io.iansoft.blockchain.domain.Ticker;
 import io.iansoft.blockchain.domain.User;
 
 import org.hibernate.validator.constraints.Email;
