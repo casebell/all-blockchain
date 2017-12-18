@@ -1,22 +1,21 @@
 package io.iansoft.blockchain.service;
 
-import io.iansoft.blockchain.service.dto.MarketDTO;
 import io.iansoft.blockchain.service.dto.TickerDTO;
 
 import java.util.List;
 
 /**
- * Service Interface for managing Market.
+ * Service Interface for managing Ticker.
  */
 public interface TickerService {
 
     /**
      * Save a market.
      *
-     * @param marketDTO the entity to save
+     * @param tickerDTO the entity to save
      * @return the persisted entity
      */
-    TickerDTO save(TickerDTO marketDTO);
+    TickerDTO save(TickerDTO tickerDTO);
 
     /**
      * Get all the markets.

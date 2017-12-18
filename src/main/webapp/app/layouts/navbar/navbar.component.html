@@ -45,6 +45,9 @@
             </button>
 
     <mat-menu #entityMenu="matMenu">
+        <button mat-menu-item routerLink="market" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <span >Market </span>
+        </button>
         <button mat-menu-item routerLink="coin-block-chain-info" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                             <span >Coin </span>
                     </button>

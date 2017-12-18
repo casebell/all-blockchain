@@ -28,25 +28,14 @@ public class Ticker extends AbstractAuditingEntity implements Serializable {
     private User user;
 
     @ManyToOne
-    private Market market;
+    private MarketCoin marketCoin;
 
-    @ManyToOne
-    private Coin coin;
-
-    public Market getMarket() {
-        return market;
+    public MarketCoin getMarketCoin() {
+        return marketCoin;
     }
 
-    public void setMarket(Market market) {
-        this.market = market;
-    }
-
-    public Coin getCoin() {
-        return coin;
-    }
-
-    public void setCoin(Coin coin) {
-        this.coin = coin;
+    public void setMarketCoin(MarketCoin marketCoin) {
+        this.marketCoin = marketCoin;
     }
 
     public User getUser() {
@@ -93,8 +82,7 @@ public class Ticker extends AbstractAuditingEntity implements Serializable {
         return "Ticker{" +
             "id=" + id +
             ", user=" + user +
-            ", market=" + market +
-            ", coin=" + coin +
+            ", marketCoin=" + marketCoin +
             '}';
     }
 }

@@ -11,7 +11,7 @@ export const marketRoute: Routes = [
         path: 'market',
         component: MarketComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'blockchainApp.market.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -19,7 +19,7 @@ export const marketRoute: Routes = [
         path: 'market/:id',
         component: MarketDetailComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'blockchainApp.market.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -31,7 +31,7 @@ export const marketPopupRoute: Routes = [
         path: 'market-new',
         component: MarketPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'blockchainApp.market.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -41,7 +41,7 @@ export const marketPopupRoute: Routes = [
         path: 'market/:id/edit',
         component: MarketPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'blockchainApp.market.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -51,7 +51,7 @@ export const marketPopupRoute: Routes = [
         path: 'market/:id/delete',
         component: MarketDeletePopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'blockchainApp.market.home.title'
         },
         canActivate: [UserRouteAccessService],

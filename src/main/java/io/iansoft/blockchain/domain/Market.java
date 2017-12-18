@@ -45,24 +45,21 @@ public class Market extends AbstractAuditingEntity implements Serializable {
     @Column(name = "currency")
     private String currency;
 
-    @OneToMany(mappedBy = "market")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Coin> coins = new HashSet<>();
 
     @OneToMany(mappedBy = "market")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Ticker> tickers = new HashSet<>();
+    private Set<MarketCoin> marketCoins = new HashSet<>();
 
 
-    public Set<Ticker> getTickers() {
-        return tickers;
+    public Set<MarketCoin> getMarketCoins() {
+        return marketCoins;
     }
 
-    public void setTickers(Set<Ticker> tickers) {
-        this.tickers = tickers;
+    public void setMarketCoins(Set<MarketCoin> marketCoins) {
+        this.marketCoins = marketCoins;
     }
+
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -125,30 +122,6 @@ public class Market extends AbstractAuditingEntity implements Serializable {
         this.currency = currency;
     }
 
-    public Set<Coin> getCoins() {
-        return coins;
-    }
-
-    public Market coins(Set<Coin> coins) {
-        this.coins = coins;
-        return this;
-    }
-
-    public Market addCoin(Coin coin) {
-        this.coins.add(coin);
-        coin.setMarket(this);
-        return this;
-    }
-
-    public Market removeCoin(Coin coin) {
-        this.coins.remove(coin);
-        coin.setMarket(null);
-        return this;
-    }
-
-    public void setCoins(Set<Coin> coins) {
-        this.coins = coins;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

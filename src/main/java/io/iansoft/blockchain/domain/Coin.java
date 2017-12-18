@@ -67,7 +67,8 @@ public class Coin extends AbstractAuditingEntity implements Serializable {
     @OneToMany(mappedBy = "coin")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Ticker> tickers = new HashSet<>();
+    private Set<MarketCoin> marketCoins = new HashSet<>();
+
 
     @OneToOne
     @JsonIgnore
@@ -75,14 +76,6 @@ public class Coin extends AbstractAuditingEntity implements Serializable {
 
     @ManyToOne
     private Market market;
-
-    public Set<Ticker> getTickers() {
-        return tickers;
-    }
-
-    public void setTickers(Set<Ticker> tickers) {
-        this.tickers = tickers;
-    }
 
     public Market getMarket() {
         return market;

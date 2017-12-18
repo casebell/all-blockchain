@@ -30,5 +30,25 @@
         "coin": "Coin",
         "exchange-rate":"Exchange Rate",
         "aboutMarket": "This price using the yahoo finance API and each market api."
+    },
+    "blockchainApp": {
+        "market" : {
+            "home": {
+                "title": "거래소",
+                "createLabel": "Create a new Market",
+                "createOrEditLabel": "Create or edit a Market",
+                "search": "Search for Market"
+            },
+            "detail": {
+                "title": "거래소"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Market {{ id }}?"
+            },
+            "name":"Name",
+            "country":"Country",
+            "url" :"url",
+            "currency":"currency"
+        }
     }
 }
