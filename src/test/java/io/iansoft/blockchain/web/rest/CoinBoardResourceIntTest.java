@@ -1,19 +1,18 @@
 package io.iansoft.blockchain.web.rest;
 
 import io.iansoft.blockchain.BlockchainApp;
-
 import io.iansoft.blockchain.domain.CoinBoard;
+import io.iansoft.blockchain.domain.enumeration.CoinBoardType;
 import io.iansoft.blockchain.repository.CoinBoardRepository;
-import io.iansoft.blockchain.service.CoinBoardService;
 import io.iansoft.blockchain.repository.search.CoinBoardSearchRepository;
+import io.iansoft.blockchain.service.CoinBoardService;
 import io.iansoft.blockchain.service.dto.CoinBoardDTO;
-import io.iansoft.blockchain.service.mapper.CoinBoardMapper;
 import io.iansoft.blockchain.web.rest.errors.ExceptionTranslator;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
@@ -26,9 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.time.Instant;
-import java.time.ZonedDateTime;
-import java.time.ZoneOffset;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import static io.iansoft.blockchain.web.rest.TestUtil.sameInstant;
@@ -36,8 +35,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import io.iansoft.blockchain.domain.enumeration.CoinBoardType;
 /**
  * Test class for the CoinBoardResource REST controller.
  *
@@ -66,7 +63,7 @@ public class CoinBoardResourceIntTest {
     private CoinBoardRepository coinBoardRepository;
 
     @Autowired
-    private CoinBoardMapper coinBoardMapper;
+    private ModelMapper modelMapper;
 
     @Autowired
     private CoinBoardService coinBoardService;
@@ -110,9 +107,9 @@ public class CoinBoardResourceIntTest {
         CoinBoard coinBoard = new CoinBoard()
             .title(DEFAULT_TITLE)
             .context(DEFAULT_CONTEXT)
-            .coninBoardType(DEFAULT_CONIN_BOARD_TYPE)
-            .createdat(DEFAULT_CREATEDAT)
-            .updatedat(DEFAULT_UPDATEDAT);
+            .coninBoardType(DEFAULT_CONIN_BOARD_TYPE);
+//            .createdat(DEFAULT_CREATEDAT)
+//            .updatedat(DEFAULT_UPDATEDAT);
         return coinBoard;
     }
 
@@ -128,7 +125,7 @@ public class CoinBoardResourceIntTest {
         int databaseSizeBeforeCreate = coinBoardRepository.findAll().size();
 
         // Create the CoinBoard
-        CoinBoardDTO coinBoardDTO = coinBoardMapper.toDto(coinBoard);
+        CoinBoardDTO coinBoardDTO = modelMapper.map(coinBoard,CoinBoardDTO.class);
         restCoinBoardMockMvc.perform(post("/api/coin-boards")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(coinBoardDTO)))
@@ -141,8 +138,8 @@ public class CoinBoardResourceIntTest {
         assertThat(testCoinBoard.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testCoinBoard.getContext()).isEqualTo(DEFAULT_CONTEXT);
         assertThat(testCoinBoard.getConinBoardType()).isEqualTo(DEFAULT_CONIN_BOARD_TYPE);
-        assertThat(testCoinBoard.getCreatedat()).isEqualTo(DEFAULT_CREATEDAT);
-        assertThat(testCoinBoard.getUpdatedat()).isEqualTo(DEFAULT_UPDATEDAT);
+//        assertThat(testCoinBoard.getCreatedat()).isEqualTo(DEFAULT_CREATEDAT);
+//        assertThat(testCoinBoard.getUpdatedat()).isEqualTo(DEFAULT_UPDATEDAT);
 
         // Validate the CoinBoard in Elasticsearch
         CoinBoard coinBoardEs = coinBoardSearchRepository.findOne(testCoinBoard.getId());
@@ -156,7 +153,7 @@ public class CoinBoardResourceIntTest {
 
         // Create the CoinBoard with an existing ID
         coinBoard.setId(1L);
-        CoinBoardDTO coinBoardDTO = coinBoardMapper.toDto(coinBoard);
+        CoinBoardDTO coinBoardDTO = modelMapper.map(coinBoard,CoinBoardDTO.class);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restCoinBoardMockMvc.perform(post("/api/coin-boards")
@@ -226,10 +223,10 @@ public class CoinBoardResourceIntTest {
         updatedCoinBoard
             .title(UPDATED_TITLE)
             .context(UPDATED_CONTEXT)
-            .coninBoardType(UPDATED_CONIN_BOARD_TYPE)
-            .createdat(UPDATED_CREATEDAT)
-            .updatedat(UPDATED_UPDATEDAT);
-        CoinBoardDTO coinBoardDTO = coinBoardMapper.toDto(updatedCoinBoard);
+            .coninBoardType(UPDATED_CONIN_BOARD_TYPE);
+//            .createdat(UPDATED_CREATEDAT)
+//            .updatedat(UPDATED_UPDATEDAT);
+        CoinBoardDTO coinBoardDTO = modelMapper.map(coinBoard,CoinBoardDTO.class);
 
         restCoinBoardMockMvc.perform(put("/api/coin-boards")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -243,8 +240,7 @@ public class CoinBoardResourceIntTest {
         assertThat(testCoinBoard.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testCoinBoard.getContext()).isEqualTo(UPDATED_CONTEXT);
         assertThat(testCoinBoard.getConinBoardType()).isEqualTo(UPDATED_CONIN_BOARD_TYPE);
-        assertThat(testCoinBoard.getCreatedat()).isEqualTo(UPDATED_CREATEDAT);
-        assertThat(testCoinBoard.getUpdatedat()).isEqualTo(UPDATED_UPDATEDAT);
+
 
         // Validate the CoinBoard in Elasticsearch
         CoinBoard coinBoardEs = coinBoardSearchRepository.findOne(testCoinBoard.getId());
@@ -257,7 +253,7 @@ public class CoinBoardResourceIntTest {
         int databaseSizeBeforeUpdate = coinBoardRepository.findAll().size();
 
         // Create the CoinBoard
-        CoinBoardDTO coinBoardDTO = coinBoardMapper.toDto(coinBoard);
+        CoinBoardDTO coinBoardDTO = modelMapper.map(coinBoard,CoinBoardDTO.class);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restCoinBoardMockMvc.perform(put("/api/coin-boards")
@@ -342,10 +338,10 @@ public class CoinBoardResourceIntTest {
         assertThat(coinBoardDTO1).isNotEqualTo(coinBoardDTO2);
     }
 
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(coinBoardMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(coinBoardMapper.fromId(null)).isNull();
-    }
+//    @Test
+//    @Transactional
+//    public void testEntityFromId() {
+//        assertThat(coinBoardMapper.fromId(42L).getId()).isEqualTo(42);
+//        assertThat(coinBoardMapper.fromId(null)).isNull();
+//    }
 }

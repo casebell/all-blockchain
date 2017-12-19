@@ -11,9 +11,9 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {})
 public interface MarketMapper extends EntityMapper<MarketDTO, Market> {
 
-    
 
-    @Mapping(target = "coins", ignore = true)
+
+    @Mapping(target = "marketCoins", ignore = true)
     Market toEntity(MarketDTO marketDTO);
 
     default Market fromId(Long id) {

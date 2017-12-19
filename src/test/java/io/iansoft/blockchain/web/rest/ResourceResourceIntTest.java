@@ -7,13 +7,13 @@ import io.iansoft.blockchain.repository.ResourceRepository;
 import io.iansoft.blockchain.service.ResourceService;
 import io.iansoft.blockchain.repository.search.ResourceSearchRepository;
 import io.iansoft.blockchain.service.dto.ResourceDTO;
-import io.iansoft.blockchain.service.mapper.ResourceMapper;
 import io.iansoft.blockchain.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
@@ -66,7 +66,7 @@ public class ResourceResourceIntTest {
     private ResourceRepository resourceRepository;
 
     @Autowired
-    private ResourceMapper resourceMapper;
+    private ModelMapper modelMapper;
 
     @Autowired
     private ResourceService resourceService;
@@ -128,7 +128,7 @@ public class ResourceResourceIntTest {
         int databaseSizeBeforeCreate = resourceRepository.findAll().size();
 
         // Create the Resource
-        ResourceDTO resourceDTO = resourceMapper.toDto(resource);
+        ResourceDTO resourceDTO = modelMapper.map(resource,ResourceDTO.class);
         restResourceMockMvc.perform(post("/api/resources")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(resourceDTO)))
@@ -156,7 +156,7 @@ public class ResourceResourceIntTest {
 
         // Create the Resource with an existing ID
         resource.setId(1L);
-        ResourceDTO resourceDTO = resourceMapper.toDto(resource);
+        ResourceDTO resourceDTO = modelMapper.map(resource,ResourceDTO.class);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restResourceMockMvc.perform(post("/api/resources")
@@ -177,7 +177,7 @@ public class ResourceResourceIntTest {
         resource.setUrl(null);
 
         // Create the Resource, which fails.
-        ResourceDTO resourceDTO = resourceMapper.toDto(resource);
+        ResourceDTO resourceDTO = modelMapper.map(resource,ResourceDTO.class);
 
         restResourceMockMvc.perform(post("/api/resources")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -248,7 +248,7 @@ public class ResourceResourceIntTest {
             .createdAt(UPDATED_CREATED_AT)
             .updatedAt(UPDATED_UPDATED_AT)
             .resourceType(UPDATED_RESOURCE_TYPE);
-        ResourceDTO resourceDTO = resourceMapper.toDto(updatedResource);
+        ResourceDTO resourceDTO = modelMapper.map(resource,ResourceDTO.class);
 
         restResourceMockMvc.perform(put("/api/resources")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -276,7 +276,7 @@ public class ResourceResourceIntTest {
         int databaseSizeBeforeUpdate = resourceRepository.findAll().size();
 
         // Create the Resource
-        ResourceDTO resourceDTO = resourceMapper.toDto(resource);
+        ResourceDTO resourceDTO = modelMapper.map(resource,ResourceDTO.class);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restResourceMockMvc.perform(put("/api/resources")
@@ -360,11 +360,11 @@ public class ResourceResourceIntTest {
         resourceDTO1.setId(null);
         assertThat(resourceDTO1).isNotEqualTo(resourceDTO2);
     }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(resourceMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(resourceMapper.fromId(null)).isNull();
-    }
+//
+//    @Test
+//    @Transactional
+//    public void testEntityFromId() {
+//        assertThat(resourceMapper.fromId(42L).getId()).isEqualTo(42);
+//        assertThat(resourceMapper.fromId(null)).isNull();
+//    }
 }

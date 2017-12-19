@@ -70,10 +70,6 @@ public class Coin extends AbstractAuditingEntity implements Serializable {
     private Set<MarketCoin> marketCoins = new HashSet<>();
 
 
-    @OneToOne
-    @JsonIgnore
-    private Bitfinex bitfinex;
-
     @ManyToOne
     private Market market;
 
@@ -235,14 +231,6 @@ public class Coin extends AbstractAuditingEntity implements Serializable {
         return this;
     }
 
-    public Bitfinex getBitfinex() {
-        return bitfinex;
-    }
-
-    public void setBitfinex(Bitfinex bitfinex) {
-        this.bitfinex = bitfinex;
-    }
-
     public void setBoards(Set<CoinBoard> coinBoards) {
         this.boards = coinBoards;
     }
@@ -280,7 +268,6 @@ public class Coin extends AbstractAuditingEntity implements Serializable {
         sb.append(", releaseat=").append(releaseat);
         sb.append(", resources=").append(resources);
         sb.append(", boards=").append(boards);
-        sb.append(", bitfinex=").append(bitfinex);
         sb.append('}');
         return sb.toString();
     }

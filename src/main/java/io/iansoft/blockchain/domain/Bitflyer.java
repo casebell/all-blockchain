@@ -34,136 +34,256 @@ public class Bitflyer implements Serializable{
         return id;
     }
 
-    public Bitflyer setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
-        return this;
     }
 
     public String getSymbol() {
         return symbol;
     }
 
-    public Bitflyer setSymbol(String symbol) {
+    public void setSymbol(String symbol) {
         this.symbol = symbol;
-        return this;
     }
 
     public ZonedDateTime getCreatedat() {
         return createdat;
     }
 
-    public Bitflyer setCreatedat(ZonedDateTime createdat) {
+    public void setCreatedat(ZonedDateTime createdat) {
         this.createdat = createdat;
-        return this;
     }
 
     public String getProduct_code() {
         return product_code;
     }
 
-    public Bitflyer setProduct_code(String product_code) {
+    public void setProduct_code(String product_code) {
         this.product_code = product_code;
-        return this;
     }
 
     public String getTimestamp() {
         return timestamp;
     }
 
-    public Bitflyer setTimestamp(String timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
-        return this;
     }
 
     public Integer getTick_id() {
         return tick_id;
     }
 
-    public Bitflyer setTick_id(Integer tick_id) {
+    public void setTick_id(Integer tick_id) {
         this.tick_id = tick_id;
-        return this;
     }
 
     public Integer getBest_bid() {
         return best_bid;
     }
 
-    public Bitflyer setBest_bid(Integer best_bid) {
+    public void setBest_bid(Integer best_bid) {
         this.best_bid = best_bid;
-        return this;
     }
 
     public Integer getBest_ask() {
         return best_ask;
     }
 
-    public Bitflyer setBest_ask(Integer best_ask) {
+    public void setBest_ask(Integer best_ask) {
         this.best_ask = best_ask;
-        return this;
     }
 
     public Integer getBest_bid_size() {
         return best_bid_size;
     }
 
-    public Bitflyer setBest_bid_size(Integer best_bid_size) {
+    public void setBest_bid_size(Integer best_bid_size) {
         this.best_bid_size = best_bid_size;
-        return this;
     }
 
     public Integer getBest_ask_size() {
         return best_ask_size;
     }
 
-    public Bitflyer setBest_ask_size(Integer best_ask_size) {
+    public void setBest_ask_size(Integer best_ask_size) {
         this.best_ask_size = best_ask_size;
-        return this;
     }
 
     public Integer getTotal_bid_depth() {
         return total_bid_depth;
     }
 
-    public Bitflyer setTotal_bid_depth(Integer total_bid_depth) {
+    public void setTotal_bid_depth(Integer total_bid_depth) {
         this.total_bid_depth = total_bid_depth;
-        return this;
     }
 
     public Integer getTotal_ask_depth() {
         return total_ask_depth;
     }
 
-    public Bitflyer setTotal_ask_depth(Integer total_ask_depth) {
+    public void setTotal_ask_depth(Integer total_ask_depth) {
         this.total_ask_depth = total_ask_depth;
-        return this;
     }
 
     public Integer getLtp() {
         return ltp;
     }
 
-    public Bitflyer setLtp(Integer ltp) {
+    public void setLtp(Integer ltp) {
         this.ltp = ltp;
-        return this;
     }
 
     public Integer getVolume() {
         return volume;
     }
 
-    public Bitflyer setVolume(Integer volume) {
+    public void setVolume(Integer volume) {
         this.volume = volume;
-        return this;
     }
 
     public Integer getVolume_by_product() {
         return volume_by_product;
     }
 
-    public Bitflyer setVolume_by_product(Integer volume_by_product) {
+    public void setVolume_by_product(Integer volume_by_product) {
         this.volume_by_product = volume_by_product;
-        return this;
     }
+
+    //    public Long getId() {
+//        return id;
+//    }
+//
+//    public Bitflyer setId(Long id) {
+//        this.id = id;
+//        return this;
+//    }
+//
+//    public String getSymbol() {
+//        return symbol;
+//    }
+//
+//    public Bitflyer setSymbol(String symbol) {
+//        this.symbol = symbol;
+//        return this;
+//    }
+//
+//    public ZonedDateTime getCreatedat() {
+//        return createdat;
+//    }
+//
+//    public Bitflyer setCreatedat(ZonedDateTime createdat) {
+//        this.createdat = createdat;
+//        return this;
+//    }
+//
+//    public String getProduct_code() {
+//        return product_code;
+//    }
+//
+//    public Bitflyer setProduct_code(String product_code) {
+//        this.product_code = product_code;
+//        return this;
+//    }
+//
+//    public String getTimestamp() {
+//        return timestamp;
+//    }
+//
+//    public Bitflyer setTimestamp(String timestamp) {
+//        this.timestamp = timestamp;
+//        return this;
+//    }
+//
+//    public Integer getTick_id() {
+//        return tick_id;
+//    }
+//
+//    public Bitflyer setTick_id(Integer tick_id) {
+//        this.tick_id = tick_id;
+//        return this;
+//    }
+//
+//    public Integer getBest_bid() {
+//        return best_bid;
+//    }
+//
+//    public Bitflyer setBest_bid(Integer best_bid) {
+//        this.best_bid = best_bid;
+//        return this;
+//    }
+//
+//    public Integer getBest_ask() {
+//        return best_ask;
+//    }
+//
+//    public Bitflyer setBest_ask(Integer best_ask) {
+//        this.best_ask = best_ask;
+//        return this;
+//    }
+//
+//    public Integer getBest_bid_size() {
+//        return best_bid_size;
+//    }
+//
+//    public Bitflyer setBest_bid_size(Integer best_bid_size) {
+//        this.best_bid_size = best_bid_size;
+//        return this;
+//    }
+//
+//    public Integer getBest_ask_size() {
+//        return best_ask_size;
+//    }
+//
+//    public Bitflyer setBest_ask_size(Integer best_ask_size) {
+//        this.best_ask_size = best_ask_size;
+//        return this;
+//    }
+//
+//    public Integer getTotal_bid_depth() {
+//        return total_bid_depth;
+//    }
+//
+//    public Bitflyer setTotal_bid_depth(Integer total_bid_depth) {
+//        this.total_bid_depth = total_bid_depth;
+//        return this;
+//    }
+//
+//    public Integer getTotal_ask_depth() {
+//        return total_ask_depth;
+//    }
+//
+//    public Bitflyer setTotal_ask_depth(Integer total_ask_depth) {
+//        this.total_ask_depth = total_ask_depth;
+//        return this;
+//    }
+//
+//    public Integer getLtp() {
+//        return ltp;
+//    }
+//
+//    public Bitflyer setLtp(Integer ltp) {
+//        this.ltp = ltp;
+//        return this;
+//    }
+//
+//    public Integer getVolume() {
+//        return volume;
+//    }
+//
+//    public Bitflyer setVolume(Integer volume) {
+//        this.volume = volume;
+//        return this;
+//    }
+//
+//    public Integer getVolume_by_product() {
+//        return volume_by_product;
+//    }
+//
+//    public Bitflyer setVolume_by_product(Integer volume_by_product) {
+//        this.volume_by_product = volume_by_product;
+//        return this;
+//    }
 }
 
 /*

@@ -1,0 +1,27 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="ian (generated)" id="1513697434793-1">
+        <dropForeignKeyConstraint baseTableName="NEWS_LIKE" constraintName="FKNHVR4613TL86G53B5NRDI320Y"/>
+    </changeSet>
+    <changeSet author="ian (generated)" id="1513697434793-2">
+        <dropTable tableName="BITFINEX"/>
+    </changeSet>
+    <changeSet author="ian (generated)" id="1513697434793-3">
+        <dropTable tableName="NEWS_BOARD"/>
+    </changeSet>
+    <changeSet author="ian (generated)" id="1513697434793-4">
+        <dropTable tableName="NEWS_LIKE"/>
+    </changeSet>
+    <changeSet author="ian (generated)" id="1513697434793-5">
+        <dropNotNullConstraint columnDataType="varchar(255)" columnName="closing_price" tableName="bithumb"/>
+    </changeSet>
+    <changeSet author="ian (generated)" id="1513697434793-6">
+        <dropNotNullConstraint columnDataType="varchar(60)" columnName="password_hash" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="ian (generated)" id="1513697434793-7">
+        <dropNotNullConstraint columnDataType="varchar(255)" columnName="symbol" tableName="bithumb"/>
+    </changeSet>
+    <changeSet author="ian (generated)" id="1513697434793-8">
+        <dropNotNullConstraint columnDataType="varchar(255)" columnName="symbol" tableName="bittrex"/>
+    </changeSet>
+</databaseChangeLog>

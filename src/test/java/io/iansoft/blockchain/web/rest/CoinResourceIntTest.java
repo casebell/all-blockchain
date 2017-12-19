@@ -7,13 +7,13 @@ import io.iansoft.blockchain.repository.CoinRepository;
 import io.iansoft.blockchain.service.CoinService;
 import io.iansoft.blockchain.repository.search.CoinSearchRepository;
 import io.iansoft.blockchain.service.dto.CoinDTO;
-import io.iansoft.blockchain.service.mapper.CoinMapper;
 import io.iansoft.blockchain.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
@@ -77,8 +77,11 @@ public class CoinResourceIntTest {
     @Autowired
     private CoinRepository coinRepository;
 
+//    @Autowired
+//    private CoinMapper coinMapper;
+
     @Autowired
-    private CoinMapper coinMapper;
+    private ModelMapper modelMapper;
 
     @Autowired
     private CoinService coinService;
@@ -126,9 +129,9 @@ public class CoinResourceIntTest {
             .homepage(DEFAULT_HOMEPAGE)
             .whitePaper(DEFAULT_WHITE_PAPER)
             .context(DEFAULT_CONTEXT)
-            .releaseat(DEFAULT_RELEASEAT)
-            .createdat(DEFAULT_CREATEDAT)
-            .updatedat(DEFAULT_UPDATEDAT);
+            .releaseat(DEFAULT_RELEASEAT);
+            //.(DEFAULT_CREATEDAT)
+            //.updatedat(DEFAULT_UPDATEDAT);
         return coin;
     }
 
@@ -144,7 +147,7 @@ public class CoinResourceIntTest {
         int databaseSizeBeforeCreate = coinRepository.findAll().size();
 
         // Create the Coin
-        CoinDTO coinDTO = coinMapper.toDto(coin);
+        CoinDTO coinDTO = modelMapper.map(coin,CoinDTO.class);
         restCoinMockMvc.perform(post("/api/coins")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(coinDTO)))
@@ -161,8 +164,8 @@ public class CoinResourceIntTest {
         assertThat(testCoin.getWhitePaper()).isEqualTo(DEFAULT_WHITE_PAPER);
         assertThat(testCoin.getContext()).isEqualTo(DEFAULT_CONTEXT);
         assertThat(testCoin.getReleaseat()).isEqualTo(DEFAULT_RELEASEAT);
-        assertThat(testCoin.getCreatedat()).isEqualTo(DEFAULT_CREATEDAT);
-        assertThat(testCoin.getUpdatedat()).isEqualTo(DEFAULT_UPDATEDAT);
+//        assertThat(testCoin.getCreatedat()).isEqualTo(DEFAULT_CREATEDAT);
+//        assertThat(testCoin.getUpdatedat()).isEqualTo(DEFAULT_UPDATEDAT);
 
         // Validate the Coin in Elasticsearch
         Coin coinEs = coinSearchRepository.findOne(testCoin.getId());
@@ -176,7 +179,7 @@ public class CoinResourceIntTest {
 
         // Create the Coin with an existing ID
         coin.setId(1L);
-        CoinDTO coinDTO = coinMapper.toDto(coin);
+        CoinDTO coinDTO = modelMapper.map(coin,CoinDTO.class);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restCoinMockMvc.perform(post("/api/coins")
@@ -197,7 +200,7 @@ public class CoinResourceIntTest {
         coin.setName(null);
 
         // Create the Coin, which fails.
-        CoinDTO coinDTO = coinMapper.toDto(coin);
+        CoinDTO coinDTO = modelMapper.map(coin,CoinDTO.class);
 
         restCoinMockMvc.perform(post("/api/coins")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -277,10 +280,10 @@ public class CoinResourceIntTest {
             .homepage(UPDATED_HOMEPAGE)
             .whitePaper(UPDATED_WHITE_PAPER)
             .context(UPDATED_CONTEXT)
-            .releaseat(UPDATED_RELEASEAT)
-            .createdat(UPDATED_CREATEDAT)
-            .updatedat(UPDATED_UPDATEDAT);
-        CoinDTO coinDTO = coinMapper.toDto(updatedCoin);
+            .releaseat(UPDATED_RELEASEAT);
+//            .createdat(UPDATED_CREATEDAT)
+//            .updatedat(UPDATED_UPDATEDAT);
+        CoinDTO coinDTO = modelMapper.map(coin,CoinDTO.class);
 
         restCoinMockMvc.perform(put("/api/coins")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -298,8 +301,8 @@ public class CoinResourceIntTest {
         assertThat(testCoin.getWhitePaper()).isEqualTo(UPDATED_WHITE_PAPER);
         assertThat(testCoin.getContext()).isEqualTo(UPDATED_CONTEXT);
         assertThat(testCoin.getReleaseat()).isEqualTo(UPDATED_RELEASEAT);
-        assertThat(testCoin.getCreatedat()).isEqualTo(UPDATED_CREATEDAT);
-        assertThat(testCoin.getUpdatedat()).isEqualTo(UPDATED_UPDATEDAT);
+//        assertThat(testCoin.getCreatedat()).isEqualTo(UPDATED_CREATEDAT);
+//        assertThat(testCoin.getUpdatedat()).isEqualTo(UPDATED_UPDATEDAT);
 
         // Validate the Coin in Elasticsearch
         Coin coinEs = coinSearchRepository.findOne(testCoin.getId());
@@ -312,7 +315,7 @@ public class CoinResourceIntTest {
         int databaseSizeBeforeUpdate = coinRepository.findAll().size();
 
         // Create the Coin
-        CoinDTO coinDTO = coinMapper.toDto(coin);
+        CoinDTO coinDTO = modelMapper.map(coin,CoinDTO.class);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restCoinMockMvc.perform(put("/api/coins")
@@ -401,10 +404,10 @@ public class CoinResourceIntTest {
         assertThat(coinDTO1).isNotEqualTo(coinDTO2);
     }
 
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(coinMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(coinMapper.fromId(null)).isNull();
-    }
+//    @Test
+//    @Transactional
+//    public void testEntityFromId() {
+//        assertThat(coinMapper.fromId(42L).getId()).isEqualTo(42);
+//        assertThat(coinMapper.fromId(null)).isNull();
+//    }
 }

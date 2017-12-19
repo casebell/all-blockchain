@@ -6,13 +6,13 @@
     <!--
         Added the constraints for entity Resource.
     -->
-    <changeSet id="20170718015936-2" author="jhipster">
-        
-        <addForeignKeyConstraint baseColumnNames="coin_id"
-                                 baseTableName="resource"
-                                 constraintName="fk_resource_coin_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="coin"/>
+    <!--<changeSet id="20170718015936-2" author="jhipster">-->
 
-    </changeSet>
+        <!--<addForeignKeyConstraint baseColumnNames="coin_id"-->
+                                 <!--baseTableName="resource"-->
+                                 <!--constraintName="fk_resource_coin_id"-->
+                                 <!--referencedColumnNames="id"-->
+                                 <!--referencedTableName="coin"/>-->
+
+    <!--</changeSet>-->
 </databaseChangeLog>

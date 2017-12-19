@@ -1,11 +1,10 @@
 package io.iansoft.blockchain.service.dto;
 
 
+import java.time.Instant;
 import java.time.ZonedDateTime;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 import io.iansoft.blockchain.domain.enumeration.ConsensusAlgorithms;
 
@@ -31,9 +30,16 @@ public class CoinDTO implements Serializable {
 
     private ZonedDateTime releaseat;
 
-    private ZonedDateTime createdat;
+    private String createdBy;
 
-    private ZonedDateTime updatedat;
+
+    private Instant createdDate;
+
+
+    private String lastModifiedBy;
+
+
+    private Instant lastModifiedDate;
 
     public Long getId() {
         return id;
@@ -99,20 +105,36 @@ public class CoinDTO implements Serializable {
         this.releaseat = releaseat;
     }
 
-    public ZonedDateTime getCreatedat() {
-        return createdat;
+    public String getCreatedBy() {
+        return createdBy;
     }
 
-    public void setCreatedat(ZonedDateTime createdat) {
-        this.createdat = createdat;
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
-    public ZonedDateTime getUpdatedat() {
-        return updatedat;
+    public Instant getCreatedDate() {
+        return createdDate;
     }
 
-    public void setUpdatedat(ZonedDateTime updatedat) {
-        this.updatedat = updatedat;
+    public void setCreatedDate(Instant createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
+    }
+
+    public Instant getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Instant lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
     }
 
     @Override
@@ -139,16 +161,18 @@ public class CoinDTO implements Serializable {
     @Override
     public String toString() {
         return "CoinDTO{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", founder='" + getFounder() + "'" +
-            ", consensusAlgorithms='" + getConsensusAlgorithms() + "'" +
-            ", homepage='" + getHomepage() + "'" +
-            ", whitePaper='" + getWhitePaper() + "'" +
-            ", context='" + getContext() + "'" +
-            ", releaseat='" + getReleaseat() + "'" +
-            ", createdat='" + getCreatedat() + "'" +
-            ", updatedat='" + getUpdatedat() + "'" +
-            "}";
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", founder='" + founder + '\'' +
+            ", consensusAlgorithms=" + consensusAlgorithms +
+            ", homepage='" + homepage + '\'' +
+            ", whitePaper='" + whitePaper + '\'' +
+            ", context='" + context + '\'' +
+            ", releaseat=" + releaseat +
+            ", createdBy='" + createdBy + '\'' +
+            ", createdDate=" + createdDate +
+            ", lastModifiedBy='" + lastModifiedBy + '\'' +
+            ", lastModifiedDate=" + lastModifiedDate +
+            '}';
     }
 }
