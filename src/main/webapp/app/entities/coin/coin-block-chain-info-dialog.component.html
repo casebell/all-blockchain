@@ -71,13 +71,6 @@
                   />
             </div>
         </div>
-        <div class="form-group">
-            <label jhiTranslate="blockchainApp.coin.market" for="field_market">Market</label>
-            <select class="form-control" id="field_market" name="coin" [(ngModel)]="coin.marketId" >
-                <option [ngValue]="null"></option>
-                <option [ngValue]="marketOption.id" *ngFor="let marketOption of markets; trackBy: trackMarketById">{{marketOption.name}}</option>
-            </select>
-        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">

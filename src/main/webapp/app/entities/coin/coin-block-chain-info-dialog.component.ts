@@ -21,20 +21,16 @@ export class CoinBlockChainInfoDialogComponent implements OnInit {
     coin: CoinBlockChainInfo;
     authorities: any[];
     isSaving: boolean;
-    markets:Market[];
     constructor(
         public activeModal: NgbActiveModal,
         private alertService: JhiAlertService,
         private coinService: CoinBlockChainInfoService,
-        private marketService: MarketService,
         private eventManager: JhiEventManager
     ) {
     }
 
     ngOnInit() {
         this.isSaving = false;
-        this.marketService.query()
-            .subscribe((res: ResponseWrapper) => { this.markets = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     }
 
@@ -76,10 +72,6 @@ export class CoinBlockChainInfoDialogComponent implements OnInit {
 
     private onError(error) {
         this.alertService.error(error.message, null, null);
-    }
-
-    trackMarketById(index: number, item: Market) {
-        return item.id;
     }
 }
 
