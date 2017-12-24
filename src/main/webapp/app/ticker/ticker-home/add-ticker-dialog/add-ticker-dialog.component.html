@@ -1,0 +1,49 @@
+<h1 mat-dialog-title>
+    Add Coin
+</h1>
+<div mat-dialog-content>
+    <mat-horizontal-stepper [linear]="isLinear">
+        <mat-step [stepControl]="firstFormGroup">
+            <form [formGroup]="firstFormGroup">
+                <ng-template matStepLabel>마켓을 선택해주세요</ng-template>
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Market" aria-label="Market" [matAutocomplete]="auto" [formControl]="marketCtrl">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let market of filteredMarkets | async" [value]="market.name">
+                            <span>{{ market.name }}</span> |
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup">
+            <form [formGroup]="secondFormGroup">
+                <ng-template matStepLabel>Fill out your address</ng-template>
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="State" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
+                            <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" />
+                            <span>{{ state.name }}</span> |
+                            <small>Population: {{state.population}}</small>
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            You are now done.
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+            </div>
+        </mat-step>
+    </mat-horizontal-stepper>
+</div>

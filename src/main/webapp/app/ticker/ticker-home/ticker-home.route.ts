@@ -5,7 +5,6 @@ export const tickerHomeRoute: Route = {
     path: 'ticker',
     component: TickerHomeComponent,
     data: {
-        authorities: [],
         pageTitle: 'navbar.ticker.title'
     }
 };

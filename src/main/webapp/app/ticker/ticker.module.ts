@@ -2,16 +2,32 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BlockchainSharedModule } from '../shared';
 import { tickerState } from './ticker.route';
-import { MatButtonModule } from '@angular/material/button';
 import { TickerHomeComponent } from './ticker-home/ticker-home.component';
+import { AddTickerDialogComponent } from './ticker-home/add-ticker-dialog/add-ticker-dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import {
+    MatButtonModule,
+    MatDialogModule,
+    MatInputModule,
+    MatStepperModule,
+    MatAutocompleteModule
+} from '@angular/material';
+import { TickerService } from './ticker.service';
+import { MarketService } from '../entities/market';
 @NgModule({
     imports: [
         BlockchainSharedModule,
         RouterModule.forChild(tickerState),
-        MatButtonModule
+        MatButtonModule,
+        MatDialogModule,
+        MatStepperModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MatAutocompleteModule
     ],
-    declarations: [TickerHomeComponent],
-    providers: [],
+    declarations: [TickerHomeComponent, AddTickerDialogComponent],
+    entryComponents: [AddTickerDialogComponent],
+    providers: [TickerService,MarketService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TickerModule {}
