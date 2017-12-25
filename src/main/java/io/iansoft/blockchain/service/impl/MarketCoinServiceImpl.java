@@ -1,9 +1,11 @@
 package io.iansoft.blockchain.service.impl;
 
+import io.iansoft.blockchain.domain.Coin;
 import io.iansoft.blockchain.domain.MarketCoin;
 import io.iansoft.blockchain.repository.MarketCoinRepository;
 import io.iansoft.blockchain.repository.search.MarketCoinSearchRepository;
 import io.iansoft.blockchain.service.MarketCoinService;
+import io.iansoft.blockchain.service.dto.CoinDTO;
 import io.iansoft.blockchain.service.dto.MarketCoinDTO;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -11,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -109,5 +112,15 @@ public class MarketCoinServiceImpl implements MarketCoinService {
             .stream(marketCoinSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .map(x->modelMapper.map(x,MarketCoinDTO.class))
             .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<CoinDTO> findMarketCoinAll(long id) {
+        List<MarketCoin> marketCoins = marketCoinRepository.findAllByMarketId(id);
+        List<Coin> coins  = new ArrayList<>();
+        marketCoins.forEach(x->coins.add(x.getCoin()));
+        return coins.stream().map(coin -> modelMapper.map(coin,CoinDTO.class))
+                             .collect(Collectors.toCollection(LinkedList::new));
     }
 }

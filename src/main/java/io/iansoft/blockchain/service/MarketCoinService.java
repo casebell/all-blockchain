@@ -1,6 +1,7 @@
 package io.iansoft.blockchain.service;
 
 
+import io.iansoft.blockchain.service.dto.CoinDTO;
 import io.iansoft.blockchain.service.dto.MarketCoinDTO;
 
 import java.util.List;
@@ -48,4 +49,6 @@ public interface MarketCoinService {
      * @return the list of entities
      */
     List<MarketCoinDTO> search(String query);
+
+    List<CoinDTO> findMarketCoinAll(long id);
 }

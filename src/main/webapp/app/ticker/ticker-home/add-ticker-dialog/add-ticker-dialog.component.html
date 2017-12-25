@@ -7,10 +7,10 @@
             <form [formGroup]="firstFormGroup">
                 <ng-template matStepLabel>마켓을 선택해주세요</ng-template>
                 <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Market" aria-label="Market" [matAutocomplete]="auto" [formControl]="marketCtrl">
-                    <mat-autocomplete #auto="matAutocomplete">
-                        <mat-option *ngFor="let market of filteredMarkets | async" [value]="market.name">
-                            <span>{{ market.name }}</span> |
+                    <input matInput placeholder="Market" aria-label="Market" [matAutocomplete]="autoMarket" formControlName="marketName" required>
+                    <mat-autocomplete #autoMarket="matAutocomplete">
+                        <mat-option *ngFor="let market of filteredMarkets | async" [value]="market.name" (onSelectionChange)="selectMarket($event, market)" >
+                            <span>{{ market.name }}</span>
                         </mat-option>
                     </mat-autocomplete>
                 </mat-form-field>
@@ -21,14 +21,12 @@
         </mat-step>
         <mat-step [stepControl]="secondFormGroup">
             <form [formGroup]="secondFormGroup">
-                <ng-template matStepLabel>Fill out your address</ng-template>
+                <ng-template matStepLabel>코인을 선택해주세요</ng-template>
                 <mat-form-field class="example-full-width">
-                    <input matInput placeholder="State" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl">
-                    <mat-autocomplete #auto="matAutocomplete">
-                        <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
-                            <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" />
-                            <span>{{ state.name }}</span> |
-                            <small>Population: {{state.population}}</small>
+                    <input matInput placeholder="Coin" aria-label="Coin" [matAutocomplete]="autoCoin" formControlName="coinName" required>
+                    <mat-autocomplete #autoCoin="matAutocomplete">
+                        <mat-option *ngFor="let coin of filteredCoins | async" [value]="coin.name">
+                            <span>{{ coin.name }}</span>
                         </mat-option>
                     </mat-autocomplete>
                 </mat-form-field>

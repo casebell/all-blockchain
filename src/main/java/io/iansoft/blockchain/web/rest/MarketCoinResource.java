@@ -3,6 +3,7 @@ package io.iansoft.blockchain.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import io.github.jhipster.web.util.ResponseUtil;
 import io.iansoft.blockchain.service.MarketCoinService;
+import io.iansoft.blockchain.service.dto.CoinDTO;
 import io.iansoft.blockchain.service.dto.MarketCoinDTO;
 import io.iansoft.blockchain.web.rest.errors.BadRequestAlertException;
 import io.iansoft.blockchain.web.rest.util.HeaderUtil;
@@ -86,6 +87,13 @@ public class MarketCoinResource {
     public List<MarketCoinDTO> getAllMarketCoins() {
         log.debug("REST request to get all MarketCoins");
         return marketCoinService.findAll();
+    }
+
+    @GetMapping("/market-coins/coins/{id}")
+    @Timed
+    public List<CoinDTO> getMarketCoinAll(@PathVariable Long id) {
+        log.debug("REST request to get all MarketCoins");
+        return marketCoinService.findMarketCoinAll(id);
         }
 
     /**
