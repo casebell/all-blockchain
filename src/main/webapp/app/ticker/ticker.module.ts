@@ -10,7 +10,10 @@ import {
     MatDialogModule,
     MatInputModule,
     MatStepperModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatCardModule,
+    MatSelectModule,
+    MatChipsModule
 } from '@angular/material';
 import { TickerService } from './ticker.service';
 import { MarketService } from '../entities/market';
@@ -25,7 +28,10 @@ import { MarketCoinService } from './market-coin/market-coin.service';
         MatStepperModule,
         MatInputModule,
         ReactiveFormsModule,
-        MatAutocompleteModule
+        MatAutocompleteModule,
+        MatCardModule,
+        MatSelectModule,
+        MatChipsModule
     ],
     declarations: [TickerHomeComponent, AddTickerDialogComponent],
     entryComponents: [AddTickerDialogComponent],

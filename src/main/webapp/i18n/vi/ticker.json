@@ -1,5 +1,8 @@
 {
     "ticker": {
-        "addCoin": "Add Coin"
+        "addCoin": "Add Coin",
+        "step1":"Choose market",
+        "step2":"Choose coins",
+        "step3":"Your coins have been selected. Click the Add button to register."
     }
 }

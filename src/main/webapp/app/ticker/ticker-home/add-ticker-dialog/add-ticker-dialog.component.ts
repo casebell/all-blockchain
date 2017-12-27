@@ -30,12 +30,14 @@ export class AddTickerDialogComponent implements OnInit {
     secondFormGroup: FormGroup;
     isLinear = true;
     filteredMarkets: Observable<any[]>;
-    filteredCoins: Observable<any[]>;
+    //filteredCoins: Observable<any[]>;
 
     markets: Market[] = [];
     coins: Coin[] = [];
 
     selectedMarket:Market;
+    selectedCoins:Coin[]=[];
+
     constructor(private _formBuilder: FormBuilder,
                 private marketService: MarketService,
                 private coinService: CoinService,
@@ -77,16 +79,35 @@ export class AddTickerDialogComponent implements OnInit {
             this.selectedMarket = market;
             this.marketCoinService.findMarketCoinAll(this.selectedMarket.id).subscribe(
                 coins => {
+                    this.selectedCoins = [];
                     console.log('get all Coins', coins);
                     this.coins = coins;
-                    this.filteredCoins = this.secondFormGroup.get('coinName').valueChanges
-                        .pipe(
-                            startWith(''),
-                            map(coin => coin ? this.filterCoins(coin) : this.coins.slice())
-                        );
+                    // this.filteredCoins = this.secondFormGroup.get('coinName').valueChanges
+                    //     .pipe(
+                    //         startWith(''),
+                    //         map(coin => coin ? this.filterCoins(coin) : this.coins.slice())
+                    //     );
 
                 },
                 (res) => console.log('error : ', res));
+        }
+
+    }
+
+    selectCoin(event, coin){
+        console.log('event : ', event);
+       // console.log('event : ', event.isUserInput);
+        console.log('market : ' , coin);
+        if(event.isUserInput && event.source.selected)
+        {   if(this.selectedCoins.indexOf(coin) === -1)
+                this.selectedCoins.push(coin);
+        }
+
+        if(event.isUserInput && !event.source.selected)
+        {
+            const index = this.selectedCoins.indexOf(coin);
+            if(index !== -1)
+                this.selectedCoins.splice(index,1);
         }
 
     }
@@ -95,9 +116,9 @@ export class AddTickerDialogComponent implements OnInit {
             market.name.toLowerCase().indexOf(name.toLowerCase()) === 0);
     }
 
-    filterCoins(name: string) {
-        return this.coins.filter(coin =>
-            coin.name.toLowerCase().indexOf(name.toLowerCase()) === 0);
-    }
+    // filterCoins(name: string) {
+    //     return this.coins.filter(coin =>
+    //         coin.name.toLowerCase().indexOf(name.toLowerCase()) === 0);
+    // }
 
 }
