@@ -1,5 +1,6 @@
 package io.iansoft.blockchain.service;
 
+import io.iansoft.blockchain.service.dto.MarketCoinDTO;
 import io.iansoft.blockchain.service.dto.TickerDTO;
 
 import java.util.List;
@@ -47,4 +48,6 @@ public interface TickerService {
      * @return the list of entities
      */
     List<TickerDTO> search(String query);
+
+    List<TickerDTO> saveTickers(Long userId,List<MarketCoinDTO> tickerDTOs);
 }

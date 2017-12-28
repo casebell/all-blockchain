@@ -6,11 +6,12 @@ import { Observable } from 'rxjs/Observable';
 import { startWith } from 'rxjs/operators/startWith';
 import { map } from 'rxjs/operators/map';
 import { TickerService } from '../../ticker.service';
-import { ResponseWrapper } from '../../../shared';
+import { Principal, ResponseWrapper } from '../../../shared';
 import { Market, MarketService } from '../../../entities/market';
 import { CoinService } from '../../../coin/coin.service';
 import { Coin } from '../../coin.model';
 import { MarketCoinService } from '../../market-coin/market-coin.service';
+import { MarketCoin } from '../../market-coin/market-coin.model';
 
 export class State {
     constructor(public name: string,
@@ -33,20 +34,25 @@ export class AddTickerDialogComponent implements OnInit {
     //filteredCoins: Observable<any[]>;
 
     markets: Market[] = [];
-    coins: Coin[] = [];
+    marketCoins: MarketCoin[] = [];
 
     selectedMarket:Market;
-    selectedCoins:Coin[]=[];
+    selectedMarketCoins:MarketCoin[]=[];
+    userId;
 
     constructor(private _formBuilder: FormBuilder,
                 private marketService: MarketService,
                 private coinService: CoinService,
+                private principal: Principal,
                 private marketCoinService: MarketCoinService,
+                private tickerService: TickerService,
                 public dialogRef: MatDialogRef<AddTickerDialogComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: any) {}
 
     ngOnInit() {
-
+        this.principal.identity().then((account) => {
+            this.userId = account.id;
+        });
         this.marketService.query().subscribe(
             (res: ResponseWrapper) => {
                 this.markets = res.json;
@@ -77,16 +83,11 @@ export class AddTickerDialogComponent implements OnInit {
         if(event.isUserInput)
         {
             this.selectedMarket = market;
-            this.marketCoinService.findMarketCoinAll(this.selectedMarket.id).subscribe(
-                coins => {
-                    this.selectedCoins = [];
-                    console.log('get all Coins', coins);
-                    this.coins = coins;
-                    // this.filteredCoins = this.secondFormGroup.get('coinName').valueChanges
-                    //     .pipe(
-                    //         startWith(''),
-                    //         map(coin => coin ? this.filterCoins(coin) : this.coins.slice())
-                    //     );
+            this.marketCoinService.findMarketCoinAll(this.selectedMarket.id,this.userId).subscribe(
+                marketCoins => {
+                    this.selectedMarketCoins = [];
+                    console.log('get all Coins', marketCoins);
+                    this.marketCoins = marketCoins;
 
                 },
                 (res) => console.log('error : ', res));
@@ -99,15 +100,15 @@ export class AddTickerDialogComponent implements OnInit {
        // console.log('event : ', event.isUserInput);
         console.log('market : ' , coin);
         if(event.isUserInput && event.source.selected)
-        {   if(this.selectedCoins.indexOf(coin) === -1)
-                this.selectedCoins.push(coin);
+        {   if(this.selectedMarketCoins.indexOf(coin) === -1)
+                this.selectedMarketCoins.push(coin);
         }
 
         if(event.isUserInput && !event.source.selected)
         {
-            const index = this.selectedCoins.indexOf(coin);
+            const index = this.selectedMarketCoins.indexOf(coin);
             if(index !== -1)
-                this.selectedCoins.splice(index,1);
+                this.selectedMarketCoins.splice(index,1);
         }
 
     }
@@ -116,9 +117,13 @@ export class AddTickerDialogComponent implements OnInit {
             market.name.toLowerCase().indexOf(name.toLowerCase()) === 0);
     }
 
-    // filterCoins(name: string) {
-    //     return this.coins.filter(coin =>
-    //         coin.name.toLowerCase().indexOf(name.toLowerCase()) === 0);
-    // }
+    addCoin() {
+        console.log('selectedMarketCoins',this.selectedMarketCoins);
+        this.tickerService.addTickers(this.userId,this.selectedMarketCoins).subscribe(
+            (result)=>{
+                console.log('result : ',result);
+            }
+        )
+    }
 
 }

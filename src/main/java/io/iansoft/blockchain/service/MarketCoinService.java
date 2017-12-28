@@ -50,5 +50,5 @@ public interface MarketCoinService {
      */
     List<MarketCoinDTO> search(String query);
 
-    List<CoinDTO> findMarketCoinAll(long id);
+    List<MarketCoinDTO> findMarketCoinAll(long id,long userId);
 }

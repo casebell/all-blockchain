@@ -37,8 +37,8 @@ export class MarketCoinService {
         });
     }
 
-    findMarketCoinAll(id: number){
-        return this.http.get(`${this.resourceUrl}/coins/${id}`).map((res: Response) => {
+    findMarketCoinAll(marketId: number,userId:number){
+        return this.http.get(`${this.resourceUrl}/coins/${marketId}/${userId}`).map((res: Response) => {
             return  res.json();
         });
     }

@@ -89,11 +89,11 @@ public class MarketCoinResource {
         return marketCoinService.findAll();
     }
 
-    @GetMapping("/market-coins/coins/{id}")
+    @GetMapping("/market-coins/coins/{id}/{userId}")
     @Timed
-    public List<CoinDTO> getMarketCoinAll(@PathVariable Long id) {
+    public List<MarketCoinDTO> getMarketCoinAll(@PathVariable Long id,@PathVariable Long userId) {
         log.debug("REST request to get all MarketCoins");
-        return marketCoinService.findMarketCoinAll(id);
+        return marketCoinService.findMarketCoinAll(id,userId);
         }
 
     /**

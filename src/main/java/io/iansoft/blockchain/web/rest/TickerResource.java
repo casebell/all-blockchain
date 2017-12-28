@@ -3,6 +3,7 @@ package io.iansoft.blockchain.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import io.github.jhipster.web.util.ResponseUtil;
 import io.iansoft.blockchain.service.TickerService;
+import io.iansoft.blockchain.service.dto.MarketCoinDTO;
 import io.iansoft.blockchain.service.dto.TickerDTO;
 import io.iansoft.blockchain.web.rest.errors.BadRequestAlertException;
 import io.iansoft.blockchain.web.rest.util.HeaderUtil;
@@ -52,6 +53,17 @@ public class TickerResource {
         return ResponseEntity.created(new URI("/api/tickers/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
+    }
+
+    @PostMapping("/tickers/{userId}")
+    @Timed
+    public ResponseEntity<List<TickerDTO>> createTickers(@PathVariable Long userId,@Valid @RequestBody List<MarketCoinDTO> marketCoinDTOS) throws URISyntaxException {
+
+
+        List<TickerDTO> results = tickerService.saveTickers(userId,marketCoinDTOS);
+        return ResponseEntity.created(new URI("/api/tickers/" + results.get(0).getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, results.get(0).getId().toString()))
+            .body(results);
     }
 
     /**

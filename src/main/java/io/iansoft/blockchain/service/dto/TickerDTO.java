@@ -2,6 +2,7 @@ package io.iansoft.blockchain.service.dto;
 
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Objects;
 
 /**
@@ -11,11 +12,17 @@ public class TickerDTO implements Serializable {
 
     private Long id;
 
-    private Long coinId;
-
     private Long userId;
 
-    private Long marketId;
+    private Long marketCoinId;
+
+    private String createdBy;
+
+    private Instant createdDate;
+
+    private String lastModifiedBy;
+
+    private Instant lastModifiedDate;
 
     public Long getId() {
         return id;
@@ -25,12 +32,12 @@ public class TickerDTO implements Serializable {
         this.id = id;
     }
 
-    public Long getCoinId() {
-        return coinId;
+    public Long getMarketCoinId() {
+        return marketCoinId;
     }
 
-    public void setCoinId(Long coinId) {
-        this.coinId = coinId;
+    public void setMarketCoinId(Long marketCoinId) {
+        this.marketCoinId = marketCoinId;
     }
 
     public Long getUserId() {
@@ -41,26 +48,36 @@ public class TickerDTO implements Serializable {
         this.userId = userId;
     }
 
-    public Long getMarketId() {
-        return marketId;
-    }
-
-    public void setMarketId(Long marketId) {
-        this.marketId = marketId;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TickerDTO tickerDTO = (TickerDTO) o;
+        return Objects.equals(id, tickerDTO.id) &&
+            Objects.equals(userId, tickerDTO.userId) &&
+            Objects.equals(marketCoinId, tickerDTO.marketCoinId) &&
+            Objects.equals(createdBy, tickerDTO.createdBy) &&
+            Objects.equals(createdDate, tickerDTO.createdDate) &&
+            Objects.equals(lastModifiedBy, tickerDTO.lastModifiedBy) &&
+            Objects.equals(lastModifiedDate, tickerDTO.lastModifiedDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+
+        return Objects.hash(id, userId, marketCoinId, createdBy, createdDate, lastModifiedBy, lastModifiedDate);
     }
 
     @Override
     public String toString() {
         return "TickerDTO{" +
             "id=" + id +
-            ", coinId=" + coinId +
             ", userId=" + userId +
-            ", marketId=" + marketId +
+            ", marketCoinId=" + marketCoinId +
+            ", createdBy='" + createdBy + '\'' +
+            ", createdDate=" + createdDate +
+            ", lastModifiedBy='" + lastModifiedBy + '\'' +
+            ", lastModifiedDate=" + lastModifiedDate +
             '}';
     }
 }

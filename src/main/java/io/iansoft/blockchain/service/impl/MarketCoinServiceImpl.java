@@ -2,7 +2,9 @@ package io.iansoft.blockchain.service.impl;
 
 import io.iansoft.blockchain.domain.Coin;
 import io.iansoft.blockchain.domain.MarketCoin;
+import io.iansoft.blockchain.domain.Ticker;
 import io.iansoft.blockchain.repository.MarketCoinRepository;
+import io.iansoft.blockchain.repository.TickerRepository;
 import io.iansoft.blockchain.repository.search.MarketCoinSearchRepository;
 import io.iansoft.blockchain.service.MarketCoinService;
 import io.iansoft.blockchain.service.dto.CoinDTO;
@@ -32,12 +34,15 @@ public class MarketCoinServiceImpl implements MarketCoinService {
 
     private final MarketCoinRepository marketCoinRepository;
 
+    private final TickerRepository tickerRepository;
+
 //    private final MarketMapper marketMapper;
     private final ModelMapper modelMapper;
     private final MarketCoinSearchRepository marketCoinSearchRepository;
 
-    public MarketCoinServiceImpl(MarketCoinRepository marketCoinRepository, ModelMapper modelMapper, MarketCoinSearchRepository marketCoinSearchRepository) {
+    public MarketCoinServiceImpl(MarketCoinRepository marketCoinRepository, TickerRepository tickerRepository, ModelMapper modelMapper, MarketCoinSearchRepository marketCoinSearchRepository) {
         this.marketCoinRepository = marketCoinRepository;
+        this.tickerRepository = tickerRepository;
         this.modelMapper = modelMapper;
         this.marketCoinSearchRepository = marketCoinSearchRepository;
     }
@@ -116,11 +121,13 @@ public class MarketCoinServiceImpl implements MarketCoinService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<CoinDTO> findMarketCoinAll(long id) {
-        List<MarketCoin> marketCoins = marketCoinRepository.findAllByMarketId(id);
-        List<Coin> coins  = new ArrayList<>();
-        marketCoins.forEach(x->coins.add(x.getCoin()));
-        return coins.stream().map(coin -> modelMapper.map(coin,CoinDTO.class))
+    public List<MarketCoinDTO> findMarketCoinAll(long marketId, long userId) {
+        List<MarketCoin> marketCoins = marketCoinRepository.findAllByMarketId(marketId);
+        List<Ticker> tickers = tickerRepository.findAllByUserId(userId);
+        marketCoins.removeIf(x-> tickers.stream().anyMatch(y->y.getMarketCoin().equals(x)));
+
+
+        return marketCoins.stream().map(marketCoin -> modelMapper.map(marketCoin,MarketCoinDTO.class))
                              .collect(Collectors.toCollection(LinkedList::new));
     }
 }

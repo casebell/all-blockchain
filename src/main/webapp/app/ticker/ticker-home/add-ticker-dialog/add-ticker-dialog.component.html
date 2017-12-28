@@ -27,7 +27,7 @@
                 </ng-template>
                 <mat-form-field class="example-full-width">
                     <mat-select placeholder="Coins" formControlName="coinName"  multiple>
-                        <mat-option *ngFor="let coin of coins" [value]="coin" (onSelectionChange)="selectCoin($event, coin)">{{coin.name}}</mat-option>
+                        <mat-option *ngFor="let marketCoin of marketCoins" [value]="coin" (onSelectionChange)="selectCoin($event, marketCoin)">{{marketCoin.coinName}}</mat-option>
                     </mat-select>
                     <!--<input matInput placeholder="Coin" aria-label="Coin" [matAutocomplete]="autoCoin" formControlName="coinName" required>
                     <mat-autocomplete #autoCoin="matAutocomplete">
@@ -47,7 +47,7 @@
 
             <div style="padding:10px">
                 <button mat-button matStepperPrevious color="primary">Back</button>
-                <button mat-button color="primary"><span jhiTranslate="ticker.addCoin">코인등록<span></button>
+                <button mat-button color="primary" (click)="addCoin()"><span jhiTranslate="ticker.addCoin">코인등록</span></button>
             </div>
         </mat-step>
     </mat-vertical-stepper>
@@ -58,7 +58,7 @@
     </mat-card-header>
     <mat-card-content>
         <mat-chip-list>
-            <mat-chip *ngFor="let coin of selectedCoins">{{coin?.name}}</mat-chip>
+            <mat-chip *ngFor="let marketCoin of selectedMarketCoins">{{marketCoin?.coinName}}</mat-chip>
         </mat-chip-list>
         </p>
     </mat-card-content>

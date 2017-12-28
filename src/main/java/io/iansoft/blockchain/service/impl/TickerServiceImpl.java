@@ -1,9 +1,10 @@
 package io.iansoft.blockchain.service.impl;
 
-import io.iansoft.blockchain.domain.Ticker;
+import io.iansoft.blockchain.domain.*;
 import io.iansoft.blockchain.repository.TickerRepository;
 import io.iansoft.blockchain.repository.search.TickerSearchRepository;
 import io.iansoft.blockchain.service.TickerService;
+import io.iansoft.blockchain.service.dto.MarketCoinDTO;
 import io.iansoft.blockchain.service.dto.TickerDTO;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -108,5 +110,31 @@ public class TickerServiceImpl implements TickerService{
             .stream(tickerSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .map(x->modelMapper.map(x,TickerDTO.class))
             .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TickerDTO> saveTickers(Long userId,List<MarketCoinDTO> marketCoinDTOs) {
+        List<MarketCoin> marketCoins = new ArrayList<>();
+
+        marketCoinDTOs.forEach(x->{
+            MarketCoin marketCoin = new MarketCoin();
+            marketCoin.setId(x.getId());
+            marketCoins.add(marketCoin);
+        });
+        //List<MarketCoin> marketCoins = marketCoinDTOs.stream().map(x->modelMapper.map(x, MarketCoin.class)).collect(Collectors.toList());
+
+
+        List<Ticker> tickers = new ArrayList<>();
+        User user = new User();
+        user.setId(userId);
+        marketCoins.forEach(x->{
+            Ticker ticker = new Ticker();
+            ticker.setUser(user);
+            ticker.setMarketCoin(x);
+            tickers.add(ticker);
+        });
+        List<Ticker> resultTickers = tickerRepository.save(tickers);
+
+        return resultTickers.stream().map(x->modelMapper.map(x,TickerDTO.class)).collect(Collectors.toList());
     }
 }

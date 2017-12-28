@@ -4,6 +4,8 @@ import io.iansoft.blockchain.domain.Ticker;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 /**
  * Spring Data JPA repository for the Ticker entity.
@@ -12,4 +14,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TickerRepository extends JpaRepository<Ticker, Long> {
 
+    List<Ticker> findAllByUserId(long userId);
 }

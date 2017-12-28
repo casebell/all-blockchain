@@ -15,6 +15,8 @@ public class MarketCoinDTO implements Serializable {
 
     private Long marketId;
 
+    private String coinName;
+
     public Long getId() {
         return id;
     }
@@ -39,6 +41,13 @@ public class MarketCoinDTO implements Serializable {
         this.marketId = marketId;
     }
 
+    public String getCoinName() {
+        return coinName;
+    }
+
+    public void setCoinName(String coinName) {
+        this.coinName = coinName;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -47,13 +56,14 @@ public class MarketCoinDTO implements Serializable {
         MarketCoinDTO that = (MarketCoinDTO) o;
         return Objects.equals(id, that.id) &&
             Objects.equals(coinId, that.coinId) &&
-            Objects.equals(marketId, that.marketId);
+            Objects.equals(marketId, that.marketId) &&
+            Objects.equals(coinName, that.coinName);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, coinId, marketId);
+        return Objects.hash(id, coinId, marketId, coinName);
     }
 
     @Override
@@ -62,6 +72,7 @@ public class MarketCoinDTO implements Serializable {
             "id=" + id +
             ", coinId=" + coinId +
             ", marketId=" + marketId +
+            ", coinName='" + coinName + '\'' +
             '}';
     }
 }
