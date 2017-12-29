@@ -137,4 +137,10 @@ public class TickerServiceImpl implements TickerService{
 
         return resultTickers.stream().map(x->modelMapper.map(x,TickerDTO.class)).collect(Collectors.toList());
     }
+
+    @Override
+    public List<TickerDTO> findByUserId(Long userId) {
+        List<Ticker> tickers = tickerRepository.findAllByUserId(userId);
+        return tickers.stream().map(x-> modelMapper.map(x,TickerDTO.class)).collect(Collectors.toList());
+    }
 }

@@ -19,6 +19,7 @@ import { TickerService } from './ticker.service';
 import { MarketService } from '../entities/market';
 import { CoinService } from '../coin/coin.service';
 import { MarketCoinService } from './market-coin/market-coin.service';
+import { TickerItemComponent } from './ticker-home/ticker-item/ticker-item.component';
 @NgModule({
     imports: [
         BlockchainSharedModule,
@@ -33,7 +34,7 @@ import { MarketCoinService } from './market-coin/market-coin.service';
         MatSelectModule,
         MatChipsModule
     ],
-    declarations: [TickerHomeComponent, AddTickerDialogComponent],
+    declarations: [TickerHomeComponent, AddTickerDialogComponent, TickerItemComponent],
     entryComponents: [AddTickerDialogComponent],
     providers: [TickerService,MarketService,CoinService,MarketCoinService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

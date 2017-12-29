@@ -49,7 +49,7 @@ export class CoinService {
     }
 
     /**
-     * Convert a returned JSON object to Market.
+     * Convert a returned JSON object to Coin.
      */
     private convertItemFromServer(json: any): Coin {
         const entity: Coin = Object.assign(new Coin(), json);

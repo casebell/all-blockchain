@@ -50,4 +50,6 @@ public interface TickerService {
     List<TickerDTO> search(String query);
 
     List<TickerDTO> saveTickers(Long userId,List<MarketCoinDTO> tickerDTOs);
+
+    List<TickerDTO> findByUserId(Long userId);
 }

@@ -141,4 +141,12 @@ public class TickerResource {
         return tickerService.search(query);
     }
 
+
+    @GetMapping("/tickers/user/{userId}")
+    @Timed
+    public ResponseEntity<List<TickerDTO>> getTickersByUserId(@PathVariable Long userId) {
+        log.debug("REST request to get Ticker : {}", userId);
+        List<TickerDTO> tickerDTOs = tickerService.findByUserId(userId);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(tickerDTOs));
+    }
 }
