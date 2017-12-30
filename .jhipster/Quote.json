@@ -1,0 +1,62 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "marketCoin",
+            "otherEntityName": "marketCoin",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "lastPrice",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "volume",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "lowPrice",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "highPrice",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "avgPrice",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "buyPrice",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "sellPrice",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "openingPrice",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "closingPrice",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "quoteTime",
+            "fieldType": "Instant"
+        }
+    ],
+    "changelogDate": "20171230105750",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "quote",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}

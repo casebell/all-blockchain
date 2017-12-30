@@ -1,6 +1,7 @@
 package io.iansoft.blockchain.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.iansoft.blockchain.domain.enumeration.ApiType;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -44,6 +45,11 @@ public class Market extends AbstractAuditingEntity implements Serializable {
 
     @Column(name = "currency")
     private String currency;
+
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "api_type")
+    private ApiType apiType;
 
 
     @OneToMany(mappedBy = "market")
@@ -122,36 +128,47 @@ public class Market extends AbstractAuditingEntity implements Serializable {
         this.currency = currency;
     }
 
+    public ApiType getApiType() {
+        return apiType;
+    }
+
+    public void setApiType(ApiType apiType) {
+        this.apiType = apiType;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Market market = (Market) o;
-        if (market.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), market.getId());
+        return Objects.equals(id, market.id) &&
+            Objects.equals(name, market.name) &&
+            Objects.equals(country, market.country) &&
+            Objects.equals(url, market.url) &&
+            Objects.equals(currency, market.currency) &&
+            apiType == market.apiType &&
+            Objects.equals(marketCoins, market.marketCoins);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+
+        return Objects.hash(id, name, country, url, currency, apiType, marketCoins);
     }
 
     @Override
     public String toString() {
         return "Market{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", country='" + getCountry() + "'" +
-            ", url='" + getUrl() + "'" +
-            ", currency='" + getCurrency() + "'" +
-            "}";
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", country='" + country + '\'' +
+            ", url='" + url + '\'' +
+            ", currency='" + currency + '\'' +
+            ", apiType=" + apiType +
+            ", marketCoins=" + marketCoins +
+            '}';
     }
 }

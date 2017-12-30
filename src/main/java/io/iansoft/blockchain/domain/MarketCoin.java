@@ -39,6 +39,11 @@ public class MarketCoin extends AbstractAuditingEntity implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Ticker> tickers = new HashSet<>();
 
+    @OneToMany(mappedBy = "marketCoin")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Quote> quotes = new HashSet<>();
+
 
     public Market getMarket() {
         return market;
@@ -74,6 +79,14 @@ public class MarketCoin extends AbstractAuditingEntity implements Serializable {
         this.tickers = tickers;
     }
 
+    public Set<Quote> getQuotes() {
+        return quotes;
+    }
+
+    public void setQuotes(Set<Quote> quotes) {
+        this.quotes = quotes;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
 
@@ -85,13 +98,14 @@ public class MarketCoin extends AbstractAuditingEntity implements Serializable {
         return Objects.equals(id, that.id) &&
             Objects.equals(market, that.market) &&
             Objects.equals(coin, that.coin) &&
-            Objects.equals(tickers, that.tickers);
+            Objects.equals(tickers, that.tickers) &&
+            Objects.equals(quotes, that.quotes);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, market, coin, tickers);
+        return Objects.hash(id, market, coin, tickers, quotes);
     }
 
     @Override
@@ -101,6 +115,7 @@ public class MarketCoin extends AbstractAuditingEntity implements Serializable {
             ", market=" + market +
             ", coin=" + coin +
             ", tickers=" + tickers +
+            ", quotes=" + quotes +
             '}';
     }
 }

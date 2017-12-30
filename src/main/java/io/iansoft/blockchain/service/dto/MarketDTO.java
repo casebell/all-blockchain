@@ -1,6 +1,8 @@
 package io.iansoft.blockchain.service.dto;
 
 
+import io.iansoft.blockchain.domain.enumeration.ApiType;
+
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
@@ -24,6 +26,8 @@ public class MarketDTO implements Serializable {
     @NotNull
     @Size(max = 255)
     private String url;
+
+    private ApiType apiType;
 
     private String currency;
 
@@ -107,25 +111,35 @@ public class MarketDTO implements Serializable {
         this.lastModifiedDate = lastModifiedDate;
     }
 
+    public ApiType getApiType() {
+        return apiType;
+    }
+
+    public void setApiType(ApiType apiType) {
+        this.apiType = apiType;
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         MarketDTO marketDTO = (MarketDTO) o;
-        if(marketDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), marketDTO.getId());
+        return Objects.equals(id, marketDTO.id) &&
+            Objects.equals(name, marketDTO.name) &&
+            Objects.equals(country, marketDTO.country) &&
+            Objects.equals(url, marketDTO.url) &&
+            apiType == marketDTO.apiType &&
+            Objects.equals(currency, marketDTO.currency) &&
+            Objects.equals(createdBy, marketDTO.createdBy) &&
+            Objects.equals(createdDate, marketDTO.createdDate) &&
+            Objects.equals(lastModifiedBy, marketDTO.lastModifiedBy) &&
+            Objects.equals(lastModifiedDate, marketDTO.lastModifiedDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+
+        return Objects.hash(id, name, country, url, apiType, currency, createdBy, createdDate, lastModifiedBy, lastModifiedDate);
     }
 
     @Override
@@ -135,6 +149,7 @@ public class MarketDTO implements Serializable {
             ", name='" + name + '\'' +
             ", country='" + country + '\'' +
             ", url='" + url + '\'' +
+            ", apiType=" + apiType +
             ", currency='" + currency + '\'' +
             ", createdBy='" + createdBy + '\'' +
             ", createdDate=" + createdDate +

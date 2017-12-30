@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -33,13 +35,16 @@ public class CoinApiServiceImpl implements CoinApiService {
     private static final String XMR_SYMBOL = "xmr";
     private static final String NEO_SYMBOL = "neo";
     private static final String QTUM_SYMBOL = "qtum";
+    private static final String BTG_SYMBOL = "btg";
+    private static final String EOS_SYMBOL = "eos";
     private final Logger log = LoggerFactory.getLogger(CoinApiServiceImpl.class);
     private final BithumbRepository bithumbRepository;
     private final KorbitRepository korbitRepository;
     private final KrakenRepository krakenRepository;
     private final BitflyerRepository bitflyerRepository;
     private final BittrexRepository bittrexRepository;
-   // private final BitfinexRepository bitfinexRepository;
+    private final MarketCoinRepository marketCoinRepository;
+    private final QuoteRepository quoteRepository;
 
     private final ModelMapper modelMapper;
 
@@ -50,14 +55,14 @@ public class CoinApiServiceImpl implements CoinApiService {
                               KrakenRepository krakenRepository,
                               BitflyerRepository bitflyerRepository,
                               BittrexRepository bittrexRepository,
-                             // BitfinexRepository bitfinexRepository,
-                              ModelMapper modelMapper) {
+                              MarketCoinRepository marketCoinRepository, QuoteRepository quoteRepository, ModelMapper modelMapper) {
         this.bithumbRepository = bithumbRepository;
         this.korbitRepository = korbitRepository;
         this.krakenRepository = krakenRepository;
         this.bitflyerRepository = bitflyerRepository;
         this.bittrexRepository = bittrexRepository;
-     //   this.bitfinexRepository = bitfinexRepository;
+        this.marketCoinRepository = marketCoinRepository;
+        this.quoteRepository = quoteRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -97,7 +102,7 @@ public class CoinApiServiceImpl implements CoinApiService {
     }
 
     @Override
-    @Scheduled(cron = "*/5 * * * * *")
+    @Scheduled(cron = "*/15 * * * * *")
     public void getCoinApi() {
         zonedDateTime = ZonedDateTime.now();
 
@@ -412,6 +417,7 @@ public class CoinApiServiceImpl implements CoinApiService {
         Map bithumbsMap = restTemplate
             .getForObject("https://api.bithumb.com/public/ticker/all", Map.class);
         Map<Object, Object> bithumbMap = (Map<Object, Object>) bithumbsMap.get("data");
+        bithumbQuote(bithumbMap);
         List<BithumbDataDTO> bithumbDataDTOS = new ArrayList<>();
         BithumbDataDTO bithumbDTOBtc = modelMapper.map(bithumbMap.get("BTC"), BithumbDataDTO.class);
         bithumbDTOBtc.setSymbol(BTC_SYMBOL);
@@ -447,6 +453,44 @@ public class CoinApiServiceImpl implements CoinApiService {
 
         bithumbDataDTOS.add(bithumbDTOQtum);
 
+
+
         return bithumbDataDTOS;
+    }
+
+    private void bithumbQuote(Map<Object, Object> bithumbMap) {
+        List<Quote> quotes = new ArrayList<>();
+        quotes.add(bithumbToQuote((Map<String, String>) bithumbMap.get("BTC"),1));
+        quotes.add(bithumbToQuote((Map<String, String>) bithumbMap.get("ETH"),2));
+        quotes.add(bithumbToQuote((Map<String, String>) bithumbMap.get("XRP"),3));
+        quotes.add(bithumbToQuote((Map<String, String>) bithumbMap.get("DASH"),4));
+        quotes.add(bithumbToQuote((Map<String, String>) bithumbMap.get("LTC"),5));
+        quotes.add(bithumbToQuote((Map<String, String>) bithumbMap.get("ETC"),6));
+
+        quotes.add(bithumbToQuote((Map<String, String>) bithumbMap.get("BCH"),7));
+        quotes.add(bithumbToQuote((Map<String, String>) bithumbMap.get("ZEC"),8));
+        quotes.add(bithumbToQuote((Map<String, String>) bithumbMap.get("XMR"),9));
+
+        quotes.add(bithumbToQuote((Map<String, String>) bithumbMap.get("QTUM"),10));
+        quotes.add(bithumbToQuote((Map<String, String>) bithumbMap.get("BTG"),11));
+        quotes.add(bithumbToQuote((Map<String, String>) bithumbMap.get("EOS"),12));
+        quoteRepository.save(quotes);
+    }
+
+    private Quote bithumbToQuote(Map<String,String> map,long marketCoinId) {
+        MarketCoin marketCoin = marketCoinRepository.findOne(marketCoinId);
+        return new Quote().lastPrice(new BigDecimal(map.get("closing_price")))
+                                 .volume(new BigDecimal(map.get("volume_1day")))
+                                 .lowPrice(new BigDecimal(map.get("min_price")))
+                                 .highPrice(new BigDecimal(map.get("max_price")))
+                                 .avgPrice(new BigDecimal(map.get("average_price")))
+                                 .buyPrice(new BigDecimal(map.get("buy_price")))
+                                 .sellPrice(new BigDecimal(map.get("sell_price")))
+                                 .openingPrice(new BigDecimal(map.get("opening_price")))
+                                 .closingPrice(new BigDecimal(map.get("closing_price")))
+                                // .quoteTime(Instant.parse(map.get("date")))
+                                 .marketCoin(marketCoin);
+
+
     }
 }
