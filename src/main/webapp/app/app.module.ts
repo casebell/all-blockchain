@@ -15,7 +15,6 @@ import { PaginationConfig } from './blocks/config/uib-pagination.config';
 import { HttpClientModule } from '@angular/common/http';
 import { BlockchainHelpModule } from './help/help.module';
 import { AdsenseModule } from 'ng2-adsense';
-
 import 'hammerjs';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 
@@ -32,6 +31,7 @@ import { MatButtonModule, MatButtonToggleModule, MatIconModule, MatMenuModule, M
 import { NewsModule } from './news/news.module';
 import { BlockchainAppRoutingModule } from './app-routing.module';
 import { TickerModule } from './ticker/ticker.module';
+import { DndModule } from 'ng2-dnd';
 
 @NgModule({
     imports: [
@@ -54,6 +54,7 @@ import { TickerModule } from './ticker/ticker.module';
         MatMenuModule,
         MatToolbarModule,
         MatButtonToggleModule,
+        DndModule.forRoot(),
         AdsenseModule.forRoot({
             adClient: 'ca-pub-3429112291996061',
             adSlot: 7386502521,

@@ -13,4 +13,5 @@ import org.springframework.data.jpa.repository.*;
 @Repository
 public interface QuoteRepository extends JpaRepository<Quote, Long> {
 
+    Quote findFirstByMarketCoinIdOrderByIdDesc(Long id);
 }

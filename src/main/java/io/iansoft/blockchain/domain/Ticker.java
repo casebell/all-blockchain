@@ -27,6 +27,8 @@ public class Ticker extends AbstractAuditingEntity implements Serializable {
     @ManyToOne
     private User user;
 
+    private int sequence;
+
     @ManyToOne
     private MarketCoin marketCoin;
 
@@ -57,24 +59,29 @@ public class Ticker extends AbstractAuditingEntity implements Serializable {
 
         // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
+
+    public int getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(int sequence) {
+        this.sequence = sequence;
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Ticker ticker = (Ticker) o;
-        if (ticker.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), ticker.getId());
+        return sequence == ticker.sequence &&
+            Objects.equals(id, ticker.id) &&
+            Objects.equals(user, ticker.user) &&
+            Objects.equals(marketCoin, ticker.marketCoin);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hash(id, user, sequence, marketCoin);
     }
 
     @Override
@@ -82,6 +89,7 @@ public class Ticker extends AbstractAuditingEntity implements Serializable {
         return "Ticker{" +
             "id=" + id +
             ", user=" + user +
+            ", sequence=" + sequence +
             ", marketCoin=" + marketCoin +
             '}';
     }

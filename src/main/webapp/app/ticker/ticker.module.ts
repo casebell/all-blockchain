@@ -13,7 +13,8 @@ import {
     MatAutocompleteModule,
     MatCardModule,
     MatSelectModule,
-    MatChipsModule
+    MatChipsModule,
+    MatGridListModule
 } from '@angular/material';
 import { TickerService } from './ticker.service';
 import { MarketService } from '../entities/market';
@@ -32,7 +33,8 @@ import { TickerItemComponent } from './ticker-home/ticker-item/ticker-item.compo
         MatAutocompleteModule,
         MatCardModule,
         MatSelectModule,
-        MatChipsModule
+        MatChipsModule,
+        MatGridListModule
     ],
     declarations: [TickerHomeComponent, AddTickerDialogComponent, TickerItemComponent],
     entryComponents: [AddTickerDialogComponent],

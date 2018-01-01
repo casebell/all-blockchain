@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import io.github.jhipster.web.util.ResponseUtil;
 import io.iansoft.blockchain.service.TickerService;
 import io.iansoft.blockchain.service.dto.MarketCoinDTO;
+import io.iansoft.blockchain.service.dto.MyTickerDTO;
 import io.iansoft.blockchain.service.dto.TickerDTO;
 import io.iansoft.blockchain.web.rest.errors.BadRequestAlertException;
 import io.iansoft.blockchain.web.rest.util.HeaderUtil;
@@ -144,9 +145,9 @@ public class TickerResource {
 
     @GetMapping("/tickers/user/{userId}")
     @Timed
-    public ResponseEntity<List<TickerDTO>> getTickersByUserId(@PathVariable Long userId) {
+    public ResponseEntity<List<MyTickerDTO>> getTickersByUserId(@PathVariable Long userId) {
         log.debug("REST request to get Ticker : {}", userId);
-        List<TickerDTO> tickerDTOs = tickerService.findByUserId(userId);
+        List<MyTickerDTO> tickerDTOs = tickerService.findByUserId(userId);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(tickerDTOs));
     }
 }

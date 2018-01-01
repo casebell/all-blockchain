@@ -106,7 +106,7 @@ public class CoinApiServiceImpl implements CoinApiService {
     public void getCoinApi() {
         zonedDateTime = ZonedDateTime.now();
 
-        getBithumbRest().forEach(this::saveBithumb);
+        getBithumbRest(); //.forEach(this::saveBithumb);
         List<KorbitDTO> korbitDTOS = new ArrayList();
         korbitDTOS.add(getKorbitRestBtc());
         korbitDTOS.add(getKorbitRestEth());
@@ -412,7 +412,7 @@ public class CoinApiServiceImpl implements CoinApiService {
     }
 
 
-    private List<BithumbDataDTO> getBithumbRest() {
+    private void getBithumbRest() {
         RestTemplate restTemplate = new RestTemplate();
         Map bithumbsMap = restTemplate
             .getForObject("https://api.bithumb.com/public/ticker/all", Map.class);
@@ -453,9 +453,12 @@ public class CoinApiServiceImpl implements CoinApiService {
 
         bithumbDataDTOS.add(bithumbDTOQtum);
 
+        bithumbDataDTOS.forEach(x->
+            x.setCreatedat(zonedDateTime)
+        );
 
 
-        return bithumbDataDTOS;
+        bithumbRepository.save(bithumbDataDTOS.stream().map(x->modelMapper.map(x,Bithumb.class)).collect(Collectors.toList()));
     }
 
     private void bithumbQuote(Map<Object, Object> bithumbMap) {
@@ -490,7 +493,5 @@ public class CoinApiServiceImpl implements CoinApiService {
                                  .closingPrice(new BigDecimal(map.get("closing_price")))
                                 // .quoteTime(Instant.parse(map.get("date")))
                                  .marketCoin(marketCoin);
-
-
     }
 }

@@ -1,5 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import {DndModule} from 'ng2-dnd';
 
 import {
     BlockchainSharedLibsModule,
@@ -33,7 +34,8 @@ import {
         MatIconModule,
         ReactiveFormsModule,
         MatCheckboxModule,
-        MatTabsModule
+        MatTabsModule,
+        DndModule
     ],
     declarations: [
         JhiSocialComponent,
@@ -58,7 +60,8 @@ import {
         JhiSocialComponent,
         JhiLoginModalComponent,
         HasAnyAuthorityDirective,
-        DatePipe
+        DatePipe,
+        DndModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 

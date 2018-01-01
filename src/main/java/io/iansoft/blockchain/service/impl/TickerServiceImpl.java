@@ -5,6 +5,7 @@ import io.iansoft.blockchain.repository.TickerRepository;
 import io.iansoft.blockchain.repository.search.TickerSearchRepository;
 import io.iansoft.blockchain.service.TickerService;
 import io.iansoft.blockchain.service.dto.MarketCoinDTO;
+import io.iansoft.blockchain.service.dto.MyTickerDTO;
 import io.iansoft.blockchain.service.dto.TickerDTO;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -139,8 +140,21 @@ public class TickerServiceImpl implements TickerService{
     }
 
     @Override
-    public List<TickerDTO> findByUserId(Long userId) {
+    public List<MyTickerDTO> findByUserId(Long userId) {
         List<Ticker> tickers = tickerRepository.findAllByUserId(userId);
-        return tickers.stream().map(x-> modelMapper.map(x,TickerDTO.class)).collect(Collectors.toList());
+        List<MyTickerDTO> myTickerDTOS = new ArrayList<>();
+        tickers.forEach(x->{
+            MyTickerDTO myTickerDTO = new MyTickerDTO();
+            myTickerDTO.setApiType(x.getMarketCoin().getMarket().getApiType());
+            myTickerDTO.setCoinName(x.getMarketCoin().getCoin().getName());
+            myTickerDTO.setMarketName(x.getMarketCoin().getMarket().getName());
+            myTickerDTO.setId(x.getId());
+            myTickerDTO.setMarketCoinId(x.getMarketCoin().getId());
+            myTickerDTO.setSequence(x.getSequence());
+            myTickerDTOS.add(myTickerDTO);
+        });
+
+        return myTickerDTOS;
+        //return tickers.stream().map(x-> modelMapper.map(x,TickerDTO.class)).collect(Collectors.toList());
     }
 }

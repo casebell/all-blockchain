@@ -12,6 +12,7 @@ export class TickerService {
   constructor(private http: Http) { }
 
     private resourceUrl = SERVER_API_URL + 'api/tickers';
+    private resourceQuoteUrl = SERVER_API_URL + 'api/quotes';
 
     addTickers(userId: any, selectedMarketCoins: MarketCoin[]) {
         return this.http.post(`${this.resourceUrl}/${userId}`, selectedMarketCoins).map((res: Response) => {
@@ -22,6 +23,12 @@ export class TickerService {
     getTickers(userId:number): Observable<ResponseWrapper> {
 
         return this.http.get(`${this.resourceUrl}/user/${userId}`)
+            .map((res: Response) => this.convertResponse(res));
+    }
+
+    getQuote(marketCoinId:number): Observable<ResponseWrapper> {
+
+        return this.http.get(`${this.resourceQuoteUrl}/last/${marketCoinId}`)
             .map((res: Response) => this.convertResponse(res));
     }
 

@@ -22,12 +22,12 @@ insert into market (id, name,url,api_type,created_by,created_date) values (1,'Bi
 insert into market (id, name,url,api_type,created_by,created_date) values (2,'Korbit','https://www.korbit.co.kr','REST_SERVER','admin','2017-12-20');
 insert into market (id, name,url,api_type,created_by,created_date) values (3,'Coinone','https://coinone.co.kr','REST_SERVER','admin','2017-12-20');
 insert into market (id, name,url,api_type,created_by,created_date) values (4,'Poloniex','https://poloniex.com','REST_CLIENT','admin','2017-12-20');
-insert into market (id, name,url,api_type,created_by,created_date) values (5,'Bittrex','https://bittrex.com/"','REST','admin','2017-12-20');
+insert into market (id, name,url,api_type,created_by,created_date) values (5,'Bittrex','https://bittrex.com/"','REST_SERVER','admin','2017-12-20');
 insert into market (id, name,url,api_type,created_by,created_date) values (6,'Bitfinex','https://bitfinex.com/','SOCKET','admin','2017-12-20');
 insert into market (id, name,url,api_type,created_by,created_date) values (7,'BitstampUS','https://www.bitstamp.net','SOCKET','admin','2017-12-20');
-insert into market (id, name,url,api_type,created_by,created_date) values (8,'GDAX','https://www.gdax.com','admin','SOCKET','2017-12-20');
-insert into market (id, name,url,api_type,created_by,created_date) values (9,'BitFlyer','https://bitflyer.jp','REST','REST_SERVER','2017-12-20');
-insert into market (id, name,url,api_type,created_by,created_date) values (10,'Kraken','https://www.kraken.com','REST','REST_SERVER','2017-12-20');
+insert into market (id, name,url,api_type,created_by,created_date) values (8,'GDAX','https://www.gdax.com','SOCKET','admin','2017-12-20');
+insert into market (id, name,url,api_type,created_by,created_date) values (9,'BitFlyer','https://bitflyer.jp','REST_SERVER','admin','2017-12-20');
+insert into market (id, name,url,api_type,created_by,created_date) values (10,'Kraken','https://www.kraken.com','REST_SERVER','admin','2017-12-20');
 insert into market (id, name,url,api_type,created_by,created_date) values (11,'BitstampEU','https://www.bitstamp.net','SOCKET','admin','2017-12-20');
 
 

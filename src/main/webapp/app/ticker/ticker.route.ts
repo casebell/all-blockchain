@@ -8,7 +8,7 @@ const TICKER_ROUTES = [
 export const tickerState: Routes = [{
     path: '',
     data: {
-        authorities: ['ROLE_ADMIN']
+        authorities: ['ROLE_USER','ROLE_ADMIN']
     },
     canActivate: [UserRouteAccessService],
     children: TICKER_ROUTES

@@ -1,65 +1,76 @@
-<button mat-raised-button olor="primary" (click)="openAddTickerDialog()">
-    <span jhiTranslate="ticker.addCoin">Add Coin</span>
-</button>
-<div class="grid">
-    <div class="item">
-        <div class="item-content">1</div>
+<div style="padding:10px">
+
+    <div style="display:flex;">
+        <!--<mat-form-field  style="margin-left:auto;margin-right:10px; width:80px;">-->
+            <!--<mat-select [placeholder]="'market.time' | translate" (change)="timeChange()" [(ngModel)]="myUpdateTime">-->
+                <!--<mat-option *ngFor="let time of timeLists" [value]="time.value">-->
+                    <!--{{ time.viewValue }}-->
+                <!--</mat-option>-->
+            <!--</mat-select>-->
+        <!--</mat-form-field>-->
+        <button mat-raised-button olor="primary" (click)="openAddTickerDialog()" color="primary" style="margin-right:10px; height:50px;">
+            <span jhiTranslate="ticker.addCoin">Add Coin</span>
+        </button>
+
+        <mat-form-field style="width:80px;">
+            <mat-select [placeholder]="'market.currency' | translate" [(ngModel)]="myCurrency" (change)="currencyChange($event)">
+                <mat-option *ngFor="let currency of currencyLists" [value]="currency.value">
+                    {{ currency.viewValue }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
     </div>
-    <div class="item">
-        <div class="item-content">2</div>
-    </div>
-    <div class="item">
-        <div class="item-content">3</div>
-    </div>
-    <div class="item">
-        <div class="item-content">4</div>
-    </div>
-    <div class="item">
-        <div class="item-content">5</div>
-    </div>
-    <div class="item">
-        <div class="item-content">6</div>
-    </div>
-    <div class="item">
-        <div class="item-content">7</div>
-    </div>
-    <div class="item">
-        <div class="item-content">8</div>
-    </div>
-    <div class="item">
-        <div class="item-content">9</div>
-    </div>
-    <div class="item">
-        <div class="item-content">10</div>
-    </div>
-    <div class="item">
-        <div class="item-content">11</div>
-    </div>
-    <div class="item">
-        <div class="item-content">12</div>
-    </div>
-    <div class="item">
-        <div class="item-content">13</div>
-    </div>
-    <div class="item">
-        <div class="item-content">14</div>
-    </div>
-    <div class="item">
-        <div class="item-content">15</div>
-    </div>
-    <div class="item">
-        <div class="item-content">16</div>
-    </div>
-    <div class="item">
-        <div class="item-content">17</div>
-    </div>
-    <div class="item">
-        <div class="item-content">18</div>
-    </div>
-    <div class="item">
-        <div class="item-content">19</div>
-    </div>
-    <div class="item">
-        <div class="item-content">20</div>
-    </div>
+
+    <mat-grid-list cols="4" rowHeight="1:1" dnd-sortable-container  [sortableData]="myTickers" style="margin-left:10px">
+        <mat-grid-tile *ngFor="let myTicker of myTickers ; let i = index"  dnd-sortable [sortableIndex]="i">
+            <coin-ticker-item [myTicker]=myTicker [myCurrency]=myCurrency></coin-ticker-item>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <!--<h4>Simple sortable</h4>-->
+    <!--<div class="row">-->
+        <!--<div class="col-sm-3">-->
+            <!--<div class="panel panel-success">-->
+                <!--<div class="panel-heading">-->
+                    <!--Favorite drinks!-->
+                <!--</div>-->
+                <!--<div class="panel-body">-->
+                    <!--<ul class="list-group" dnd-sortable-container [sortableData]="listOne">-->
+                        <!--<li *ngFor="let item of listOne; let i = index" class="list-group-item" dnd-sortable [sortableIndex]="i">{{item}}</li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-sm-6">-->
+            <!--<div class="panel panel-default">-->
+                <!--<div class="panel-body">-->
+                    <!--My prefences:<br/>-->
+                    <!--<span *ngFor="let item of listOne; let i = index">{{i + 2}}) {{item}}<br/></span>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="grid">-->
+        <!--<div class="item" *ngFor="let myTicker of myTickers"-->
+        <!--&gt;-->
+            <!--<div class="item-content">-->
+                <!--<coin-ticker-item [myTicker]=myTicker></coin-ticker-item>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;<div class="item">&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="item-content">&ndash;&gt;-->
+                <!--&lt;!&ndash;<coin-ticker-item></coin-ticker-item>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="item">&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="item-content">&ndash;&gt;-->
+                <!--&lt;!&ndash;<coin-ticker-item></coin-ticker-item>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="item">&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="item-content">&ndash;&gt;-->
+                <!--&lt;!&ndash;<coin-ticker-item></coin-ticker-item>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+    <!--</div>-->
 </div>

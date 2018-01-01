@@ -53,6 +53,7 @@ export class AddTickerDialogComponent implements OnInit {
         this.principal.identity().then((account) => {
             this.userId = account.id;
         });
+
         this.marketService.query().subscribe(
             (res: ResponseWrapper) => {
                 this.markets = res.json;

@@ -145,4 +145,11 @@ public class QuoteResource {
             .collect(Collectors.toList());
     }
 
+    @GetMapping("/quotes/last/{id}")
+    @Timed
+    public ResponseEntity<Quote> getLastQuote(@PathVariable Long id) {
+        log.debug("REST request to get Quote : {}", id);
+        Quote quote = quoteRepository.findFirstByMarketCoinIdOrderByIdDesc(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(quote));
+    }
 }
