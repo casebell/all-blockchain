@@ -21,56 +21,10 @@
         </mat-form-field>
     </div>
 
-    <mat-grid-list cols="4" rowHeight="1:1" dnd-sortable-container  [sortableData]="myTickers" style="margin-left:10px">
-        <mat-grid-tile *ngFor="let myTicker of myTickers ; let i = index"  dnd-sortable [sortableIndex]="i">
+    <mat-grid-list [cols]="cols | async"  rowHeight="7:3" dnd-sortable-container  [sortableData]="myTickers" style="margin-left:10px">
+        <mat-grid-tile *ngFor="let myTicker of myTickers ; let i = index"  dnd-sortable [sortableIndex]="i" >
             <coin-ticker-item [myTicker]=myTicker [myCurrency]=myCurrency></coin-ticker-item>
         </mat-grid-tile>
     </mat-grid-list>
-    <!--<h4>Simple sortable</h4>-->
-    <!--<div class="row">-->
-        <!--<div class="col-sm-3">-->
-            <!--<div class="panel panel-success">-->
-                <!--<div class="panel-heading">-->
-                    <!--Favorite drinks!-->
-                <!--</div>-->
-                <!--<div class="panel-body">-->
-                    <!--<ul class="list-group" dnd-sortable-container [sortableData]="listOne">-->
-                        <!--<li *ngFor="let item of listOne; let i = index" class="list-group-item" dnd-sortable [sortableIndex]="i">{{item}}</li>-->
-                    <!--</ul>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="col-sm-6">-->
-            <!--<div class="panel panel-default">-->
-                <!--<div class="panel-body">-->
-                    <!--My prefences:<br/>-->
-                    <!--<span *ngFor="let item of listOne; let i = index">{{i + 2}}) {{item}}<br/></span>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<div class="grid">-->
-        <!--<div class="item" *ngFor="let myTicker of myTickers"-->
-        <!--&gt;-->
-            <!--<div class="item-content">-->
-                <!--<coin-ticker-item [myTicker]=myTicker></coin-ticker-item>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--&lt;!&ndash;<div class="item">&ndash;&gt;-->
-            <!--&lt;!&ndash;<div class="item-content">&ndash;&gt;-->
-                <!--&lt;!&ndash;<coin-ticker-item></coin-ticker-item>&ndash;&gt;-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-        <!--&lt;!&ndash;</div>&ndash;&gt;-->
-        <!--&lt;!&ndash;<div class="item">&ndash;&gt;-->
-            <!--&lt;!&ndash;<div class="item-content">&ndash;&gt;-->
-                <!--&lt;!&ndash;<coin-ticker-item></coin-ticker-item>&ndash;&gt;-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-        <!--&lt;!&ndash;</div>&ndash;&gt;-->
-        <!--&lt;!&ndash;<div class="item">&ndash;&gt;-->
-            <!--&lt;!&ndash;<div class="item-content">&ndash;&gt;-->
-                <!--&lt;!&ndash;<coin-ticker-item></coin-ticker-item>&ndash;&gt;-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-        <!--&lt;!&ndash;</div>&ndash;&gt;-->
 
-    <!--</div>-->
 </div>

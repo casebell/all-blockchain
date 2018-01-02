@@ -29,7 +29,9 @@ export class TickerService {
     getQuote(marketCoinId:number): Observable<ResponseWrapper> {
 
         return this.http.get(`${this.resourceQuoteUrl}/last/${marketCoinId}`)
-            .map((res: Response) => this.convertResponse(res));
+            .map((res: Response) =>{
+                return res.json()
+            });
     }
 
 

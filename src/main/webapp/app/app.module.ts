@@ -32,6 +32,7 @@ import { NewsModule } from './news/news.module';
 import { BlockchainAppRoutingModule } from './app-routing.module';
 import { TickerModule } from './ticker/ticker.module';
 import { DndModule } from 'ng2-dnd';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
     imports: [
@@ -54,6 +55,7 @@ import { DndModule } from 'ng2-dnd';
         MatMenuModule,
         MatToolbarModule,
         MatButtonToggleModule,
+        FlexLayoutModule,
         DndModule.forRoot(),
         AdsenseModule.forRoot({
             adClient: 'ca-pub-3429112291996061',

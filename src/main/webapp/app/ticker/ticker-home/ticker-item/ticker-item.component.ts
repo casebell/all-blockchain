@@ -1,6 +1,9 @@
 import { Component, OnInit, Input,ViewEncapsulation } from '@angular/core';
 import { TickerService } from '../../ticker.service';
 import {Observable} from 'rxjs/Rx';
+import { ExchangeRateService } from '../../../home/coin-price/coin-price-row/exchange-rate.service';
+import { Quote } from '../../../entities/quote';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'coin-ticker-item',
@@ -10,11 +13,16 @@ import {Observable} from 'rxjs/Rx';
 export class TickerItemComponent implements OnInit {
   @Input() myTicker;
   @Input() myCurrency;
-  constructor( private tickerService: TickerService) { }
+  exchangeRate;
+  quote:Quote;
+
+    constructor( private tickerService: TickerService,private exchangeRateService: ExchangeRateService) { }
 
   ngOnInit() {
-    console.log('myTicker :', this.myTicker);
+
+      this.getExchangeRate();
     if(this.myTicker != null){
+
        switch(this.myTicker.apiType)
        {
            case  "REST_SERVER":
@@ -22,14 +30,10 @@ export class TickerItemComponent implements OnInit {
                    .interval(5 * 1000)
                    .timeInterval()
                    .flatMap(() => this.tickerService.getQuote(this.myTicker.marketCoinId))
-                   .subscribe((result) => {
-                       console.log('get Tickers : ', result);
+                   .subscribe(<PushSubscriptionOptionsInit>(quote) => {
+                       console.log('get Tickers : ', quote);
+                       this.quote = quote;
                    });
-               // this.tickerService.getTickers(this.myTicker.marketCoinId).subscribe((result) => {
-               //     console.log('get Tickers : ', result);
-               //
-               //
-               // });
                break;
            case  "REST_CLIENT":
                break;
@@ -39,4 +43,15 @@ export class TickerItemComponent implements OnInit {
     }
   }
 
+    private getExchangeRate() {
+        this.exchangeRateService.getExchangeRate()
+            .subscribe(res => {
+                this.exchangeRate = [];
+                this.exchangeRate.push(_.find(res, {'base': 'KRW'}));
+                this.exchangeRate.push(_.find(res, {'base': 'USD'}));
+                this.exchangeRate.push(_.find(res, {'base': 'EUR'}));
+                this.exchangeRate.push(_.find(res, {'base': 'CNY'}));
+                this.exchangeRate.push(_.find(res, {'base': 'JPY'}));
+            });
+    }
 }

@@ -5,9 +5,11 @@ import io.iansoft.blockchain.domain.Quote;
 
 import io.iansoft.blockchain.repository.QuoteRepository;
 import io.iansoft.blockchain.repository.search.QuoteSearchRepository;
+import io.iansoft.blockchain.service.dto.QuoteDTO;
 import io.iansoft.blockchain.web.rest.errors.BadRequestAlertException;
 import io.iansoft.blockchain.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -39,9 +41,13 @@ public class QuoteResource {
 
     private final QuoteSearchRepository quoteSearchRepository;
 
-    public QuoteResource(QuoteRepository quoteRepository, QuoteSearchRepository quoteSearchRepository) {
+    private final ModelMapper modelMapper;
+
+    QuoteResource(QuoteRepository quoteRepository,
+                  QuoteSearchRepository quoteSearchRepository, ModelMapper modelMapper) {
         this.quoteRepository = quoteRepository;
         this.quoteSearchRepository = quoteSearchRepository;
+        this.modelMapper = modelMapper;
     }
 
     /**
@@ -147,9 +153,9 @@ public class QuoteResource {
 
     @GetMapping("/quotes/last/{id}")
     @Timed
-    public ResponseEntity<Quote> getLastQuote(@PathVariable Long id) {
+    public ResponseEntity<QuoteDTO> getLastQuote(@PathVariable Long id) {
         log.debug("REST request to get Quote : {}", id);
         Quote quote = quoteRepository.findFirstByMarketCoinIdOrderByIdDesc(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(quote));
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(modelMapper.map(quote,QuoteDTO.class)));
     }
 }

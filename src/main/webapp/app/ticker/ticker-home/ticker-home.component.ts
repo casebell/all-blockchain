@@ -4,6 +4,11 @@ import { AddTickerDialogComponent } from './add-ticker-dialog/add-ticker-dialog.
 import { TickerService } from '../ticker.service';
 import { Principal } from '../../shared';
 import { MyTicker } from '../models/my-ticker.model';
+import { Observable } from "rxjs/Observable";
+import { ObservableMedia } from '@angular/flex-layout';
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/takeWhile";
+import "rxjs/add/operator/startWith";
 
 @Component({
     selector: 'jhi-ticker-home',
@@ -11,6 +16,7 @@ import { MyTicker } from '../models/my-ticker.model';
     styleUrls: ['ticker-home.scss']
 })
 export class TickerHomeComponent implements OnInit {
+    public cols: Observable<number>;
 
     currencyLists = [
         {value: 'USD', viewValue: 'USD'},
@@ -23,7 +29,8 @@ export class TickerHomeComponent implements OnInit {
     myCurrency: string;
     constructor(public dialog: MatDialog,
                 private principal: Principal,
-                private tickerService: TickerService) {
+                private tickerService: TickerService,
+                private observableMedia: ObservableMedia) {
         this.principal.identity().then((account) => {
             console.log('account',account);
             this.userId = account.id;
@@ -38,6 +45,26 @@ export class TickerHomeComponent implements OnInit {
     }
 
     ngOnInit() {
+        const grid = new Map([
+            ["xs", 1],
+            ["sm", 2],
+            ["md", 2],
+            ["lg", 3],
+            ["xl", 4]
+        ]);
+        let start: number;
+        grid.forEach((cols, mqAlias) => {
+            if (this.observableMedia.isActive(mqAlias)) {
+                start = cols;
+            }
+        });
+        this.cols = this.observableMedia.asObservable()
+            .map(change => {
+                console.log(change);
+                console.log(grid.get(change.mqAlias));
+                return grid.get(change.mqAlias);
+            })
+            .startWith(start);
         this.getTickers();
     }
 
