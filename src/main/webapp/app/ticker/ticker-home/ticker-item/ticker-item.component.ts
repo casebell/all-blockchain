@@ -15,7 +15,7 @@ export class TickerItemComponent implements OnInit {
   @Input() myCurrency;
   exchangeRate;
   quote:Quote;
-
+  diff = 0;
     constructor( private tickerService: TickerService,private exchangeRateService: ExchangeRateService) { }
 
   ngOnInit() {
@@ -27,11 +27,15 @@ export class TickerItemComponent implements OnInit {
        {
            case  "REST_SERVER":
                Observable
-                   .interval(5 * 1000)
+                   .interval(15 * 1000)
                    .timeInterval()
                    .flatMap(() => this.tickerService.getQuote(this.myTicker.marketCoinId))
                    .subscribe(<PushSubscriptionOptionsInit>(quote) => {
                        console.log('get Tickers : ', quote);
+                       if(this.quote != null)
+                       {
+                           this.diff = this.quote.lastPrice - quote.lastPrice;
+                       }
                        this.quote = quote;
                    });
                break;

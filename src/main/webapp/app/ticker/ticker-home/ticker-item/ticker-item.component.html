@@ -1,17 +1,48 @@
-<mat-card class="example-card">
-    <mat-card-header>
-        <!--<div mat-card-avatar class="example-header-image"></div>-->
-        <mat-card-title>{{myTicker?.marketName}}</mat-card-title>
-        <mat-card-subtitle>{{myTicker?.coinName}}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-        <p>
-            {{quote?.lastPrice|currency:myCurrency:'symbol':myCurrency == 'KRW' ? '1.0-0' : '1.2-5'}}
-        </p>
-        <p> {{quote?.volume|number:'1.0-0'}}</p>
-    </mat-card-content>
-    <!--<mat-card-actions>-->
-        <!--<button mat-button>LIKE</button>-->
-        <!--<button mat-button>SHARE</button>-->
-    <!--</mat-card-actions>-->
-</mat-card>
+<div [ngSwitch]="true">
+    <mat-card class="example-card" *ngSwitchCase="diff>0" class="inc">
+        <mat-card-header>
+            <!--<div mat-card-avatar class="example-header-image"></div>-->
+            <mat-card-title>{{myTicker?.marketName}}</mat-card-title>
+            <mat-card-subtitle>{{myTicker?.coinName}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <p>
+                <span>{{quote?.lastPrice|currency:myCurrency:'symbol':myCurrency == 'KRW' ? '1.0-0' : '1.2-5'}}</span>
+                <span><i class="fas fa-caret-down"></i></span>  <p> {{diff|currency:myCurrency:'symbol':myCurrency == 'KRW' ? '1.0-0' : '1.2-5'}}</p>
+            </p>
+            <p> {{quote?.volume|number:'1.0-0'}}</p>
+
+        </mat-card-content>
+
+    </mat-card>
+
+    <mat-card class="example-card" *ngSwitchCase="diff == 0" class="equal">
+        <mat-card-header>
+            <!--<div mat-card-avatar class="example-header-image"></div>-->
+            <mat-card-title>{{myTicker?.marketName}}</mat-card-title>
+            <mat-card-subtitle>{{myTicker?.coinName}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <p class="last-price">
+               <span>{{quote?.lastPrice|currency:myCurrency:'symbol':myCurrency == 'KRW' ? '1.0-0' : '1.2-5'}}</span>
+            </p>
+            <p> {{quote?.volume|number:'1.0-0'}}</p>
+        </mat-card-content>
+
+    </mat-card>
+    <mat-card class="example-card" *ngSwitchCase="diff < 0" class="dec">
+        <mat-card-header>
+            <!--<div mat-card-avatar class="example-header-image"></div>-->
+            <mat-card-title>{{myTicker?.marketName}}</mat-card-title>
+            <mat-card-subtitle>{{myTicker?.coinName}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <p>
+                <span>{{quote?.lastPrice|currency:myCurrency:'symbol':myCurrency == 'KRW' ? '1.0-0' : '1.2-5'}}</span>
+                <span><i class="fas fa-caret-up"></i></span>
+            </p>
+            <p><span>거래량 : </span> {{quote?.volume|number:'1.0-0'}}</p>
+        </mat-card-content>
+
+    </mat-card>
+</div>
