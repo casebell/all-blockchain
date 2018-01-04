@@ -1,6 +1,8 @@
 package io.iansoft.blockchain.service.dto;
 
 
+import io.iansoft.blockchain.domain.enumeration.CurrencyType;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -42,6 +44,8 @@ public class QuoteDTO implements Serializable {
     private String lastModifiedBy;
 
     private Instant lastModifiedDate;
+
+    private CurrencyType currency;
 
     public Long getId() {
         return id;
@@ -171,6 +175,14 @@ public class QuoteDTO implements Serializable {
         this.lastModifiedDate = lastModifiedDate;
     }
 
+    public CurrencyType getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(CurrencyType currency) {
+        this.currency = currency;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -191,13 +203,14 @@ public class QuoteDTO implements Serializable {
             Objects.equals(createdBy, quoteDTO.createdBy) &&
             Objects.equals(createdDate, quoteDTO.createdDate) &&
             Objects.equals(lastModifiedBy, quoteDTO.lastModifiedBy) &&
-            Objects.equals(lastModifiedDate, quoteDTO.lastModifiedDate);
+            Objects.equals(lastModifiedDate, quoteDTO.lastModifiedDate) &&
+            currency == quoteDTO.currency;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, lastPrice, marketCoinId, volume, lowPrice, highPrice, avgPrice, buyPrice, sellPrice, openingPrice, closingPrice, quoteTime, createdBy, createdDate, lastModifiedBy, lastModifiedDate);
+        return Objects.hash(id, lastPrice, marketCoinId, volume, lowPrice, highPrice, avgPrice, buyPrice, sellPrice, openingPrice, closingPrice, quoteTime, createdBy, createdDate, lastModifiedBy, lastModifiedDate, currency);
     }
 
     @Override
@@ -219,6 +232,7 @@ public class QuoteDTO implements Serializable {
             ", createdDate=" + createdDate +
             ", lastModifiedBy='" + lastModifiedBy + '\'' +
             ", lastModifiedDate=" + lastModifiedDate +
+            ", currency=" + currency +
             '}';
     }
 }

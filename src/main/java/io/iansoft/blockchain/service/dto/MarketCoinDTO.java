@@ -1,6 +1,8 @@
 package io.iansoft.blockchain.service.dto;
 
 
+import io.iansoft.blockchain.domain.enumeration.CurrencyType;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -10,6 +12,8 @@ import java.util.Objects;
 public class MarketCoinDTO implements Serializable {
 
     private Long id;
+
+    private CurrencyType currency;
 
     private Long coinId;
 
@@ -49,12 +53,21 @@ public class MarketCoinDTO implements Serializable {
         this.coinName = coinName;
     }
 
+    public CurrencyType getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(CurrencyType currency) {
+        this.currency = currency;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MarketCoinDTO that = (MarketCoinDTO) o;
         return Objects.equals(id, that.id) &&
+            currency == that.currency &&
             Objects.equals(coinId, that.coinId) &&
             Objects.equals(marketId, that.marketId) &&
             Objects.equals(coinName, that.coinName);
@@ -63,13 +76,14 @@ public class MarketCoinDTO implements Serializable {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, coinId, marketId, coinName);
+        return Objects.hash(id, currency, coinId, marketId, coinName);
     }
 
     @Override
     public String toString() {
         return "MarketCoinDTO{" +
             "id=" + id +
+            ", currency=" + currency +
             ", coinId=" + coinId +
             ", marketId=" + marketId +
             ", coinName='" + coinName + '\'' +

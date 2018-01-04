@@ -156,6 +156,8 @@ public class QuoteResource {
     public ResponseEntity<QuoteDTO> getLastQuote(@PathVariable Long id) {
         log.debug("REST request to get Quote : {}", id);
         Quote quote = quoteRepository.findFirstByMarketCoinIdOrderByIdDesc(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(modelMapper.map(quote,QuoteDTO.class)));
+        QuoteDTO quoteDTO = modelMapper.map(quote,QuoteDTO.class);
+        quoteDTO.setCurrency(quote.getMarketCoin().getCurrency());
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(quoteDTO));
     }
 }

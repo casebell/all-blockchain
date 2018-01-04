@@ -7,7 +7,8 @@
         </mat-card-header>
         <mat-card-content>
             <p>
-                <span>{{quote?.lastPrice|currency:myCurrency:'symbol':myCurrency == 'KRW' ? '1.0-0' : '1.2-5'}}</span>
+                <span>{{quote?.lastPrice| currencyExchange :{myCurrency:myCurrency,currency:quote?.currency,exchangeRate:exchangeRate} }}</span>
+                <!--<span>{{quote?.lastPrice|currency:myCurrency:'symbol':myCurrency == 'KRW' ? '1.0-0' : '1.2-5'}}</span>-->
                 <span><i class="fas fa-caret-down"></i></span>  <p> {{diff|currency:myCurrency:'symbol':myCurrency == 'KRW' ? '1.0-0' : '1.2-5'}}</p>
             </p>
             <p> {{quote?.volume|number:'1.0-0'}}</p>
@@ -24,7 +25,8 @@
         </mat-card-header>
         <mat-card-content>
             <p class="last-price">
-               <span>{{quote?.lastPrice|currency:myCurrency:'symbol':myCurrency == 'KRW' ? '1.0-0' : '1.2-5'}}</span>
+                <span>{{quote?.lastPrice| currencyExchange :{myCurrency:myCurrency,currency:quote?.currency,exchangeRate:exchangeRate} }}</span>
+                <!--<span>{{quote?.lastPrice|currency:myCurrency:'symbol':myCurrency == 'KRW' ? '1.0-0' : '1.2-5'}}</span>-->
             </p>
             <p> {{quote?.volume|number:'1.0-0'}}</p>
         </mat-card-content>
@@ -38,7 +40,8 @@
         </mat-card-header>
         <mat-card-content>
             <p>
-                <span>{{quote?.lastPrice|currency:myCurrency:'symbol':myCurrency == 'KRW' ? '1.0-0' : '1.2-5'}}</span>
+                <!--<span>{{quote?.lastPrice|currency:myCurrency:'symbol':myCurrency == 'KRW' ? '1.0-0' : '1.2-5'}}</span>-->
+                <span>{{quote?.lastPrice| currencyExchange :{myCurrency:myCurrency,currency:quote?.currency,exchangeRate:exchangeRate} }}</span>
                 <span><i class="fas fa-caret-up"></i></span>
             </p>
             <p><span>거래량 : </span> {{quote?.volume|number:'1.0-0'}}</p>

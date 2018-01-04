@@ -1,6 +1,7 @@
 package io.iansoft.blockchain.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.iansoft.blockchain.domain.enumeration.CurrencyType;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -27,6 +28,8 @@ public class MarketCoin extends AbstractAuditingEntity implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
+    @Enumerated(EnumType.STRING)
+    private CurrencyType currency;
 
     @ManyToOne
     private Market market;
@@ -43,6 +46,7 @@ public class MarketCoin extends AbstractAuditingEntity implements Serializable {
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Quote> quotes = new HashSet<>();
+
 
 
     public Market getMarket() {
@@ -90,28 +94,19 @@ public class MarketCoin extends AbstractAuditingEntity implements Serializable {
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        MarketCoin that = (MarketCoin) o;
-        return Objects.equals(id, that.id) &&
-            Objects.equals(market, that.market) &&
-            Objects.equals(coin, that.coin) &&
-            Objects.equals(tickers, that.tickers) &&
-            Objects.equals(quotes, that.quotes);
+    public CurrencyType getCurrency() {
+        return currency;
     }
 
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(id, market, coin, tickers, quotes);
+    public void setCurrency(CurrencyType currency) {
+        this.currency = currency;
     }
 
     @Override
     public String toString() {
         return "MarketCoin{" +
             "id=" + id +
+            ", currency=" + currency +
             ", market=" + market +
             ", coin=" + coin +
             ", tickers=" + tickers +
