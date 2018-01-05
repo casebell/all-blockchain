@@ -1,15 +1,15 @@
 <div [ngSwitch]="true">
-    <mat-card class="example-card" *ngSwitchCase="diff>0" class="inc">
+    <mat-card class="example-card" *ngSwitchCase="diff>0">
         <mat-card-header>
             <!--<div mat-card-avatar class="example-header-image"></div>-->
-            <mat-card-title>{{myTicker?.marketName}}</mat-card-title>
-            <mat-card-subtitle>{{myTicker?.coinName}}</mat-card-subtitle>
+            <mat-card-title>{{myTicker?.marketName}} {{myTicker?.coinName}}</mat-card-title>
+            <!--<mat-card-subtitle></mat-card-subtitle>-->
         </mat-card-header>
         <mat-card-content>
-            <p>
+            <p  class="last-price inc">
                 <span>{{quote?.lastPrice| currencyExchange :{myCurrency:myCurrency,currency:quote?.currency,exchangeRate:exchangeRate} }}</span>
                 <!--<span>{{quote?.lastPrice|currency:myCurrency:'symbol':myCurrency == 'KRW' ? '1.0-0' : '1.2-5'}}</span>-->
-                <span><i class="fas fa-caret-down"></i></span>  <p> {{diff|currency:myCurrency:'symbol':myCurrency == 'KRW' ? '1.0-0' : '1.2-5'}}</p>
+                <span><i class="fas fa-caret-up"></i></span>  <span> {{diff|currencyExchange :{myCurrency:myCurrency,currency:quote.currency,exchangeRate:exchangeRate} }}</span>
             </p>
             <p> {{quote?.volume|number:'1.0-0'}}</p>
 
@@ -17,14 +17,15 @@
 
     </mat-card>
 
-    <mat-card class="example-card" *ngSwitchCase="diff == 0" class="equal">
+    <mat-card class="example-card" *ngSwitchCase="diff == 0" >
         <mat-card-header>
             <!--<div mat-card-avatar class="example-header-image"></div>-->
-            <mat-card-title>{{myTicker?.marketName}}</mat-card-title>
-            <mat-card-subtitle>{{myTicker?.coinName}}</mat-card-subtitle>
+            <!--<mat-card-title>{{myTicker?.marketName}} {{myTicker?.coinName}}</mat-card-title>-->
+            <mat-card-title><i class="fab fa-bitcoin"></i> {{myTicker?.marketName}}</mat-card-title>
+            <!--<mat-card-subtitle></mat-card-subtitle>-->
         </mat-card-header>
         <mat-card-content>
-            <p class="last-price">
+            <p class="last-price equal">
                 <span>{{quote?.lastPrice| currencyExchange :{myCurrency:myCurrency,currency:quote?.currency,exchangeRate:exchangeRate} }}</span>
                 <!--<span>{{quote?.lastPrice|currency:myCurrency:'symbol':myCurrency == 'KRW' ? '1.0-0' : '1.2-5'}}</span>-->
             </p>
@@ -32,17 +33,18 @@
         </mat-card-content>
 
     </mat-card>
-    <mat-card class="example-card" *ngSwitchCase="diff < 0" class="dec">
+    <mat-card class="example-card" *ngSwitchCase="diff < 0">
         <mat-card-header>
             <!--<div mat-card-avatar class="example-header-image"></div>-->
-            <mat-card-title>{{myTicker?.marketName}}</mat-card-title>
-            <mat-card-subtitle>{{myTicker?.coinName}}</mat-card-subtitle>
+            <mat-card-title>{{myTicker?.marketName}} {{myTicker?.coinName}}</mat-card-title>
+            <!--<mat-card-subtitle></mat-card-subtitle>-->
         </mat-card-header>
         <mat-card-content>
-            <p>
+            <p class="last-price dec">
                 <!--<span>{{quote?.lastPrice|currency:myCurrency:'symbol':myCurrency == 'KRW' ? '1.0-0' : '1.2-5'}}</span>-->
-                <span>{{quote?.lastPrice| currencyExchange :{myCurrency:myCurrency,currency:quote?.currency,exchangeRate:exchangeRate} }}</span>
-                <span><i class="fas fa-caret-up"></i></span>
+                <span >{{quote?.lastPrice| currencyExchange :{myCurrency:myCurrency,currency:quote?.currency,exchangeRate:exchangeRate} }}</span>
+                <span><i class="fas fa-caret-down"></i></span>
+                <span> {{diff|currencyExchange :{myCurrency:myCurrency,currency:quotec.currency,exchangeRate:exchangeRate} }}</span>
             </p>
             <p><span>거래량 : </span> {{quote?.volume|number:'1.0-0'}}</p>
         </mat-card-content>
