@@ -6,6 +6,7 @@
         "close" : "Close",
         "open" : "Open",
         "write" : "Write",
+        "volume" : "Volume",
         "menu": {
             "home": "Trang chủ",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",

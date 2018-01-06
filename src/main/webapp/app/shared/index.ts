@@ -13,6 +13,7 @@ export * from './language/language.constants';
 export * from './language/language.helper';
 export * from './language/find-language-from-key.pipe';
 export * from './coin/currency-exchange.pipe'
+export * from './coin/coin-display.pipe'
 export * from './login/login.component';
 export * from './login/login.service';
 export * from './login/login-modal.service';

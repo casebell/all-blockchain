@@ -8,7 +8,8 @@ import {
     FindLanguageFromKeyPipe,
     JhiAlertComponent,
     JhiAlertErrorComponent,
-    CurrencyExchangePipe
+    CurrencyExchangePipe,
+    CoinDisplayPipe
 } from './';
 
 @NgModule({
@@ -19,7 +20,8 @@ import {
         FindLanguageFromKeyPipe,
         CurrencyExchangePipe,
         JhiAlertComponent,
-        JhiAlertErrorComponent
+        JhiAlertErrorComponent,
+        CoinDisplayPipe
     ],
     providers: [
         JhiLanguageHelper,
@@ -34,7 +36,8 @@ import {
         FindLanguageFromKeyPipe,
         CurrencyExchangePipe,
         JhiAlertComponent,
-        JhiAlertErrorComponent
+        JhiAlertErrorComponent,
+        CoinDisplayPipe
     ]
 })
 export class BlockchainSharedCommonModule {

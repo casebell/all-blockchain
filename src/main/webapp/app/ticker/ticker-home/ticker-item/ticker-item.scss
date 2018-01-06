@@ -18,6 +18,26 @@
 }
 .last-price {
     font-size:1.8em;
-    letter-spacing: -2px;
-
+    font-weight:700;
 }
+
+.market-name {
+    font-size:1.4em;
+    font-weight:500;
+}
+.coin-name {
+    font-size:1.3em;
+    font-weight:500;
+    line-height: 35px;
+}
+
+.img-size {
+    width:32px;
+    height:32px;
+    margin-right:5px;
+}
+
+.ticker-header{
+    display: flex;
+}
+

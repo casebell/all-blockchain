@@ -1,53 +1,119 @@
 <div [ngSwitch]="true">
-    <mat-card class="example-card" *ngSwitchCase="diff>0">
-        <mat-card-header>
-            <!--<div mat-card-avatar class="example-header-image"></div>-->
-            <mat-card-title>{{myTicker?.marketName}} {{myTicker?.coinName}}</mat-card-title>
-            <!--<mat-card-subtitle></mat-card-subtitle>-->
+
+
+    <mat-card class="example-card">
+        <div [ngSwitch]="myTicker?.coinName">
+            <p *ngSwitchCase="'btc'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/bitcoin.png"/>
+                <span class="coin-name"> Bitcoin </span>
+            </p>
+
+            <p  *ngSwitchCase="'eth'" >
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img src="../../../../content/images/icon/ethereum.png"/>
+                <span class="coin-name"> Ethereum </span>
+            </p>
+            <p  *ngSwitchCase="'xrp'" >
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img src="../../../../content/images/icon/ripple.png"/>
+                <span class="coin-name"> Ripple </span>
+            </p>
+            <p  *ngSwitchCase="'ltc'" >
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img src="../../../../content/images/icon/lite-coin.png"/>
+                <span class="coin-name"> Litecoin </span>
+            </p>
+            <p  *ngSwitchCase="'etc'" >
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img src="../../../../content/images/icon/ethereum-classic.png"/>
+                <span class="coin-name"> Ethereum Classic </span>
+            </p>
+            <p  *ngSwitchCase="'bch'" >
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img src="../../../../content/images/icon/bitcoin-cash.png"/>
+                <span class="coin-name"> Bitcoin Cash </span>
+            </p>
+            <p  *ngSwitchCase="'zec'" >
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img src="../../../../content/images/icon/zcash.png"/>
+                <span class="coin-name"> Zcash </span>
+            </p>
+            <p  *ngSwitchCase="'xmr'" >
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img src="../../../../content/images/icon/monero.png"/>
+                <span class="coin-name"> Monero </span>
+            </p>
+            <p  *ngSwitchCase="'neo'" >
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img src="../../../../content/images/icon/neo.png"/>
+                <span class="coin-name"> Neo </span>
+            </p>
+            <p  *ngSwitchCase="'qtum'" >
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img src="../../../../content/images/icon/qtum.png"/>
+                <span class="coin-name"> Qtum </span>
+            </p>
+            <p  *ngSwitchCase="'iota'" >
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img src="../../../../content/images/icon/iota.png"/>
+                <span class="coin-name"> IOTA </span>
+            </p>
+            <p  *ngSwitchCase="'cardano'" >
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img src="../../../../content/images/icon/cardano.png"/>
+                <span class="coin-name"> Cardano </span>
+            </p>
+            <p  *ngSwitchCase="'btg'" >
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img src="../../../../content/images/icon/bitcoin-gold.png"/>
+                <span class="coin-name"> Bitcoin Gold </span>
+            </p>
+            <p  *ngSwitchCase="'eos'" >
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img src="../../../../content/images/icon/eos.png"/>
+                <span class="coin-name"> EOS </span>
+            </p>
+        </div>
+
+
         </mat-card-header>
+
         <mat-card-content>
-            <p  class="last-price inc">
+            <p  class="last-price inc" *ngSwitchCase="diff>0">
                 <span>{{quote?.lastPrice| currencyExchange :{myCurrency:myCurrency,currency:quote?.currency,exchangeRate:exchangeRate} }}</span>
-                <!--<span>{{quote?.lastPrice|currency:myCurrency:'symbol':myCurrency == 'KRW' ? '1.0-0' : '1.2-5'}}</span>-->
                 <span><i class="fas fa-caret-up"></i></span>  <span> {{diff|currencyExchange :{myCurrency:myCurrency,currency:quote.currency,exchangeRate:exchangeRate} }}</span>
             </p>
-            <p> {{quote?.volume|number:'1.0-0'}}</p>
 
-        </mat-card-content>
-
-    </mat-card>
-
-    <mat-card class="example-card" *ngSwitchCase="diff == 0" >
-        <mat-card-header>
-            <!--<div mat-card-avatar class="example-header-image"></div>-->
-            <!--<mat-card-title>{{myTicker?.marketName}} {{myTicker?.coinName}}</mat-card-title>-->
-            <mat-card-title><i class="fab fa-bitcoin"></i> {{myTicker?.marketName}}</mat-card-title>
-            <!--<mat-card-subtitle></mat-card-subtitle>-->
-        </mat-card-header>
-        <mat-card-content>
-            <p class="last-price equal">
+            <p class="last-price equal" *ngSwitchCase="diff == 0">
                 <span>{{quote?.lastPrice| currencyExchange :{myCurrency:myCurrency,currency:quote?.currency,exchangeRate:exchangeRate} }}</span>
-                <!--<span>{{quote?.lastPrice|currency:myCurrency:'symbol':myCurrency == 'KRW' ? '1.0-0' : '1.2-5'}}</span>-->
             </p>
-            <p> {{quote?.volume|number:'1.0-0'}}</p>
-        </mat-card-content>
 
-    </mat-card>
-    <mat-card class="example-card" *ngSwitchCase="diff < 0">
-        <mat-card-header>
-            <!--<div mat-card-avatar class="example-header-image"></div>-->
-            <mat-card-title>{{myTicker?.marketName}} {{myTicker?.coinName}}</mat-card-title>
-            <!--<mat-card-subtitle></mat-card-subtitle>-->
-        </mat-card-header>
-        <mat-card-content>
-            <p class="last-price dec">
-                <!--<span>{{quote?.lastPrice|currency:myCurrency:'symbol':myCurrency == 'KRW' ? '1.0-0' : '1.2-5'}}</span>-->
+            <p class="last-price dec" *ngSwitchCase="diff < 0">
                 <span >{{quote?.lastPrice| currencyExchange :{myCurrency:myCurrency,currency:quote?.currency,exchangeRate:exchangeRate} }}</span>
                 <span><i class="fas fa-caret-down"></i></span>
-                <span> {{diff|currencyExchange :{myCurrency:myCurrency,currency:quotec.currency,exchangeRate:exchangeRate} }}</span>
+                <span> {{diff|currencyExchange :{myCurrency:myCurrency,currency:quote?.currency,exchangeRate:exchangeRate} }}</span>
             </p>
-            <p><span>거래량 : </span> {{quote?.volume|number:'1.0-0'}}</p>
+
+            <p> {{quote?.volume|number:'1.0-0'}}</p>
+
         </mat-card-content>
 
+
     </mat-card>
+
 </div>

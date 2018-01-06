@@ -6,6 +6,7 @@
         "close" : "Close",
         "open" : "Open",
         "write" : "Write",
+        "volume" : "Volume",
         "menu": {
             "home": "Home",
             "language": "Language",

@@ -6,6 +6,8 @@
         "close" : "닫기",
         "open" : "열기",
         "write" : "글쓰기",
+        "volume" : "거래량",
+
         "menu": {
             "home": "홈",
             "language": "언어",
