@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Rx';
 import { ExchangeRateService } from '../../../home/coin-price/coin-price-row/exchange-rate.service';
 import { Quote } from '../../../entities/quote';
 import * as _ from 'lodash';
+import {Subscription} from 'rxjs/Subscription';
+import { CoinPriceService } from '../../../home/coin-price/coin-price.service';
 
 @Component({
     selector: 'coin-ticker-item',
@@ -17,7 +19,12 @@ export class TickerItemComponent implements OnInit {
     quote: Quote;
     diff = 0;
 
-    constructor(private tickerService: TickerService, private exchangeRateService: ExchangeRateService) {
+    poloniexUnsubscribe: Subscription;
+    percentChange: any;
+
+
+    constructor(private tickerService: TickerService, private exchangeRateService: ExchangeRateService,
+                private coinPriceService: CoinPriceService) {
     }
 
     ngOnInit() {
@@ -48,11 +55,65 @@ export class TickerItemComponent implements OnInit {
                         });
                     break;
                 case  'REST_CLIENT':
+                        switch(this.myTicker.marketName )
+                        {
+                            case 'Poloniex':
+                                this.poloniexUnsubscribe = Observable
+                                    .interval(15* 1000)
+                                    .timeInterval()
+                                    .flatMap(() => this.coinPriceService.getPoloniex())
+                                    .subscribe((data: any) => {
+                                        this.setPoloniex(data)
+                                    });
+                                break;
+
+                        }
                     break;
                 case 'SOCKET':
                     break;
             }
         }
+    }
+
+    setPoloniex(data) {
+        switch (this.myTicker.coinName)
+        {
+            case 'btc':
+                this.quote.lastPrice = data.USDT_BTC.last;
+                this.setPoloQuote(data.USDT_BTC.last, data.USDT_BTC.high24hr, data.USDT_BTC.low24hr, data.USDT_BTC.lowestAsk,data.USDT_BTC.highestBid,data.USDT_BTC.percentChange);
+                break;
+            case 'eth':
+                break;
+            case 'xrp':
+                break;
+            case 'dash':
+                break;
+            case 'ltc':
+                break;
+            case 'etc':
+                break;
+            case 'bch':
+                break;
+            case 'zec':
+                break;
+            case 'xmr':
+                break;
+            case 'rep':
+                break;
+        }
+
+
+    }
+
+    setPoloQuote(lastPrice, highPrice: any, lowPrice: any,buyPrice,sellPrice, percentChange: any) {
+        this.diff = this.quote.lastPrice - lastPrice;
+        this.percentChange = percentChange;
+        this.quote.lastPrice = lastPrice;
+        this.quote.highPrice = highPrice;
+        this.quote.lowPrice = lowPrice;
+        this.quote.buyPrice = buyPrice;
+        this.quote.sellPrice = sellPrice;
+
     }
 
     private getExchangeRate() {

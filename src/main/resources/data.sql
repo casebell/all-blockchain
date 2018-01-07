@@ -17,6 +17,27 @@ insert into coin (id, name,created_by,created_date) values (12,'iota','admin','2
 insert into coin (id, name,created_by,created_date) values (13,'cardano','admin','2017-12-20');
 insert into coin (id, name,created_by,created_date) values (14,'btg','admin','2017-12-20');
 insert into coin (id, name,created_by,created_date) values (15,'eos','admin','2017-12-20');
+insert into coin (id, name,created_by,created_date) values (16,'snt','admin','2017-12-20');
+insert into coin (id, name,created_by,created_date) values (17,'ada','admin','2017-12-20');
+insert into coin (id, name,created_by,created_date) values (18,'tix','admin','2017-12-20');
+insert into coin (id, name,created_by,created_date) values (19,'steem','admin','2017-12-20');
+insert into coin (id, name,created_by,created_date) values (20,'mtl','admin','2017-12-20');
+insert into coin (id, name,created_by,created_date) values (21,'powr','admin','2017-12-20');
+insert into coin (id, name,created_by,created_date) values (22,'xem','admin','2017-12-20');
+insert into coin (id, name,created_by,created_date) values (23,'kmd','admin','2017-12-20');
+insert into coin (id, name,created_by,created_date) values (24,'lsk','admin','2017-12-20');
+insert into coin (id, name,created_by,created_date) values (25,'mer','admin','2017-12-20');
+insert into coin (id, name,created_by,created_date) values (26,'emc2','admin','2017-12-20');
+insert into coin (id, name,created_by,created_date) values (27,'grs','admin','2017-12-20');
+insert into coin (id, name,created_by,created_date) values (28,'sbd','admin','2017-12-20');
+insert into coin (id, name,created_by,created_date) values (29,'storj','admin','2017-12-20');
+insert into coin (id, name,created_by,created_date) values (30,'waves','admin','2017-12-20');
+insert into coin (id, name,created_by,created_date) values (31,'omg','admin','2017-12-20');
+insert into coin (id, name,created_by,created_date) values (32,'strat','admin','2017-12-20');
+insert into coin (id, name,created_by,created_date) values (33,'rep','admin','2017-12-20');
+insert into coin (id, name,created_by,created_date) values (34,'pivx','admin','2017-12-20');
+insert into coin (id, name,created_by,created_date) values (35,'vtc','admin','2017-12-20');
+insert into coin (id, name,created_by,created_date) values (36,'ardr','admin','2017-12-20');
 
 insert into market (id, name,url,api_type,created_by,created_date) values (1,'Bithumb','https://www.bithumb.com','REST_SERVER','admin','2017-12-20');
 insert into market (id, name,url,api_type,created_by,created_date) values (2,'Korbit','https://www.korbit.co.kr','REST_SERVER','admin','2017-12-20');
@@ -29,6 +50,7 @@ insert into market (id, name,url,api_type,created_by,created_date) values (8,'GD
 insert into market (id, name,url,api_type,created_by,created_date) values (9,'BitFlyer','https://bitflyer.jp','REST_SERVER','admin','2017-12-20');
 insert into market (id, name,url,api_type,created_by,created_date) values (10,'Kraken','https://www.kraken.com','REST_SERVER','admin','2017-12-20');
 insert into market (id, name,url,api_type,created_by,created_date) values (11,'BitstampEU','https://www.bitstamp.net','SOCKET','admin','2017-12-20');
+insert into market (id, name,url,api_type,created_by,created_date) values (12,'UPbit','https://upbit.net','REST_SERVER','admin','2017-12-20');
 
 
 -- bitthumb
@@ -51,14 +73,18 @@ insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date
 insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (103,'KRW',3,2,'admin','2017-12-20');
 insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (104,'KRW',6,2,'admin','2017-12-20');
 insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (105,'KRW',11,2,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (106,'KRW',14,2,'admin','2017-12-20');
 
 -- coinone
 insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (201,'KRW',1,3,'admin','2017-12-20');
 insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (202,'KRW',2,3,'admin','2017-12-20');
 insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (203,'KRW',3,3,'admin','2017-12-20');
-insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (204,'KRW',6,3,'admin','2017-12-20');
-insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (205,'KRW',7,3,'admin','2017-12-20');
-insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (206,'KRW',11,3,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (204,'KRW',5,3,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (205,'KRW',6,3,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (206,'KRW',7,3,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (207,'KRW',11,3,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (208,'KRW',12,3,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (209,'KRW',14,3,'admin','2017-12-20');
 
 -- polonix
 
@@ -71,6 +97,7 @@ insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date
 insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (307,'USD',7,4,'admin','2017-12-20');
 insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (308,'USD',8,4,'admin','2017-12-20');
 insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (309,'USD',9,4,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (310,'USD',33,4,'admin','2017-12-20');
 
 --Bittrex
 
@@ -127,7 +154,42 @@ insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date
 insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1001,'EUR',1,11,'admin','2017-12-20');
 insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1002,'EUR',2,11,'admin','2017-12-20');
 insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1003,'EUR',3,11,'admin','2017-12-20');
-insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1004,'EUR',5,11,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1004,'EUR',5,11,footer'admin','2017-12-20');
+
+--UPBIT
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1101,'KRW',1,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1102,'KRW',2,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1103,'KRW',3,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1105,'KRW',4,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1106,'KRW',5,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1107,'KRW',6,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1108,'KRW',7,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1109,'KRW',8,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1110,'KRW',9,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1111,'KRW',10,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1112,'KRW',11,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1113,'KRW',14,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1114,'KRW',16,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1115,'KRW',17,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1116,'KRW',18,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1117,'KRW',19,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1118,'KRW',20,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1119,'KRW',21,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1120,'KRW',22,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1121,'KRW',23,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1122,'KRW',24,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1122,'KRW',25,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1123,'KRW',26,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1124,'KRW',27,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1125,'KRW',28,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1126,'KRW',29,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1127,'KRW',30,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1128,'KRW',31,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1129,'KRW',32,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1130,'KRW',33,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1131,'KRW',34,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1132,'KRW',35,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1133,'KRW',36,12,'admin','2017-12-20');
 
 INSERT INTO public.ecb_exchange_rate (id, created_by, created_date, last_modified_by, last_modified_date, aud, bgn, brl, cad, chf, cny, czk, dkk, eur, gbp, hkd, hrk, huf, idr, ils, inr, jpy, krw, mxn, myr, nok, nzd, php, pln, ron, rub, sek, sgd, thb, try, usd, base) VALUES (11898302, 'system', '2017-11-15 22:55:09.631000', 'system', '2017-11-15 22:55:09.631000', 1.3079, 1.6652, 3.277, 1.2714, 0.99132, 6.6369, 21.768, 6.3358, 0.85143, 0.76275, 7.8029, 6.43, 265.62, 13554, 3.5428, 65.402, 113.49, 1114.9, 19.095, 4.194, 8.1671, 1.4553, 51.145, 3.6084, 3.9585, 59.739, 8.421, 1.3604, 33.06, 3.872, 0, 'USD');
 INSERT INTO public.ecb_exchange_rate (id, created_by, created_date, last_modified_by, last_modified_date, aud, bgn, brl, cad, chf, cny, czk, dkk, eur, gbp, hkd, hrk, huf, idr, ils, inr, jpy, krw, mxn, myr, nok, nzd, php, pln, ron, rub, sek, sgd, thb, try, usd, base) VALUES (11898303, 'system', '2017-11-15 22:55:09.934000', 'system', '2017-11-15 22:55:09.934000', 1.5361, 1.9558, 3.8488, 1.4933, 1.1643, 7.795, 25.566, 7.4414, 0, 0.89585, 9.1645, 7.552, 311.97, 15919, 4.161, 76.815, 133.29, 1309.5, 22.427, 4.9259, 9.5923, 1.7092, 60.07, 4.2381, 4.6493, 70.163, 9.8905, 1.5978, 38.829, 4.5477, 1.1745, 'EUR');
