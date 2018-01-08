@@ -83,7 +83,7 @@ export class TickerHomeComponent implements OnInit {
         let dialogRef = this.dialog.open(AddTickerDialogComponent);
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
+            console.log('The dialog was closed' ,result);
             //  this.animal = result;
             if (result) {
                 //Todo : patch my ticker

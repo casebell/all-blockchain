@@ -21,7 +21,7 @@
         </mat-form-field>
     </div>
 
-    <mat-grid-list [cols]="cols | async"  rowHeight="7:3" dnd-sortable-container  [sortableData]="myTickers" style="margin-left:10px">
+    <mat-grid-list [cols]="cols | async"  rowHeight="7:3" dnd-sortable-container  [sortableData]="myTickers">
         <mat-grid-tile *ngFor="let myTicker of myTickers ; let i = index"  dnd-sortable [sortableIndex]="i" >
             <coin-ticker-item [myTicker]=myTicker [myCurrency]=myCurrency></coin-ticker-item>
         </mat-grid-tile>

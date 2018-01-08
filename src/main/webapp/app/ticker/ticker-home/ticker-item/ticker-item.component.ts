@@ -16,9 +16,9 @@ export class TickerItemComponent implements OnInit {
     @Input() myTicker;
     @Input() myCurrency;
     exchangeRate;
-    quote: Quote;
+    quote: Quote = new Quote();
     diff = 0;
-
+    checkFirst = true;
     poloniexUnsubscribe: Subscription;
     percentChange: any;
 
@@ -36,21 +36,16 @@ export class TickerItemComponent implements OnInit {
                 case  'REST_SERVER':
                     this.tickerService.getQuote(this.myTicker.marketCoinId)
                         .subscribe(<PushSubscriptionOptionsInit>(quote) => {
-                            if (this.quote != null) {
-                                this.diff = this.quote.lastPrice - quote.lastPrice;
-                            }
                             this.quote = quote;
                         });
 
                     Observable
-                        .interval(15 * 1000)
+                        .interval(5 * 1000)
                         .timeInterval()
                         .flatMap(() => this.tickerService.getQuote(this.myTicker.marketCoinId))
                         .subscribe(<PushSubscriptionOptionsInit>(quote) => {
-                            console.log('get Tickers : ', quote);
-                            if (this.quote != null) {
-                                this.diff = this.quote.lastPrice - quote.lastPrice;
-                            }
+                           console.log('get Tickers : ', quote);
+                            this.diff = this.quote.lastPrice - quote.lastPrice;
                             this.quote = quote;
                         });
                     break;
@@ -58,8 +53,12 @@ export class TickerItemComponent implements OnInit {
                         switch(this.myTicker.marketName )
                         {
                             case 'Poloniex':
+                                this.coinPriceService.getPoloniex().subscribe((data: any) => {
+                                this.setPoloniex(data);
+                                this.checkFirst =false;
+                            });
                                 this.poloniexUnsubscribe = Observable
-                                    .interval(15* 1000)
+                                    .interval(5* 1000)
                                     .timeInterval()
                                     .flatMap(() => this.coinPriceService.getPoloniex())
                                     .subscribe((data: any) => {
@@ -79,7 +78,6 @@ export class TickerItemComponent implements OnInit {
         switch (this.myTicker.coinName)
         {
             case 'btc':
-                this.quote.lastPrice = data.USDT_BTC.last;
                 this.setPoloQuote(data.USDT_BTC.last, data.USDT_BTC.high24hr, data.USDT_BTC.low24hr, data.USDT_BTC.lowestAsk,data.USDT_BTC.highestBid,data.USDT_BTC.percentChange);
                 break;
             case 'eth':
@@ -106,7 +104,14 @@ export class TickerItemComponent implements OnInit {
     }
 
     setPoloQuote(lastPrice, highPrice: any, lowPrice: any,buyPrice,sellPrice, percentChange: any) {
-        this.diff = this.quote.lastPrice - lastPrice;
+        console.log('last price polo :', lastPrice);
+
+        if(!this.checkFirst)
+        {
+            this.diff = this.quote.lastPrice - lastPrice;
+        }
+
+
         this.percentChange = percentChange;
         this.quote.lastPrice = lastPrice;
         this.quote.highPrice = highPrice;

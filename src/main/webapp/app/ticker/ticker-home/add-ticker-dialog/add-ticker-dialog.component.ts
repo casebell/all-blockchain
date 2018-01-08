@@ -123,8 +123,8 @@ export class AddTickerDialogComponent implements OnInit {
         this.tickerService.addTickers(this.userId,this.selectedMarketCoins).subscribe(
             (result)=>{
                 //console.log('result : ',result);
-                this.data=true;
-                this.dialogRef.close();
+
+                this.dialogRef.close(true);
             }
         )
     }
