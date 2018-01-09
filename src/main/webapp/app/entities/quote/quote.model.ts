@@ -13,6 +13,7 @@ export class Quote implements BaseEntity {
         public openingPrice?: number,
         public closingPrice?: number,
         public quoteTime?: any,
+        public currency?: any,
         public marketCoin?: BaseEntity,
     ) {
     }

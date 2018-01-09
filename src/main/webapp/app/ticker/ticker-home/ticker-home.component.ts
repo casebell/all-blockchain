@@ -71,9 +71,9 @@ export class TickerHomeComponent implements OnInit {
 
     getTickers() {
         this.tickerService.getTickers(this.userId).subscribe((result) => {
-            console.log('get Tickers : ', result);
+            //console.log('get Tickers : ', result);
             this.myTickers = result.json;
-            console.log('  this.myTickers : ', this.myTickers);
+            //console.log('  this.myTickers : ', this.myTickers);
 
         })
     }

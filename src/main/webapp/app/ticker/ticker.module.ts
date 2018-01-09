@@ -23,6 +23,10 @@ import { MarketCoinService } from './market-coin/market-coin.service';
 import { TickerItemComponent } from './ticker-home/ticker-item/ticker-item.component';
 import { ExchangeRateService } from '../home/coin-price/coin-price-row/exchange-rate.service';
 import { CoinPriceService } from '../home/coin-price/coin-price.service';
+import { BitfinexWebsocketService } from '../home/coin-price/bitfinex-websocket.service';
+import { GDAXWebsocketService } from '../home/coin-price/gdax-websocket.service';
+import { PuserService } from '../home/coin-price/pusher.service';
+
 @NgModule({
     imports: [
         BlockchainSharedModule,
@@ -40,7 +44,10 @@ import { CoinPriceService } from '../home/coin-price/coin-price.service';
     ],
     declarations: [TickerHomeComponent, AddTickerDialogComponent, TickerItemComponent],
     entryComponents: [AddTickerDialogComponent],
-    providers: [TickerService,MarketService,CoinService,MarketCoinService,ExchangeRateService,CoinPriceService],
+    providers: [TickerService,MarketService,CoinService,MarketCoinService,ExchangeRateService,CoinPriceService,
+                BitfinexWebsocketService,
+                GDAXWebsocketService,
+                ExchangeRateService, PuserService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TickerModule {}
