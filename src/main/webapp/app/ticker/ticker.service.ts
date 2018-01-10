@@ -34,6 +34,9 @@ export class TickerService {
             });
     }
 
+    delete(id: number): Observable<Response> {
+        return this.http.delete(`${this.resourceUrl}/${id}`);
+    }
 
     private convertResponse(res: Response): ResponseWrapper {
         const jsonResponse = res.json();

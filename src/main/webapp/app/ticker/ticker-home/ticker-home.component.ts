@@ -92,6 +92,11 @@ export class TickerHomeComponent implements OnInit {
         });
     }
 
+    onClose(event){
+        if(event)
+            this.getTickers();
+    }
+
     currencyChange(value) {
 
     }

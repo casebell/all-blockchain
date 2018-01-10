@@ -11,7 +11,6 @@ import {
     CurrencyExchangePipe,
     CoinDisplayPipe
 } from './';
-
 @NgModule({
     imports: [
         BlockchainSharedLibsModule

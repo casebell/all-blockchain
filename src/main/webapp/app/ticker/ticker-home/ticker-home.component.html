@@ -8,7 +8,7 @@
                 <!--</mat-option>-->
             <!--</mat-select>-->
         <!--</mat-form-field>-->
-        <button mat-raised-button olor="primary" (click)="openAddTickerDialog()" color="primary" style="margin-right:10px; height:50px;">
+        <button mat-raised-button color="primary" (click)="openAddTickerDialog()"  style="margin-right:10px; height:50px;">
             <span jhiTranslate="ticker.addCoin">Add Coin</span>
         </button>
 
@@ -23,7 +23,7 @@
 
     <mat-grid-list [cols]="cols | async"  rowHeight="7:3" dnd-sortable-container  [sortableData]="myTickers">
         <mat-grid-tile *ngFor="let myTicker of myTickers ; let i = index"  dnd-sortable [sortableIndex]="i" >
-            <coin-ticker-item [myTicker]=myTicker [myCurrency]=myCurrency></coin-ticker-item>
+            <coin-ticker-item [myTicker]=myTicker [myCurrency]=myCurrency (close)="onClose($event)"></coin-ticker-item>
         </mat-grid-tile>
     </mat-grid-list>
 

@@ -8,7 +8,8 @@
         "open" : "열기",
         "write" : "글쓰기",
         "volume" : "거래량",
-
+        "yes" : "확인",
+        "no" : "취소",
         "menu": {
             "home": "홈",
             "language": "언어",

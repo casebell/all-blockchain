@@ -8,6 +8,8 @@
         "open" : "Open",
         "write" : "Write",
         "volume" : "Volume",
+        "yes" : "Yes",
+        "no" : "No",
         "menu": {
             "home": "Trang chủ",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",

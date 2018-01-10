@@ -8,6 +8,8 @@
         "open" : "Open",
         "write" : "Write",
         "volume" : "Volume",
+        "yes" : "Yes",
+        "no" : "No",
         "menu": {
             "home": "Home",
             "language": "Language",

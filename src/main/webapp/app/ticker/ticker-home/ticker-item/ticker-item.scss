@@ -42,3 +42,23 @@
     display: flex;
 }
 
+.close-button{
+    position:absolute;
+    top:3px;
+    right:3px;
+    button {
+        opacity:0;
+        -webkit-transition:.5s;
+        -moz-transition:.5s;
+        -o-transition:.5s;
+        -ms-transition:.5s;
+        transition:.5s;
+        width:24px;
+        height:24px;
+    }
+    button:hover {
+        opacity:1;
+    }
+
+}
+

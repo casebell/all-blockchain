@@ -14,7 +14,8 @@ import {
     MatCardModule,
     MatSelectModule,
     MatChipsModule,
-    MatGridListModule
+    MatGridListModule,
+    MatIconModule
 } from '@angular/material';
 import { TickerService } from './ticker.service';
 import { MarketService } from '../entities/market';
@@ -26,6 +27,7 @@ import { CoinPriceService } from '../home/coin-price/coin-price.service';
 import { BitfinexWebsocketService } from '../home/coin-price/bitfinex-websocket.service';
 import { GDAXWebsocketService } from '../home/coin-price/gdax-websocket.service';
 import { PuserService } from '../home/coin-price/pusher.service';
+import { DialogComponent } from './ticker-home/dialog.component';
 
 @NgModule({
     imports: [
@@ -40,10 +42,11 @@ import { PuserService } from '../home/coin-price/pusher.service';
         MatCardModule,
         MatSelectModule,
         MatChipsModule,
-        MatGridListModule
+        MatGridListModule,
+        MatIconModule
     ],
-    declarations: [TickerHomeComponent, AddTickerDialogComponent, TickerItemComponent],
-    entryComponents: [AddTickerDialogComponent],
+    declarations: [TickerHomeComponent, AddTickerDialogComponent, TickerItemComponent,DialogComponent],
+    entryComponents: [AddTickerDialogComponent,DialogComponent],
     providers: [TickerService,MarketService,CoinService,MarketCoinService,ExchangeRateService,CoinPriceService,
                 BitfinexWebsocketService,
                 GDAXWebsocketService,
