@@ -13,11 +13,15 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
+
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,6 +41,7 @@ public class CoinApiServiceImpl implements CoinApiService {
     private static final String QTUM_SYMBOL = "qtum";
     private static final String BTG_SYMBOL = "btg";
     private static final String EOS_SYMBOL = "eos";
+    public static final String UPBIT_URL = "https://crix-api-endpoint.upbit.com/v1/crix/candles/minutes/1?code=CRIX.UPBIT.";
     private final Logger log = LoggerFactory.getLogger(CoinApiServiceImpl.class);
     private final BithumbRepository bithumbRepository;
     private final KorbitRepository korbitRepository;
@@ -45,7 +50,6 @@ public class CoinApiServiceImpl implements CoinApiService {
     private final BittrexRepository bittrexRepository;
     private final MarketCoinRepository marketCoinRepository;
     private final QuoteRepository quoteRepository;
-
     private final ModelMapper modelMapper;
 
     private ZonedDateTime zonedDateTime;
@@ -55,7 +59,8 @@ public class CoinApiServiceImpl implements CoinApiService {
                               KrakenRepository krakenRepository,
                               BitflyerRepository bitflyerRepository,
                               BittrexRepository bittrexRepository,
-                              MarketCoinRepository marketCoinRepository, QuoteRepository quoteRepository, ModelMapper modelMapper) {
+                              MarketCoinRepository marketCoinRepository,
+                              QuoteRepository quoteRepository, ModelMapper modelMapper) {
         this.bithumbRepository = bithumbRepository;
         this.korbitRepository = korbitRepository;
         this.krakenRepository = krakenRepository;
@@ -119,10 +124,61 @@ public class CoinApiServiceImpl implements CoinApiService {
 
         getBittrexs().forEach(this::saveBittrex);
 
-        getKrakens().forEach(this::saveKraken);
+      //  getKrakens().forEach(this::saveKraken);
 
-       // getBitfinex().forEach(this::saveBitfinex);
+        getUpBit();
 
+    }
+
+    private void getUpBit() {
+        List<UpbitCoinDTO> upbitCoinDTOS = new ArrayList<UpbitCoinDTO>(){{
+           add(new UpbitCoinDTO("KRW-BTC",1101)); add(new UpbitCoinDTO("KRW-ETH",1102));
+           add(new UpbitCoinDTO("KRW-XRP",1103)); add(new UpbitCoinDTO("KRW-DASH",1104));
+           add(new UpbitCoinDTO("KRW-LTC",1105)); add(new UpbitCoinDTO("KRW-ETC",1106));
+           add(new UpbitCoinDTO("KRW-BCC",1107)); add(new UpbitCoinDTO("KRW-ZEC",1108));
+           add(new UpbitCoinDTO("KRW-XMR",1109)); add(new UpbitCoinDTO("KRW-NEO",1110));
+           add(new UpbitCoinDTO("KRW-QTUM",1111)); add(new UpbitCoinDTO("KRW-BTG",1112));
+           add(new UpbitCoinDTO("KRW-SNT",1113)); add(new UpbitCoinDTO("KRW-ADA",1114));
+           add(new UpbitCoinDTO("KRW-TIX",1115)); add(new UpbitCoinDTO("KRW-STEEM",1116));
+           add(new UpbitCoinDTO("KRW-MTL",1117)); add(new UpbitCoinDTO("KRW-POWR",1118));
+           add(new UpbitCoinDTO("KRW-XEM",1119)); add(new UpbitCoinDTO("KRW-KMD",1120));
+           add(new UpbitCoinDTO("KRW-LSK",1121)); add(new UpbitCoinDTO("KRW-MER",1122));
+           add(new UpbitCoinDTO("KRW-EMC2",1123)); add(new UpbitCoinDTO("KRW-GRS",1124));
+           add(new UpbitCoinDTO("KRW-SBD",1125)); add(new UpbitCoinDTO("KRW-STORJ",1126));
+           add(new UpbitCoinDTO("KRW-WAVES",1127));
+           add(new UpbitCoinDTO("KRW-OMG",1128)); add(new UpbitCoinDTO("KRW-STRAT",1129));
+           add(new UpbitCoinDTO("KRW-REP",1130)); add(new UpbitCoinDTO("KRW-PIVX",1131));
+            add(new UpbitCoinDTO("KRW-VTC",1132));add(new UpbitCoinDTO("KRW-ARDR",1133));
+        }};
+        List<Quote> quotes = new ArrayList<>();
+        for (UpbitCoinDTO upbitCoinDTO :upbitCoinDTOS) {
+            RestTemplate restTemplate = new RestTemplate();
+            ArrayList upBitMap = restTemplate.getForObject(UPBIT_URL +upbitCoinDTO.getName(), ArrayList.class);
+
+            UpbitDTO upbitDTO = modelMapper.map(upBitMap.get(0), UpbitDTO.class);
+            Quote quote = marketToQuote(upbitCoinDTO.getMarketCoinId(),String.valueOf(upbitDTO.getTradePrice()),"0",
+                String.valueOf(upbitDTO.getLowPrice()),String.valueOf(upbitDTO.getHighPrice()),"0","0","0",String.valueOf(upbitDTO.getHighPrice()));
+            quotes.add(quote);
+        }
+
+        quoteRepository.save(quotes);
+    }
+
+    private Quote marketToQuote(long marketCoinId, String lastPrice, String volume, String lowPrice,
+                                String highPrice, String avgPrice, String buyPrice,
+                                String sellPrice, String openingPrice) {
+        MarketCoin marketCoin = marketCoinRepository.findOne(marketCoinId);
+        return new Quote().lastPrice(new BigDecimal(lastPrice))
+            .volume(new BigDecimal(volume))
+            .lowPrice(new BigDecimal(lowPrice))
+            .highPrice(new BigDecimal(highPrice))
+            .avgPrice(new BigDecimal(avgPrice))
+            .buyPrice(new BigDecimal(buyPrice))
+            .sellPrice(new BigDecimal(sellPrice))
+            .openingPrice(new BigDecimal(openingPrice))
+            .closingPrice(new BigDecimal(lastPrice))
+            // .quoteTime(Instant.parse(map.get("date")))
+            .marketCoin(marketCoin);
     }
 
 
@@ -244,21 +300,6 @@ public class CoinApiServiceImpl implements CoinApiService {
         return krakenDTOS;
     }
 
-   /*  private List<BitfinexDTO> getBitfinex() {
-        List<BitfinexDTO> bitfinexDTOs = new ArrayList();
-
-        bitfinexDTOs.add(getBitfinexRest("btcusd"));
-        bitfinexDTOs.add(getBitfinexRest("ethusd"));
-        bitfinexDTOs.add(getBitfinexRest("xrpusd"));
-        bitfinexDTOs.add(getBitfinexRest("dshusd"));
-        bitfinexDTOs.add(getBitfinexRest("ltcusd"));
-        bitfinexDTOs.add(getBitfinexRest("etcusd"));
-        bitfinexDTOs.add(getBitfinexRest("bchusd"));
-        bitfinexDTOs.add(getBitfinexRest("zecusd"));
-        bitfinexDTOs.add(getBitfinexRest("xmrusd"));
-
-        return bitfinexDTOs;
-    } */
 
     private KrakenDTO getKrakenRest(String market) {
 
@@ -296,44 +337,7 @@ public class CoinApiServiceImpl implements CoinApiService {
         }
         return krakenDTO ;
     }
-/*
-    private BitfinexDTO getBitfinexRest(String market) {
 
-        RestTemplate restTemplate = new RestTemplate();
-        BitfinexDTO bitfinexDTO = restTemplate.getForObject("https://api.bitfinex.com/v1/pubticker/" + market, BitfinexDTO.class);
-        switch (market) {
-            case "btcusd":
-                bitfinexDTO.setSymbol(BTC_SYMBOL);
-                break;
-            case "ethusd":
-                bitfinexDTO.setSymbol(ETH_SYMBOL);
-                break;
-            case "xrpusd":
-                bitfinexDTO.setSymbol(XRP_SYMBOL);
-                break;
-            case "dshusd":
-                bitfinexDTO.setSymbol(DASH_SYMBOL);
-                break;
-            case "ltcusd":
-                bitfinexDTO.setSymbol(LTC_SYMBOL);
-                break;
-            case "etcusd":
-                bitfinexDTO.setSymbol(ETC_SYMBOL);
-                break;
-            case "bchusd":
-                bitfinexDTO.setSymbol(BCH_SYMBOL);
-                break;
-            case "zecusd":
-                bitfinexDTO.setSymbol(ZEC_SYMBOL);
-                break;
-            case "xmrusd":
-                bitfinexDTO.setSymbol(XMR_SYMBOL);
-                break;
-        }
-
-        return bitfinexDTO ;
-    }
- */
 
 
     private KrakenDTO setKrakenRest(Map krakenMap, String symbol, String krakenSymbol) {
@@ -463,35 +467,24 @@ public class CoinApiServiceImpl implements CoinApiService {
 
     private void bithumbQuote(Map<Object, Object> bithumbMap) {
         List<Quote> quotes = new ArrayList<>();
-        quotes.add(bithumbToQuote((Map<String, String>) bithumbMap.get("BTC"),1));
-        quotes.add(bithumbToQuote((Map<String, String>) bithumbMap.get("ETH"),2));
-        quotes.add(bithumbToQuote((Map<String, String>) bithumbMap.get("XRP"),3));
-        quotes.add(bithumbToQuote((Map<String, String>) bithumbMap.get("DASH"),4));
-        quotes.add(bithumbToQuote((Map<String, String>) bithumbMap.get("LTC"),5));
-        quotes.add(bithumbToQuote((Map<String, String>) bithumbMap.get("ETC"),6));
+        quotes.add(marketToQuote(1, ((Map<String, String>) bithumbMap.get("BTC")).get("closing_price"), ((Map<String, String>) bithumbMap.get("BTC")).get("volume_1day"), ((Map<String, String>) bithumbMap.get("BTC")).get("min_price"), ((Map<String, String>) bithumbMap.get("BTC")).get("max_price"), ((Map<String, String>) bithumbMap.get("BTC")).get("average_price"), ((Map<String, String>) bithumbMap.get("BTC")).get("buy_price"), ((Map<String, String>) bithumbMap.get("BTC")).get("sell_price"), ((Map<String, String>) bithumbMap.get("BTC")).get("opening_price")));
+        quotes.add(marketToQuote(2, ((Map<String, String>) bithumbMap.get("ETH")).get("closing_price"), ((Map<String, String>) bithumbMap.get("ETH")).get("volume_1day"), ((Map<String, String>) bithumbMap.get("ETH")).get("min_price"), ((Map<String, String>) bithumbMap.get("ETH")).get("max_price"), ((Map<String, String>) bithumbMap.get("ETH")).get("average_price"), ((Map<String, String>) bithumbMap.get("ETH")).get("buy_price"), ((Map<String, String>) bithumbMap.get("ETH")).get("sell_price"), ((Map<String, String>) bithumbMap.get("ETH")).get("opening_price")));
+        quotes.add(marketToQuote(3, ((Map<String, String>) bithumbMap.get("XRP")).get("closing_price"), ((Map<String, String>) bithumbMap.get("XRP")).get("volume_1day"), ((Map<String, String>) bithumbMap.get("XRP")).get("min_price"), ((Map<String, String>) bithumbMap.get("XRP")).get("max_price"), ((Map<String, String>) bithumbMap.get("XRP")).get("average_price"), ((Map<String, String>) bithumbMap.get("XRP")).get("buy_price"), ((Map<String, String>) bithumbMap.get("XRP")).get("sell_price"), ((Map<String, String>) bithumbMap.get("XRP")).get("opening_price")));
+        quotes.add(marketToQuote(4, ((Map<String, String>) bithumbMap.get("DASH")).get("closing_price"), ((Map<String, String>) bithumbMap.get("DASH")).get("volume_1day"), ((Map<String, String>) bithumbMap.get("DASH")).get("min_price"), ((Map<String, String>) bithumbMap.get("DASH")).get("max_price"), ((Map<String, String>) bithumbMap.get("DASH")).get("average_price"), ((Map<String, String>) bithumbMap.get("DASH")).get("buy_price"), ((Map<String, String>) bithumbMap.get("DASH")).get("sell_price"), ((Map<String, String>) bithumbMap.get("DASH")).get("opening_price")));
+        quotes.add(marketToQuote(5, ((Map<String, String>) bithumbMap.get("LTC")).get("closing_price"), ((Map<String, String>) bithumbMap.get("LTC")).get("volume_1day"), ((Map<String, String>) bithumbMap.get("LTC")).get("min_price"), ((Map<String, String>) bithumbMap.get("LTC")).get("max_price"), ((Map<String, String>) bithumbMap.get("LTC")).get("average_price"), ((Map<String, String>) bithumbMap.get("LTC")).get("buy_price"), ((Map<String, String>) bithumbMap.get("LTC")).get("sell_price"), ((Map<String, String>) bithumbMap.get("LTC")).get("opening_price")));
+        quotes.add(marketToQuote(6, ((Map<String, String>) bithumbMap.get("ETC")).get("closing_price"), ((Map<String, String>) bithumbMap.get("ETC")).get("volume_1day"), ((Map<String, String>) bithumbMap.get("ETC")).get("min_price"), ((Map<String, String>) bithumbMap.get("ETC")).get("max_price"), ((Map<String, String>) bithumbMap.get("ETC")).get("average_price"), ((Map<String, String>) bithumbMap.get("ETC")).get("buy_price"), ((Map<String, String>) bithumbMap.get("ETC")).get("sell_price"), ((Map<String, String>) bithumbMap.get("ETC")).get("opening_price")));
 
-        quotes.add(bithumbToQuote((Map<String, String>) bithumbMap.get("BCH"),7));
-        quotes.add(bithumbToQuote((Map<String, String>) bithumbMap.get("ZEC"),8));
-        quotes.add(bithumbToQuote((Map<String, String>) bithumbMap.get("XMR"),9));
+        quotes.add(marketToQuote(7, ((Map<String, String>) bithumbMap.get("BCH")).get("closing_price"), ((Map<String, String>) bithumbMap.get("BCH")).get("volume_1day"), ((Map<String, String>) bithumbMap.get("BCH")).get("min_price"), ((Map<String, String>) bithumbMap.get("BCH")).get("max_price"), ((Map<String, String>) bithumbMap.get("BCH")).get("average_price"), ((Map<String, String>) bithumbMap.get("BCH")).get("buy_price"), ((Map<String, String>) bithumbMap.get("BCH")).get("sell_price"), ((Map<String, String>) bithumbMap.get("BCH")).get("opening_price")));
+        quotes.add(marketToQuote(8, ((Map<String, String>) bithumbMap.get("ZEC")).get("closing_price"), ((Map<String, String>) bithumbMap.get("ZEC")).get("volume_1day"), ((Map<String, String>) bithumbMap.get("ZEC")).get("min_price"), ((Map<String, String>) bithumbMap.get("ZEC")).get("max_price"), ((Map<String, String>) bithumbMap.get("ZEC")).get("average_price"), ((Map<String, String>) bithumbMap.get("ZEC")).get("buy_price"), ((Map<String, String>) bithumbMap.get("ZEC")).get("sell_price"), ((Map<String, String>) bithumbMap.get("ZEC")).get("opening_price")));
+        quotes.add(marketToQuote(9, ((Map<String, String>) bithumbMap.get("XMR")).get("closing_price"), ((Map<String, String>) bithumbMap.get("XMR")).get("volume_1day"), ((Map<String, String>) bithumbMap.get("XMR")).get("min_price"), ((Map<String, String>) bithumbMap.get("XMR")).get("max_price"), ((Map<String, String>) bithumbMap.get("XMR")).get("average_price"), ((Map<String, String>) bithumbMap.get("XMR")).get("buy_price"), ((Map<String, String>) bithumbMap.get("XMR")).get("sell_price"), ((Map<String, String>) bithumbMap.get("XMR")).get("opening_price")));
 
-        quotes.add(bithumbToQuote((Map<String, String>) bithumbMap.get("QTUM"),10));
-        quotes.add(bithumbToQuote((Map<String, String>) bithumbMap.get("BTG"),11));
-        quotes.add(bithumbToQuote((Map<String, String>) bithumbMap.get("EOS"),12));
+        quotes.add(marketToQuote(10, ((Map<String, String>) bithumbMap.get("QTUM")).get("closing_price"), ((Map<String, String>) bithumbMap.get("QTUM")).get("volume_1day"), ((Map<String, String>) bithumbMap.get("QTUM")).get("min_price"), ((Map<String, String>) bithumbMap.get("QTUM")).get("max_price"), ((Map<String, String>) bithumbMap.get("QTUM")).get("average_price"), ((Map<String, String>) bithumbMap.get("QTUM")).get("buy_price"), ((Map<String, String>) bithumbMap.get("QTUM")).get("sell_price"), ((Map<String, String>) bithumbMap.get("QTUM")).get("opening_price")));
+        quotes.add(marketToQuote(11, ((Map<String, String>) bithumbMap.get("BTG")).get("closing_price"), ((Map<String, String>) bithumbMap.get("BTG")).get("volume_1day"), ((Map<String, String>) bithumbMap.get("BTG")).get("min_price"), ((Map<String, String>) bithumbMap.get("BTG")).get("max_price"), ((Map<String, String>) bithumbMap.get("BTG")).get("average_price"), ((Map<String, String>) bithumbMap.get("BTG")).get("buy_price"), ((Map<String, String>) bithumbMap.get("BTG")).get("sell_price"), ((Map<String, String>) bithumbMap.get("BTG")).get("opening_price")));
+        quotes.add(marketToQuote(12, ((Map<String, String>) bithumbMap.get("EOS")).get("closing_price"), ((Map<String, String>) bithumbMap.get("EOS")).get("volume_1day"), ((Map<String, String>) bithumbMap.get("EOS")).get("min_price"), ((Map<String, String>) bithumbMap.get("EOS")).get("max_price"), ((Map<String, String>) bithumbMap.get("EOS")).get("average_price"), ((Map<String, String>) bithumbMap.get("EOS")).get("buy_price"), ((Map<String, String>) bithumbMap.get("EOS")).get("sell_price"), ((Map<String, String>) bithumbMap.get("EOS")).get("opening_price")));
         quoteRepository.save(quotes);
     }
 
-    private Quote bithumbToQuote(Map<String,String> map,long marketCoinId) {
-        MarketCoin marketCoin = marketCoinRepository.findOne(marketCoinId);
-        return new Quote().lastPrice(new BigDecimal(map.get("closing_price")))
-                                 .volume(new BigDecimal(map.get("volume_1day")))
-                                 .lowPrice(new BigDecimal(map.get("min_price")))
-                                 .highPrice(new BigDecimal(map.get("max_price")))
-                                 .avgPrice(new BigDecimal(map.get("average_price")))
-                                 .buyPrice(new BigDecimal(map.get("buy_price")))
-                                 .sellPrice(new BigDecimal(map.get("sell_price")))
-                                 .openingPrice(new BigDecimal(map.get("opening_price")))
-                                 .closingPrice(new BigDecimal(map.get("closing_price")))
-                                // .quoteTime(Instant.parse(map.get("date")))
-                                 .marketCoin(marketCoin);
-    }
+
+
+
 }
