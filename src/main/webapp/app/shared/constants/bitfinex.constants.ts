@@ -8,3 +8,5 @@ export const BITFINEX_BCH_USD = {'event': 'subscribe', 'channel': 'ticker', 'sym
 export const BITFINEX_ZEC_USD = {'event': 'subscribe', 'channel': 'ticker', 'symbol': 'tZECUSD'};
 export const BITFINEX_XMR_USD = {'event': 'subscribe', 'channel': 'ticker', 'symbol': 'tXMRUSD'};
 export const BITFINEX_NEO_USD = {'event': 'subscribe', 'channel': 'ticker', 'symbol': 'tNEOUSD'};
+export const BITFINEX_BTG_USD = {'event': 'subscribe', 'channel': 'ticker', 'symbol': 'tNEOUSD'};
+export const BITFINEX_EOS_USD = {'event': 'subscribe', 'channel': 'ticker', 'symbol': 'tNEOUSD'};

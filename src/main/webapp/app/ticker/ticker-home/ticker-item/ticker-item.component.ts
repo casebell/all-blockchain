@@ -12,7 +12,9 @@ import { GDAXWebsocketService } from '../../../home/coin-price/gdax-websocket.se
 import { OkcoincnWebsocketService } from '../../../home/coin-price/okcoincn-websocket.service';
 import { MatDialog } from '@angular/material';
 import {
-    BITFINEX_BCH_USD, BITFINEX_BTC_USD, BITFINEX_DASH_USD, BITFINEX_ETC_USD, BITFINEX_ETH_USD, BITFINEX_LTC_USD,
+    BITFINEX_BCH_USD, BITFINEX_BTC_USD, BITFINEX_BTG_USD, BITFINEX_DASH_USD, BITFINEX_EOS_USD, BITFINEX_ETC_USD,
+    BITFINEX_ETH_USD,
+    BITFINEX_LTC_USD,
     BITFINEX_NEO_USD,
     BITFINEX_XMR_USD,
     BITFINEX_XRP_USD, BITFINEX_ZEC_USD
@@ -161,6 +163,12 @@ export class TickerItemComponent implements OnInit {
                 break;
             case 'neo':
                 this.bitfinexWebsocketService.tickerConnect(BITFINEX_NEO_USD);
+                break;
+            case 'btg':
+                this.bitfinexWebsocketService.tickerConnect(BITFINEX_BTG_USD);
+                break;
+            case 'eos':
+                this.bitfinexWebsocketService.tickerConnect(BITFINEX_EOS_USD);
                 break;
         }
 

@@ -19,6 +19,8 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -160,4 +162,6 @@ public class QuoteResource {
         quoteDTO.setCurrency(quote.getMarketCoin().getCurrency());
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(quoteDTO));
     }
+
+
 }

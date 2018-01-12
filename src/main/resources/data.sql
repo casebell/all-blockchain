@@ -123,6 +123,9 @@ insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date
 insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (508,'USD',8,6,'admin','2017-12-20');
 insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (509,'USD',9,6,'admin','2017-12-20');
 insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (510,'USD',10,6,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (511,'USD',11,6,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (512,'USD',14,6,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (513,'USD',15,6,'admin','2017-12-20');
 
 
 --bitsstamp

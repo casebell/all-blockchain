@@ -117,6 +117,7 @@ public class CoinApiServiceImpl implements CoinApiService {
         korbitDTOS.add(getKorbitRestEth());
         korbitDTOS.add(getKorbitRestEtc());
         korbitDTOS.add(getKorbitRestXrp());
+        korbitDTOS.add(getKorbitRestBch());
         korbitDTOS.forEach(this::saveKorbit);
 
         BitflyerDTO bitflyerDTO = getBitflyerResBtc();
@@ -237,6 +238,9 @@ public class CoinApiServiceImpl implements CoinApiService {
     private KorbitDTO getKorbitRestXrp() {
         return getKorbitDTO("xrp_krw");
     }
+    private KorbitDTO getKorbitRestBch() {
+        return getKorbitDTO("bch_krw");
+    }
 
     private KorbitDTO getKorbitDTO(String currency) {
         RestTemplate restTemplate = new RestTemplate();
@@ -260,8 +264,10 @@ public class CoinApiServiceImpl implements CoinApiService {
             korbitDTO.setSymbol(ETH_SYMBOL);
         else if ("etc_krw".equals(currency))
             korbitDTO.setSymbol(ETC_SYMBOL);
-        else
+        else if("xrp_krw".equals(currency))
             korbitDTO.setSymbol(XRP_SYMBOL);
+        else if("bch_krw".equals(currency))
+            korbitDTO.setSymbol(BCH_SYMBOL);
 
         return korbitDTO;
     }
@@ -280,6 +286,7 @@ public class CoinApiServiceImpl implements CoinApiService {
         bittrexDTOS.add(getBittrexRest("USDT-ZEC"));
         bittrexDTOS.add(getBittrexRest("USDT-XMR"));
         bittrexDTOS.add(getBittrexRest("USDT-NEO"));
+        bittrexDTOS.add(getBittrexRest("USDT-BTG"));
 
         return bittrexDTOS;
     }
@@ -385,6 +392,9 @@ public class CoinApiServiceImpl implements CoinApiService {
             case "USDT-NEO":
                 bittrexDTO.setSymbol(NEO_SYMBOL);
                 break;
+            case "USDT-BTG":
+                bittrexDTO.setSymbol(BTG_SYMBOL);
+                break;
         }
         return bittrexDTO ;
     }
@@ -443,6 +453,10 @@ public class CoinApiServiceImpl implements CoinApiService {
         bithumbDTOZec.setSymbol(ZEC_SYMBOL);
         BithumbDataDTO bithumbDTOQtum = modelMapper.map(bithumbMap.get("QTUM"), BithumbDataDTO.class);
         bithumbDTOQtum.setSymbol(QTUM_SYMBOL);
+        BithumbDataDTO bithumbDTOBtg = modelMapper.map(bithumbMap.get("BTG"), BithumbDataDTO.class);
+        bithumbDTOBtg.setSymbol(BTG_SYMBOL);
+        BithumbDataDTO bithumbDTOEOS = modelMapper.map(bithumbMap.get("EOS"), BithumbDataDTO.class);
+        bithumbDTOEOS.setSymbol(EOS_SYMBOL);
 
         bithumbDataDTOS.add(bithumbDTOBtc);
         bithumbDataDTOS.add(bithumbDTOEth);
@@ -456,6 +470,10 @@ public class CoinApiServiceImpl implements CoinApiService {
         bithumbDataDTOS.add(bithumbDTOXmr);
 
         bithumbDataDTOS.add(bithumbDTOQtum);
+        bithumbDataDTOS.add(bithumbDTOBtg);
+        bithumbDataDTOS.add(bithumbDTOEOS);
+
+
 
         bithumbDataDTOS.forEach(x->
             x.setCreatedat(zonedDateTime)
