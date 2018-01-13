@@ -40,7 +40,7 @@ import {
     ]
 })
 export class BlockchainSharedCommonModule {
-    constructor() {
-        registerLocaleData(localeKo);
-    }
+     constructor() {
+         registerLocaleData(localeKo);
+     }
 }

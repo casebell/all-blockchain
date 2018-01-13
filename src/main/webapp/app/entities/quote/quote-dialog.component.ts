@@ -11,6 +11,7 @@ import { QuotePopupService } from './quote-popup.service';
 import { QuoteService } from './quote.service';
 //import { MarketCoin, MarketCoinService } from '../market-coin';
 import { ResponseWrapper } from '../../shared';
+import { MarketCoin } from '../../ticker/market-coin/market-coin.model';
 
 @Component({
     selector: 'jhi-quote-dialog',
@@ -21,7 +22,7 @@ export class QuoteDialogComponent implements OnInit {
     quote: Quote;
     isSaving: boolean;
 
-   // marketcoins: MarketCoin[];
+    marketcoins: MarketCoin[];
 
     constructor(
         public activeModal: NgbActiveModal,
@@ -72,9 +73,9 @@ export class QuoteDialogComponent implements OnInit {
         this.jhiAlertService.error(error.message, null, null);
     }
 
-    // trackMarketCoinById(index: number, item: MarketCoin) {
-    //     return item.id;
-    // }
+     trackMarketCoinById(index: number, item: MarketCoin) {
+         return item.id;
+     }
 }
 
 @Component({

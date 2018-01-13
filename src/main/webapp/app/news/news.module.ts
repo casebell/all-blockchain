@@ -6,15 +6,16 @@ import { MatInputModule } from '@angular/material/input';
 import { newsState } from './news.route';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
+import { NewsComponent } from './news.component';
 @NgModule({
     imports: [
         BlockchainSharedModule,
         RouterModule.forChild(newsState),
         MatTableModule,
         MatInputModule,
-        MatButtonModule
+        MatButtonModule,
     ],
-    declarations: [
+    declarations: [        NewsComponent,
                    NewsHomeComponent],
     providers: [],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
