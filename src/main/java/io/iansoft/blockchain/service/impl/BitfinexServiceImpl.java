@@ -23,7 +23,7 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
  */
 @Service
 @Transactional
-public class BitfinexServiceImpl implements BitfinexService{
+public class BitfinexServiceImpl implements BitfinexService {
 
     private final Logger log = LoggerFactory.getLogger(BitfinexServiceImpl.class);
 

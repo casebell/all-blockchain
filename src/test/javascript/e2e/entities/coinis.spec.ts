@@ -18,14 +18,16 @@ describe('Coinis e2e test', () => {
     it('should load Coinis', () => {
         navBarPage.goToEntity('coinis');
         coinisComponentsPage = new CoinisComponentsPage();
-        expect(coinisComponentsPage.getTitle()).toMatch(/blockchainApp.coinis.home.title/);
+        expect(coinisComponentsPage.getTitle())
+            .toMatch(/blockchainApp.coinis.home.title/);
 
     });
 
     it('should load create Coinis dialog', () => {
         coinisComponentsPage.clickOnCreateButton();
         coinisDialogPage = new CoinisDialogPage();
-        expect(coinisDialogPage.getModalTitle()).toMatch(/blockchainApp.coinis.home.createOrEditLabel/);
+        expect(coinisDialogPage.getModalTitle())
+            .toMatch(/blockchainApp.coinis.home.createOrEditLabel/);
         coinisDialogPage.close();
     });
 

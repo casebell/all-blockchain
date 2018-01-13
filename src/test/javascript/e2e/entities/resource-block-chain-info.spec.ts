@@ -18,14 +18,16 @@ describe('Resource e2e test', () => {
     it('should load Resources', () => {
         navBarPage.goToEntity('resource-block-chain-info');
         resourceComponentsPage = new ResourceComponentsPage();
-        expect(resourceComponentsPage.getTitle()).toMatch(/blockchainApp.resource.home.title/);
+        expect(resourceComponentsPage.getTitle())
+            .toMatch(/blockchainApp.resource.home.title/);
 
     });
 
     it('should load create Resource dialog', () => {
         resourceComponentsPage.clickOnCreateButton();
         resourceDialogPage = new ResourceDialogPage();
-        expect(resourceDialogPage.getModalTitle()).toMatch(/blockchainApp.resource.home.createOrEditLabel/);
+        expect(resourceDialogPage.getModalTitle())
+            .toMatch(/blockchainApp.resource.home.createOrEditLabel/);
         resourceDialogPage.close();
     });
 

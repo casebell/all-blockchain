@@ -11,9 +11,7 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {})
 public interface KrakenMapper extends EntityMapper<KrakenDTO, Kraken> {
 
-    
 
-    
 
     default Kraken fromId(Long id) {
         if (id == null) {

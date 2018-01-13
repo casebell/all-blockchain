@@ -11,9 +11,7 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {})
 public interface CoinisMapper extends EntityMapper<CoinisDTO, Coinis> {
 
-    
 
-    
 
     default Coinis fromId(Long id) {
         if (id == null) {

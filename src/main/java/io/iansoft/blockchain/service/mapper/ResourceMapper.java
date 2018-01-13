@@ -12,7 +12,7 @@ import org.mapstruct.*;
 public interface ResourceMapper extends EntityMapper<ResourceDTO, Resource> {
 
     @Mapping(source = "coin.id", target = "coinId")
-    ResourceDTO toDto(Resource resource); 
+    ResourceDTO toDto(Resource resource);
 
     @Mapping(source = "coinId", target = "coin")
     Resource toEntity(ResourceDTO resourceDTO);

@@ -18,14 +18,16 @@ describe('CoinBoardComment e2e test', () => {
     it('should load CoinBoardComments', () => {
         navBarPage.goToEntity('coin-board-comment-block-chain-info');
         coinBoardCommentComponentsPage = new CoinBoardCommentComponentsPage();
-        expect(coinBoardCommentComponentsPage.getTitle()).toMatch(/blockchainApp.coinBoardComment.home.title/);
+        expect(coinBoardCommentComponentsPage.getTitle())
+            .toMatch(/blockchainApp.coinBoardComment.home.title/);
 
     });
 
     it('should load create CoinBoardComment dialog', () => {
         coinBoardCommentComponentsPage.clickOnCreateButton();
         coinBoardCommentDialogPage = new CoinBoardCommentDialogPage();
-        expect(coinBoardCommentDialogPage.getModalTitle()).toMatch(/blockchainApp.coinBoardComment.home.createOrEditLabel/);
+        expect(coinBoardCommentDialogPage.getModalTitle())
+            .toMatch(/blockchainApp.coinBoardComment.home.createOrEditLabel/);
         coinBoardCommentDialogPage.close();
     });
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { SERVER_API_URL } from '../../app.constants';
 
 import { Bitfinex } from './bitfinex.model';
@@ -9,7 +9,7 @@ import { ResponseWrapper, createRequestOption } from '../../shared';
 @Injectable()
 export class BitfinexService {
 
-    private resourceUrl = SERVER_API_URL + 'api/bitfinexes';
+    private resourceUrl =  SERVER_API_URL + 'api/bitfinexes';
     private resourceSearchUrl = SERVER_API_URL + 'api/_search/bitfinexes';
 
     constructor(private http: Http) { }

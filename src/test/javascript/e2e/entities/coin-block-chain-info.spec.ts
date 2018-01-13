@@ -18,14 +18,16 @@ describe('Coin e2e test', () => {
     it('should load Coins', () => {
         navBarPage.goToEntity('coin-block-chain-info');
         coinComponentsPage = new CoinComponentsPage();
-        expect(coinComponentsPage.getTitle()).toMatch(/blockchainApp.coin.home.title/);
+        expect(coinComponentsPage.getTitle())
+            .toMatch(/blockchainApp.coin.home.title/);
 
     });
 
     it('should load create Coin dialog', () => {
         coinComponentsPage.clickOnCreateButton();
         coinDialogPage = new CoinDialogPage();
-        expect(coinDialogPage.getModalTitle()).toMatch(/blockchainApp.coin.home.createOrEditLabel/);
+        expect(coinDialogPage.getModalTitle())
+            .toMatch(/blockchainApp.coin.home.createOrEditLabel/);
         coinDialogPage.close();
     });
 

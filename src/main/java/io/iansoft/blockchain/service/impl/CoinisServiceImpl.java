@@ -23,7 +23,7 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
  */
 @Service
 @Transactional
-public class CoinisServiceImpl implements CoinisService{
+public class CoinisServiceImpl implements CoinisService {
 
     private final Logger log = LoggerFactory.getLogger(CoinisServiceImpl.class);
 

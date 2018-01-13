@@ -21,7 +21,7 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
  */
 @Service
 @Transactional
-public class CoinBoardServiceImpl implements CoinBoardService{
+public class CoinBoardServiceImpl implements CoinBoardService {
 
     private final Logger log = LoggerFactory.getLogger(CoinBoardServiceImpl.class);
 

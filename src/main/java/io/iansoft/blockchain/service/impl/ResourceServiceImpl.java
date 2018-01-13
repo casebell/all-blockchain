@@ -23,7 +23,7 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
  */
 @Service
 @Transactional
-public class ResourceServiceImpl implements ResourceService{
+public class ResourceServiceImpl implements ResourceService {
 
     private final Logger log = LoggerFactory.getLogger(ResourceServiceImpl.class);
 

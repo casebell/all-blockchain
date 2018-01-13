@@ -1,6 +1,6 @@
 /* tslint:disable max-line-length */
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 
 import { BlockchainTestModule } from '../../../test.module';
 import { CoinBoardBlockChainInfoDetailComponent } from '../../../../../../main/webapp/app/entities/coin-board-block-chain-info/coin-board-block-chain-info-detail.component';

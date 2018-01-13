@@ -18,14 +18,16 @@ describe('CoinBoard e2e test', () => {
     it('should load CoinBoards', () => {
         navBarPage.goToEntity('coin-board-block-chain-info');
         coinBoardComponentsPage = new CoinBoardComponentsPage();
-        expect(coinBoardComponentsPage.getTitle()).toMatch(/blockchainApp.coinBoard.home.title/);
+        expect(coinBoardComponentsPage.getTitle())
+            .toMatch(/blockchainApp.coinBoard.home.title/);
 
     });
 
     it('should load create CoinBoard dialog', () => {
         coinBoardComponentsPage.clickOnCreateButton();
         coinBoardDialogPage = new CoinBoardDialogPage();
-        expect(coinBoardDialogPage.getModalTitle()).toMatch(/blockchainApp.coinBoard.home.createOrEditLabel/);
+        expect(coinBoardDialogPage.getModalTitle())
+            .toMatch(/blockchainApp.coinBoard.home.createOrEditLabel/);
         coinBoardDialogPage.close();
     });
 

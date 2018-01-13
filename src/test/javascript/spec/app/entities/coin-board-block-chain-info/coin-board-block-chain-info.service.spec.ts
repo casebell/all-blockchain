@@ -6,6 +6,7 @@ import { JhiDateUtils } from 'ng-jhipster';
 
 import { CoinBoardBlockChainInfoService } from '../../../../../../main/webapp/app/entities/coin-board-block-chain-info/coin-board-block-chain-info.service';
 import { CoinBoardBlockChainInfo } from '../../../../../../main/webapp/app/entities/coin-board-block-chain-info/coin-board-block-chain-info.model';
+import { SERVER_API_URL } from '../../../../../../main/webapp/app/app.constants';
 
 describe('Service Tests', () => {
 
@@ -42,7 +43,9 @@ describe('Service Tests', () => {
                 service.find(123).subscribe(() => {});
 
                 expect(this.lastConnection).toBeDefined();
-                expect(this.lastConnection.request.url).toEqual('api/coin-boards/' + 123);
+
+                const resourceUrl = SERVER_API_URL + 'api/coin-boards';
+                expect(this.lastConnection.request.url).toEqual(resourceUrl + '/' + 123);
             });
             it('should return CoinBoardBlockChainInfo', () => {
 

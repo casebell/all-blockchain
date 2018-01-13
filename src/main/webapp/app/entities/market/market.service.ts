@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { SERVER_API_URL } from '../../app.constants';
 
 import { Market } from './market.model';
@@ -9,7 +9,7 @@ import { ResponseWrapper, createRequestOption } from '../../shared';
 @Injectable()
 export class MarketService {
 
-    private resourceUrl = SERVER_API_URL + 'api/markets';
+    private resourceUrl =  SERVER_API_URL + 'api/markets';
     private resourceSearchUrl = SERVER_API_URL + 'api/_search/markets';
 
     constructor(private http: Http) { }

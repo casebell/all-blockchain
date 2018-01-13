@@ -11,7 +11,6 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {})
 public interface CoinMapper extends EntityMapper<CoinDTO, Coin> {
 
-    
 
     @Mapping(target = "resources", ignore = true)
     @Mapping(target = "boards", ignore = true)

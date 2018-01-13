@@ -13,7 +13,7 @@ public interface CoinBoardMapper extends EntityMapper<CoinBoardDTO, CoinBoard> {
 
     @Mapping(source = "coin.id", target = "coinId")
     @Mapping(source = "user.id", target = "userId")
-    CoinBoardDTO toDto(CoinBoard coinBoard); 
+    CoinBoardDTO toDto(CoinBoard coinBoard);
 
     @Mapping(source = "coinId", target = "coin")
     @Mapping(target = "coinBoardComments", ignore = true)
