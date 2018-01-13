@@ -4,87 +4,87 @@
             <mat-icon>home</mat-icon>
             <span jhiTranslate="global.title">All Blockchain</span>
     </button>
-    <button mat-button  routerLink="news/home"><span jhiTranslate="navbar.news.title">News</span></button>
-      <button mat-button  routerLink="coin/home"><span jhiTranslate="navbar.coin.title">coin</span></button>
-      <button mat-button  routerLink="ticker"><span jhiTranslate="navbar.ticker.title">ticker</span></button>
+    <!--<button mat-button  routerLink="news/home"><span jhiTranslate="navbar.news.title">News</span></button>-->
+      <!--<button mat-button  routerLink="coin/home"><span jhiTranslate="navbar.coin.title">coin</span></button>-->
+      <!--<button mat-button  routerLink="ticker"><span jhiTranslate="navbar.ticker.title">ticker</span></button>-->
 
-    <button mat-button *jhiHasAnyAuthority="'ROLE_ADMIN'" [matMenuTriggerFor]="adminMenu">
-        Admin
-    </button>
+    <!--<button mat-button *jhiHasAnyAuthority="'ROLE_ADMIN'" [matMenuTriggerFor]="adminMenu">-->
+        <!--Admin-->
+    <!--</button>-->
 
-    <mat-menu #adminMenu="matMenu">
-        <button mat-menu-item routerLink="user-management" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-                    <span jhiTranslate="global.menu.admin.userManagement">User management</span>
-                </button>
-        <button mat-menu-item routerLink="jhi-metrics" routerLinkActive="active">
-                    <span jhiTranslate="global.menu.admin.metrics">Metrics</span>
-                </button>
+    <!--<mat-menu #adminMenu="matMenu">-->
+        <!--<button mat-menu-item routerLink="user-management" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">-->
+                    <!--<span jhiTranslate="global.menu.admin.userManagement">User management</span>-->
+                <!--</button>-->
+        <!--<button mat-menu-item routerLink="jhi-metrics" routerLinkActive="active">-->
+                    <!--<span jhiTranslate="global.menu.admin.metrics">Metrics</span>-->
+                <!--</button>-->
 
-        <button mat-menu-item outerLink="jhi-health" routerLinkActive="active">
-                    <span jhiTranslate="global.menu.admin.health">Health</span>
-                </button>
-        <button mat-menu-item routerLink="jhi-configuration" routerLinkActive="active">
-                    <span jhiTranslate="global.menu.admin.configuration">Configuration</span>
-                </button>
-        <button mat-menu-item routerLink="audits" routerLinkActive="active">
-                    <span jhiTranslate="global.menu.admin.audits">Audits</span>
-                </button>
-        <button mat-menu-item routerLink="logs" routerLinkActive="active">
-                    <span jhiTranslate="global.menu.admin.logs">Audits</span>
-                </button>
-        <button mat-menu-item routerLink="docs" routerLinkActive="active">
-                    <span jhiTranslate="global.menu.admin.apidocs">API</span>
-                </button>
-        <button mat-menu-item href='./h2-console' target="_tab" routerLinkActive="active">
-                <span jhiTranslate="global.menu.admin.database">Database</span>
-                </button>
-    </mat-menu>
+        <!--<button mat-menu-item outerLink="jhi-health" routerLinkActive="active">-->
+                    <!--<span jhiTranslate="global.menu.admin.health">Health</span>-->
+                <!--</button>-->
+        <!--<button mat-menu-item routerLink="jhi-configuration" routerLinkActive="active">-->
+                    <!--<span jhiTranslate="global.menu.admin.configuration">Configuration</span>-->
+                <!--</button>-->
+        <!--<button mat-menu-item routerLink="audits" routerLinkActive="active">-->
+                    <!--<span jhiTranslate="global.menu.admin.audits">Audits</span>-->
+                <!--</button>-->
+        <!--<button mat-menu-item routerLink="logs" routerLinkActive="active">-->
+                    <!--<span jhiTranslate="global.menu.admin.logs">Audits</span>-->
+                <!--</button>-->
+        <!--<button mat-menu-item routerLink="docs" routerLinkActive="active">-->
+                    <!--<span jhiTranslate="global.menu.admin.apidocs">API</span>-->
+                <!--</button>-->
+        <!--<button mat-menu-item href='./h2-console' target="_tab" routerLinkActive="active">-->
+                <!--<span jhiTranslate="global.menu.admin.database">Database</span>-->
+                <!--</button>-->
+    <!--</mat-menu>-->
 
-    <button mat-button *jhiHasAnyAuthority="'ROLE_ADMIN'" [matMenuTriggerFor]="entityMenu">
-                Entity
-            </button>
+    <!--<button mat-button *jhiHasAnyAuthority="'ROLE_ADMIN'" [matMenuTriggerFor]="entityMenu">-->
+                <!--Entity-->
+            <!--</button>-->
 
-    <mat-menu #entityMenu="matMenu">
-        <button mat-menu-item routerLink="market" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-            <span >Market </span>
-        </button>
-        <button mat-menu-item routerLink="coin-block-chain-info" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-                            <span >Coin </span>
-                    </button>
-        <button mat-menu-item routerLink="coin-board-block-chain-info" routerLinkActive="active">
-                            <span>Coin-Board</span>
-                    </button>
-        <button mat-menu-item routerLink="coin-board-comment-block-chain-info" routerLinkActive="active">
-                            <span>Coin Board Comment</span>
-                    </button>
-        <button mat-menu-item routerLink="resource-block-chain-info" routerLinkActive="active">
-                           <span >Resource</span>
-                    </button>
-    </mat-menu>
+    <!--<mat-menu #entityMenu="matMenu">-->
+        <!--<button mat-menu-item routerLink="market" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">-->
+            <!--<span >Market </span>-->
+        <!--</button>-->
+        <!--<button mat-menu-item routerLink="coin-block-chain-info" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">-->
+                            <!--<span >Coin </span>-->
+                    <!--</button>-->
+        <!--<button mat-menu-item routerLink="coin-board-block-chain-info" routerLinkActive="active">-->
+                            <!--<span>Coin-Board</span>-->
+                    <!--</button>-->
+        <!--<button mat-menu-item routerLink="coin-board-comment-block-chain-info" routerLinkActive="active">-->
+                            <!--<span>Coin Board Comment</span>-->
+                    <!--</button>-->
+        <!--<button mat-menu-item routerLink="resource-block-chain-info" routerLinkActive="active">-->
+                           <!--<span >Resource</span>-->
+                    <!--</button>-->
+    <!--</mat-menu>-->
 
     <span class="fill-remaining-space"></span>
 
-   <button mat-button [matMenuTriggerFor]="accountMenu">
-            <span jhiTranslate="navbar.account.title">account</span>
-  </button>
+   <!--<button mat-button [matMenuTriggerFor]="accountMenu">-->
+            <!--<span jhiTranslate="navbar.account.title">account</span>-->
+  <!--</button>-->
 
-    <mat-menu #accountMenu="matMenu" [ngSwitch]="isAuthenticated()">
-        <button mat-menu-item (click)="logout()" *ngSwitchCase="true">
-                <span jhiTranslate="navbar.account.logout">로그아웃</span>
-            </button>
-        <button mat-menu-item (click)="login()" *ngSwitchCase="false">
-                <span jhiTranslate="navbar.account.login">로그인</span>
-            </button>
-        <button *ngSwitchCase="false" mat-menu-item routerLink="/register" routerLinkActive="active">
-                <span jhiTranslate="navbar.account.register">회원가입</span>
-            </button>
-        <button *ngSwitchCase="true" mat-menu-item routerLink="settings" routerLinkActive="active">
-            <span jhiTranslate="global.menu.account.settings">Settings</span>
-            </button>
-        <button *ngSwitchCase="true" mat-menu-item routerLink="password" routerLinkActive="active">
-            <span jhiTranslate="global.menu.account.password">Password</span>
-            </button>
-    </mat-menu>
+    <!--<mat-menu #accountMenu="matMenu" [ngSwitch]="isAuthenticated()">-->
+        <!--<button mat-menu-item (click)="logout()" *ngSwitchCase="true">-->
+                <!--<span jhiTranslate="navbar.account.logout">로그아웃</span>-->
+            <!--</button>-->
+        <!--<button mat-menu-item (click)="login()" *ngSwitchCase="false">-->
+                <!--<span jhiTranslate="navbar.account.login">로그인</span>-->
+            <!--</button>-->
+        <!--<button *ngSwitchCase="false" mat-menu-item routerLink="/register" routerLinkActive="active">-->
+                <!--<span jhiTranslate="navbar.account.register">회원가입</span>-->
+            <!--</button>-->
+        <!--<button *ngSwitchCase="true" mat-menu-item routerLink="settings" routerLinkActive="active">-->
+            <!--<span jhiTranslate="global.menu.account.settings">Settings</span>-->
+            <!--</button>-->
+        <!--<button *ngSwitchCase="true" mat-menu-item routerLink="password" routerLinkActive="active">-->
+            <!--<span jhiTranslate="global.menu.account.password">Password</span>-->
+            <!--</button>-->
+    <!--</mat-menu>-->
 
 
     <button mat-button [matMenuTriggerFor]="languageMenu" style="margin-left:auto">
@@ -111,12 +111,12 @@
     </button>
 
     <!-- coins-->
-    <button mat-button routerLink="coin/home">
-        <span jhiTranslate="navbar.coin.title">Coin</span>
-    </button>
-    <button mat-button  routerLink="news/home">
-        <span jhiTranslate="navbar.news.title">News</span>
-    </button>
+    <!--<button mat-button routerLink="coin/home">-->
+        <!--<span jhiTranslate="navbar.coin.title">Coin</span>-->
+    <!--</button>-->
+    <!--<button mat-button  routerLink="news/home">-->
+        <!--<span jhiTranslate="navbar.news.title">News</span>-->
+    <!--</button>-->
 
     <span class="fill-remaining-space"></span>
 

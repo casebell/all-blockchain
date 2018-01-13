@@ -935,8 +935,8 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
             this.upbitRow.coins[i].diff = data[i].lastPrice - this.upbitRow.coins[i].price;
             this.upbitRow.coins[i].price = data[i].lastPrice
         }
-        this.upbitRow.coins[12].diffPercent = data[11].lastPrice * 100 / this.okCoinCnRow.coins[12].price - 100;
-        this.upbitRow.coins[12].diff = data[11].lastPrice - this.okCoinCnRow.coins[12].price;
+        this.upbitRow.coins[12].diffPercent = data[11].lastPrice * 100 / this.upbitRow.coins[12].price - 100;
+        this.upbitRow.coins[12].diff = data[11].lastPrice - this.upbitRow.coins[12].price;
         this.upbitRow.coins[12].price = data[11].lastPrice;
     }
 

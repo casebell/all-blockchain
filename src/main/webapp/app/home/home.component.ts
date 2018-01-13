@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
     modalRef: NgbModalRef;
     bithumb: Bithumb;
     test;
-
+    loading=true;
     constructor(private principal: Principal,
                 private loginModalService: LoginModalService,
                 private eventManager: JhiEventManager) {
@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
             this.account = account;
         });
         this.registerAuthenticationSuccess();
-
+        setTimeout(() => (this.loading = false), 200);
     }
 
     registerAuthenticationSuccess() {

@@ -8,7 +8,7 @@ import { JhiLanguageHelper } from '../../shared';
     templateUrl: './main.component.html'
 })
 export class JhiMainComponent implements OnInit {
-
+    loading =true;
     constructor(
         private jhiLanguageHelper: JhiLanguageHelper,
         private router: Router
@@ -27,6 +27,9 @@ export class JhiMainComponent implements OnInit {
             if (event instanceof NavigationEnd) {
                 this.jhiLanguageHelper.updateTitle(this.getPageTitle(this.router.routerState.snapshot.root));
             }
+            this.loading = true;
+            setTimeout(() => (this.loading = false), 200);
+
         });
     }
 }
