@@ -40,7 +40,7 @@ insert into coin (id, name,created_by,created_date) values (35,'vtc','admin','20
 insert into coin (id, name,created_by,created_date) values (36,'ardr','admin','2017-12-20');
 
 insert into market (id, name,url,api_type,created_by,created_date) values (1,'Bithumb','https://www.bithumb.com','REST_SERVER','admin','2017-12-20');
-insert into market (id, name,url,api_type,created_by,created_date) values (2,'Korbit','https://www.korbit.co.kr','REST_SERVER','admin','2017-12-20');
+insert into market (id, name,url,api_type,created_by,created_date) values (2,'Korbit','https://www.korbit.co.kr','REST_CLIENT','admin','2017-12-20');
 insert into market (id, name,url,api_type,created_by,created_date) values (3,'Coinone','https://coinone.co.kr','REST_SERVER','admin','2017-12-20');
 insert into market (id, name,url,api_type,created_by,created_date) values (4,'Poloniex','https://poloniex.com','REST_CLIENT','admin','2017-12-20');
 insert into market (id, name,url,api_type,created_by,created_date) values (5,'Bittrex','https://bittrex.com/"','REST_SERVER','admin','2017-12-20');
@@ -72,7 +72,7 @@ insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date
 insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (102,'KRW',2,2,'admin','2017-12-20');
 insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (103,'KRW',3,2,'admin','2017-12-20');
 insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (104,'KRW',6,2,'admin','2017-12-20');
-insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (105,'KRW',11,2,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (105,'KRW',7,2,'admin','2017-12-20');
 insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (106,'KRW',14,2,'admin','2017-12-20');
 
 -- coinone

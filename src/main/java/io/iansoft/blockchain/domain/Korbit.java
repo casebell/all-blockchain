@@ -1,3 +1,4 @@
+
 package io.iansoft.blockchain.domain;
 
 import org.hibernate.annotations.Cache;

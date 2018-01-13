@@ -1,6 +1,7 @@
 package io.iansoft.blockchain.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.org.apache.xpath.internal.operations.Quo;
 import io.iansoft.blockchain.domain.*;
 import io.iansoft.blockchain.repository.*;
 import io.iansoft.blockchain.service.CoinApiService;
@@ -112,13 +113,8 @@ public class CoinApiServiceImpl implements CoinApiService {
         zonedDateTime = ZonedDateTime.now();
 
         getBithumbRest(); //.forEach(this::saveBithumb);
-        List<KorbitDTO> korbitDTOS = new ArrayList();
-        korbitDTOS.add(getKorbitRestBtc());
-        korbitDTOS.add(getKorbitRestEth());
-        korbitDTOS.add(getKorbitRestEtc());
-        korbitDTOS.add(getKorbitRestXrp());
-        korbitDTOS.add(getKorbitRestBch());
-        korbitDTOS.forEach(this::saveKorbit);
+        getKorbitRest();
+
 
         BitflyerDTO bitflyerDTO = getBitflyerResBtc();
         saveBitflyer(bitflyerDTO);
@@ -165,23 +161,6 @@ public class CoinApiServiceImpl implements CoinApiService {
         quoteRepository.save(quotes);
     }
 
-    private Quote marketToQuote(long marketCoinId, String lastPrice, String volume, String lowPrice,
-                                String highPrice, String avgPrice, String buyPrice,
-                                String sellPrice, String openingPrice) {
-        MarketCoin marketCoin = marketCoinRepository.findOne(marketCoinId);
-        return new Quote().lastPrice(new BigDecimal(lastPrice))
-            .volume(new BigDecimal(volume))
-            .lowPrice(new BigDecimal(lowPrice))
-            .highPrice(new BigDecimal(highPrice))
-            .avgPrice(new BigDecimal(avgPrice))
-            .buyPrice(new BigDecimal(buyPrice))
-            .sellPrice(new BigDecimal(sellPrice))
-            .openingPrice(new BigDecimal(openingPrice))
-            .closingPrice(new BigDecimal(lastPrice))
-            // .quoteTime(Instant.parse(map.get("date")))
-            .marketCoin(marketCoin);
-    }
-
 
     private void saveBithumb(BithumbDataDTO bithumbDTO) {
         Bithumb bithumb = modelMapper.map(bithumbDTO,Bithumb.class);
@@ -190,12 +169,12 @@ public class CoinApiServiceImpl implements CoinApiService {
     }
 
 
-    private void saveKorbit(KorbitDTO korbitDTO) {
-        //log.debug("korbinDto = {} getting time is {} ", korbitDTO.toString(), LocalDateTime.now());
-        Korbit korbit = modelMapper.map(korbitDTO,Korbit.class);
-        korbit.setCreatedat(zonedDateTime);
-        korbitRepository.save(korbit);
-    }
+//    private void saveKorbit(KorbitDTO korbitDTO) {
+//        //log.debug("korbinDto = {} getting time is {} ", korbitDTO.toString(), LocalDateTime.now());
+//        Korbit korbit = modelMapper.map(korbitDTO,Korbit.class);
+//        korbit.setCreatedat(zonedDateTime);
+//        korbitRepository.save(korbit);
+//    }
 
 
     private void saveBitflyer(BitflyerDTO bitflyerDTO) {
@@ -216,30 +195,13 @@ public class CoinApiServiceImpl implements CoinApiService {
         krakenRepository.save(kraken);
     }
 
-/*   private void saveBitfinex(BitfinexDTO bitfinexDTO) {
-        Bitfinex bitfinex = modelMapper.map(bitfinexDTO, Bitfinex.class);
-        bitfinex.setCreatedat(zonedDateTime);
-        bitfinexRepository.save(bitfinex);
-    }
- */
-
-    private KorbitDTO getKorbitRestBtc() {
-        return getKorbitDTO("btc_krw");
-    }
-
-    private KorbitDTO getKorbitRestEth() {
-        return getKorbitDTO("eth_krw");
-    }
-
-    private KorbitDTO getKorbitRestEtc() {
-        return getKorbitDTO("etc_krw");
-    }
-
-    private KorbitDTO getKorbitRestXrp() {
-        return getKorbitDTO("xrp_krw");
-    }
-    private KorbitDTO getKorbitRestBch() {
-        return getKorbitDTO("bch_krw");
+    private void getKorbitRest() {
+       getKorbitDTO("btc_krw");
+       getKorbitDTO("eth_krw");
+       getKorbitDTO("etc_krw");
+       getKorbitDTO("xrp_krw");
+       getKorbitDTO("bch_krw");
+       getKorbitDTO("btg_krw");
     }
 
     private KorbitDTO getKorbitDTO(String currency) {
@@ -258,18 +220,59 @@ public class CoinApiServiceImpl implements CoinApiService {
             e.printStackTrace();
         }
 
-        if ("btc_krw".equals(currency))
-            korbitDTO.setSymbol(BTC_SYMBOL);
-        else if ("eth_krw".equals(currency))
-            korbitDTO.setSymbol(ETH_SYMBOL);
-        else if ("etc_krw".equals(currency))
-            korbitDTO.setSymbol(ETC_SYMBOL);
-        else if("xrp_krw".equals(currency))
-            korbitDTO.setSymbol(XRP_SYMBOL);
-        else if("bch_krw".equals(currency))
-            korbitDTO.setSymbol(BCH_SYMBOL);
+        long marketCoinId = 0;
+        switch (currency) {
+            case "btc_krw":
+                korbitDTO.setSymbol(BTC_SYMBOL);
+                marketCoinId = 101;
+                break;
+            case "eth_krw":
+                korbitDTO.setSymbol(ETH_SYMBOL);
+                marketCoinId = 102;
+                break;
+            case "xrp_krw":
+                korbitDTO.setSymbol(XRP_SYMBOL);
+                marketCoinId = 103;
+                break;
+            case "etc_krw":
+                korbitDTO.setSymbol(ETC_SYMBOL);
+                marketCoinId = 104;
+                break;
+            case "bch_krw":
+                korbitDTO.setSymbol(BCH_SYMBOL);
+                marketCoinId = 105;
+                break;
+            case "btg_krw":
+                korbitDTO.setSymbol(BTG_SYMBOL);
+                marketCoinId = 106;
+                break;
+        }
 
+        korbitDTO.setCreatedat(zonedDateTime);
+        korbitRepository.save(modelMapper.map(korbitDTO,Korbit.class));
+        Quote quote = marketToQuote(marketCoinId,korbitDTO.getLast(),korbitDTO.getVolume(),korbitDTO.getLow(),korbitDTO.getHigh(),"0",
+                                    korbitDTO.getAsk(),korbitDTO.getBid(),"0");
+        quoteRepository.save(quote);
         return korbitDTO;
+    }
+
+
+
+    private Quote marketToQuote(long marketCoinId, String lastPrice, String volume, String lowPrice,
+                                String highPrice, String avgPrice, String buyPrice,
+                                String sellPrice, String openingPrice) {
+        MarketCoin marketCoin = marketCoinRepository.findOne(marketCoinId);
+        return new Quote().lastPrice(new BigDecimal(lastPrice))
+            .volume(new BigDecimal(volume))
+            .lowPrice(new BigDecimal(lowPrice))
+            .highPrice(new BigDecimal(highPrice))
+            .avgPrice(new BigDecimal(avgPrice))
+            .buyPrice(new BigDecimal(buyPrice))
+            .sellPrice(new BigDecimal(sellPrice))
+            .openingPrice(new BigDecimal(openingPrice))
+            .closingPrice(new BigDecimal(lastPrice))
+            // .quoteTime(Instant.parse(map.get("date")))
+            .marketCoin(marketCoin);
     }
 
 
