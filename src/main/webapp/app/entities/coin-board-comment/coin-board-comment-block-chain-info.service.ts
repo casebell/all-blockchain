@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import { SERVER_API_URL } from '../../app.constants';
+
 import { JhiDateUtils } from 'ng-jhipster';
 
 import { CoinBoardCommentBlockChainInfo } from './coin-board-comment-block-chain-info.model';
@@ -9,8 +11,8 @@ import { ResponseWrapper, createRequestOption } from '../../shared';
 @Injectable()
 export class CoinBoardCommentBlockChainInfoService {
 
-    private resourceUrl = 'api/coin-board-comments';
-    private resourceSearchUrl = 'api/_search/coin-board-comments';
+    private resourceUrl =  SERVER_API_URL + 'api/coin-board-comments';
+    private resourceSearchUrl = SERVER_API_URL + 'api/_search/coin-board-comments';
 
     constructor(private http: Http, private dateUtils: JhiDateUtils) { }
 
@@ -18,8 +20,7 @@ export class CoinBoardCommentBlockChainInfoService {
         const copy = this.convert(coinBoardComment);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             const jsonResponse = res.json();
-            this.convertItemFromServer(jsonResponse);
-            return jsonResponse;
+            return this.convertItemFromServer(jsonResponse);
         });
     }
 
@@ -27,16 +28,14 @@ export class CoinBoardCommentBlockChainInfoService {
         const copy = this.convert(coinBoardComment);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             const jsonResponse = res.json();
-            this.convertItemFromServer(jsonResponse);
-            return jsonResponse;
+            return this.convertItemFromServer(jsonResponse);
         });
     }
 
     find(id: number): Observable<CoinBoardCommentBlockChainInfo> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
             const jsonResponse = res.json();
-            this.convertItemFromServer(jsonResponse);
-            return jsonResponse;
+            return this.convertItemFromServer(jsonResponse);
         });
     }
 
@@ -58,19 +57,28 @@ export class CoinBoardCommentBlockChainInfoService {
 
     private convertResponse(res: Response): ResponseWrapper {
         const jsonResponse = res.json();
+        const result = [];
         for (let i = 0; i < jsonResponse.length; i++) {
-            this.convertItemFromServer(jsonResponse[i]);
+            result.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return new ResponseWrapper(res.headers, jsonResponse, res.status);
+        return new ResponseWrapper(res.headers, result, res.status);
     }
 
-    private convertItemFromServer(entity: any) {
+    /**
+     * Convert a returned JSON object to CoinBoardCommentBlockChainInfo.
+     */
+    private convertItemFromServer(json: any): CoinBoardCommentBlockChainInfo {
+        const entity: CoinBoardCommentBlockChainInfo = Object.assign(new CoinBoardCommentBlockChainInfo(), json);
         entity.createdat = this.dateUtils
-            .convertDateTimeFromServer(entity.createdat);
+            .convertDateTimeFromServer(json.createdat);
         entity.updatedat = this.dateUtils
-            .convertDateTimeFromServer(entity.updatedat);
+            .convertDateTimeFromServer(json.updatedat);
+        return entity;
     }
 
+    /**
+     * Convert a CoinBoardCommentBlockChainInfo to a JSON which can be sent to the server.
+     */
     private convert(coinBoardComment: CoinBoardCommentBlockChainInfo): CoinBoardCommentBlockChainInfo {
         const copy: CoinBoardCommentBlockChainInfo = Object.assign({}, coinBoardComment);
 

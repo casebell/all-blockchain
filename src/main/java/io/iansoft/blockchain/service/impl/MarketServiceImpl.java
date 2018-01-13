@@ -23,7 +23,7 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
  */
 @Service
 @Transactional
-public class MarketServiceImpl implements MarketService{
+public class MarketServiceImpl implements MarketService {
 
     private final Logger log = LoggerFactory.getLogger(MarketServiceImpl.class);
 

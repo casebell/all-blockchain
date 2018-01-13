@@ -18,14 +18,16 @@ describe('Quote e2e test', () => {
     it('should load Quotes', () => {
         navBarPage.goToEntity('quote');
         quoteComponentsPage = new QuoteComponentsPage();
-        expect(quoteComponentsPage.getTitle()).toMatch(/blockchainApp.quote.home.title/);
+        expect(quoteComponentsPage.getTitle())
+            .toMatch(/blockchainApp.quote.home.title/);
 
     });
 
     it('should load create Quote dialog', () => {
         quoteComponentsPage.clickOnCreateButton();
         quoteDialogPage = new QuoteDialogPage();
-        expect(quoteDialogPage.getModalTitle()).toMatch(/blockchainApp.quote.home.createOrEditLabel/);
+        expect(quoteDialogPage.getModalTitle())
+            .toMatch(/blockchainApp.quote.home.createOrEditLabel/);
         quoteDialogPage.close();
     });
 

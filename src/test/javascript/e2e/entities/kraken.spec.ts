@@ -21,14 +21,16 @@ describe('Kraken e2e test', () => {
     it('should load Krakens', () => {
         navBarPage.goToEntity('kraken');
         krakenComponentsPage = new KrakenComponentsPage();
-        expect(krakenComponentsPage.getTitle()).toMatch(/blockchainApp.kraken.home.title/);
+        expect(krakenComponentsPage.getTitle())
+            .toMatch(/blockchainApp.kraken.home.title/);
 
     });
 
     it('should load create Kraken dialog', () => {
         krakenComponentsPage.clickOnCreateButton();
         krakenDialogPage = new KrakenDialogPage();
-        expect(krakenDialogPage.getModalTitle()).toMatch(/blockchainApp.kraken.home.createOrEditLabel/);
+        expect(krakenDialogPage.getModalTitle())
+            .toMatch(/blockchainApp.kraken.home.createOrEditLabel/);
         krakenDialogPage.close();
     });
 

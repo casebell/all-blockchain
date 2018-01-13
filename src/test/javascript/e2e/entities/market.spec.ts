@@ -18,14 +18,16 @@ describe('Market e2e test', () => {
     it('should load Markets', () => {
         navBarPage.goToEntity('market');
         marketComponentsPage = new MarketComponentsPage();
-        expect(marketComponentsPage.getTitle()).toMatch(/blockchainApp.market.home.title/);
+        expect(marketComponentsPage.getTitle())
+            .toMatch(/blockchainApp.market.home.title/);
 
     });
 
     it('should load create Market dialog', () => {
         marketComponentsPage.clickOnCreateButton();
         marketDialogPage = new MarketDialogPage();
-        expect(marketDialogPage.getModalTitle()).toMatch(/blockchainApp.market.home.createOrEditLabel/);
+        expect(marketDialogPage.getModalTitle())
+            .toMatch(/blockchainApp.market.home.createOrEditLabel/);
         marketDialogPage.close();
     });
 

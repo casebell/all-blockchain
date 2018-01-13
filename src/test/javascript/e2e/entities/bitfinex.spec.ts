@@ -21,14 +21,16 @@ describe('Bitfinex e2e test', () => {
     it('should load Bitfinexes', () => {
         navBarPage.goToEntity('bitfinex');
         bitfinexComponentsPage = new BitfinexComponentsPage();
-        expect(bitfinexComponentsPage.getTitle()).toMatch(/blockchainApp.bitfinex.home.title/);
+        expect(bitfinexComponentsPage.getTitle())
+            .toMatch(/blockchainApp.bitfinex.home.title/);
 
     });
 
     it('should load create Bitfinex dialog', () => {
         bitfinexComponentsPage.clickOnCreateButton();
         bitfinexDialogPage = new BitfinexDialogPage();
-        expect(bitfinexDialogPage.getModalTitle()).toMatch(/blockchainApp.bitfinex.home.createOrEditLabel/);
+        expect(bitfinexDialogPage.getModalTitle())
+            .toMatch(/blockchainApp.bitfinex.home.createOrEditLabel/);
         bitfinexDialogPage.close();
     });
 

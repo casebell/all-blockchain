@@ -2,15 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
-import { Observable } from 'rxjs/Rx';
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { Observable } from 'rxjs/Observable';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { CoinBlockChainInfo } from './coin-block-chain-info.model';
 import { CoinBlockChainInfoPopupService } from './coin-block-chain-info-popup.service';
 import { CoinBlockChainInfoService } from './coin-block-chain-info.service';
-import { ResponseWrapper } from '../../shared';
-import { Market, MarketService } from '../market';
 
 @Component({
     selector: 'jhi-coin-block-chain-info-dialog',
@@ -19,11 +17,10 @@ import { Market, MarketService } from '../market';
 export class CoinBlockChainInfoDialogComponent implements OnInit {
 
     coin: CoinBlockChainInfo;
-    authorities: any[];
     isSaving: boolean;
+
     constructor(
         public activeModal: NgbActiveModal,
-        private alertService: JhiAlertService,
         private coinService: CoinBlockChainInfoService,
         private eventManager: JhiEventManager
     ) {
@@ -31,7 +28,6 @@ export class CoinBlockChainInfoDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     }
 
     clear() {
@@ -51,7 +47,7 @@ export class CoinBlockChainInfoDialogComponent implements OnInit {
 
     private subscribeToSaveResponse(result: Observable<CoinBlockChainInfo>) {
         result.subscribe((res: CoinBlockChainInfo) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError());
     }
 
     private onSaveSuccess(result: CoinBlockChainInfo) {
@@ -60,18 +56,8 @@ export class CoinBlockChainInfoDialogComponent implements OnInit {
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError(error) {
-        try {
-            error.json();
-        } catch (exception) {
-            error.message = error.text();
-        }
+    private onSaveError() {
         this.isSaving = false;
-        this.onError(error);
-    }
-
-    private onError(error) {
-        this.alertService.error(error.message, null, null);
     }
 }
 
@@ -81,7 +67,6 @@ export class CoinBlockChainInfoDialogComponent implements OnInit {
 })
 export class CoinBlockChainInfoPopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
@@ -92,9 +77,11 @@ export class CoinBlockChainInfoPopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             if ( params['id'] ) {
-                this.modalRef = this.coinPopupService.open(CoinBlockChainInfoDialogComponent  as Component, params['id']);
+                this.coinPopupService
+                    .open(CoinBlockChainInfoDialogComponent as Component, params['id']);
             } else {
-                this.modalRef = this.coinPopupService.open(CoinBlockChainInfoDialogComponent as Component);
+                this.coinPopupService
+                    .open(CoinBlockChainInfoDialogComponent as Component);
             }
         });
     }

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import { SERVER_API_URL } from '../../app.constants';
+
 import { JhiDateUtils } from 'ng-jhipster';
 
 import { Coinis } from './coinis.model';
@@ -9,8 +11,8 @@ import { ResponseWrapper, createRequestOption } from '../../shared';
 @Injectable()
 export class CoinisService {
 
-    private resourceUrl = 'api/coinis';
-    private resourceSearchUrl = 'api/_search/coinis';
+    private resourceUrl =  SERVER_API_URL + 'api/coinis';
+    private resourceSearchUrl = SERVER_API_URL + 'api/_search/coinis';
 
     constructor(private http: Http, private dateUtils: JhiDateUtils) { }
 
@@ -18,8 +20,7 @@ export class CoinisService {
         const copy = this.convert(coinis);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             const jsonResponse = res.json();
-            this.convertItemFromServer(jsonResponse);
-            return jsonResponse;
+            return this.convertItemFromServer(jsonResponse);
         });
     }
 
@@ -27,16 +28,14 @@ export class CoinisService {
         const copy = this.convert(coinis);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             const jsonResponse = res.json();
-            this.convertItemFromServer(jsonResponse);
-            return jsonResponse;
+            return this.convertItemFromServer(jsonResponse);
         });
     }
 
     find(id: number): Observable<Coinis> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
             const jsonResponse = res.json();
-            this.convertItemFromServer(jsonResponse);
-            return jsonResponse;
+            return this.convertItemFromServer(jsonResponse);
         });
     }
 
@@ -58,17 +57,26 @@ export class CoinisService {
 
     private convertResponse(res: Response): ResponseWrapper {
         const jsonResponse = res.json();
+        const result = [];
         for (let i = 0; i < jsonResponse.length; i++) {
-            this.convertItemFromServer(jsonResponse[i]);
+            result.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return new ResponseWrapper(res.headers, jsonResponse, res.status);
+        return new ResponseWrapper(res.headers, result, res.status);
     }
 
-    private convertItemFromServer(entity: any) {
+    /**
+     * Convert a returned JSON object to Coinis.
+     */
+    private convertItemFromServer(json: any): Coinis {
+        const entity: Coinis = Object.assign(new Coinis(), json);
         entity.createdat = this.dateUtils
-            .convertDateTimeFromServer(entity.createdat);
+            .convertDateTimeFromServer(json.createdat);
+        return entity;
     }
 
+    /**
+     * Convert a Coinis to a JSON which can be sent to the server.
+     */
     private convert(coinis: Coinis): Coinis {
         const copy: Coinis = Object.assign({}, coinis);
 

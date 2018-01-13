@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import { SERVER_API_URL } from '../../app.constants';
+
 import { JhiDateUtils } from 'ng-jhipster';
 
 import { CoinBlockChainInfo } from './coin-block-chain-info.model';
@@ -9,8 +11,8 @@ import { ResponseWrapper, createRequestOption } from '../../shared';
 @Injectable()
 export class CoinBlockChainInfoService {
 
-    private resourceUrl = 'api/coins';
-    private resourceSearchUrl = 'api/_search/coins';
+    private resourceUrl =  SERVER_API_URL + 'api/coins';
+    private resourceSearchUrl = SERVER_API_URL + 'api/_search/coins';
 
     constructor(private http: Http, private dateUtils: JhiDateUtils) { }
 
@@ -18,8 +20,7 @@ export class CoinBlockChainInfoService {
         const copy = this.convert(coin);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             const jsonResponse = res.json();
-            this.convertItemFromServer(jsonResponse);
-            return jsonResponse;
+            return this.convertItemFromServer(jsonResponse);
         });
     }
 
@@ -27,16 +28,14 @@ export class CoinBlockChainInfoService {
         const copy = this.convert(coin);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             const jsonResponse = res.json();
-            this.convertItemFromServer(jsonResponse);
-            return jsonResponse;
+            return this.convertItemFromServer(jsonResponse);
         });
     }
 
     find(id: number): Observable<CoinBlockChainInfo> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
             const jsonResponse = res.json();
-            this.convertItemFromServer(jsonResponse);
-            return jsonResponse;
+            return this.convertItemFromServer(jsonResponse);
         });
     }
 
@@ -58,21 +57,30 @@ export class CoinBlockChainInfoService {
 
     private convertResponse(res: Response): ResponseWrapper {
         const jsonResponse = res.json();
+        const result = [];
         for (let i = 0; i < jsonResponse.length; i++) {
-            this.convertItemFromServer(jsonResponse[i]);
+            result.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return new ResponseWrapper(res.headers, jsonResponse, res.status);
+        return new ResponseWrapper(res.headers, result, res.status);
     }
 
-    private convertItemFromServer(entity: any) {
+    /**
+     * Convert a returned JSON object to CoinBlockChainInfo.
+     */
+    private convertItemFromServer(json: any): CoinBlockChainInfo {
+        const entity: CoinBlockChainInfo = Object.assign(new CoinBlockChainInfo(), json);
         entity.releaseat = this.dateUtils
-            .convertDateTimeFromServer(entity.releaseat);
+            .convertDateTimeFromServer(json.releaseat);
         entity.createdat = this.dateUtils
-            .convertDateTimeFromServer(entity.createdat);
+            .convertDateTimeFromServer(json.createdat);
         entity.updatedat = this.dateUtils
-            .convertDateTimeFromServer(entity.updatedat);
+            .convertDateTimeFromServer(json.updatedat);
+        return entity;
     }
 
+    /**
+     * Convert a CoinBlockChainInfo to a JSON which can be sent to the server.
+     */
     private convert(coin: CoinBlockChainInfo): CoinBlockChainInfo {
         const copy: CoinBlockChainInfo = Object.assign({}, coin);
 
