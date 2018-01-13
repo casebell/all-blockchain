@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Rx';
 import { ExchangeRateService } from '../../../home/coin-price/coin-price-row/exchange-rate.service';
 import { Quote } from '../../../entities/quote';
 import * as _ from 'lodash';
-import {Subscription} from 'rxjs/Subscription';
+import { Subscription } from 'rxjs/Subscription';
 import { CoinPriceService } from '../../../home/coin-price/coin-price.service';
 import { PuserService } from '../../../home/coin-price/pusher.service';
 import { BitfinexWebsocketService } from '../../../home/coin-price/bitfinex-websocket.service';

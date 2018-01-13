@@ -49,14 +49,14 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
         {name: 'xrp', price: 0, diff: 0, diffPercent: 0},
         {name: 'dash', price: 0, diff: 0, diffPercent: 0},
         {name: 'ltc', price: 0, diff: 0, diffPercent: 0},
-        {name: 'etc', price: 0, diff: 0, diffPercent: 0}, //5
+        {name: 'etc', price: 0, diff: 0, diffPercent: 0}, // 5
         {name: 'bch', price: 0, diff: 0, diffPercent: 0},
         {name: 'zec', price: 0, diff: 0, diffPercent: 0},
         {name: 'xmr', price: 0, diff: 0, diffPercent: 0},
         {name: 'neo', price: 0, diff: 0, diffPercent: 0},
         {name: 'qtum', price: 0, diff: 0, diffPercent: 0},
         {name: 'iota', price: 0, diff: 0, diffPercent: 0},
-        {name: 'btg', price: 0, diff: 0, diffPercent: 0}, //12
+        {name: 'btg', price: 0, diff: 0, diffPercent: 0}, //  12
         {name: 'eos', price: 0, diff: 0, diffPercent: 0}
     ];
 
@@ -69,7 +69,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
     bittrexRow: CoinPrice;
     bitstampUsdRow: CoinPrice;
     gdaxUsdRow: CoinPrice;
-    //krakenRow: CoinPrice;
+    // krakenRow: CoinPrice;
     bitstampEuRow: CoinPrice;
     bitfinexRow: CoinPrice;
     upbitRow: CoinPrice;
@@ -79,7 +79,7 @@ export class CoinPriceComponent implements OnInit, OnDestroy {
     coinoneUnsubscribe: Subscription;
     korbitUnsubscribe: Subscription;
     bitflyerUnsubscribe: Subscription;
-    //krakenUnsubscribe: Subscription;
+    // krakenUnsubscribe: Subscription;
     poloniexUnsubscribe: Subscription;
     bittrexUnsubscribe: Subscription;
     bitfinexUnsubscribe: Subscription;

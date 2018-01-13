@@ -8,7 +8,7 @@ import { BlockchainTestModule } from '../../../test.module';
 import { BitfinexDialogComponent } from '../../../../../../main/webapp/app/entities/bitfinex/bitfinex-dialog.component';
 import { BitfinexService } from '../../../../../../main/webapp/app/entities/bitfinex/bitfinex.service';
 import { Bitfinex } from '../../../../../../main/webapp/app/entities/bitfinex/bitfinex.model';
-import { CoinBlockChainInfoService } from '../../../../../../main/webapp/app/entities/coin-block-chain-info';
+
 
 describe('Component Tests', () => {
 
@@ -24,7 +24,7 @@ describe('Component Tests', () => {
                 imports: [BlockchainTestModule],
                 declarations: [BitfinexDialogComponent],
                 providers: [
-                    CoinBlockChainInfoService,
+                   // CoinBlockChainInfoService,
                     BitfinexService
                 ]
             })

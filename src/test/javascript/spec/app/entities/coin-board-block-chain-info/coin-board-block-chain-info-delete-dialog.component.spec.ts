@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { BlockchainTestModule } from '../../../test.module';
-import { CoinBoardBlockChainInfoDeleteDialogComponent } from '/../../../../../../main/webapp/app/entities/coin-board/coin-board-block-chain-info-delete-dialog.component';
+import { CoinBoardBlockChainInfoDeleteDialogComponent } from '../../../../../../main/webapp/app/entities/coin-board/coin-board-block-chain-info-delete-dialog.component';
 import { CoinBoardBlockChainInfoService } from '../../../../../../main/webapp/app/entities/coin-board/coin-board-block-chain-info.service';
 
 describe('Component Tests', () => {
