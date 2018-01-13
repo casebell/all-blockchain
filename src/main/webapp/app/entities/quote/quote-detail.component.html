@@ -1,0 +1,68 @@
+
+<div *ngIf="quote">
+    <h2><span jhiTranslate="blockchainApp.quote.detail.title">Quote</span> {{quote.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="blockchainApp.quote.lastPrice">Last Price</span></dt>
+        <dd>
+            <span>{{quote.lastPrice}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.quote.volume">Volume</span></dt>
+        <dd>
+            <span>{{quote.volume}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.quote.lowPrice">Low Price</span></dt>
+        <dd>
+            <span>{{quote.lowPrice}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.quote.highPrice">High Price</span></dt>
+        <dd>
+            <span>{{quote.highPrice}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.quote.avgPrice">Avg Price</span></dt>
+        <dd>
+            <span>{{quote.avgPrice}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.quote.buyPrice">Buy Price</span></dt>
+        <dd>
+            <span>{{quote.buyPrice}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.quote.sellPrice">Sell Price</span></dt>
+        <dd>
+            <span>{{quote.sellPrice}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.quote.openingPrice">Opening Price</span></dt>
+        <dd>
+            <span>{{quote.openingPrice}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.quote.closingPrice">Closing Price</span></dt>
+        <dd>
+            <span>{{quote.closingPrice}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.quote.quoteTime">Quote Time</span></dt>
+        <dd>
+            <span>{{quote.quoteTime | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.quote.marketCoin">Market Coin</span></dt>
+        <dd>
+            <div *ngIf="quote.marketCoin">
+                <a [routerLink]="['/market-coin', quote.marketCoin?.id]">{{quote.marketCoin?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'quote/'+ quote.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

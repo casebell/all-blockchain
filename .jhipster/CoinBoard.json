@@ -1,0 +1,52 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "coin",
+            "otherEntityName": "coin",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "coinBoardComment",
+            "otherEntityName": "coinBoardComment",
+            "otherEntityRelationshipName": "coinBoard"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "title",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "context",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "coninBoardType",
+            "fieldType": "CoinBoardType",
+            "fieldValues": "FREE,INQUIRY,NEWS"
+        },
+        {
+            "fieldName": "createdat",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "updatedat",
+            "fieldType": "ZonedDateTime"
+        }
+    ],
+    "changelogDate": "20170718015934",
+    "entityTableName": "coin_board",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "angularJSSuffix": "blockChainInfo"
+}

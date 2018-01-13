@@ -1,0 +1,23 @@
+{
+    "blockchainApp": {
+        "kraken" : {
+            "home": {
+                "title": "Krakens",
+                "createLabel": "Create a new Kraken",
+                "createOrEditLabel": "Create or edit a Kraken",
+                "search": "Search for Kraken"
+            },
+            "created": "A new Kraken is created with identifier {{ param }}",
+            "updated": "A Kraken is updated with identifier {{ param }}",
+            "deleted": "A Kraken is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Kraken {{ id }}?"
+            },
+            "detail": {
+                "title": "Kraken"
+            },
+            "last": "Last",
+            "createdat": "Createdat"
+        }
+    }
+}

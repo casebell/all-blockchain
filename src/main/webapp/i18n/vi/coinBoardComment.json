@@ -1,0 +1,29 @@
+{
+    "blockchainApp": {
+        "coinBoardComment" : {
+            "home": {
+                "title": "Coin Board Comments",
+                "createLabel": "Thêm mới một Coin Board Comment",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Coin Board Comment",
+                "search": "Tìm Coin Board Comment"
+            },
+            "created": "Một Coin Board Comment mới được tạo với định danh {{ param }}",
+            "updated": "Một Coin Board Comment cập nhật với định danh {{ param }}",
+            "deleted": "Một Coin Board Comment đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Coin Board Comment {{ id }}?"
+            },
+            "detail": {
+                "title": "Coin Board Comment"
+            },
+            "context": "Context",
+            "groupNo": "Group No",
+            "parent": "Parent",
+            "depth": "Depth",
+            "createdat": "Createdat",
+            "updatedat": "Updatedat",
+            "coinBoard": "Coin Board",
+            "user": "User"
+        }
+    }
+}

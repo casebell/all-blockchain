@@ -1,0 +1,95 @@
+<div>
+    <h2>
+        <span jhiTranslate="blockchainApp.coinis.home.title">Coinis</span>
+        <button class="btn btn-primary float-right jh-create-entity create-coinis" [routerLink]="['/', { outlets: { popup: ['coinis-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="blockchainApp.coinis.home.createLabel">
+            Create new Coinis
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'blockchainApp.coinis.home.search' | translate }}">
+                    <button class="input-group-addon btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-addon btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="coinis">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="blockchainApp.coinis.closeprice">Closeprice</span></th>
+            <th><span jhiTranslate="blockchainApp.coinis.highprice">Highprice</span></th>
+            <th><span jhiTranslate="blockchainApp.coinis.itemcode">Itemcode</span></th>
+            <th><span jhiTranslate="blockchainApp.coinis.lowprice">Lowprice</span></th>
+            <th><span jhiTranslate="blockchainApp.coinis.openprice">Openprice</span></th>
+            <th><span jhiTranslate="blockchainApp.coinis.prevcloseprice">Prevcloseprice</span></th>
+            <th><span jhiTranslate="blockchainApp.coinis.tradeamount">Tradeamount</span></th>
+            <th><span jhiTranslate="blockchainApp.coinis.tradedaebi">Tradedaebi</span></th>
+            <th><span jhiTranslate="blockchainApp.coinis.tradedaebirate">Tradedaebirate</span></th>
+            <th><span jhiTranslate="blockchainApp.coinis.tradedate">Tradedate</span></th>
+            <th><span jhiTranslate="blockchainApp.coinis.tradevolumn">Tradevolumn</span></th>
+            <th><span jhiTranslate="blockchainApp.coinis.symbol">Symbol</span></th>
+            <th><span jhiTranslate="blockchainApp.coinis.createdat">Createdat</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let coinis of coinis ;trackBy: trackId">
+                <td><a [routerLink]="['../coinis', coinis.id ]">{{coinis.id}}</a></td>
+                <td>{{coinis.closeprice}}</td>
+                <td>{{coinis.highprice}}</td>
+                <td>{{coinis.itemcode}}</td>
+                <td>{{coinis.lowprice}}</td>
+                <td>{{coinis.openprice}}</td>
+                <td>{{coinis.prevcloseprice}}</td>
+                <td>{{coinis.tradeamount}}</td>
+                <td>{{coinis.tradedaebi}}</td>
+                <td>{{coinis.tradedaebirate}}</td>
+                <td>{{coinis.tradedate}}</td>
+                <td>{{coinis.tradevolumn}}</td>
+                <td>{{coinis.symbol}}</td>
+                <td>{{coinis.createdat | date:'medium'}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../coinis', coinis.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'coinis/'+ coinis.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'coinis/'+ coinis.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

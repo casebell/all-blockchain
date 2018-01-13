@@ -1,0 +1,65 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "resource",
+            "otherEntityName": "resource",
+            "otherEntityRelationshipName": "coin"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "board",
+            "otherEntityName": "coinBoard",
+            "otherEntityRelationshipName": "coin"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "founder",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "consensusAlgorithms",
+            "fieldType": "ConsensusAlgorithms",
+            "fieldValues": "POS,POW"
+        },
+        {
+            "fieldName": "homepage",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "whitePaper",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "context",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "releaseat",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "createdat",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "updatedat",
+            "fieldType": "ZonedDateTime"
+        }
+    ],
+    "changelogDate": "20170718015933",
+    "entityTableName": "coin",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "angularJSSuffix": "blockChainInfo"
+}

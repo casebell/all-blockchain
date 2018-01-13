@@ -1,0 +1,34 @@
+{
+    "blockchainApp": {
+        "coinis" : {
+            "home": {
+                "title": "Coinis",
+                "createLabel": "Create a new Coinis",
+                "createOrEditLabel": "Create or edit a Coinis",
+                "search": "Search for Coinis"
+            },
+            "created": "A new Coinis is created with identifier {{ param }}",
+            "updated": "A Coinis is updated with identifier {{ param }}",
+            "deleted": "A Coinis is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Coinis {{ id }}?"
+            },
+            "detail": {
+                "title": "Coinis"
+            },
+            "closeprice": "Closeprice",
+            "highprice": "Highprice",
+            "itemcode": "Itemcode",
+            "lowprice": "Lowprice",
+            "openprice": "Openprice",
+            "prevcloseprice": "Prevcloseprice",
+            "tradeamount": "Tradeamount",
+            "tradedaebi": "Tradedaebi",
+            "tradedaebirate": "Tradedaebirate",
+            "tradedate": "Tradedate",
+            "tradevolumn": "Tradevolumn",
+            "symbol": "Symbol",
+            "createdat": "Createdat"
+        }
+    }
+}

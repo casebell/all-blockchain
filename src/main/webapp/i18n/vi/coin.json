@@ -1,0 +1,32 @@
+{
+    "blockchainApp": {
+        "coin" : {
+            "home": {
+                "title": "Coins",
+                "createLabel": "Thêm mới một Coin",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Coin",
+                "search": "Tìm Coin"
+            },
+            "created": "Một Coin mới được tạo với định danh {{ param }}",
+            "updated": "Một Coin cập nhật với định danh {{ param }}",
+            "deleted": "Một Coin đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Coin {{ id }}?"
+            },
+            "detail": {
+                "title": "Coin"
+            },
+            "name": "Name",
+            "founder": "Founder",
+            "consensusAlgorithms": "Consensus Algorithms",
+            "homepage": "Homepage",
+            "whitePaper": "White Paper",
+            "context": "Context",
+            "releaseat": "Releaseat",
+            "createdat": "Createdat",
+            "updatedat": "Updatedat",
+            "resource": "Resource",
+            "board": "Board"
+        }
+    }
+}

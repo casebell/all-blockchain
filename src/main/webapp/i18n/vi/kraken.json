@@ -1,0 +1,23 @@
+{
+    "blockchainApp": {
+        "kraken" : {
+            "home": {
+                "title": "Krakens",
+                "createLabel": "Thêm mới một Kraken",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Kraken",
+                "search": "Tìm Kraken"
+            },
+            "created": "Một Kraken mới được tạo với định danh {{ param }}",
+            "updated": "Một Kraken cập nhật với định danh {{ param }}",
+            "deleted": "Một Kraken đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Kraken {{ id }}?"
+            },
+            "detail": {
+                "title": "Kraken"
+            },
+            "last": "Last",
+            "createdat": "Createdat"
+        }
+    }
+}

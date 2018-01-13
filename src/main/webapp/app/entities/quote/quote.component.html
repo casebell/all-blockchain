@@ -1,0 +1,95 @@
+<div>
+    <h2>
+        <span jhiTranslate="blockchainApp.quote.home.title">Quotes</span>
+        <button class="btn btn-primary float-right jh-create-entity create-quote" [routerLink]="['/', { outlets: { popup: ['quote-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="blockchainApp.quote.home.createLabel">
+            Create new Quote
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'blockchainApp.quote.home.search' | translate }}">
+                    <button class="input-group-addon btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-addon btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="quotes">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="blockchainApp.quote.lastPrice">Last Price</span></th>
+            <th><span jhiTranslate="blockchainApp.quote.volume">Volume</span></th>
+            <th><span jhiTranslate="blockchainApp.quote.lowPrice">Low Price</span></th>
+            <th><span jhiTranslate="blockchainApp.quote.highPrice">High Price</span></th>
+            <th><span jhiTranslate="blockchainApp.quote.avgPrice">Avg Price</span></th>
+            <th><span jhiTranslate="blockchainApp.quote.buyPrice">Buy Price</span></th>
+            <th><span jhiTranslate="blockchainApp.quote.sellPrice">Sell Price</span></th>
+            <th><span jhiTranslate="blockchainApp.quote.openingPrice">Opening Price</span></th>
+            <th><span jhiTranslate="blockchainApp.quote.closingPrice">Closing Price</span></th>
+            <th><span jhiTranslate="blockchainApp.quote.quoteTime">Quote Time</span></th>
+            <th><span jhiTranslate="blockchainApp.quote.marketCoin">Market Coin</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let quote of quotes ;trackBy: trackId">
+                <td><a [routerLink]="['../quote', quote.id ]">{{quote.id}}</a></td>
+                <td>{{quote.lastPrice}}</td>
+                <td>{{quote.volume}}</td>
+                <td>{{quote.lowPrice}}</td>
+                <td>{{quote.highPrice}}</td>
+                <td>{{quote.avgPrice}}</td>
+                <td>{{quote.buyPrice}}</td>
+                <td>{{quote.sellPrice}}</td>
+                <td>{{quote.openingPrice}}</td>
+                <td>{{quote.closingPrice}}</td>
+                <td>{{quote.quoteTime | date:'medium'}}</td>
+                <td>
+                    <div *ngIf="quote.marketCoin">
+                        <a [routerLink]="['../market-coin', quote.marketCoin?.id ]" >{{quote.marketCoin?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../quote', quote.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'quote/'+ quote.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'quote/'+ quote.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

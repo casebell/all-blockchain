@@ -1,0 +1,27 @@
+{
+    "blockchainApp": {
+        "resource" : {
+            "home": {
+                "title": "Resources",
+                "createLabel": "Thêm mới một Resource",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Resource",
+                "search": "Tìm Resource"
+            },
+            "created": "Một Resource mới được tạo với định danh {{ param }}",
+            "updated": "Một Resource cập nhật với định danh {{ param }}",
+            "deleted": "Một Resource đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Resource {{ id }}?"
+            },
+            "detail": {
+                "title": "Resource"
+            },
+            "url": "Url",
+            "size": "Size",
+            "createdAt": "Created At",
+            "updatedAt": "Updated At",
+            "resourceType": "Resource Type",
+            "coin": "Coin"
+        }
+    }
+}

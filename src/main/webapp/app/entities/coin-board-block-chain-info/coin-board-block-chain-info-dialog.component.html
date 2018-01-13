@@ -1,0 +1,71 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myCoinBoardLabel" jhiTranslate="blockchainApp.coinBoard.home.createOrEditLabel">Create or edit a Coin Board</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!coinBoard.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="coinBoard.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="blockchainApp.coinBoard.title" for="field_title">Title</label>
+            <input type="text" class="form-control" name="title" id="field_title"
+                [(ngModel)]="coinBoard.title" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="blockchainApp.coinBoard.context" for="field_context">Context</label>
+            <input type="text" class="form-control" name="context" id="field_context"
+                [(ngModel)]="coinBoard.context" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="blockchainApp.coinBoard.coninBoardType" for="field_coninBoardType">Conin Board Type</label>
+            <select class="form-control" name="coninBoardType" [(ngModel)]="coinBoard.coninBoardType" id="field_coninBoardType" >
+                <option value="FREE">{{'blockchainApp.CoinBoardType.FREE' | translate}}</option>
+                <option value="INQUIRY">{{'blockchainApp.CoinBoardType.INQUIRY' | translate}}</option>
+                <option value="NEWS">{{'blockchainApp.CoinBoardType.NEWS' | translate}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="blockchainApp.coinBoard.createdat" for="field_createdat">Createdat</label>
+            <div class="d-flex">
+                <input id="field_createdat" type="datetime-local" class="form-control" name="createdat" [(ngModel)]="coinBoard.createdat"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="blockchainApp.coinBoard.updatedat" for="field_updatedat">Updatedat</label>
+            <div class="d-flex">
+                <input id="field_updatedat" type="datetime-local" class="form-control" name="updatedat" [(ngModel)]="coinBoard.updatedat"
+                />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="blockchainApp.coinBoard.coin" for="field_coin">Coin</label>
+            <select class="form-control" id="field_coin" name="coin" [(ngModel)]="coinBoard.coinId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="coinOption.id" *ngFor="let coinOption of coins; trackBy: trackCoinById">{{coinOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="blockchainApp.coinBoard.user" for="field_user">User</label>
+            <select class="form-control" id="field_user" name="user" [(ngModel)]="coinBoard.userId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

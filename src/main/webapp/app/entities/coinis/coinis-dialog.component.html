@@ -1,0 +1,114 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myCoinisLabel" jhiTranslate="blockchainApp.coinis.home.createOrEditLabel">Create or edit a Coinis</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!coinis.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="coinis.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="blockchainApp.coinis.closeprice" for="field_closeprice">Closeprice</label>
+            <input type="text" class="form-control" name="closeprice" id="field_closeprice"
+                [(ngModel)]="coinis.closeprice" required/>
+            <div [hidden]="!(editForm.controls.closeprice?.dirty && editForm.controls.closeprice?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.closeprice?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="blockchainApp.coinis.highprice" for="field_highprice">Highprice</label>
+            <input type="text" class="form-control" name="highprice" id="field_highprice"
+                [(ngModel)]="coinis.highprice" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="blockchainApp.coinis.itemcode" for="field_itemcode">Itemcode</label>
+            <input type="text" class="form-control" name="itemcode" id="field_itemcode"
+                [(ngModel)]="coinis.itemcode" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="blockchainApp.coinis.lowprice" for="field_lowprice">Lowprice</label>
+            <input type="text" class="form-control" name="lowprice" id="field_lowprice"
+                [(ngModel)]="coinis.lowprice" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="blockchainApp.coinis.openprice" for="field_openprice">Openprice</label>
+            <input type="text" class="form-control" name="openprice" id="field_openprice"
+                [(ngModel)]="coinis.openprice" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="blockchainApp.coinis.prevcloseprice" for="field_prevcloseprice">Prevcloseprice</label>
+            <input type="text" class="form-control" name="prevcloseprice" id="field_prevcloseprice"
+                [(ngModel)]="coinis.prevcloseprice" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="blockchainApp.coinis.tradeamount" for="field_tradeamount">Tradeamount</label>
+            <input type="text" class="form-control" name="tradeamount" id="field_tradeamount"
+                [(ngModel)]="coinis.tradeamount" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="blockchainApp.coinis.tradedaebi" for="field_tradedaebi">Tradedaebi</label>
+            <input type="text" class="form-control" name="tradedaebi" id="field_tradedaebi"
+                [(ngModel)]="coinis.tradedaebi" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="blockchainApp.coinis.tradedaebirate" for="field_tradedaebirate">Tradedaebirate</label>
+            <input type="text" class="form-control" name="tradedaebirate" id="field_tradedaebirate"
+                [(ngModel)]="coinis.tradedaebirate" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="blockchainApp.coinis.tradedate" for="field_tradedate">Tradedate</label>
+            <input type="text" class="form-control" name="tradedate" id="field_tradedate"
+                [(ngModel)]="coinis.tradedate" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="blockchainApp.coinis.tradevolumn" for="field_tradevolumn">Tradevolumn</label>
+            <input type="text" class="form-control" name="tradevolumn" id="field_tradevolumn"
+                [(ngModel)]="coinis.tradevolumn" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="blockchainApp.coinis.symbol" for="field_symbol">Symbol</label>
+            <input type="text" class="form-control" name="symbol" id="field_symbol"
+                [(ngModel)]="coinis.symbol" required/>
+            <div [hidden]="!(editForm.controls.symbol?.dirty && editForm.controls.symbol?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.symbol?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="blockchainApp.coinis.createdat" for="field_createdat">Createdat</label>
+            <div class="d-flex">
+                <input id="field_createdat" type="datetime-local" class="form-control" name="createdat" [(ngModel)]="coinis.createdat"
+                required/>
+            </div>
+            <div [hidden]="!(editForm.controls.createdat?.dirty && editForm.controls.createdat?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.createdat?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.createdat?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

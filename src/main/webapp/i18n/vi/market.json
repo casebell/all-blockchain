@@ -1,0 +1,26 @@
+{
+    "blockchainApp": {
+        "market" : {
+            "home": {
+                "title": "Markets",
+                "createLabel": "Thêm mới một Market",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Market",
+                "search": "Tìm Market"
+            },
+            "created": "Một Market mới được tạo với định danh {{ param }}",
+            "updated": "Một Market cập nhật với định danh {{ param }}",
+            "deleted": "Một Market đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Market {{ id }}?"
+            },
+            "detail": {
+                "title": "Market"
+            },
+            "name": "Name",
+            "country": "Country",
+            "url": "Url",
+            "currency": "Currency",
+            "coin": "Coin"
+        }
+    }
+}

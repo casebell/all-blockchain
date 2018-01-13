@@ -1,0 +1,9 @@
+{
+    "blockchainApp": {
+        "ResourceType" : {
+            "null": "",
+            "IMAGE": "IMAGE",
+            "VIDEO": "VIDEO"
+        }
+    }
+}

@@ -1,0 +1,19 @@
+version: '2'
+services:
+    blockchain-app:
+        image: blockchain
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://blockchain-postgresql:5432/blockchain
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=blockchain-elasticsearch:9300
+        ports:
+            - 8080:8080
+    blockchain-postgresql:
+        extends:
+            file: postgresql.yml
+            service: blockchain-postgresql
+    blockchain-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: blockchain-elasticsearch

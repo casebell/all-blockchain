@@ -1,0 +1,29 @@
+{
+    "blockchainApp": {
+        "coinBoard" : {
+            "home": {
+                "title": "Coin Boards",
+                "createLabel": "Thêm mới một Coin Board",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Coin Board",
+                "search": "Tìm Coin Board"
+            },
+            "created": "Một Coin Board mới được tạo với định danh {{ param }}",
+            "updated": "Một Coin Board cập nhật với định danh {{ param }}",
+            "deleted": "Một Coin Board đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Coin Board {{ id }}?"
+            },
+            "detail": {
+                "title": "Coin Board"
+            },
+            "title": "Title",
+            "context": "Context",
+            "coninBoardType": "Conin Board Type",
+            "createdat": "Createdat",
+            "updatedat": "Updatedat",
+            "coin": "Coin",
+            "coinBoardComment": "Coin Board Comment",
+            "user": "User"
+        }
+    }
+}

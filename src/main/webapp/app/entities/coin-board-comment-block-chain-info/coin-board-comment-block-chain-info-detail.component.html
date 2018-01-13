@@ -1,0 +1,56 @@
+
+<div *ngIf="coinBoardComment">
+    <h2><span jhiTranslate="blockchainApp.coinBoardComment.detail.title">Coin Board Comment</span> {{coinBoardComment.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="blockchainApp.coinBoardComment.context">Context</span></dt>
+        <dd>
+            <span>{{coinBoardComment.context}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.coinBoardComment.groupNo">Group No</span></dt>
+        <dd>
+            <span>{{coinBoardComment.groupNo}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.coinBoardComment.parent">Parent</span></dt>
+        <dd>
+            <span>{{coinBoardComment.parent}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.coinBoardComment.depth">Depth</span></dt>
+        <dd>
+            <span>{{coinBoardComment.depth}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.coinBoardComment.createdat">Createdat</span></dt>
+        <dd>
+            <span>{{coinBoardComment.createdat | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.coinBoardComment.updatedat">Updatedat</span></dt>
+        <dd>
+            <span>{{coinBoardComment.updatedat | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.coinBoardComment.coinBoard">Coin Board</span></dt>
+        <dd>
+            <div *ngIf="coinBoardComment.coinBoardId">
+                <a [routerLink]="['/coin-board-block-chain-info', coinBoardComment.coinBoardId]">{{coinBoardComment.coinBoardId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.coinBoardComment.user">User</span></dt>
+        <dd>
+            {{coinBoardComment.userId}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'coin-board-comment-block-chain-info/'+ coinBoardComment.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

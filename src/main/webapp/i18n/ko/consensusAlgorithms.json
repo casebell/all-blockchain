@@ -1,0 +1,9 @@
+{
+    "blockchainApp": {
+        "ConsensusAlgorithms" : {
+            "null": "",
+            "POS": "POS",
+            "POW": "POW"
+        }
+    }
+}
