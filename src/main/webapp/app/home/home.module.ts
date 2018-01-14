@@ -12,6 +12,7 @@ import { BitfinexWebsocketService } from './coin-price/bitfinex-websocket.servic
 import { PuserService } from './coin-price/pusher.service';
 import { GDAXWebsocketService } from './coin-price/gdax-websocket.service';
 import { OkcoincnWebsocketService } from './coin-price/okcoincn-websocket.service';
+import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
     imports: [
@@ -20,6 +21,7 @@ import { OkcoincnWebsocketService } from './coin-price/okcoincn-websocket.servic
         MatIconModule,
         MatTabsModule,
         MatSelectModule,
+        AdsenseModule,
         RouterModule.forChild([ HOME_ROUTE ])
     ],
     declarations: [

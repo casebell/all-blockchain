@@ -27,7 +27,8 @@ import {
     ActiveMenuDirective,
     ErrorComponent
 } from './layouts';
-import { MatButtonModule, MatButtonToggleModule, MatIconModule, MatMenuModule, MatToolbarModule} from '@angular/material';
+import { MatButtonModule, MatButtonToggleModule, MatIconModule, MatMenuModule, MatToolbarModule,        MatCardModule,
+} from '@angular/material';
 import { NewsModule } from './news/news.module';
 import { BlockchainAppRoutingModule } from './app-routing.module';
 import { TickerModule } from './ticker/ticker.module';
@@ -46,6 +47,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         BlockchainAccountModule,
         BlockchainEntityModule,
         BlockchainHelpModule,
+        MatCardModule,
         CoinModule,
         NewsModule,
         TickerModule,

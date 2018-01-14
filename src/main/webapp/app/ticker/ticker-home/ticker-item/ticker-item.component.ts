@@ -53,6 +53,7 @@ export class TickerItemComponent implements OnInit {
     ngOnInit() {
 
         this.getExchangeRate();
+        console.log('myticker : ',this.myTicker);
         if (this.myTicker != null) {
 
             switch (this.myTicker.apiType) {
