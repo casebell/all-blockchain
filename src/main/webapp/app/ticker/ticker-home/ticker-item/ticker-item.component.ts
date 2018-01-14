@@ -80,13 +80,27 @@ export class TickerItemComponent implements OnInit {
                                 this.coinPriceService.getPoloniex().subscribe((data: any) => {
                                 this.setPoloniex(data);
                                 this.checkFirst =false;
-                            });
+                                });
                                 this.poloniexUnsubscribe = Observable
                                     .interval(5* 1000)
                                     .timeInterval()
                                     .flatMap(() => this.coinPriceService.getPoloniex())
                                     .subscribe((data: any) => {
                                         this.setPoloniex(data)
+                                    });
+                                break;
+
+                            case 'Coinone':
+                                this.coinPriceService.getCoinone().subscribe((data: any) => {
+                                this.setPoloniex(data);
+                                this.checkFirst =false;
+                            });
+                                this.poloniexUnsubscribe = Observable
+                                    .interval(5* 1000)
+                                    .timeInterval()
+                                    .flatMap(() => this.coinPriceService.getCoinone())
+                                    .subscribe((data: any) => {
+                                        this.setCoinone(data)
                                     });
                                 break;
 
@@ -97,7 +111,6 @@ export class TickerItemComponent implements OnInit {
                     {
                         case 'Bitfinex':
                             this.getBitfinex();
-
                             break;
                         case 'BitstampUS':
                             break;
@@ -203,41 +216,45 @@ export class TickerItemComponent implements OnInit {
         switch (this.myTicker.coinName)
         {
             case 'btc':
-                this.setPoloQuote(data.USDT_BTC.last, data.USDT_BTC.high24hr, data.USDT_BTC.low24hr, data.USDT_BTC.lowestAsk,data.USDT_BTC.highestBid,data.USDT_BTC.percentChange, data.USDT_BTC.quoteVolume);
+                this.setRestMarketQuote(data.USDT_BTC.last, data.USDT_BTC.high24hr, data.USDT_BTC.low24hr, data.USDT_BTC.lowestAsk,data.USDT_BTC.highestBid,data.USDT_BTC.percentChange, data.USDT_BTC.quoteVolume);
                 break;
             case 'eth':
-                this.setPoloQuote(data.USDT_ETH.last, data.USDT_ETH.high24hr, data.USDT_ETH.low24hr, data.USDT_ETH.lowestAsk,data.USDT_ETH.highestBid,data.USDT_ETH.percentChange, data.USDT_BTC.quoteVolume);
+                this.setRestMarketQuote(data.USDT_ETH.last, data.USDT_ETH.high24hr, data.USDT_ETH.low24hr, data.USDT_ETH.lowestAsk,data.USDT_ETH.highestBid,data.USDT_ETH.percentChange, data.USDT_ETH.quoteVolume);
                 break;
             case 'xrp':
-                this.setPoloQuote(data.USDT_XRP.last, data.USDT_XRP.high24hr, data.USDT_XRP.low24hr, data.USDT_XRP.lowestAsk,data.USDT_XRP.highestBid,data.USDT_XRP.percentChange, data.USDT_BTC.quoteVolume);
+                this.setRestMarketQuote(data.USDT_XRP.last, data.USDT_XRP.high24hr, data.USDT_XRP.low24hr, data.USDT_XRP.lowestAsk,data.USDT_XRP.highestBid,data.USDT_XRP.percentChange, data.USDT_XRP.quoteVolume);
                 break;
             case 'dash':
-                this.setPoloQuote(data.USDT_DASH.last, data.USDT_DASH.high24hr, data.USDT_DASH.low24hr, data.USDT_DASH.lowestAsk,data.USDT_DASH.highestBid,data.USDT_DASH.percentChange, data.USDT_BTC.quoteVolume);
+                this.setRestMarketQuote(data.USDT_DASH.last, data.USDT_DASH.high24hr, data.USDT_DASH.low24hr, data.USDT_DASH.lowestAsk,data.USDT_DASH.highestBid,data.USDT_DASH.percentChange, data.USDT_DASH.quoteVolume);
                 break;
             case 'ltc':
-                this.setPoloQuote(data.USDT_LTC.last, data.USDT_LTC.high24hr, data.USDT_LTC.low24hr, data.USDT_LTC.lowestAsk,data.USDT_LTC.highestBid,data.USDT_LTC.percentChange, data.USDT_BTC.quoteVolume);
+                this.setRestMarketQuote(data.USDT_LTC.last, data.USDT_LTC.high24hr, data.USDT_LTC.low24hr, data.USDT_LTC.lowestAsk,data.USDT_LTC.highestBid,data.USDT_LTC.percentChange, data.USDT_LTC.quoteVolume);
                 break;
             case 'etc':
-                this.setPoloQuote(data.USDT_ETC.last, data.USDT_ETC.high24hr, data.USDT_ETC.low24hr, data.USDT_ETC.lowestAsk,data.USDT_ETC.highestBid,data.USDT_ETC.percentChange, data.USDT_BTC.quoteVolume);
+                this.setRestMarketQuote(data.USDT_ETC.last, data.USDT_ETC.high24hr, data.USDT_ETC.low24hr, data.USDT_ETC.lowestAsk,data.USDT_ETC.highestBid,data.USDT_ETC.percentChange, data.USDT_ETC.quoteVolume);
                 break;
             case 'bch':
-                this.setPoloQuote(data.USDT_BCH.last, data.USDT_BCH.high24hr, data.USDT_BCH.low24hr, data.USDT_BCH.lowestAsk,data.USDT_BCH.highestBid,data.USDT_BCH.percentChange, data.USDT_BTC.quoteVolume);
+                this.setRestMarketQuote(data.USDT_BCH.last, data.USDT_BCH.high24hr, data.USDT_BCH.low24hr, data.USDT_BCH.lowestAsk,data.USDT_BCH.highestBid,data.USDT_BCH.percentChange, data.USDT_BCH.quoteVolume);
                 break;
             case 'zec':
-                this.setPoloQuote(data.USDT_ZEC.last, data.USDT_ZEC.high24hr, data.USDT_ZEC.low24hr, data.USDT_ZEC.lowestAsk,data.USDT_ZEC.highestBid,data.USDT_ZEC.percentChange, data.USDT_BTC.quoteVolume);
+                this.setRestMarketQuote(data.USDT_ZEC.last, data.USDT_ZEC.high24hr, data.USDT_ZEC.low24hr, data.USDT_ZEC.lowestAsk,data.USDT_ZEC.highestBid,data.USDT_ZEC.percentChange, data.USDT_ZEC.quoteVolume);
                 break;
             case 'xmr':
-                this.setPoloQuote(data.USDT_XMR.last, data.USDT_XMR.high24hr, data.USDT_XMR.low24hr, data.USDT_XMR.lowestAsk,data.USDT_XMR.highestBid,data.USDT_XMR.percentChange, data.USDT_BTC.quoteVolume);
+                this.setRestMarketQuote(data.USDT_XMR.last, data.USDT_XMR.high24hr, data.USDT_XMR.low24hr, data.USDT_XMR.lowestAsk,data.USDT_XMR.highestBid,data.USDT_XMR.percentChange, data.USDT_XMR.quoteVolume);
                 break;
             case 'rep':
-                this.setPoloQuote(data.USDT_REP.last, data.USDT_REP.high24hr, data.USDT_REP.low24hr, data.USDT_REP.lowestAsk,data.USDT_REP.highestBid,data.USDT_REP.percentChange, data.USDT_BTC.quoteVolume);
+                this.setRestMarketQuote(data.USDT_REP.last, data.USDT_REP.high24hr, data.USDT_REP.low24hr, data.USDT_REP.lowestAsk,data.USDT_REP.highestBid,data.USDT_REP.percentChange, data.USDT_REP.quoteVolume);
                 break;
         }
 
-
     }
 
-    setPoloQuote(lastPrice, highPrice: any, lowPrice: any,buyPrice,sellPrice, percentChange: any,volume) {
+    setCoinone(data) {
+        this.quote.currency = 'KRW';
+        this.setRestMarketQuote(data[this.myTicker.coinName].last, data[this.myTicker.coinName].high, data[this.myTicker.coinName].low, 0,0,0, data[this.myTicker.coinName].volume);
+    }
+
+    setRestMarketQuote(lastPrice, highPrice: any, lowPrice: any,buyPrice,sellPrice, percentChange: any,volume) {
 
         if(!this.checkFirst)
         {
