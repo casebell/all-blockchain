@@ -17,7 +17,7 @@ import {
     BITFINEX_LTC_USD,
     BITFINEX_NEO_USD,
     BITFINEX_XMR_USD,
-    BITFINEX_XRP_USD, BITFINEX_ZEC_USD
+    BITFINEX_XRP_USD, BITFINEX_ZEC_USD, BITSTAMP_PUSHER_BTCUSD_CHANNEL, BITSTAMP_PUSHER_ETHUSD_CHANNEL
 } from '../../../shared';
 import { AddTickerDialogComponent } from '../add-ticker-dialog/add-ticker-dialog.component';
 import { DialogComponent } from '../dialog.component';
@@ -92,7 +92,7 @@ export class TickerItemComponent implements OnInit {
 
                             case 'Coinone':
                                 this.coinPriceService.getCoinone().subscribe((data: any) => {
-                                this.setPoloniex(data);
+                                this.setCoinone(data);
                                 this.checkFirst =false;
                             });
                                 this.poloniexUnsubscribe = Observable
@@ -113,8 +113,10 @@ export class TickerItemComponent implements OnInit {
                             this.getBitfinex();
                             break;
                         case 'BitstampUS':
+                            this.getBitstamUS();
                             break;
                         case 'GDAX':
+                            this.getGdax();
                             break;
                         case 'BitstampEU':
                             break;
@@ -141,6 +143,104 @@ export class TickerItemComponent implements OnInit {
         this.tickerService.delete(tickerId).subscribe(()=> {
             this.close.emit(true);
         });
+    }
+
+    getGdax(){
+        this.quote.lastPrice = 0;
+        this.quote.currency = 'USD';
+        this.gdaxWebsocketService.tickerConnect( {
+            'type': 'subscribe',
+            'product_ids': [
+                'BTC-USD'],
+            'channels': ['ticker']
+        });
+        switch (this.myTicker.coinName) {
+            case 'btc':
+
+                this.gdaxWebsocketService.getEventListener().subscribe(
+                    (message) => {
+                       console.log('gdaxWebsocketService message :', message);
+                       if(message.data.product_id === "BTC-USD")
+                       {
+                           this.setSocketToQuote(message.data.price,message.data.high_24h,message.data.low_24h,"0","0",message.data.volume_24h);
+
+                       }
+                    });
+                break;
+                case 'eth':
+                    this.gdaxWebsocketService.getEventListener().subscribe(
+                        (message) => {
+                           console.log('gdaxWebsocketService message :', message);
+                           if(message.data.product_id === "ETH-USD")
+                           {
+                               this.setSocketToQuote(message.data.price,message.data.high_24h,message.data.low_24h,"0","0",message.data.volume_24h);
+
+                           }
+                        });
+                    break;
+
+                case 'ltc':
+                    this.gdaxWebsocketService.getEventListener().subscribe(
+                        (message) => {
+                           console.log('gdaxWebsocketService message :', message);
+                           if(message.data.product_id === "BLTC-USD")
+                           {
+                               this.setSocketToQuote(message.data.price,message.data.high_24h,message.data.low_24h,"0","0",message.data.volume_24h);
+
+                           }
+                        });
+                    break;
+        }
+    }
+    getBitstamUS(){
+        this.quote.lastPrice = 0;
+        this.quote.currency = 'USD';
+        switch (this.myTicker.coinName)
+        {
+            case 'btc':
+                this.pusherService.btcUsdConnect();
+
+                this.pusherService.getBTCUSDListener().subscribe(
+                    (message) => {
+
+                        this.setSocketToQuote(message.price,"0","0","0","0","0");
+
+                        //    setSocketToQuote(lastPrice, highPrice: any, lowPrice: any,buyPrice,sellPrice, volume: any,) {
+
+                    }
+                );
+                break;
+            case 'eth':
+                this.pusherService.ethUsdConnect();
+
+                this.pusherService.getETHUSDListener().subscribe(
+                    (message) => {
+
+                        this.setSocketToQuote(message.price,"0","0","0","0","0");
+
+                        //    setSocketToQuote(lastPrice, highPrice: any, lowPrice: any,buyPrice,sellPrice, volume: any,) {
+
+                    }
+                );
+                break;
+            case 'xrp':
+                this.bitfinexWebsocketService.tickerConnect(BITFINEX_XRP_USD);
+
+                break;
+            case 'etc':
+                this.bitfinexWebsocketService.tickerConnect(BITFINEX_ETC_USD);
+                break;
+            case 'bch':
+                this.bitfinexWebsocketService.tickerConnect(BITFINEX_BCH_USD);
+                break;
+
+            case 'xmr':
+                this.bitfinexWebsocketService.tickerConnect(BITFINEX_XMR_USD);
+                break;
+            case 'btg':
+                this.bitfinexWebsocketService.tickerConnect(BITFINEX_BTG_USD);
+                break;
+        }
     }
     getBitfinex(){
         this.quote.lastPrice = 0;
@@ -192,11 +292,11 @@ export class TickerItemComponent implements OnInit {
                 const res = event.data[1];
                 console.log('later event', event);
                 if (res != 'hb')
-                    this.setBitfinex(res[6],res[8],res[9],res[0],res[3],res[7]);
+                    this.setSocketToQuote(res[6],res[8],res[9],res[0],res[3],res[7]);
             }
         });
     }
-    setBitfinex(lastPrice, highPrice: any, lowPrice: any,buyPrice,sellPrice, volume: any,) {
+    setSocketToQuote(lastPrice, highPrice: any, lowPrice: any,buyPrice,sellPrice, volume: any,) {
 
         if(this.quote.lastPrice !==0)
         {

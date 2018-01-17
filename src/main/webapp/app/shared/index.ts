@@ -1,4 +1,5 @@
 export * from './constants/bitfinex.constants'
+export * from './constants/bitstamp.constants'
 export * from './constants/error.constants';
 export * from './constants/pagination.constants';
 export * from './alert/alert.component';

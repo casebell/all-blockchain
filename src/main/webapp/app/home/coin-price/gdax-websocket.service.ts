@@ -18,6 +18,28 @@ export class GDAXWebsocketService {
   private listener: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
+    public tickerConnect(coin){
+        this.socket = new WebSocket(GDAX_WS_URL);
+
+        this.socket.onopen = (event) => {
+            this.send(JSON.stringify(REQUEST));
+        }
+
+        this.socket.onclose = (event) => {
+            //  this.listener.emit({"type": "close", "data": event});
+
+        }
+
+        this.socket.onmessage = (event) => {
+            this.listener.emit({'type': 'message', 'data': JSON.parse(event.data)});
+        }
+        this.socket.onerror = (event) => {
+            this.socket.close();
+            setTimeout(() => {
+                this.connect();
+            }, 1000)
+        }
+    }
 
   public connect(){
     this.socket = new WebSocket(GDAX_WS_URL);

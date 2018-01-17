@@ -1,0 +1,12 @@
+export const BITSTAMP_PUSHER_KEY = 'de504dc5763aeef9ff52';
+export const BITSTAMP_PUSHER_EVENT = 'trade';
+export const BITSTAMP_PUSHER_BTCEUR_CHANNEL = 'live_trades_btceur';
+export const BITSTAMP_PUSHER_ETHEUR_CHANNEL = 'live_trades_etheur';
+export const BITSTAMP_PUSHER_LTCEUR_CHANNEL = 'live_trades_ltceur';
+export const BITSTAMP_PUSHER_XRPEUR_CHANNEL = 'live_trades_xrpeur';
+export const BITSTAMP_PUSHER_BCHEUR_CHANNEL = 'live_trades_bcheur';
+export const BITSTAMP_PUSHER_BTCUSD_CHANNEL = 'live_trades';
+export const BITSTAMP_PUSHER_ETHUSD_CHANNEL = 'live_trades_ethusd';
+export const BITSTAMP_PUSHER_LTCUSD_CHANNEL = 'live_trades_ltcusd';
+export const BITSTAMP_PUSHER_XRPUSD_CHANNEL = 'live_trades_xrpusd';
+export const BITSTAMP_PUSHER_BCHUSD_CHANNEL = 'live_trades_bchusd';

@@ -1,17 +1,14 @@
 import * as Pusher from 'pusher-js';
 import { Injectable, EventEmitter } from '@angular/core';
-const BITSTAMP_PUSHER_KEY = 'de504dc5763aeef9ff52';
-const BITSTAMP_PUSHER_EVENT = 'trade';
-const BITSTAMP_PUSHER_BTCEUR_CHANNEL = 'live_trades_btceur';
-const BITSTAMP_PUSHER_ETHEUR_CHANNEL = 'live_trades_etheur';
-const BITSTAMP_PUSHER_LTCEUR_CHANNEL = 'live_trades_ltceur';
-const BITSTAMP_PUSHER_XRPEUR_CHANNEL = 'live_trades_xrpeur';
-const BITSTAMP_PUSHER_BCHEUR_CHANNEL = 'live_trades_bcheur';
-const BITSTAMP_PUSHER_BTCUSD_CHANNEL = 'live_trades';
-const BITSTAMP_PUSHER_ETHUSD_CHANNEL = 'live_trades_ethusd';
-const BITSTAMP_PUSHER_LTCUSD_CHANNEL = 'live_trades_ltcusd';
-const BITSTAMP_PUSHER_XRPUSD_CHANNEL = 'live_trades_xrpusd';
-const BITSTAMP_PUSHER_BCHUSD_CHANNEL = 'live_trades_bchusd';
+import {
+    BITSTAMP_PUSHER_BCHEUR_CHANNEL, BITSTAMP_PUSHER_BCHUSD_CHANNEL,
+    BITSTAMP_PUSHER_BTCEUR_CHANNEL, BITSTAMP_PUSHER_BTCUSD_CHANNEL, BITSTAMP_PUSHER_ETHEUR_CHANNEL,
+    BITSTAMP_PUSHER_ETHUSD_CHANNEL,
+    BITSTAMP_PUSHER_EVENT,
+    BITSTAMP_PUSHER_KEY, BITSTAMP_PUSHER_LTCEUR_CHANNEL, BITSTAMP_PUSHER_LTCUSD_CHANNEL, BITSTAMP_PUSHER_XRPEUR_CHANNEL,
+    BITSTAMP_PUSHER_XRPUSD_CHANNEL
+} from '../../shared';
+
 
 @Injectable()
 export class PuserService {
@@ -26,12 +23,25 @@ export class PuserService {
   private XRPUSDMessageListener: EventEmitter<any> = new EventEmitter();
   private BCHEURMessageListener: EventEmitter<any> = new EventEmitter();
   private BCHUSDMessageListener: EventEmitter<any> = new EventEmitter();
+  private UsMessageListener: EventEmitter<any> = new EventEmitter();
 
   constructor() {
     this.pusher = new Pusher(BITSTAMP_PUSHER_KEY)
   }
 
-  public connect() {
+    public btcUsdConnect(){
+        let BTCUSDTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_BTCUSD_CHANNEL);
+        BTCUSDTradesChannel.bind(BITSTAMP_PUSHER_EVENT, (data) => {
+            this.BTCUSDMessageListener.emit(data);
+        });
+    }
+    public ethUsdConnect(){
+        let ETHUSDTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_ETHUSD_CHANNEL);
+        ETHUSDTradesChannel.bind(BITSTAMP_PUSHER_EVENT, (data) => {
+            this.ETHUSDMessageListener.emit(data);
+        });
+    }
+    public connect() {
 
     let BTCUSDTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_BTCUSD_CHANNEL);
     BTCUSDTradesChannel.bind(BITSTAMP_PUSHER_EVENT, (data) => {
