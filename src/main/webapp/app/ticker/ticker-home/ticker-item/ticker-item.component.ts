@@ -183,7 +183,7 @@ export class TickerItemComponent implements OnInit {
                     this.gdaxWebsocketService.getEventListener().subscribe(
                         (message) => {
                            console.log('gdaxWebsocketService message :', message);
-                           if(message.data.product_id === "BLTC-USD")
+                           if(message.data.product_id === "LTC-USD")
                            {
                                this.setSocketToQuote(message.data.price,message.data.high_24h,message.data.low_24h,"0","0",message.data.volume_24h);
 
