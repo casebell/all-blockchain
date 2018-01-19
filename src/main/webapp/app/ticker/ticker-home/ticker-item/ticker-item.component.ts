@@ -119,6 +119,7 @@ export class TickerItemComponent implements OnInit {
                             this.getGdax();
                             break;
                         case 'BitstampEU':
+                            this.getBitstamEU();
                             break;
                     }
                     break;
@@ -204,9 +205,6 @@ export class TickerItemComponent implements OnInit {
                     (message) => {
 
                         this.setSocketToQuote(message.price,"0","0","0","0","0");
-
-                        //    setSocketToQuote(lastPrice, highPrice: any, lowPrice: any,buyPrice,sellPrice, volume: any,) {
-
                     }
                 );
                 break;
@@ -217,28 +215,69 @@ export class TickerItemComponent implements OnInit {
                     (message) => {
 
                         this.setSocketToQuote(message.price,"0","0","0","0","0");
+                    }
+                );
+                break;
+                case 'ltc':
+                this.pusherService.ltcUsdConnect();
 
-                        //    setSocketToQuote(lastPrice, highPrice: any, lowPrice: any,buyPrice,sellPrice, volume: any,) {
+                this.pusherService.getLTCUSDListener().subscribe(
+                    (message) => {
+                        this.setSocketToQuote(message.price,"0","0","0","0","0");
+                    }
+                );
+                break;
+                case 'xrp':
+                this.pusherService.xrpUsdConnect();
 
+                this.pusherService.getXRPUSDListener().subscribe(
+                    (message) => {
+                        this.setSocketToQuote(message.price,"0","0","0","0","0");
+                    }
+                );
+                break;
+        }
+    }
+    getBitstamEU(){
+        this.quote.lastPrice = 0;
+        this.quote.currency = 'EUR';
+        switch (this.myTicker.coinName)
+        {
+            case 'btc':
+                this.pusherService.btcEurConnect();
+
+                this.pusherService.getBTCEURListener().subscribe(
+                    (message) => {
+                        this.setSocketToQuote(message.price,"0","0","0","0","0");
+                    }
+                );
+                break;
+            case 'eth':
+                this.pusherService.ethEurConnect();
+
+                this.pusherService.getETHEURListener().subscribe(
+                    (message) => {
+                        this.setSocketToQuote(message.price,"0","0","0","0","0");
+                    }
+                );
+                break;
+            case 'ltc':
+                this.pusherService.ltcEurConnect();
+
+                this.pusherService.getLTCEURListener().subscribe(
+                    (message) => {
+                        this.setSocketToQuote(message.price,"0","0","0","0","0");
                     }
                 );
                 break;
             case 'xrp':
-                this.bitfinexWebsocketService.tickerConnect(BITFINEX_XRP_USD);
+                this.pusherService.xrpEurConnect();
 
-                break;
-            case 'etc':
-                this.bitfinexWebsocketService.tickerConnect(BITFINEX_ETC_USD);
-                break;
-            case 'bch':
-                this.bitfinexWebsocketService.tickerConnect(BITFINEX_BCH_USD);
-                break;
-
-            case 'xmr':
-                this.bitfinexWebsocketService.tickerConnect(BITFINEX_XMR_USD);
-                break;
-            case 'btg':
-                this.bitfinexWebsocketService.tickerConnect(BITFINEX_BTG_USD);
+                this.pusherService.getXRPEURListener().subscribe(
+                    (message) => {
+                        this.setSocketToQuote(message.price,"0","0","0","0","0");
+                    }
+                );
                 break;
         }
     }
@@ -255,7 +294,6 @@ export class TickerItemComponent implements OnInit {
                 break;
             case 'xrp':
                 this.bitfinexWebsocketService.tickerConnect(BITFINEX_XRP_USD);
-
                 break;
             case 'dash':
                 this.bitfinexWebsocketService.tickerConnect(BITFINEX_DASH_USD);

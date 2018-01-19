@@ -32,7 +32,7 @@ public class Quote extends AbstractAuditingEntity implements Serializable {
     @Column(name = "last_price", precision=20, scale=10, nullable = false)
     private BigDecimal lastPrice;
 
-    @Column(name = "volume", precision=20, scale=11)
+    @Column(name = "volume", precision=30, scale=15)
     private BigDecimal volume;
 
     @Column(name = "low_price", precision=20, scale=10)

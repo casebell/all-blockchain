@@ -41,6 +41,50 @@ export class PuserService {
             this.ETHUSDMessageListener.emit(data);
         });
     }
+    public ltcUsdConnect(){
+        let LTCUSDTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_LTCUSD_CHANNEL);
+        LTCUSDTradesChannel.bind(BITSTAMP_PUSHER_EVENT, (data) => {
+            this.LTCUSDMessageListener.emit(data);
+        });
+    }
+    public xrpUsdConnect(){
+        let XRPUSDTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_XRPUSD_CHANNEL);
+        XRPUSDTradesChannel.bind(BITSTAMP_PUSHER_EVENT, (data) => {
+            this.XRPUSDMessageListener.emit(data);
+        });
+    }
+    public btcEurConnect(){
+        let BTCEURTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_BTCEUR_CHANNEL);
+        BTCEURTradesChannel.bind(BITSTAMP_PUSHER_EVENT, (data) => {
+            this.BTCEURMessageListener.emit(data);
+        });
+    }
+    public ethEurConnect(){
+        let ETHEURTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_ETHEUR_CHANNEL);
+        ETHEURTradesChannel.bind(BITSTAMP_PUSHER_EVENT, (data) => {
+            this.ETHEURMessageListener.emit(data);
+        });
+    }
+    public ltcEurConnect(){
+        let LTCEURTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_LTCEUR_CHANNEL);
+        LTCEURTradesChannel.bind(BITSTAMP_PUSHER_EVENT, (data) => {
+            this.LTCEURMessageListener.emit(data);
+        });
+    }
+    public xrpEurConnect(){
+        let XRPEURTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_XRPEUR_CHANNEL);
+        XRPEURTradesChannel.bind(BITSTAMP_PUSHER_EVENT, (data) => {
+            this.XRPEURMessageListener.emit(data);
+        });
+    }
+
+    public bchEurConnect(){
+        let BCHEURTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_BCHEUR_CHANNEL);
+        BCHEURTradesChannel.bind(BITSTAMP_PUSHER_EVENT, (data) => {
+            this.BCHEURMessageListener.emit(data);
+        });
+    }
+
     public connect() {
 
     let BTCUSDTradesChannel = this.pusher.subscribe(BITSTAMP_PUSHER_BTCUSD_CHANNEL);
