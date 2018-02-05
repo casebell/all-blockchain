@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
@@ -31,9 +32,10 @@ export class MarketDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.marketService.find(id).subscribe((market) => {
-            this.market = market;
-        });
+        this.marketService.find(id)
+            .subscribe((marketResponse: HttpResponse<Market>) => {
+                this.market = marketResponse.body;
+            });
     }
     previousState() {
         window.history.back();

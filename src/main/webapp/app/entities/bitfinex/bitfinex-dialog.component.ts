@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -10,7 +10,6 @@ import { Bitfinex } from './bitfinex.model';
 import { BitfinexPopupService } from './bitfinex-popup.service';
 import { BitfinexService } from './bitfinex.service';
 import { CoinBlockChainInfo, CoinBlockChainInfoService } from '../coin-block-chain-info';
-import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'jhi-bitfinex-dialog',
@@ -35,7 +34,7 @@ export class BitfinexDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.coinService.query()
-            .subscribe((res: ResponseWrapper) => { this.coins = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: HttpResponse<CoinBlockChainInfo[]>) => { this.coins = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
@@ -53,9 +52,9 @@ export class BitfinexDialogComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Bitfinex>) {
-        result.subscribe((res: Bitfinex) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError());
+    private subscribeToSaveResponse(result: Observable<HttpResponse<Bitfinex>>) {
+        result.subscribe((res: HttpResponse<Bitfinex>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess(result: Bitfinex) {

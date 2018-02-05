@@ -90,67 +90,67 @@ export class BitfinexDialogPage {
 
     setMidInput = function(mid) {
         this.midInput.sendKeys(mid);
-    }
+    };
 
     getMidInput = function() {
         return this.midInput.getAttribute('value');
-    }
+    };
 
     setBidInput = function(bid) {
         this.bidInput.sendKeys(bid);
-    }
+    };
 
     getBidInput = function() {
         return this.bidInput.getAttribute('value');
-    }
+    };
 
     setAskInput = function(ask) {
         this.askInput.sendKeys(ask);
-    }
+    };
 
     getAskInput = function() {
         return this.askInput.getAttribute('value');
-    }
+    };
 
     setLast_priceInput = function(last_price) {
         this.last_priceInput.sendKeys(last_price);
-    }
+    };
 
     getLast_priceInput = function() {
         return this.last_priceInput.getAttribute('value');
-    }
+    };
 
     setLowInput = function(low) {
         this.lowInput.sendKeys(low);
-    }
+    };
 
     getLowInput = function() {
         return this.lowInput.getAttribute('value');
-    }
+    };
 
     setHighInput = function(high) {
         this.highInput.sendKeys(high);
-    }
+    };
 
     getHighInput = function() {
         return this.highInput.getAttribute('value');
-    }
+    };
 
     setVolumeInput = function(volume) {
         this.volumeInput.sendKeys(volume);
-    }
+    };
 
     getVolumeInput = function() {
         return this.volumeInput.getAttribute('value');
-    }
+    };
 
     setTimestampInput = function(timestamp) {
         this.timestampInput.sendKeys(timestamp);
-    }
+    };
 
     getTimestampInput = function() {
         return this.timestampInput.getAttribute('value');
-    }
+    };
 
     save() {
         this.saveButton.click();

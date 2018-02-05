@@ -1,6 +1,7 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { HttpResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { Coinis } from './coinis.model';
 import { CoinisService } from './coinis.service';
@@ -27,12 +28,14 @@ export class CoinisPopupService {
             }
 
             if (id) {
-                this.coinisService.find(id).subscribe((coinis) => {
-                    coinis.createdat = this.datePipe
-                        .transform(coinis.createdat, 'yyyy-MM-ddTHH:mm:ss');
-                    this.ngbModalRef = this.coinisModalRef(component, coinis);
-                    resolve(this.ngbModalRef);
-                });
+                this.coinisService.find(id)
+                    .subscribe((coinisResponse: HttpResponse<Coinis>) => {
+                        const coinis: Coinis = coinisResponse.body;
+                        coinis.createdat = this.datePipe
+                            .transform(coinis.createdat, 'yyyy-MM-ddTHH:mm:ss');
+                        this.ngbModalRef = this.coinisModalRef(component, coinis);
+                        resolve(this.ngbModalRef);
+                    });
             } else {
                 // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
                 setTimeout(() => {

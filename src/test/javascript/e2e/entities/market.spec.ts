@@ -78,35 +78,35 @@ export class MarketDialogPage {
 
     setNameInput = function(name) {
         this.nameInput.sendKeys(name);
-    }
+    };
 
     getNameInput = function() {
         return this.nameInput.getAttribute('value');
-    }
+    };
 
     setCountryInput = function(country) {
         this.countryInput.sendKeys(country);
-    }
+    };
 
     getCountryInput = function() {
         return this.countryInput.getAttribute('value');
-    }
+    };
 
     setUrlInput = function(url) {
         this.urlInput.sendKeys(url);
-    }
+    };
 
     getUrlInput = function() {
         return this.urlInput.getAttribute('value');
-    }
+    };
 
     setCurrencyInput = function(currency) {
         this.currencyInput.sendKeys(currency);
-    }
+    };
 
     getCurrencyInput = function() {
         return this.currencyInput.getAttribute('value');
-    }
+    };
 
     save() {
         this.saveButton.click();

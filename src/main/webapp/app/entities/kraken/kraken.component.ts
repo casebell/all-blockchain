@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { Kraken } from './kraken.model';
 import { KrakenService } from './kraken.service';
-import { Principal, ResponseWrapper } from '../../shared';
+import { Principal } from '../../shared';
 
 @Component({
     selector: 'jhi-kraken',
@@ -33,17 +34,17 @@ krakens: Kraken[];
             this.krakenService.search({
                 query: this.currentSearch,
                 }).subscribe(
-                    (res: ResponseWrapper) => this.krakens = res.json,
-                    (res: ResponseWrapper) => this.onError(res.json)
+                    (res: HttpResponse<Kraken[]>) => this.krakens = res.body,
+                    (res: HttpErrorResponse) => this.onError(res.message)
                 );
             return;
        }
         this.krakenService.query().subscribe(
-            (res: ResponseWrapper) => {
-                this.krakens = res.json;
+            (res: HttpResponse<Kraken[]>) => {
+                this.krakens = res.body;
                 this.currentSearch = '';
             },
-            (res: ResponseWrapper) => this.onError(res.json)
+            (res: HttpErrorResponse) => this.onError(res.message)
         );
     }
 

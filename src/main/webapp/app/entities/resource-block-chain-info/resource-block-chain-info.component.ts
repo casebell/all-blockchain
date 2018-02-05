@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { ResourceBlockChainInfo } from './resource-block-chain-info.model';
 import { ResourceBlockChainInfoService } from './resource-block-chain-info.service';
-import { Principal, ResponseWrapper } from '../../shared';
+import { Principal } from '../../shared';
 
 @Component({
     selector: 'jhi-resource-block-chain-info',
@@ -33,17 +34,17 @@ resources: ResourceBlockChainInfo[];
             this.resourceService.search({
                 query: this.currentSearch,
                 }).subscribe(
-                    (res: ResponseWrapper) => this.resources = res.json,
-                    (res: ResponseWrapper) => this.onError(res.json)
+                    (res: HttpResponse<ResourceBlockChainInfo[]>) => this.resources = res.body,
+                    (res: HttpErrorResponse) => this.onError(res.message)
                 );
             return;
        }
         this.resourceService.query().subscribe(
-            (res: ResponseWrapper) => {
-                this.resources = res.json;
+            (res: HttpResponse<ResourceBlockChainInfo[]>) => {
+                this.resources = res.body;
                 this.currentSearch = '';
             },
-            (res: ResponseWrapper) => this.onError(res.json)
+            (res: HttpErrorResponse) => this.onError(res.message)
         );
     }
 

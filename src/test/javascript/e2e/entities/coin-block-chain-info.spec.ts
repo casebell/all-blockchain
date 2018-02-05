@@ -92,78 +92,78 @@ export class CoinDialogPage {
 
     setNameInput = function(name) {
         this.nameInput.sendKeys(name);
-    }
+    };
 
     getNameInput = function() {
         return this.nameInput.getAttribute('value');
-    }
+    };
 
     setFounderInput = function(founder) {
         this.founderInput.sendKeys(founder);
-    }
+    };
 
     getFounderInput = function() {
         return this.founderInput.getAttribute('value');
-    }
+    };
 
     setConsensusAlgorithmsSelect = function(consensusAlgorithms) {
         this.consensusAlgorithmsSelect.sendKeys(consensusAlgorithms);
-    }
+    };
 
     getConsensusAlgorithmsSelect = function() {
         return this.consensusAlgorithmsSelect.element(by.css('option:checked')).getText();
-    }
+    };
 
     consensusAlgorithmsSelectLastOption = function() {
         this.consensusAlgorithmsSelect.all(by.tagName('option')).last().click();
-    }
+    };
     setHomepageInput = function(homepage) {
         this.homepageInput.sendKeys(homepage);
-    }
+    };
 
     getHomepageInput = function() {
         return this.homepageInput.getAttribute('value');
-    }
+    };
 
     setWhitePaperInput = function(whitePaper) {
         this.whitePaperInput.sendKeys(whitePaper);
-    }
+    };
 
     getWhitePaperInput = function() {
         return this.whitePaperInput.getAttribute('value');
-    }
+    };
 
     setContextInput = function(context) {
         this.contextInput.sendKeys(context);
-    }
+    };
 
     getContextInput = function() {
         return this.contextInput.getAttribute('value');
-    }
+    };
 
     setReleaseatInput = function(releaseat) {
         this.releaseatInput.sendKeys(releaseat);
-    }
+    };
 
     getReleaseatInput = function() {
         return this.releaseatInput.getAttribute('value');
-    }
+    };
 
     setCreatedatInput = function(createdat) {
         this.createdatInput.sendKeys(createdat);
-    }
+    };
 
     getCreatedatInput = function() {
         return this.createdatInput.getAttribute('value');
-    }
+    };
 
     setUpdatedatInput = function(updatedat) {
         this.updatedatInput.sendKeys(updatedat);
-    }
+    };
 
     getUpdatedatInput = function() {
         return this.updatedatInput.getAttribute('value');
-    }
+    };
 
     save() {
         this.saveButton.click();

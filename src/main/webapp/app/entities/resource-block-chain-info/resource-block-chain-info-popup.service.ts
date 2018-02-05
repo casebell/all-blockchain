@@ -1,6 +1,7 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { HttpResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { ResourceBlockChainInfo } from './resource-block-chain-info.model';
 import { ResourceBlockChainInfoService } from './resource-block-chain-info.service';
@@ -27,14 +28,16 @@ export class ResourceBlockChainInfoPopupService {
             }
 
             if (id) {
-                this.resourceService.find(id).subscribe((resource) => {
-                    resource.createdAt = this.datePipe
-                        .transform(resource.createdAt, 'yyyy-MM-ddTHH:mm:ss');
-                    resource.updatedAt = this.datePipe
-                        .transform(resource.updatedAt, 'yyyy-MM-ddTHH:mm:ss');
-                    this.ngbModalRef = this.resourceModalRef(component, resource);
-                    resolve(this.ngbModalRef);
-                });
+                this.resourceService.find(id)
+                    .subscribe((resourceResponse: HttpResponse<ResourceBlockChainInfo>) => {
+                        const resource: ResourceBlockChainInfo = resourceResponse.body;
+                        resource.createdAt = this.datePipe
+                            .transform(resource.createdAt, 'yyyy-MM-ddTHH:mm:ss');
+                        resource.updatedAt = this.datePipe
+                            .transform(resource.updatedAt, 'yyyy-MM-ddTHH:mm:ss');
+                        this.ngbModalRef = this.resourceModalRef(component, resource);
+                        resolve(this.ngbModalRef);
+                    });
             } else {
                 // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
                 setTimeout(() => {

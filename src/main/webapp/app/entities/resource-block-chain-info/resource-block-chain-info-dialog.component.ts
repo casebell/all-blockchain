@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -10,7 +10,6 @@ import { ResourceBlockChainInfo } from './resource-block-chain-info.model';
 import { ResourceBlockChainInfoPopupService } from './resource-block-chain-info-popup.service';
 import { ResourceBlockChainInfoService } from './resource-block-chain-info.service';
 import { CoinBlockChainInfo, CoinBlockChainInfoService } from '../coin-block-chain-info';
-import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'jhi-resource-block-chain-info-dialog',
@@ -35,7 +34,7 @@ export class ResourceBlockChainInfoDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.coinService.query()
-            .subscribe((res: ResponseWrapper) => { this.coins = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: HttpResponse<CoinBlockChainInfo[]>) => { this.coins = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
@@ -53,9 +52,9 @@ export class ResourceBlockChainInfoDialogComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<ResourceBlockChainInfo>) {
-        result.subscribe((res: ResourceBlockChainInfo) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError());
+    private subscribeToSaveResponse(result: Observable<HttpResponse<ResourceBlockChainInfo>>) {
+        result.subscribe((res: HttpResponse<ResourceBlockChainInfo>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess(result: ResourceBlockChainInfo) {

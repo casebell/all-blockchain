@@ -1,6 +1,7 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { HttpResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { Kraken } from './kraken.model';
 import { KrakenService } from './kraken.service';
@@ -27,12 +28,14 @@ export class KrakenPopupService {
             }
 
             if (id) {
-                this.krakenService.find(id).subscribe((kraken) => {
-                    kraken.createdat = this.datePipe
-                        .transform(kraken.createdat, 'yyyy-MM-ddTHH:mm:ss');
-                    this.ngbModalRef = this.krakenModalRef(component, kraken);
-                    resolve(this.ngbModalRef);
-                });
+                this.krakenService.find(id)
+                    .subscribe((krakenResponse: HttpResponse<Kraken>) => {
+                        const kraken: Kraken = krakenResponse.body;
+                        kraken.createdat = this.datePipe
+                            .transform(kraken.createdat, 'yyyy-MM-ddTHH:mm:ss');
+                        this.ngbModalRef = this.krakenModalRef(component, kraken);
+                        resolve(this.ngbModalRef);
+                    });
             } else {
                 // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
                 setTimeout(() => {

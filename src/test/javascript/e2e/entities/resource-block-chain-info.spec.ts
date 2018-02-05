@@ -82,62 +82,62 @@ export class ResourceDialogPage {
 
     setUrlInput = function(url) {
         this.urlInput.sendKeys(url);
-    }
+    };
 
     getUrlInput = function() {
         return this.urlInput.getAttribute('value');
-    }
+    };
 
     setSizeInput = function(size) {
         this.sizeInput.sendKeys(size);
-    }
+    };
 
     getSizeInput = function() {
         return this.sizeInput.getAttribute('value');
-    }
+    };
 
     setCreatedAtInput = function(createdAt) {
         this.createdAtInput.sendKeys(createdAt);
-    }
+    };
 
     getCreatedAtInput = function() {
         return this.createdAtInput.getAttribute('value');
-    }
+    };
 
     setUpdatedAtInput = function(updatedAt) {
         this.updatedAtInput.sendKeys(updatedAt);
-    }
+    };
 
     getUpdatedAtInput = function() {
         return this.updatedAtInput.getAttribute('value');
-    }
+    };
 
     setResourceTypeSelect = function(resourceType) {
         this.resourceTypeSelect.sendKeys(resourceType);
-    }
+    };
 
     getResourceTypeSelect = function() {
         return this.resourceTypeSelect.element(by.css('option:checked')).getText();
-    }
+    };
 
     resourceTypeSelectLastOption = function() {
         this.resourceTypeSelect.all(by.tagName('option')).last().click();
-    }
+    };
     coinSelectLastOption = function() {
         this.coinSelect.all(by.tagName('option')).last().click();
-    }
+    };
 
     coinSelectOption = function(option) {
         this.coinSelect.sendKeys(option);
-    }
+    };
 
     getCoinSelect = function() {
         return this.coinSelect;
-    }
+    };
 
     getCoinSelectedOption = function() {
         return this.coinSelect.element(by.css('option:checked')).getText();
-    }
+    };
 
     save() {
         this.saveButton.click();

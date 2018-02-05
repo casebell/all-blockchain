@@ -1,6 +1,7 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { HttpResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { CoinBoardBlockChainInfo } from './coin-board-block-chain-info.model';
 import { CoinBoardBlockChainInfoService } from './coin-board-block-chain-info.service';
@@ -27,14 +28,16 @@ export class CoinBoardBlockChainInfoPopupService {
             }
 
             if (id) {
-                this.coinBoardService.find(id).subscribe((coinBoard) => {
-                    coinBoard.createdat = this.datePipe
-                        .transform(coinBoard.createdat, 'yyyy-MM-ddTHH:mm:ss');
-                    coinBoard.updatedat = this.datePipe
-                        .transform(coinBoard.updatedat, 'yyyy-MM-ddTHH:mm:ss');
-                    this.ngbModalRef = this.coinBoardModalRef(component, coinBoard);
-                    resolve(this.ngbModalRef);
-                });
+                this.coinBoardService.find(id)
+                    .subscribe((coinBoardResponse: HttpResponse<CoinBoardBlockChainInfo>) => {
+                        const coinBoard: CoinBoardBlockChainInfo = coinBoardResponse.body;
+                        coinBoard.createdat = this.datePipe
+                            .transform(coinBoard.createdat, 'yyyy-MM-ddTHH:mm:ss');
+                        coinBoard.updatedat = this.datePipe
+                            .transform(coinBoard.updatedat, 'yyyy-MM-ddTHH:mm:ss');
+                        this.ngbModalRef = this.coinBoardModalRef(component, coinBoard);
+                        resolve(this.ngbModalRef);
+                    });
             } else {
                 // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
                 setTimeout(() => {

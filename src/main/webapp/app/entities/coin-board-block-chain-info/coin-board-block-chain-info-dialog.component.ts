@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -11,7 +11,6 @@ import { CoinBoardBlockChainInfoPopupService } from './coin-board-block-chain-in
 import { CoinBoardBlockChainInfoService } from './coin-board-block-chain-info.service';
 import { CoinBlockChainInfo, CoinBlockChainInfoService } from '../coin-block-chain-info';
 import { User, UserService } from '../../shared';
-import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'jhi-coin-board-block-chain-info-dialog',
@@ -39,9 +38,9 @@ export class CoinBoardBlockChainInfoDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.coinService.query()
-            .subscribe((res: ResponseWrapper) => { this.coins = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: HttpResponse<CoinBlockChainInfo[]>) => { this.coins = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         this.userService.query()
-            .subscribe((res: ResponseWrapper) => { this.users = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: HttpResponse<User[]>) => { this.users = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
@@ -59,9 +58,9 @@ export class CoinBoardBlockChainInfoDialogComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<CoinBoardBlockChainInfo>) {
-        result.subscribe((res: CoinBoardBlockChainInfo) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError());
+    private subscribeToSaveResponse(result: Observable<HttpResponse<CoinBoardBlockChainInfo>>) {
+        result.subscribe((res: HttpResponse<CoinBoardBlockChainInfo>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess(result: CoinBoardBlockChainInfo) {

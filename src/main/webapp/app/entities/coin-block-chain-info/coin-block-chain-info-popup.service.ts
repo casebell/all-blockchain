@@ -1,6 +1,7 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { HttpResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { CoinBlockChainInfo } from './coin-block-chain-info.model';
 import { CoinBlockChainInfoService } from './coin-block-chain-info.service';
@@ -27,16 +28,18 @@ export class CoinBlockChainInfoPopupService {
             }
 
             if (id) {
-                this.coinService.find(id).subscribe((coin) => {
-                    coin.releaseat = this.datePipe
-                        .transform(coin.releaseat, 'yyyy-MM-ddTHH:mm:ss');
-                    coin.createdat = this.datePipe
-                        .transform(coin.createdat, 'yyyy-MM-ddTHH:mm:ss');
-                    coin.updatedat = this.datePipe
-                        .transform(coin.updatedat, 'yyyy-MM-ddTHH:mm:ss');
-                    this.ngbModalRef = this.coinModalRef(component, coin);
-                    resolve(this.ngbModalRef);
-                });
+                this.coinService.find(id)
+                    .subscribe((coinResponse: HttpResponse<CoinBlockChainInfo>) => {
+                        const coin: CoinBlockChainInfo = coinResponse.body;
+                        coin.releaseat = this.datePipe
+                            .transform(coin.releaseat, 'yyyy-MM-ddTHH:mm:ss');
+                        coin.createdat = this.datePipe
+                            .transform(coin.createdat, 'yyyy-MM-ddTHH:mm:ss');
+                        coin.updatedat = this.datePipe
+                            .transform(coin.updatedat, 'yyyy-MM-ddTHH:mm:ss');
+                        this.ngbModalRef = this.coinModalRef(component, coin);
+                        resolve(this.ngbModalRef);
+                    });
             } else {
                 // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
                 setTimeout(() => {

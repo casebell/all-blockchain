@@ -1,6 +1,7 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { HttpResponse } from '@angular/common/http';
 import { Market } from './market.model';
 import { MarketService } from './market.service';
 
@@ -25,10 +26,12 @@ export class MarketPopupService {
             }
 
             if (id) {
-                this.marketService.find(id).subscribe((market) => {
-                    this.ngbModalRef = this.marketModalRef(component, market);
-                    resolve(this.ngbModalRef);
-                });
+                this.marketService.find(id)
+                    .subscribe((marketResponse: HttpResponse<Market>) => {
+                        const market: Market = marketResponse.body;
+                        this.ngbModalRef = this.marketModalRef(component, market);
+                        resolve(this.ngbModalRef);
+                    });
             } else {
                 // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
                 setTimeout(() => {

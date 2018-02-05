@@ -1,6 +1,7 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { HttpResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { CoinBoardCommentBlockChainInfo } from './coin-board-comment-block-chain-info.model';
 import { CoinBoardCommentBlockChainInfoService } from './coin-board-comment-block-chain-info.service';
@@ -27,14 +28,16 @@ export class CoinBoardCommentBlockChainInfoPopupService {
             }
 
             if (id) {
-                this.coinBoardCommentService.find(id).subscribe((coinBoardComment) => {
-                    coinBoardComment.createdat = this.datePipe
-                        .transform(coinBoardComment.createdat, 'yyyy-MM-ddTHH:mm:ss');
-                    coinBoardComment.updatedat = this.datePipe
-                        .transform(coinBoardComment.updatedat, 'yyyy-MM-ddTHH:mm:ss');
-                    this.ngbModalRef = this.coinBoardCommentModalRef(component, coinBoardComment);
-                    resolve(this.ngbModalRef);
-                });
+                this.coinBoardCommentService.find(id)
+                    .subscribe((coinBoardCommentResponse: HttpResponse<CoinBoardCommentBlockChainInfo>) => {
+                        const coinBoardComment: CoinBoardCommentBlockChainInfo = coinBoardCommentResponse.body;
+                        coinBoardComment.createdat = this.datePipe
+                            .transform(coinBoardComment.createdat, 'yyyy-MM-ddTHH:mm:ss');
+                        coinBoardComment.updatedat = this.datePipe
+                            .transform(coinBoardComment.updatedat, 'yyyy-MM-ddTHH:mm:ss');
+                        this.ngbModalRef = this.coinBoardCommentModalRef(component, coinBoardComment);
+                        resolve(this.ngbModalRef);
+                    });
             } else {
                 // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
                 setTimeout(() => {
