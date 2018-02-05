@@ -105,107 +105,107 @@ export class CoinisDialogPage {
 
     setClosepriceInput = function(closeprice) {
         this.closepriceInput.sendKeys(closeprice);
-    }
+    };
 
     getClosepriceInput = function() {
         return this.closepriceInput.getAttribute('value');
-    }
+    };
 
     setHighpriceInput = function(highprice) {
         this.highpriceInput.sendKeys(highprice);
-    }
+    };
 
     getHighpriceInput = function() {
         return this.highpriceInput.getAttribute('value');
-    }
+    };
 
     setItemcodeInput = function(itemcode) {
         this.itemcodeInput.sendKeys(itemcode);
-    }
+    };
 
     getItemcodeInput = function() {
         return this.itemcodeInput.getAttribute('value');
-    }
+    };
 
     setLowpriceInput = function(lowprice) {
         this.lowpriceInput.sendKeys(lowprice);
-    }
+    };
 
     getLowpriceInput = function() {
         return this.lowpriceInput.getAttribute('value');
-    }
+    };
 
     setOpenpriceInput = function(openprice) {
         this.openpriceInput.sendKeys(openprice);
-    }
+    };
 
     getOpenpriceInput = function() {
         return this.openpriceInput.getAttribute('value');
-    }
+    };
 
     setPrevclosepriceInput = function(prevcloseprice) {
         this.prevclosepriceInput.sendKeys(prevcloseprice);
-    }
+    };
 
     getPrevclosepriceInput = function() {
         return this.prevclosepriceInput.getAttribute('value');
-    }
+    };
 
     setTradeamountInput = function(tradeamount) {
         this.tradeamountInput.sendKeys(tradeamount);
-    }
+    };
 
     getTradeamountInput = function() {
         return this.tradeamountInput.getAttribute('value');
-    }
+    };
 
     setTradedaebiInput = function(tradedaebi) {
         this.tradedaebiInput.sendKeys(tradedaebi);
-    }
+    };
 
     getTradedaebiInput = function() {
         return this.tradedaebiInput.getAttribute('value');
-    }
+    };
 
     setTradedaebirateInput = function(tradedaebirate) {
         this.tradedaebirateInput.sendKeys(tradedaebirate);
-    }
+    };
 
     getTradedaebirateInput = function() {
         return this.tradedaebirateInput.getAttribute('value');
-    }
+    };
 
     setTradedateInput = function(tradedate) {
         this.tradedateInput.sendKeys(tradedate);
-    }
+    };
 
     getTradedateInput = function() {
         return this.tradedateInput.getAttribute('value');
-    }
+    };
 
     setTradevolumnInput = function(tradevolumn) {
         this.tradevolumnInput.sendKeys(tradevolumn);
-    }
+    };
 
     getTradevolumnInput = function() {
         return this.tradevolumnInput.getAttribute('value');
-    }
+    };
 
     setSymbolInput = function(symbol) {
         this.symbolInput.sendKeys(symbol);
-    }
+    };
 
     getSymbolInput = function() {
         return this.symbolInput.getAttribute('value');
-    }
+    };
 
     setCreatedatInput = function(createdat) {
         this.createdatInput.sendKeys(createdat);
-    }
+    };
 
     getCreatedatInput = function() {
         return this.createdatInput.getAttribute('value');
-    }
+    };
 
     save() {
         this.saveButton.click();

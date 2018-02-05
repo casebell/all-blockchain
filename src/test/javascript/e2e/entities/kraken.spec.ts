@@ -75,19 +75,19 @@ export class KrakenDialogPage {
 
     setLastInput = function(last) {
         this.lastInput.sendKeys(last);
-    }
+    };
 
     getLastInput = function() {
         return this.lastInput.getAttribute('value');
-    }
+    };
 
     setCreatedatInput = function(createdat) {
         this.createdatInput.sendKeys(createdat);
-    }
+    };
 
     getCreatedatInput = function() {
         return this.createdatInput.getAttribute('value');
-    }
+    };
 
     save() {
         this.saveButton.click();

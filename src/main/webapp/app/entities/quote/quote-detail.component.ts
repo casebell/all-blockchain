@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
@@ -31,9 +32,10 @@ export class QuoteDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.quoteService.find(id).subscribe((quote) => {
-            this.quote = quote;
-        });
+        this.quoteService.find(id)
+            .subscribe((quoteResponse: HttpResponse<Quote>) => {
+                this.quote = quoteResponse.body;
+            });
     }
     previousState() {
         window.history.back();

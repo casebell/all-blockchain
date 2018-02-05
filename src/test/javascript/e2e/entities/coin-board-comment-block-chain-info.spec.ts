@@ -88,83 +88,83 @@ export class CoinBoardCommentDialogPage {
 
     setContextInput = function(context) {
         this.contextInput.sendKeys(context);
-    }
+    };
 
     getContextInput = function() {
         return this.contextInput.getAttribute('value');
-    }
+    };
 
     setGroupNoInput = function(groupNo) {
         this.groupNoInput.sendKeys(groupNo);
-    }
+    };
 
     getGroupNoInput = function() {
         return this.groupNoInput.getAttribute('value');
-    }
+    };
 
     setParentInput = function(parent) {
         this.parentInput.sendKeys(parent);
-    }
+    };
 
     getParentInput = function() {
         return this.parentInput.getAttribute('value');
-    }
+    };
 
     setDepthInput = function(depth) {
         this.depthInput.sendKeys(depth);
-    }
+    };
 
     getDepthInput = function() {
         return this.depthInput.getAttribute('value');
-    }
+    };
 
     setCreatedatInput = function(createdat) {
         this.createdatInput.sendKeys(createdat);
-    }
+    };
 
     getCreatedatInput = function() {
         return this.createdatInput.getAttribute('value');
-    }
+    };
 
     setUpdatedatInput = function(updatedat) {
         this.updatedatInput.sendKeys(updatedat);
-    }
+    };
 
     getUpdatedatInput = function() {
         return this.updatedatInput.getAttribute('value');
-    }
+    };
 
     coinBoardSelectLastOption = function() {
         this.coinBoardSelect.all(by.tagName('option')).last().click();
-    }
+    };
 
     coinBoardSelectOption = function(option) {
         this.coinBoardSelect.sendKeys(option);
-    }
+    };
 
     getCoinBoardSelect = function() {
         return this.coinBoardSelect;
-    }
+    };
 
     getCoinBoardSelectedOption = function() {
         return this.coinBoardSelect.element(by.css('option:checked')).getText();
-    }
+    };
 
     userSelectLastOption = function() {
         this.userSelect.all(by.tagName('option')).last().click();
-    }
+    };
 
     userSelectOption = function(option) {
         this.userSelect.sendKeys(option);
-    }
+    };
 
     getUserSelect = function() {
         return this.userSelect;
-    }
+    };
 
     getUserSelectedOption = function() {
         return this.userSelect.element(by.css('option:checked')).getText();
-    }
+    };
 
     save() {
         this.saveButton.click();

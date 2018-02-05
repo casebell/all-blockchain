@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -25,7 +25,7 @@ export class BitfinexDialogComponent implements OnInit {
 
     constructor(
         public activeModal: NgbActiveModal,
-        private alertService: JhiAlertService,
+        private jhiAlertService: JhiAlertService,
         private bitfinexService: BitfinexService,
         private coinService: CoinBlockChainInfoService,
         private eventManager: JhiEventManager
@@ -35,7 +35,7 @@ export class BitfinexDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.coinService.query()
-            .subscribe((res: ResponseWrapper) => { this.coins = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: HttpResponse<CoinBlockChainInfo[]>) => { this.coins = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
@@ -53,9 +53,9 @@ export class BitfinexDialogComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Bitfinex>) {
-        result.subscribe((res: Bitfinex) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+    private subscribeToSaveResponse(result: Observable<HttpResponse<Bitfinex>>) {
+        result.subscribe((res: HttpResponse<Bitfinex>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess(result: Bitfinex) {
@@ -64,18 +64,12 @@ export class BitfinexDialogComponent implements OnInit {
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError(error) {
-        try {
-            error.json();
-        } catch (exception) {
-            error.message = error.text();
-        }
+    private onSaveError() {
         this.isSaving = false;
-        this.onError(error);
     }
 
-    private onError(error) {
-        this.alertService.error(error.message, null, null);
+    private onError(error: any) {
+        this.jhiAlertService.error(error.message, null, null);
     }
 
     trackCoinById(index: number, item: CoinBlockChainInfo) {

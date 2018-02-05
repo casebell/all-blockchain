@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -10,7 +10,6 @@ import { Quote } from './quote.model';
 import { QuotePopupService } from './quote-popup.service';
 import { QuoteService } from './quote.service';
 //import { MarketCoin, MarketCoinService } from '../market-coin';
-import { ResponseWrapper } from '../../shared';
 import { MarketCoin } from '../../ticker/market-coin/market-coin.model';
 
 @Component({
@@ -35,8 +34,8 @@ export class QuoteDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        // this.marketCoinService.query()
-        //     .subscribe((res: ResponseWrapper) => { this.marketcoins = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        this.marketCoinService.query()
+            .subscribe((res: HttpResponse<MarketCoin[]>) => { this.marketcoins = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
@@ -54,9 +53,9 @@ export class QuoteDialogComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Quote>) {
-        result.subscribe((res: Quote) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError());
+    private subscribeToSaveResponse(result: Observable<HttpResponse<Quote>>) {
+        result.subscribe((res: HttpResponse<Quote>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess(result: Quote) {

@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
@@ -31,9 +32,10 @@ export class CoinBoardBlockChainInfoDetailComponent implements OnInit, OnDestroy
     }
 
     load(id) {
-        this.coinBoardService.find(id).subscribe((coinBoard) => {
-            this.coinBoard = coinBoard;
-        });
+        this.coinBoardService.find(id)
+            .subscribe((coinBoardResponse: HttpResponse<CoinBoardBlockChainInfo>) => {
+                this.coinBoard = coinBoardResponse.body;
+            });
     }
     previousState() {
         window.history.back();

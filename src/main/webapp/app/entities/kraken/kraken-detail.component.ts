@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
@@ -31,9 +32,10 @@ export class KrakenDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.krakenService.find(id).subscribe((kraken) => {
-            this.kraken = kraken;
-        });
+        this.krakenService.find(id)
+            .subscribe((krakenResponse: HttpResponse<Kraken>) => {
+                this.kraken = krakenResponse.body;
+            });
     }
     previousState() {
         window.history.back();

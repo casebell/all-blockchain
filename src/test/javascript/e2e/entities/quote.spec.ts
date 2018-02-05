@@ -98,99 +98,99 @@ export class QuoteDialogPage {
 
     setLastPriceInput = function(lastPrice) {
         this.lastPriceInput.sendKeys(lastPrice);
-    }
+    };
 
     getLastPriceInput = function() {
         return this.lastPriceInput.getAttribute('value');
-    }
+    };
 
     setVolumeInput = function(volume) {
         this.volumeInput.sendKeys(volume);
-    }
+    };
 
     getVolumeInput = function() {
         return this.volumeInput.getAttribute('value');
-    }
+    };
 
     setLowPriceInput = function(lowPrice) {
         this.lowPriceInput.sendKeys(lowPrice);
-    }
+    };
 
     getLowPriceInput = function() {
         return this.lowPriceInput.getAttribute('value');
-    }
+    };
 
     setHighPriceInput = function(highPrice) {
         this.highPriceInput.sendKeys(highPrice);
-    }
+    };
 
     getHighPriceInput = function() {
         return this.highPriceInput.getAttribute('value');
-    }
+    };
 
     setAvgPriceInput = function(avgPrice) {
         this.avgPriceInput.sendKeys(avgPrice);
-    }
+    };
 
     getAvgPriceInput = function() {
         return this.avgPriceInput.getAttribute('value');
-    }
+    };
 
     setBuyPriceInput = function(buyPrice) {
         this.buyPriceInput.sendKeys(buyPrice);
-    }
+    };
 
     getBuyPriceInput = function() {
         return this.buyPriceInput.getAttribute('value');
-    }
+    };
 
     setSellPriceInput = function(sellPrice) {
         this.sellPriceInput.sendKeys(sellPrice);
-    }
+    };
 
     getSellPriceInput = function() {
         return this.sellPriceInput.getAttribute('value');
-    }
+    };
 
     setOpeningPriceInput = function(openingPrice) {
         this.openingPriceInput.sendKeys(openingPrice);
-    }
+    };
 
     getOpeningPriceInput = function() {
         return this.openingPriceInput.getAttribute('value');
-    }
+    };
 
     setClosingPriceInput = function(closingPrice) {
         this.closingPriceInput.sendKeys(closingPrice);
-    }
+    };
 
     getClosingPriceInput = function() {
         return this.closingPriceInput.getAttribute('value');
-    }
+    };
 
     setQuoteTimeInput = function(quoteTime) {
         this.quoteTimeInput.sendKeys(quoteTime);
-    }
+    };
 
     getQuoteTimeInput = function() {
         return this.quoteTimeInput.getAttribute('value');
-    }
+    };
 
     marketCoinSelectLastOption = function() {
         this.marketCoinSelect.all(by.tagName('option')).last().click();
-    }
+    };
 
     marketCoinSelectOption = function(option) {
         this.marketCoinSelect.sendKeys(option);
-    }
+    };
 
     getMarketCoinSelect = function() {
         return this.marketCoinSelect;
-    }
+    };
 
     getMarketCoinSelectedOption = function() {
         return this.marketCoinSelect.element(by.css('option:checked')).getText();
-    }
+    };
 
     save() {
         this.saveButton.click();

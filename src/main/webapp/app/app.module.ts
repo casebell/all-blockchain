@@ -1,11 +1,19 @@
 import './vendor.ts';
 
-import { NgModule } from '@angular/core';
+import { NgModule, Injector } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Ng2Webstorage } from 'ngx-webstorage';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Ng2Webstorage, LocalStorageService, SessionStorageService  } from 'ngx-webstorage';
+import { JhiEventManager } from 'ng-jhipster';
+
+import { AuthInterceptor } from './blocks/interceptor/auth.interceptor';
+import { AuthExpiredInterceptor } from './blocks/interceptor/auth-expired.interceptor';
+import { ErrorHandlerInterceptor } from './blocks/interceptor/errorhandler.interceptor';
+import { NotificationInterceptor } from './blocks/interceptor/notification.interceptor';
 import { BlockchainSharedModule, UserRouteAccessService } from './shared';
-import { BlockchainHomeModule } from './home';
+import { BlockchainAppRoutingModule} from './app-routing.module';
+import { BlockchainHomeModule } from './home/home.module';
 import { BlockchainAdminModule } from './admin/admin.module';
 import { BlockchainAccountModule } from './account/account.module';
 import { BlockchainEntityModule } from './entities/entity.module';
@@ -17,7 +25,6 @@ import { BlockchainHelpModule } from './help/help.module';
 import { AdsenseModule } from 'ng2-adsense';
 import 'hammerjs';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
-
 import {
     JhiMainComponent,
     NavbarComponent,
@@ -75,9 +82,41 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     ],
     providers: [
         ProfileService,
-        customHttpProvider(),
         PaginationConfig,
-        UserRouteAccessService
+        UserRouteAccessService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true,
+            deps: [
+                LocalStorageService,
+                SessionStorageService
+            ]
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthExpiredInterceptor,
+            multi: true,
+            deps: [
+                Injector
+            ]
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ErrorHandlerInterceptor,
+            multi: true,
+            deps: [
+                JhiEventManager
+            ]
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: NotificationInterceptor,
+            multi: true,
+            deps: [
+                Injector
+            ]
+        }
     ],
     bootstrap: [ JhiMainComponent ]
 })

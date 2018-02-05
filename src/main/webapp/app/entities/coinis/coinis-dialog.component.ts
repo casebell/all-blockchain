@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { Coinis } from './coinis.model';
 import { CoinisPopupService } from './coinis-popup.service';
@@ -21,7 +21,6 @@ export class CoinisDialogComponent implements OnInit {
 
     constructor(
         public activeModal: NgbActiveModal,
-        private alertService: JhiAlertService,
         private coinisService: CoinisService,
         private eventManager: JhiEventManager
     ) {
@@ -46,9 +45,9 @@ export class CoinisDialogComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Coinis>) {
-        result.subscribe((res: Coinis) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+    private subscribeToSaveResponse(result: Observable<HttpResponse<Coinis>>) {
+        result.subscribe((res: HttpResponse<Coinis>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess(result: Coinis) {
@@ -57,18 +56,8 @@ export class CoinisDialogComponent implements OnInit {
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError(error) {
-        try {
-            error.json();
-        } catch (exception) {
-            error.message = error.text();
-        }
+    private onSaveError() {
         this.isSaving = false;
-        this.onError(error);
-    }
-
-    private onError(error) {
-        this.alertService.error(error.message, null, null);
     }
 }
 

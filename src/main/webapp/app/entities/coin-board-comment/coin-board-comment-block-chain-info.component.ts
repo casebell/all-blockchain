@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { CoinBoardCommentBlockChainInfo } from './coin-board-comment-block-chain-info.model';
 import { CoinBoardCommentBlockChainInfoService } from './coin-board-comment-block-chain-info.service';
-import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
+import { ITEMS_PER_PAGE, Principal } from '../../shared';
 
 @Component({
     selector: 'jhi-coin-board-comment-block-chain-info',
@@ -52,8 +53,8 @@ export class CoinBoardCommentBlockChainInfoComponent implements OnInit, OnDestro
                 size: this.itemsPerPage,
                 sort: this.sort()
             }).subscribe(
-                (res: ResponseWrapper) => this.onSuccess(res.json, res.headers),
-                (res: ResponseWrapper) => this.onError(res.json)
+                (res: HttpResponse<CoinBoardCommentBlockChainInfo[]>) => this.onSuccess(res.body, res.headers),
+                (res: HttpErrorResponse) => this.onError(res.message)
             );
             return;
         }
@@ -62,8 +63,8 @@ export class CoinBoardCommentBlockChainInfoComponent implements OnInit, OnDestro
             size: this.itemsPerPage,
             sort: this.sort()
         }).subscribe(
-            (res: ResponseWrapper) => this.onSuccess(res.json, res.headers),
-            (res: ResponseWrapper) => this.onError(res.json)
+            (res: HttpResponse<CoinBoardCommentBlockChainInfo[]>) => this.onSuccess(res.body, res.headers),
+            (res: HttpErrorResponse) => this.onError(res.message)
         );
     }
 

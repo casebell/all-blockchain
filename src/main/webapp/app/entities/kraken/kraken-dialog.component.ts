@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { Kraken } from './kraken.model';
 import { KrakenPopupService } from './kraken-popup.service';
@@ -21,7 +21,6 @@ export class KrakenDialogComponent implements OnInit {
 
     constructor(
         public activeModal: NgbActiveModal,
-        private alertService: JhiAlertService,
         private krakenService: KrakenService,
         private eventManager: JhiEventManager
     ) {
@@ -46,9 +45,9 @@ export class KrakenDialogComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Kraken>) {
-        result.subscribe((res: Kraken) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+    private subscribeToSaveResponse(result: Observable<HttpResponse<Kraken>>) {
+        result.subscribe((res: HttpResponse<Kraken>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess(result: Kraken) {
@@ -57,18 +56,8 @@ export class KrakenDialogComponent implements OnInit {
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError(error) {
-        try {
-            error.json();
-        } catch (exception) {
-            error.message = error.text();
-        }
+    private onSaveError() {
         this.isSaving = false;
-        this.onError(error);
-    }
-
-    private onError(error) {
-        this.alertService.error(error.message, null, null);
     }
 }
 

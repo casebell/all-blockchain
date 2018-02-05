@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -10,7 +10,6 @@ import { CoinBoardCommentBlockChainInfo } from './coin-board-comment-block-chain
 import { CoinBoardCommentBlockChainInfoPopupService } from './coin-board-comment-block-chain-info-popup.service';
 import { CoinBoardCommentBlockChainInfoService } from './coin-board-comment-block-chain-info.service';
 import { User, UserService } from '../../shared';
-import { ResponseWrapper } from '../../shared';
 import { CoinBoardBlockChainInfo, CoinBoardBlockChainInfoService } from '../coin-board';
 
 @Component({
@@ -39,9 +38,9 @@ export class CoinBoardCommentBlockChainInfoDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.coinBoardService.query()
-            .subscribe((res: ResponseWrapper) => { this.coinboards = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: HttpResponse<CoinBoardBlockChainInfo[]>) => { this.coinboards = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         this.userService.query()
-            .subscribe((res: ResponseWrapper) => { this.users = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: HttpResponse<User[]>) => { this.users = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
@@ -59,9 +58,9 @@ export class CoinBoardCommentBlockChainInfoDialogComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<CoinBoardCommentBlockChainInfo>) {
-        result.subscribe((res: CoinBoardCommentBlockChainInfo) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError());
+    private subscribeToSaveResponse(result: Observable<HttpResponse<CoinBoardCommentBlockChainInfo>>) {
+        result.subscribe((res: HttpResponse<CoinBoardCommentBlockChainInfo>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess(result: CoinBoardCommentBlockChainInfo) {
