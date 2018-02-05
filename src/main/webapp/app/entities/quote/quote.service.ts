@@ -51,6 +51,13 @@ export class QuoteService {
             .map((res: HttpResponse<Quote[]>) => this.convertArrayResponse(res));
     }
 
+
+    getQuoteByMaketCoinId(marketCoinId:number): Observable<EntityResponseType> {
+
+        return this.http.get<Quote>(`${this.resourceSearchUrl}/last/${marketCoinId}`, { observe: 'response'})
+            .map((res: EntityResponseType) => this.convertResponse(res));
+    }
+
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: Quote = this.convertItemFromServer(res.body);
         return res.clone({body});

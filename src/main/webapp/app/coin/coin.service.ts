@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { createRequestOption, ResponseWrapper } from '../shared';
-import { Http, Response } from '@angular/http';
+import { createRequestOption } from '../shared';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+
 import { Observable } from 'rxjs/Rx';
 import { SERVER_API_URL } from '../app.constants';
 import { Coin } from '../ticker/coin.model';
+
+export type EntityResponseType = HttpResponse<Coin>;
+
 
 @Injectable()
 export class CoinService {
@@ -13,7 +17,7 @@ export class CoinService {
      sideNavOpenButtonChanged: Subject<string> = new Subject();
     private resourceUrl = SERVER_API_URL + 'api/coins';
 
-    constructor(private http: Http) {
+    constructor(private http: HttpClient) {
     }
 
     sendSideNavCloseButton(message) {
@@ -25,37 +29,38 @@ export class CoinService {
     }
 
 
-    query(req?: any): Observable<ResponseWrapper> {
+    query(req?: any): Observable<HttpResponse<Coin[]>> {
         const options = createRequestOption(req);
-        return this.http.get(this.resourceUrl, options)
-            .map((res: Response) => this.convertResponse(res));
+        return this.http.get<Coin[]>(this.resourceUrl, { params: options, observe: 'response' })
+            .map((res: HttpResponse<Coin[]>) => this.convertArrayResponse(res));
     }
 
-    find(id: number): Observable<Coin> {
-        return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
-            const jsonResponse = res.json();
-            return this.convertItemFromServer(jsonResponse);
-        });
+    find(id: number): Observable<EntityResponseType> {
+        return this.http.get<Coin>(`${this.resourceUrl}/${id}`, { observe: 'response'})
+            .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
 
-    private convertResponse(res: Response): ResponseWrapper {
-        const jsonResponse = res.json();
-        const result = [];
-        for (let i = 0; i < jsonResponse.length; i++) {
-            result.push(this.convertItemFromServer(jsonResponse[i]));
-        }
-        return new ResponseWrapper(res.headers, result, res.status);
+    private convertResponse(res: EntityResponseType): EntityResponseType {
+        const body: Coin = this.convertItemFromServer(res.body);
+        return res.clone({body});
     }
 
     /**
      * Convert a returned JSON object to Coin.
      */
-    private convertItemFromServer(json: any): Coin {
-        const entity: Coin = Object.assign(new Coin(), json);
-        return entity;
+    private convertItemFromServer(coin: Coin): Coin {
+        const copy: Coin = Object.assign({}, coin);
+        return copy;
     }
-
+    private convertArrayResponse(res: HttpResponse<Coin[]>): HttpResponse<Coin[]> {
+        const jsonResponse: Coin[] = res.body;
+        const body: Coin[] = [];
+        for (let i = 0; i < jsonResponse.length; i++) {
+            body.push(this.convertItemFromServer(jsonResponse[i]));
+        }
+        return res.clone({body});
+    }
 
 
     /*   getSidenavOpenButton(): Observable<any> {

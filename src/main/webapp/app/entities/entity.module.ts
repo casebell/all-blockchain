@@ -4,8 +4,6 @@ import { BlockchainCoinBoardCommentBlockChainInfoModule } from './coin-board-com
 import { BlockchainCoinBlockChainInfoModule } from './coin/coin-block-chain-info.module';
 import { BlockchainResourceBlockChainInfoModule } from './resource/resource-block-chain-info.module';
 
-import { BlockchainKrakenModule } from './kraken/kraken.module';
-import { BlockchainCoinisModule } from './coinis/coinis.module';
 import { BlockchainBitfinexModule } from './bitfinex/bitfinex.module';
 import { BlockchainMarketModule } from './market/market.module';
 import { BlockchainQuoteModule } from './quote/quote.module';
@@ -13,8 +11,6 @@ import { BlockchainQuoteModule } from './quote/quote.module';
 
 @NgModule({
     imports: [
-        BlockchainKrakenModule,
-        BlockchainCoinisModule,
         BlockchainBitfinexModule,
         BlockchainMarketModule,
         BlockchainQuoteModule,

@@ -1,12 +1,14 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { JhiAlertService } from 'ng-jhipster';
 
 import { Observable } from 'rxjs/Observable';
 import { startWith } from 'rxjs/operators/startWith';
 import { map } from 'rxjs/operators/map';
 import { TickerService } from '../../ticker.service';
-import { Principal, ResponseWrapper } from '../../../shared';
+import { Principal } from '../../../shared';
 import { Market, MarketService } from '../../../entities/market';
 import { CoinService } from '../../../coin/coin.service';
 import { Coin } from '../../coin.model';
@@ -44,6 +46,7 @@ export class AddTickerDialogComponent implements OnInit {
                 private marketService: MarketService,
                 private coinService: CoinService,
                 private principal: Principal,
+                private jhiAlertService: JhiAlertService,
                 private marketCoinService: MarketCoinService,
                 private tickerService: TickerService,
                 public dialogRef: MatDialogRef<AddTickerDialogComponent>,
@@ -55,8 +58,8 @@ export class AddTickerDialogComponent implements OnInit {
         });
 
         this.marketService.query().subscribe(
-            (res: ResponseWrapper) => {
-                this.markets = res.json;
+            (res: HttpResponse<MarketCoin[]>) => {
+                this.markets = res.body;
                 this.filteredMarkets = this.firstFormGroup.get('marketName').valueChanges
                     .pipe(
                         startWith(''),
@@ -64,7 +67,7 @@ export class AddTickerDialogComponent implements OnInit {
                     );
 
             },
-            (res: ResponseWrapper) => console.log('error : ', res.json));
+            (res: HttpErrorResponse) => this.onError(res.message));
 
         this.firstFormGroup = this._formBuilder.group({
             marketName: ['', Validators.required]
@@ -82,10 +85,9 @@ export class AddTickerDialogComponent implements OnInit {
         {
             this.selectedMarket = market;
             this.marketCoinService.findMarketCoinAll(this.selectedMarket.id,this.userId).subscribe(
-                marketCoins => {
+                (res: HttpResponse<MarketCoin[]>) => {
                     this.selectedMarketCoins = [];
-                    console.log('get all Coins', marketCoins);
-                    this.marketCoins = marketCoins;
+                    this.marketCoins = res.body;
 
                 },
                 (res) => console.log('error : ', res));
@@ -122,4 +124,7 @@ export class AddTickerDialogComponent implements OnInit {
         )
     }
 
+    private onError(error: any) {
+        this.jhiAlertService.error(error.message, null, null);
+    }
 }

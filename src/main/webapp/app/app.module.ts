@@ -12,13 +12,11 @@ import { AuthExpiredInterceptor } from './blocks/interceptor/auth-expired.interc
 import { ErrorHandlerInterceptor } from './blocks/interceptor/errorhandler.interceptor';
 import { NotificationInterceptor } from './blocks/interceptor/notification.interceptor';
 import { BlockchainSharedModule, UserRouteAccessService } from './shared';
-import { BlockchainAppRoutingModule} from './app-routing.module';
 import { BlockchainHomeModule } from './home/home.module';
 import { BlockchainAdminModule } from './admin/admin.module';
 import { BlockchainAccountModule } from './account/account.module';
 import { BlockchainEntityModule } from './entities/entity.module';
 import { CoinModule } from './coin/coin.module';
-import { customHttpProvider } from './blocks/interceptor/http.provider';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
 import { HttpClientModule } from '@angular/common/http';
 import { BlockchainHelpModule } from './help/help.module';

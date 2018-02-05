@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { MarketCoin } from './market-coin/market-coin.model';
 import { SERVER_API_URL } from '../app.constants';
-import { Http, Response } from '@angular/http';
-import { createRequestOption, ResponseWrapper } from '../shared';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import { Ticker } from './ticker.model';
+
+export type EntityResponseType = HttpResponse<Ticker>;
+
 
 @Injectable()
 export class TickerService {
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
     private resourceUrl = SERVER_API_URL + 'api/tickers';
     private resourceQuoteUrl = SERVER_API_URL + 'api/quotes';
@@ -20,38 +22,28 @@ export class TickerService {
         });
     }
 
-    getTickers(userId:number): Observable<ResponseWrapper> {
+    getTickers(userId:number): Observable<EntityResponseType> {
 
-        return this.http.get(`${this.resourceUrl}/user/${userId}`)
-            .map((res: Response) => this.convertResponse(res));
+        return this.http.get(`${this.resourceUrl}/user/${userId}`, { observe: 'response'})
+            .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    getQuote(marketCoinId:number): Observable<ResponseWrapper> {
 
-        return this.http.get(`${this.resourceQuoteUrl}/last/${marketCoinId}`)
-            .map((res: Response) =>{
-                return res.json()
-            });
+    delete(id: number): Observable<HttpResponse<any>> {
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
     }
 
-    delete(id: number): Observable<Response> {
-        return this.http.delete(`${this.resourceUrl}/${id}`);
+    private convertResponse(res: EntityResponseType): EntityResponseType {
+        const body: Ticker = this.convertItemFromServer(res.body);
+        return res.clone({body});
     }
 
-    private convertResponse(res: Response): ResponseWrapper {
-        const jsonResponse = res.json();
-        const result = [];
-        for (let i = 0; i < jsonResponse.length; i++) {
-            result.push(this.convertItemFromServer(jsonResponse[i]));
-        }
-        return new ResponseWrapper(res.headers, result, res.status);
-    }
 
     /**
      * Convert a returned JSON object to Ticker.
      */
-    private convertItemFromServer(json: any): Ticker {
-        const entity: Ticker = Object.assign(new Ticker(), json);
-        return entity;
+    private convertItemFromServer(ticker : Ticker): Ticker {
+        const copy: Ticker = Object.assign({}, ticker);
+        return copy;
     }
 }

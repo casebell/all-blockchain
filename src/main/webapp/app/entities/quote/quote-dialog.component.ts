@@ -11,6 +11,7 @@ import { QuotePopupService } from './quote-popup.service';
 import { QuoteService } from './quote.service';
 //import { MarketCoin, MarketCoinService } from '../market-coin';
 import { MarketCoin } from '../../ticker/market-coin/market-coin.model';
+import { MarketCoinService } from '../../ticker/market-coin/market-coin.service';
 
 @Component({
     selector: 'jhi-quote-dialog',
@@ -27,7 +28,7 @@ export class QuoteDialogComponent implements OnInit {
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
         private quoteService: QuoteService,
-     //   private marketCoinService: MarketCoinService,
+        private marketCoinService: MarketCoinService,
         private eventManager: JhiEventManager
     ) {
     }

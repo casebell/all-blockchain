@@ -11,7 +11,6 @@ import { CoinBoardBlockChainInfoPopupService } from './coin-board-block-chain-in
 import { CoinBoardBlockChainInfoService } from './coin-board-block-chain-info.service';
 //import { CoinBlockChainInfo, CoinBlockChainInfoService } from '../coin-block-chain-info';
 import { User, UserService } from '../../shared';
-import { ResponseWrapper } from '../../shared';
 import { CoinBlockChainInfo, CoinBlockChainInfoService } from '../coin';
 
 @Component({

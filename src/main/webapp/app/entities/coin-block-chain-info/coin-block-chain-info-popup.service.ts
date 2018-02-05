@@ -3,8 +3,9 @@ import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
-import { CoinBlockChainInfo } from './coin-block-chain-info.model';
-import { CoinBlockChainInfoService } from './coin-block-chain-info.service';
+import { CoinBlockChainInfo, CoinBlockChainInfoService } from '../coin';
+// import { CoinBlockChainInfo } from './coin-block-chain-info.model';
+// import { CoinBlockChainInfoService } from './coin-block-chain-info.service';
 
 @Injectable()
 export class CoinBlockChainInfoPopupService {

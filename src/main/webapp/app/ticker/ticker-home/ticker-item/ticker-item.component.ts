@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TickerService } from '../../ticker.service';
 import { Observable } from 'rxjs/Rx';
 import { ExchangeRateService } from '../../../home/coin-price/coin-price-row/exchange-rate.service';
-import { Quote } from '../../../entities/quote';
+import { Quote, QuoteService } from '../../../entities/quote';
 import * as _ from 'lodash';
 import { Subscription } from 'rxjs/Subscription';
 import { CoinPriceService } from '../../../home/coin-price/coin-price.service';
@@ -43,6 +43,7 @@ export class TickerItemComponent implements OnInit {
 
     constructor(private tickerService: TickerService, private exchangeRateService: ExchangeRateService,
                 private coinPriceService: CoinPriceService,
+                private quoteService: QuoteService,
                 private dialog: MatDialog,
                 private bitfinexWebsocketService: BitfinexWebsocketService,
                 private gdaxWebsocketService: GDAXWebsocketService,
@@ -57,7 +58,7 @@ export class TickerItemComponent implements OnInit {
 
             switch (this.myTicker.apiType) {
                 case  'REST_SERVER':
-                    this.tickerService.getQuote(this.myTicker.marketCoinId)
+                    this.quoteService.getQuoteByMaketCoinId(this.myTicker.marketCoinId)
                         .subscribe(<PushSubscriptionOptionsInit>(quote) => {
                             this.quote = quote;
                         });
@@ -65,7 +66,7 @@ export class TickerItemComponent implements OnInit {
                     Observable
                         .interval(15 * 1000)
                         .timeInterval()
-                        .flatMap(() => this.tickerService.getQuote(this.myTicker.marketCoinId))
+                        .flatMap(() => this.quoteService.getQuoteByMaketCoinId(this.myTicker.marketCoinId))
                         .subscribe(<PushSubscriptionOptionsInit>(quote) => {
                             this.diff = this.quote.lastPrice - quote.lastPrice;
                             this.quote = quote;

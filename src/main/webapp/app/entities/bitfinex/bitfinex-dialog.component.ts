@@ -10,7 +10,6 @@ import { Bitfinex } from './bitfinex.model';
 import { BitfinexPopupService } from './bitfinex-popup.service';
 import { BitfinexService } from './bitfinex.service';
 import { CoinBlockChainInfo, CoinBlockChainInfoService } from '../coin';
-import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'jhi-bitfinex-dialog',

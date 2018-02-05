@@ -3,8 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
-import { CoinBoardCommentBlockChainInfo } from './coin-board-comment-block-chain-info.model';
-import { CoinBoardCommentBlockChainInfoService } from './coin-board-comment-block-chain-info.service';
+import { CoinBoardCommentBlockChainInfo, CoinBoardCommentBlockChainInfoService } from '../coin-board-comment';
 
 @Injectable()
 export class CoinBoardCommentBlockChainInfoPopupService {
