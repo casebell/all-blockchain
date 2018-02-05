@@ -78,9 +78,6 @@ export class AddTickerDialogComponent implements OnInit {
     }
 
     selectMarket(event, market){
-        console.log('event : ', event);
-        console.log('event : ', event.isUserInput);
-        console.log('market : ' , market);
         if(event.isUserInput)
         {
             this.selectedMarket = market;
@@ -97,9 +94,6 @@ export class AddTickerDialogComponent implements OnInit {
     }
 
     selectCoin(event, coin){
-        console.log('event : ', event);
-       // console.log('event : ', event.isUserInput);
-        console.log('market : ' , coin);
         if(event.isUserInput && event.source.selected)
         {   if(this.selectedMarketCoins.indexOf(coin) === -1)
                 this.selectedMarketCoins.push(coin);
@@ -119,7 +113,6 @@ export class AddTickerDialogComponent implements OnInit {
     }
 
     addCoin() {
-        console.log('selectedMarketCoins',this.selectedMarketCoins);
         this.tickerService.addTickers(this.userId,this.selectedMarketCoins).subscribe(
             (result)=>{
                 //console.log('result : ',result);

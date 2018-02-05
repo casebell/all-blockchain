@@ -32,7 +32,6 @@ export class TickerHomeComponent implements OnInit {
                 private tickerService: TickerService,
                 private observableMedia: ObservableMedia) {
         this.principal.identity().then((account) => {
-            console.log('account',account);
             this.userId = account.id;
             if(account.langKey == 'ko') {
                 this.myCurrency = 'KRW'
@@ -60,8 +59,6 @@ export class TickerHomeComponent implements OnInit {
         });
         this.cols = this.observableMedia.asObservable()
             .map(change => {
-                console.log(change);
-                console.log(grid.get(change.mqAlias));
                 return grid.get(change.mqAlias);
             })
             .startWith(start);
@@ -71,9 +68,7 @@ export class TickerHomeComponent implements OnInit {
 
     getTickers() {
         this.tickerService.getTickers(this.userId).subscribe((result) => {
-            //console.log('get Tickers : ', result);
             this.myTickers = result.json;
-            //console.log('  this.myTickers : ', this.myTickers);
 
         })
     }
@@ -83,7 +78,6 @@ export class TickerHomeComponent implements OnInit {
         let dialogRef = this.dialog.open(AddTickerDialogComponent);
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed' ,result);
             //  this.animal = result;
             if (result) {
                 //Todo : patch my ticker

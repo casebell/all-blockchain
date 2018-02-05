@@ -8,10 +8,11 @@
                 <!--</mat-option>-->
             <!--</mat-select>-->
         <!--</mat-form-field>-->
+
         <button mat-raised-button color="primary" (click)="openAddTickerDialog()"  style="margin-right:10px; height:50px;">
             <span jhiTranslate="ticker.addCoin">Add Coin</span>
         </button>
-
+        <span class="fill-remaining-space"></span>
         <mat-form-field style="width:80px;">
             <mat-select [placeholder]="'market.currency' | translate" [(ngModel)]="myCurrency" (change)="currencyChange($event)">
                 <mat-option *ngFor="let currency of currencyLists" [value]="currency.value">

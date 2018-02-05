@@ -112,14 +112,16 @@ public class CoinApiServiceImpl implements CoinApiService {
     public void getCoinApi() {
         zonedDateTime = ZonedDateTime.now();
 
-        getBithumbRest(); //.forEach(this::saveBithumb);
+        getBithumbRest();
         getKorbitRest();
 
 
-        BitflyerDTO bitflyerDTO = getBitflyerResBtc();
-        saveBitflyer(bitflyerDTO);
+//        BitflyerDTO bitflyerDTO = getBitflyerResBtc();
+//        saveBitflyer(bitflyerDTO);
+        getBitflyerResBtc();
+        getBittrexs();
 
-        getBittrexs().forEach(this::saveBittrex);
+            //...forEach(this::saveBittrex);
 
       //  getKrakens().forEach(this::saveKraken);
 
@@ -276,22 +278,83 @@ public class CoinApiServiceImpl implements CoinApiService {
     }
 
 
-    private List<BittrexDTO> getBittrexs() {
-        List<BittrexDTO> bittrexDTOS = new ArrayList();
+    private void getBittrexs() {
 
-        bittrexDTOS.add(getBittrexRest("USDT-BTC"));
-        bittrexDTOS.add(getBittrexRest("USDT-ETH"));
-        bittrexDTOS.add(getBittrexRest("USDT-XRP"));
-        bittrexDTOS.add(getBittrexRest("USDT-DASH"));
-        bittrexDTOS.add(getBittrexRest("USDT-LTC"));
-        bittrexDTOS.add(getBittrexRest("USDT-ETC"));
-        bittrexDTOS.add(getBittrexRest("USDT-BCC"));
-        bittrexDTOS.add(getBittrexRest("USDT-ZEC"));
-        bittrexDTOS.add(getBittrexRest("USDT-XMR"));
-        bittrexDTOS.add(getBittrexRest("USDT-NEO"));
-        bittrexDTOS.add(getBittrexRest("USDT-BTG"));
 
-        return bittrexDTOS;
+       getBittrexRest("USDT-BTC");
+       getBittrexRest("USDT-ETH");
+       getBittrexRest("USDT-XRP");
+       getBittrexRest("USDT-DASH");
+       getBittrexRest("USDT-LTC");
+       getBittrexRest("USDT-ETC");
+       getBittrexRest("USDT-BCC");
+       getBittrexRest("USDT-ZEC");
+       getBittrexRest("USDT-XMR");
+       getBittrexRest("USDT-NEO");
+       getBittrexRest("USDT-BTG");
+
+    }
+
+
+    private void getBittrexRest(String market) {
+
+        RestTemplate restTemplate = new RestTemplate();
+        Map bittrexMap = restTemplate.getForObject("https://bittrex.com/api/v1.1/public/getticker?market=" + market, Map.class);
+        Map<Object, Object> resultBittrexMap = (Map<Object, Object>) bittrexMap.get("result");
+        BittrexDTO bittrexDTO = modelMapper.map(resultBittrexMap, BittrexDTO.class);
+
+        long marketCoinId = 0;
+        switch (market) {
+            case "USDT-BTC":
+                bittrexDTO.setSymbol(BTC_SYMBOL);
+                marketCoinId = 401;
+                break;
+            case "USDT-ETH":
+                bittrexDTO.setSymbol(ETH_SYMBOL);
+                marketCoinId = 402;
+                break;
+            case "USDT-XRP":
+                marketCoinId = 403;
+                bittrexDTO.setSymbol(XRP_SYMBOL);
+                break;
+            case "USDT-DASH":
+                marketCoinId = 404;
+                bittrexDTO.setSymbol(DASH_SYMBOL);
+                break;
+            case "USDT-LTC":
+                marketCoinId = 405;
+                bittrexDTO.setSymbol(LTC_SYMBOL);
+                break;
+            case "USDT-ETC":
+                marketCoinId = 406;
+                bittrexDTO.setSymbol(ETC_SYMBOL);
+                break;
+            case "USDT-BCC":
+                bittrexDTO.setSymbol(BCH_SYMBOL);
+                marketCoinId = 407;
+                break;
+            case "USDT-ZEC":
+                bittrexDTO.setSymbol(ZEC_SYMBOL);
+                marketCoinId = 408;
+                break;
+            case "USDT-XMR":
+                bittrexDTO.setSymbol(XMR_SYMBOL);
+                marketCoinId = 409;
+                break;
+            case "USDT-NEO":
+                bittrexDTO.setSymbol(NEO_SYMBOL);
+                marketCoinId = 410;
+                break;
+            case "USDT-BTG":
+                bittrexDTO.setSymbol(BTG_SYMBOL);
+                marketCoinId = 410;
+                break;
+        }
+
+        bittrexDTO.setCreatedat(zonedDateTime);
+        bittrexRepository.save(modelMapper.map(bittrexDTO, Bittrex.class));
+        Quote quote = marketToQuote(marketCoinId,bittrexDTO.getLast().toString(),"0","0","0","0","0","0","0");
+        quoteRepository.save(quote);
     }
 
     private List<KrakenDTO> getKrakens() {
@@ -358,52 +421,9 @@ public class CoinApiServiceImpl implements CoinApiService {
         return krakenDTO;
     }
 
-    private BittrexDTO getBittrexRest(String market) {
-
-        RestTemplate restTemplate = new RestTemplate();
-        Map bittrexMap = restTemplate.getForObject("https://bittrex.com/api/v1.1/public/getticker?market=" + market, Map.class);
-        Map<Object, Object> resultBittrexMap = (Map<Object, Object>) bittrexMap.get("result");
-        BittrexDTO bittrexDTO = modelMapper.map(resultBittrexMap, BittrexDTO.class);
-        switch (market) {
-            case "USDT-BTC":
-                bittrexDTO.setSymbol(BTC_SYMBOL);
-                break;
-            case "USDT-ETH":
-                bittrexDTO.setSymbol(ETH_SYMBOL);
-                break;
-            case "USDT-XRP":
-                bittrexDTO.setSymbol(XRP_SYMBOL);
-                break;
-            case "USDT-DASH":
-                bittrexDTO.setSymbol(DASH_SYMBOL);
-                break;
-            case "USDT-LTC":
-                bittrexDTO.setSymbol(LTC_SYMBOL);
-                break;
-            case "USDT-ETC":
-                bittrexDTO.setSymbol(ETC_SYMBOL);
-                break;
-            case "USDT-BCC":
-                bittrexDTO.setSymbol(BCH_SYMBOL);
-                break;
-            case "USDT-ZEC":
-                bittrexDTO.setSymbol(ZEC_SYMBOL);
-                break;
-            case "USDT-XMR":
-                bittrexDTO.setSymbol(XMR_SYMBOL);
-                break;
-            case "USDT-NEO":
-                bittrexDTO.setSymbol(NEO_SYMBOL);
-                break;
-            case "USDT-BTG":
-                bittrexDTO.setSymbol(BTG_SYMBOL);
-                break;
-        }
-        return bittrexDTO ;
-    }
 
 
-    private BitflyerDTO getBitflyerResBtc() {
+    private void getBitflyerResBtc() {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.valueOf("text/plain;charset=utf-8"));
@@ -420,12 +440,11 @@ public class CoinApiServiceImpl implements CoinApiService {
             e.printStackTrace();
         }
 
-        /*
-        RestTemplate restTemplate = new RestTemplate();
-        BitflyerDTO bitflyerDTO = restTemplate
-            .getForObject("https://api.bitflyer.jp/v1/ticker", BitflyerDTO.class);*/
-        bitflyerDTO.setSymbol(BTC_SYMBOL);
-        return bitflyerDTO;
+        Bitflyer bitflyer = modelMapper.map(bitflyerDTO,Bitflyer.class);
+        bitflyer.setCreatedat(zonedDateTime);
+        bitflyerRepository.save(bitflyer);
+        Quote quote = marketToQuote(801,bitflyerDTO.getLtp().toString(),bitflyerDTO.getVolume().toString(),"0","0","0","0","0","0");
+        quoteRepository.save(quote);
     }
 
 

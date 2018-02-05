@@ -173,7 +173,7 @@ insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date
 insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1111,'KRW',11,12,'admin','2017-12-20');
 insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1112,'KRW',14,12,'admin','2017-12-20');
 insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1113,'KRW',16,12,'admin','2017-12-20');
-insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1114,'KRW',17,12,'admin','2017-12-20');
+insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1114,'KRW',13,12,'admin','2017-12-20');
 insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1115,'KRW',18,12,'admin','2017-12-20');
 insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1116,'KRW',19,12,'admin','2017-12-20');
 insert into MARKET_COIN (id, currency, coin_id,market_id,created_by,created_date) values (1117,'KRW',20,12,'admin','2017-12-20');

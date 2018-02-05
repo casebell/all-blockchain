@@ -53,7 +53,6 @@ export class TickerItemComponent implements OnInit {
     ngOnInit() {
 
         this.getExchangeRate();
-        console.log('myticker : ',this.myTicker);
         if (this.myTicker != null) {
 
             switch (this.myTicker.apiType) {
@@ -64,11 +63,10 @@ export class TickerItemComponent implements OnInit {
                         });
 
                     Observable
-                        .interval(5 * 1000)
+                        .interval(15 * 1000)
                         .timeInterval()
                         .flatMap(() => this.tickerService.getQuote(this.myTicker.marketCoinId))
                         .subscribe(<PushSubscriptionOptionsInit>(quote) => {
-                           console.log('get Tickers : ', quote);
                             this.diff = this.quote.lastPrice - quote.lastPrice;
                             this.quote = quote;
                         });
@@ -82,7 +80,7 @@ export class TickerItemComponent implements OnInit {
                                 this.checkFirst =false;
                                 });
                                 this.poloniexUnsubscribe = Observable
-                                    .interval(5* 1000)
+                                    .interval(15* 1000)
                                     .timeInterval()
                                     .flatMap(() => this.coinPriceService.getPoloniex())
                                     .subscribe((data: any) => {
@@ -96,7 +94,7 @@ export class TickerItemComponent implements OnInit {
                                 this.checkFirst =false;
                             });
                                 this.poloniexUnsubscribe = Observable
-                                    .interval(5* 1000)
+                                    .interval(15* 1000)
                                     .timeInterval()
                                     .flatMap(() => this.coinPriceService.getCoinone())
                                     .subscribe((data: any) => {
@@ -133,7 +131,6 @@ export class TickerItemComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed', result);
             //  this.animal = result;
             if (result) {
                 this.deleteTickerConfirm(tickerId);
@@ -160,7 +157,6 @@ export class TickerItemComponent implements OnInit {
 
                 this.gdaxWebsocketService.getEventListener().subscribe(
                     (message) => {
-                       console.log('gdaxWebsocketService message :', message);
                        if(message.data.product_id === "BTC-USD")
                        {
                            this.setSocketToQuote(message.data.price,message.data.high_24h,message.data.low_24h,"0","0",message.data.volume_24h);
@@ -171,7 +167,6 @@ export class TickerItemComponent implements OnInit {
                 case 'eth':
                     this.gdaxWebsocketService.getEventListener().subscribe(
                         (message) => {
-                           console.log('gdaxWebsocketService message :', message);
                            if(message.data.product_id === "ETH-USD")
                            {
                                this.setSocketToQuote(message.data.price,message.data.high_24h,message.data.low_24h,"0","0",message.data.volume_24h);
@@ -183,7 +178,6 @@ export class TickerItemComponent implements OnInit {
                 case 'ltc':
                     this.gdaxWebsocketService.getEventListener().subscribe(
                         (message) => {
-                           console.log('gdaxWebsocketService message :', message);
                            if(message.data.product_id === "LTC-USD")
                            {
                                this.setSocketToQuote(message.data.price,message.data.high_24h,message.data.low_24h,"0","0",message.data.volume_24h);
@@ -325,10 +319,8 @@ export class TickerItemComponent implements OnInit {
         }
 
         this.bitfinexWebsocketService.getEventListener().subscribe((event) => {
-            console.log('event', event);
             if (Array.isArray(event.data)) {
                 const res = event.data[1];
-                console.log('later event', event);
                 if (res != 'hb')
                     this.setSocketToQuote(res[6],res[8],res[9],res[0],res[3],res[7]);
             }

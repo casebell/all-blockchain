@@ -6,7 +6,7 @@
     </button>
     <!--<button mat-button  routerLink="news/home"><span jhiTranslate="navbar.news.title">News</span></button>-->
       <!--<button mat-button  routerLink="coin/home"><span jhiTranslate="navbar.coin.title">coin</span></button>-->
-      <button mat-button  routerLink="ticker"><span jhiTranslate="navbar.ticker.title">ticker</span></button>
+      <button mat-button  routerLink="ticker" *jhiHasAnyAuthority="'ROLE_USER'"><span jhiTranslate="navbar.ticker.title">ticker</span></button>
 
     <button mat-button *jhiHasAnyAuthority="'ROLE_ADMIN'" [matMenuTriggerFor]="adminMenu">
         Admin
@@ -117,7 +117,7 @@
     <!--<button mat-button  routerLink="news/home">-->
         <!--<span jhiTranslate="navbar.news.title">News</span>-->
     <!--</button>-->
-    <button mat-button  routerLink="ticker"><span jhiTranslate="navbar.ticker.title">ticker</span></button>
+    <button mat-button  routerLink="ticker" *jhiHasAnyAuthority="'ROLE_USER'"><span jhiTranslate="navbar.ticker.title">ticker</span></button>
 
     <span class="fill-remaining-space"></span>
 
@@ -132,28 +132,28 @@
         </button>
     </mat-menu>
 
-    <!--<button mat-button [matMenuTriggerFor]="accountMenuMobile" class="mobile-button">-->
-        <!--<span jhiTranslate="navbar.account.title">account</span>-->
-    <!--</button>-->
+    <button mat-button [matMenuTriggerFor]="accountMenuMobile" class="mobile-button">
+        <span jhiTranslate="navbar.account.title">account</span>
+    </button>
 
-    <!--<mat-menu #accountMenuMobile="matMenu" [ngSwitch]="isAuthenticated()">-->
-        <!--<button mat-menu-item (click)="logout()" *ngSwitchCase="true">-->
-            <!--<span jhiTranslate="navbar.account.logout">로그아웃</span>-->
-        <!--</button>-->
-        <!--<button mat-menu-item (click)="login()" *ngSwitchCase="false">-->
-            <!--<span jhiTranslate="navbar.account.login">로그인</span>-->
-        <!--</button>-->
-        <!--<button *ngSwitchCase="false" mat-menu-item routerLink="register" routerLinkActive="active">-->
-            <!--<span jhiTranslate="navbar.account.register">회원가입</span>-->
-        <!--</button>-->
-        <!--<button *ngSwitchCase="true" mat-menu-item routerLink="settings" routerLinkActive="active">-->
-            <!--<span jhiTranslate="global.menu.account.settings">Settings</span>-->
-        <!--</button>-->
-        <!--<button *ngSwitchCase="true" mat-menu-item routerLink="password" routerLinkActive="active">-->
-            <!--<span jhiTranslate="global.menu.account.password">Password</span>-->
-        <!--</button>-->
+    <mat-menu #accountMenuMobile="matMenu" [ngSwitch]="isAuthenticated()">
+        <button mat-menu-item (click)="logout()" *ngSwitchCase="true">
+            <span jhiTranslate="navbar.account.logout">로그아웃</span>
+        </button>
+        <button mat-menu-item (click)="login()" *ngSwitchCase="false">
+            <span jhiTranslate="navbar.account.login">로그인</span>
+        </button>
+        <button *ngSwitchCase="false" mat-menu-item routerLink="register" routerLinkActive="active">
+            <span jhiTranslate="navbar.account.register">회원가입</span>
+        </button>
+        <button *ngSwitchCase="true" mat-menu-item routerLink="settings" routerLinkActive="active">
+            <span jhiTranslate="global.menu.account.settings">Settings</span>
+        </button>
+        <button *ngSwitchCase="true" mat-menu-item routerLink="password" routerLinkActive="active">
+            <span jhiTranslate="global.menu.account.password">Password</span>
+        </button>
 
-    <!--</mat-menu>-->
+    </mat-menu>
 
 </mat-toolbar>
     <!--<button mat-button (click)="clickMenuIcon()" class="mobile-menu-button">
