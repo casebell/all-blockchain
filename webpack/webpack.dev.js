@@ -26,7 +26,10 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
             ],
             target: 'http://127.0.0.1:8080',
             secure: false
-        }]
+        }],
+        watchOptions: {
+            ignored: /node_modules/
+        }
     },
     entry: {
         polyfills: './src/main/webapp/app/polyfills',
@@ -45,32 +48,32 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
             loaders: 'tslint-loader',
             exclude: ['node_modules', new RegExp('reflect-metadata\\' + path.sep + 'Reflect\\.ts')]
         },
-            {
-                test: /\.ts$/,
-                loaders: [
-                    'angular2-template-loader',
-                    'awesome-typescript-loader'
-                ],
-                exclude: ['node_modules/generator-jhipster']
-            },
-            {
-                test: /\.scss$/,
-                loaders: ['to-string-loader', 'css-loader', 'sass-loader'],
-                exclude: /(vendor\.scss|global\.scss)/
-            },
-            {
-                test: /(vendor\.scss|global\.scss)/,
-                loaders: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
-            },
-            {
-                test: /\.css$/,
-                loaders: ['to-string-loader', 'css-loader'],
-                exclude: /(vendor\.css|global\.css)/
-            },
-            {
-                test: /(vendor\.css|global\.css)/,
-                loaders: ['style-loader', 'css-loader']
-            }]
+        {
+            test: /\.ts$/,
+            loaders: [
+                'angular2-template-loader',
+                'awesome-typescript-loader'
+            ],
+            exclude: ['node_modules/generator-jhipster']
+        },
+        {
+            test: /\.scss$/,
+            loaders: ['to-string-loader', 'css-loader', 'sass-loader'],
+            exclude: /(vendor\.scss|global\.scss)/
+        },
+        {
+            test: /(vendor\.scss|global\.scss)/,
+            loaders: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
+        },
+        {
+            test: /\.css$/,
+            loaders: ['to-string-loader', 'css-loader'],
+            exclude: /(vendor\.css|global\.css)/
+        },
+        {
+            test: /(vendor\.css|global\.css)/,
+            loaders: ['style-loader', 'css-loader']
+        }]
     },
     plugins: [
         new BrowserSyncPlugin({

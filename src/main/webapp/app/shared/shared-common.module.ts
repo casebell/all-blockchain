@@ -1,15 +1,16 @@
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-
+import { registerLocaleData } from '@angular/common';
+import localeKo from '@angular/common/locales/ko';
 import {
     BlockchainSharedLibsModule,
     JhiLanguageHelper,
     FindLanguageFromKeyPipe,
     JhiAlertComponent,
     JhiAlertErrorComponent,
-    CurrencyExchangePipe
+    CurrencyExchangePipe,
+    CoinDisplayPipe
 } from './';
-
 @NgModule({
     imports: [
         BlockchainSharedLibsModule
@@ -18,7 +19,8 @@ import {
         FindLanguageFromKeyPipe,
         CurrencyExchangePipe,
         JhiAlertComponent,
-        JhiAlertErrorComponent
+        JhiAlertErrorComponent,
+        CoinDisplayPipe
     ],
     providers: [
         JhiLanguageHelper,
@@ -33,7 +35,12 @@ import {
         FindLanguageFromKeyPipe,
         CurrencyExchangePipe,
         JhiAlertComponent,
-        JhiAlertErrorComponent
+        JhiAlertErrorComponent,
+        CoinDisplayPipe
     ]
 })
-export class BlockchainSharedCommonModule {}
+export class BlockchainSharedCommonModule {
+     constructor() {
+         registerLocaleData(localeKo);
+     }
+}

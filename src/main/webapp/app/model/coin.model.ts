@@ -8,4 +8,3 @@ export interface Coin {
     context: string;
     releaseat: Date; */
 }
-

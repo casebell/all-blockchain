@@ -4,7 +4,7 @@
       "packageName": "io.iansoft.blockchain",
       "nativeLanguage": "ko"
     },
-    "jhipsterVersion": "4.9.0",
+    "jhipsterVersion": "4.14.0",
     "baseName": "blockchain",
     "packageName": "io.iansoft.blockchain",
     "packageFolder": "io/iansoft/blockchain",
@@ -38,6 +38,8 @@
       "ko",
       "en",
       "vi"
-    ]
+    ],
+    "cacheProvider": "hazelcast",
+    "enableHibernateCache": true
   }
 }

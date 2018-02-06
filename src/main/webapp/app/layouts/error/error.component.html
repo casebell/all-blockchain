@@ -1,17 +1,35 @@
-<div>
-    <div class="row">
-        <div class="col-md-4">
-            <span class="hipster img-fluid rounded"></span>
-        </div>
-        <div class="col-md-8">
-            <h1 jhiTranslate="error.title">Error Page!</h1>
+<!--<div>-->
+    <!--<div class="row">-->
+        <!--<div class="col-md-4">-->
+            <!--<span class="hipster img-fluid rounded"></span>-->
+        <!--</div>-->
+        <!--<div class="col-md-8">-->
+            <!--<h1 jhiTranslate="error.title">Error Page!</h1>-->
 
-            <div [hidden]="!errorMessage">
-                <div class="alert alert-danger">{{errorMessage}}
-                </div>
-            </div>
-            <div [hidden]="!error403" class="alert alert-danger" jhiTranslate="error.http.403">You are not authorized to access this page.
+            <!--<div [hidden]="!errorMessage">-->
+                <!--<div class="alert alert-danger">{{errorMessage}}-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div [hidden]="!error403" class="alert alert-danger" jhiTranslate="error.http.403">You are not authorized to access this page.-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+<div style="padding:15px">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title ><h1 jhiTranslate="error.title">Error Page!</h1></mat-card-title>
+
+        </mat-card-header>
+        <div [hidden]="!errorMessage">
+            <div >{{errorMessage}}
             </div>
         </div>
-    </div>
+        <div [hidden]="!error403"  jhiTranslate="error.http.403">You are not authorized to access this page.
+        </div>
+
+        <mat-card-content>
+
+        </mat-card-content>
+    </mat-card>
 </div>

@@ -1,16 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
-import { Observable } from 'rxjs/Rx';
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs/Observable';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { ResourceBlockChainInfo } from './resource-block-chain-info.model';
 import { ResourceBlockChainInfoPopupService } from './resource-block-chain-info-popup.service';
 import { ResourceBlockChainInfoService } from './resource-block-chain-info.service';
+
 import { CoinBlockChainInfo, CoinBlockChainInfoService } from '../coin';
-import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'jhi-resource-block-chain-info-dialog',
@@ -19,14 +19,13 @@ import { ResponseWrapper } from '../../shared';
 export class ResourceBlockChainInfoDialogComponent implements OnInit {
 
     resource: ResourceBlockChainInfo;
-    authorities: any[];
     isSaving: boolean;
 
     coins: CoinBlockChainInfo[];
 
     constructor(
         public activeModal: NgbActiveModal,
-        private alertService: JhiAlertService,
+        private jhiAlertService: JhiAlertService,
         private resourceService: ResourceBlockChainInfoService,
         private coinService: CoinBlockChainInfoService,
         private eventManager: JhiEventManager
@@ -35,9 +34,8 @@ export class ResourceBlockChainInfoDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         this.coinService.query()
-            .subscribe((res: ResponseWrapper) => { this.coins = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: HttpResponse<CoinBlockChainInfo[]>) => { this.coins = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
@@ -55,9 +53,9 @@ export class ResourceBlockChainInfoDialogComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<ResourceBlockChainInfo>) {
-        result.subscribe((res: ResourceBlockChainInfo) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+    private subscribeToSaveResponse(result: Observable<HttpResponse<ResourceBlockChainInfo>>) {
+        result.subscribe((res: HttpResponse<ResourceBlockChainInfo>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess(result: ResourceBlockChainInfo) {
@@ -66,18 +64,12 @@ export class ResourceBlockChainInfoDialogComponent implements OnInit {
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError(error) {
-        try {
-            error.json();
-        } catch (exception) {
-            error.message = error.text();
-        }
+    private onSaveError() {
         this.isSaving = false;
-        this.onError(error);
     }
 
-    private onError(error) {
-        this.alertService.error(error.message, null, null);
+    private onError(error: any) {
+        this.jhiAlertService.error(error.message, null, null);
     }
 
     trackCoinById(index: number, item: CoinBlockChainInfo) {
@@ -91,7 +83,6 @@ export class ResourceBlockChainInfoDialogComponent implements OnInit {
 })
 export class ResourceBlockChainInfoPopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
@@ -102,10 +93,10 @@ export class ResourceBlockChainInfoPopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             if ( params['id'] ) {
-                this.modalRef = this.resourcePopupService
+                this.resourcePopupService
                     .open(ResourceBlockChainInfoDialogComponent as Component, params['id']);
             } else {
-                this.modalRef = this.resourcePopupService
+                this.resourcePopupService
                     .open(ResourceBlockChainInfoDialogComponent as Component);
             }
         });

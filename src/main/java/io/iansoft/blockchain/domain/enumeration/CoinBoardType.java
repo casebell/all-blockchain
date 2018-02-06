@@ -5,4 +5,5 @@ package io.iansoft.blockchain.domain.enumeration;
  */
 public enum CoinBoardType {
     FREE, INQUIRY, NEWS
+
 }

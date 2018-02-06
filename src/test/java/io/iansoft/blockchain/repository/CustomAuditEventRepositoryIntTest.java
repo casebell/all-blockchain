@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static io.iansoft.blockchain.repository.CustomAuditEventRepository.EVENT_DATA_COLUMN_MAX_LENGTH;
 
 /**
- * Test class for the CustomAuditEventRepository customAuditEventRepository class.
+ * Test class for the CustomAuditEventRepository class.
  *
  * @see CustomAuditEventRepository
  */

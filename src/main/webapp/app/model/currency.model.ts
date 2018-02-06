@@ -1,5 +1,5 @@
 export class Currency {
-    name:string;
-    rate:string;
-    date:string;
+    name: string;
+    rate: string;
+    date: string;
 }

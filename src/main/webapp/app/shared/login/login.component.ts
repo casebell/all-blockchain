@@ -1,13 +1,11 @@
 import { Component, AfterViewInit, Renderer, ElementRef } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { JhiEventManager } from 'ng-jhipster';
-
 import { LoginService } from './login.service';
 import { StateStorageService } from '../auth/state-storage.service';
 import { SocialService } from '../social/social.service';
-import {MdDialogRef} from "@angular/material";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
     selector: 'jhi-login-modal',
@@ -29,14 +27,14 @@ export class JhiLoginModalComponent implements AfterViewInit {
         private renderer: Renderer,
         private socialService: SocialService,
         private router: Router,
-        private fb:FormBuilder,
-        public dialogRef: MdDialogRef<JhiLoginModalComponent>,
+        private fb: FormBuilder,
+        public dialogRef: MatDialogRef<JhiLoginModalComponent>,
         //public activeModal: NgbActiveModal
     ) {
         this.loginForm = this.fb.group({
             password: ['', Validators.required],
             username: ['', Validators.required],
-            rememberMe: ['',]
+            rememberMe: ['', ]
         });
 
         this.credentials = {};
@@ -85,7 +83,7 @@ export class JhiLoginModalComponent implements AfterViewInit {
 
     register() {
      //   this.activeModal.dismiss('to state register');
-     this.dialogRef.close('go-reset-password');     
+     this.dialogRef.close('go-reset-password');
         this.router.navigate(['/register']);
     }
 

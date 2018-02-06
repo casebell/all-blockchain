@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
-import { JhiEventManager  } from 'ng-jhipster';
+import { HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs/Subscription';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { ResourceBlockChainInfo } from './resource-block-chain-info.model';
 import { ResourceBlockChainInfoService } from './resource-block-chain-info.service';
@@ -31,9 +32,10 @@ export class ResourceBlockChainInfoDetailComponent implements OnInit, OnDestroy 
     }
 
     load(id) {
-        this.resourceService.find(id).subscribe((resource) => {
-            this.resource = resource;
-        });
+        this.resourceService.find(id)
+            .subscribe((resourceResponse: HttpResponse<ResourceBlockChainInfo>) => {
+                this.resource = resourceResponse.body;
+            });
     }
     previousState() {
         window.history.back();

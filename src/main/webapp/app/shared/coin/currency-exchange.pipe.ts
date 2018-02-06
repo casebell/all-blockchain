@@ -6,31 +6,30 @@ export class CurrencyExchangePipe implements PipeTransform {
     transform(currency, coin): string {
         if (coin.currency && coin.exchangeRate) {
             if (coin.currency === 'USD'  && coin.myCurrency == 'KRW') {
-                currency = parseFloat(currency) * parseFloat(coin.exchangeRate[1].rates.KRW);
+                currency = parseFloat(currency) * parseFloat(coin.exchangeRate[1].krw);
             } else if (coin.currency === 'KRW' && coin.myCurrency == 'USD') {
-                currency = parseFloat(currency) / parseFloat(coin.exchangeRate[1].rates.KRW);
-            } else if (coin.currency ==="CNY"  && coin.myCurrency == 'KRW'){
-                currency = parseFloat(currency) * parseFloat(coin.exchangeRate[3].rates.KRW);
-            }else if (coin.currency ==="CNY"  && coin.myCurrency == 'USD') {
-                currency = parseFloat(currency) * parseFloat(coin.exchangeRate[3].rates.USD);
-            } else if (coin.currency ==="EUR"  && coin.myCurrency == 'KRW'){
-                currency = parseFloat(currency) * parseFloat(coin.exchangeRate[2].rates.KRW);
-            }else if (coin.currency ==="EUR"  && coin.myCurrency == 'USD') {
-                currency = parseFloat(currency) * parseFloat(coin.exchangeRate[2].rates.USD);
-            } else if (coin.currency ==="JPY"  && coin.myCurrency == 'KRW'){
-                currency = parseFloat(currency) * parseFloat(coin.exchangeRate[4].rates.KRW);
-            }else if (coin.currency ==="JPY"  && coin.myCurrency == 'USD') {
-                currency = parseFloat(currency) * parseFloat(coin.exchangeRate[4].rates.USD);
+                currency = parseFloat(currency) / parseFloat(coin.exchangeRate[1].krw);
+            } else if (coin.currency === 'CNY'  && coin.myCurrency == 'KRW'){
+                currency = parseFloat(currency) * parseFloat(coin.exchangeRate[3].krw);
+            }else if (coin.currency === 'CNY'  && coin.myCurrency == 'USD') {
+                currency = parseFloat(currency) * parseFloat(coin.exchangeRate[3].usd);
+            } else if (coin.currency === 'EUR'  && coin.myCurrency == 'KRW'){
+                currency = parseFloat(currency) * parseFloat(coin.exchangeRate[2].krw);
+            }else if (coin.currency === 'EUR'  && coin.myCurrency == 'USD') {
+                currency = parseFloat(currency) * parseFloat(coin.exchangeRate[2].usd);
+            } else if (coin.currency === 'JPY'  && coin.myCurrency == 'KRW'){
+                currency = parseFloat(currency) * parseFloat(coin.exchangeRate[4].krw);
+            }else if (coin.currency === 'JPY'  && coin.myCurrency == 'USD') {
+                currency = parseFloat(currency) * parseFloat(coin.exchangeRate[4].usd);
             }
         }
-          if(coin.myCurrency == 'KRW')
-                currency = parseFloat(currency).toFixed(0)
+          if (coin.myCurrency == 'KRW')
+                currency = parseFloat(currency).toFixed(0);
             else
-                currency = parseFloat(currency).toFixed(2)
+                currency = parseFloat(currency).toFixed(2);
         return Number(currency).toLocaleString();
     }
 }
-
 
 /*
 yahoo api now error

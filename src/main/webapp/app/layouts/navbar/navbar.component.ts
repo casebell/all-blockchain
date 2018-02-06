@@ -1,14 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {JhiLanguageService} from 'ng-jhipster';
-import { trigger,state,style,transition,animate,keyframes } from '@angular/animations';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import {ProfileService} from '../profiles/profile.service';
 import {JhiLanguageHelper, Principal, LoginModalService, LoginService} from '../../shared';
 
-import {VERSION, DEBUG_INFO_ENABLED} from '../../app.constants';
-import {MatDialog, MatDialogRef} from '@angular/material';
-import {JhiLoginModalComponent} from '../../shared/login/login.component';
+import {VERSION} from '../../app.constants';
+import {MatDialog} from '@angular/material';
+import {JhiLoginModalComponent} from '../../shared';
 
 @Component({
     selector: 'jhi-navbar',
@@ -36,8 +35,8 @@ export class NavbarComponent implements OnInit {
     // modalRef: NgbModalRef;
     version: string;
     checkMenu: boolean;
-    coinState: string = 'default';
-    accountState: string = 'default';
+    coinState = 'default';
+    accountState = 'default';
     constructor(private loginService: LoginService,
                 private languageService: JhiLanguageService,
                 private languageHelper: JhiLanguageHelper,
@@ -52,14 +51,14 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit() {
-        var lang = navigator.language;
+        const lang = navigator.language;
         console.log(lang);
         this.languageHelper.getAll().then((languages) => {
-            console.log('languages : ',languages);
+            console.log('languages : ', languages);
             this.languages = languages;
         });
 
-        this.profileService.getProfileInfo().subscribe((profileInfo) => {
+        this.profileService.getProfileInfo().then((profileInfo) => {
             this.inProduction = profileInfo.inProduction;
             this.swaggerEnabled = profileInfo.swaggerEnabled;
         });
@@ -70,7 +69,7 @@ export class NavbarComponent implements OnInit {
     }
 
     rotate(value) {
-        switch(value){
+        switch (value){
             case 'coinState':
                 this.coinState = (this.coinState === 'default' ? 'rotated' : 'default');
                 break;
@@ -95,8 +94,8 @@ export class NavbarComponent implements OnInit {
 
     login() {
         // this.modalRef = this.loginModalService.open();
-        let dialogRef = this.dialog.open(JhiLoginModalComponent);
-        dialogRef.afterClosed().subscribe(result => {
+        const dialogRef = this.dialog.open(JhiLoginModalComponent);
+        dialogRef.afterClosed().subscribe((result) => {
 
         });
     }

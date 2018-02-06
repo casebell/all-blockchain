@@ -1,0 +1,12 @@
+export const BITFINEX_BTC_USD = {'event': 'subscribe', 'channel': 'ticker', 'symbol': 'tBTCUSD'};
+export const BITFINEX_XRP_USD = {'event': 'subscribe', 'channel': 'ticker', 'symbol': 'tXRPUSD'};
+export const BITFINEX_ETH_USD = {'event': 'subscribe', 'channel': 'ticker', 'symbol': 'tETHUSD'};
+export const BITFINEX_DASH_USD = {'event': 'subscribe', 'channel': 'ticker', 'symbol': 'tDSHUSD'};
+export const BITFINEX_LTC_USD = {'event': 'subscribe', 'channel': 'ticker', 'symbol': 'tLTCUSD'};
+export const BITFINEX_ETC_USD = {'event': 'subscribe', 'channel': 'ticker', 'symbol': 'tETCUSD'};
+export const BITFINEX_BCH_USD = {'event': 'subscribe', 'channel': 'ticker', 'symbol': 'tBCHUSD'};
+export const BITFINEX_ZEC_USD = {'event': 'subscribe', 'channel': 'ticker', 'symbol': 'tZECUSD'};
+export const BITFINEX_XMR_USD = {'event': 'subscribe', 'channel': 'ticker', 'symbol': 'tXMRUSD'};
+export const BITFINEX_NEO_USD = {'event': 'subscribe', 'channel': 'ticker', 'symbol': 'tNEOUSD'};
+export const BITFINEX_BTG_USD = {'event': 'subscribe', 'channel': 'ticker', 'symbol': 'tNEOUSD'};
+export const BITFINEX_EOS_USD = {'event': 'subscribe', 'channel': 'ticker', 'symbol': 'tNEOUSD'};

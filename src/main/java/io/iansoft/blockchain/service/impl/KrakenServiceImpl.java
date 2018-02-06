@@ -22,7 +22,7 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
  */
 @Service
 @Transactional
-public class KrakenServiceImpl implements KrakenService{
+public class KrakenServiceImpl implements KrakenService {
 
     private final Logger log = LoggerFactory.getLogger(KrakenServiceImpl.class);
     private final KrakenRepository krakenRepository;

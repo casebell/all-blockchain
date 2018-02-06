@@ -2,8 +2,9 @@ const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const Visualizer = require('webpack-visualizer-plugin');
-const ngcWebpack = require('ngc-webpack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
+const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
 const path = require('path');
 
 const utils = require('./utils.js');
@@ -20,7 +21,7 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
     entry: {
         polyfills: './src/main/webapp/app/polyfills',
         global: './src/main/webapp/content/scss/global.scss',
-        main: './src/main/webapp/app/app.main-aot'
+        main: './src/main/webapp/app/app.main'
     },
     output: {
         path: utils.root('build/www'),
@@ -29,55 +30,33 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
     },
     module: {
         rules: [{
-            test: /\.ts$/,
-            use: [
-                {
-                    loader: 'awesome-typescript-loader',
-                    options: {
-                        configFileName: 'tsconfig-aot.json'
-                    },
-                },
-                { loader: 'angular2-template-loader' }
-            ],
-            exclude: ['node_modules/generator-jhipster']
+            test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
+            use: [ '@ngtools/webpack' ]
         },
-            {
-                test: /\.ts$/,
-                use: [
-                    {
-                        loader: 'ngc-webpack',
-                        options: {
-                            disable: false,
-                            tsConfigPath: 'tsconfig-aot.json'
-                        }
-                    }
-                ],
-                exclude: /(polyfills\.ts|vendor\.ts|Reflect\.ts)/
-            },
-            {
-                test: /\.scss$/,
-                loaders: ['to-string-loader', 'css-loader', 'sass-loader'],
-                exclude: /(vendor\.scss|global\.scss)/
-            },
-            {
-                test: /(vendor\.scss|global\.scss)/,
-                use: extractSASS.extract({
-                    fallback: 'style-loader',
-                    use: ['css-loader', 'postcss-loader', 'sass-loader']
-                })
-            },
-            {
-                test: /\.css$/,
-                loaders: ['to-string-loader', 'css-loader'],
-                exclude: /(vendor\.css|global\.css)/
-            },
-            {
-                test: /(vendor\.css|global\.css)/,
-                use: extractCSS.extract({
-                    fallback: 'style-loader',
-                    use: ['css-loader']
-                })
-            }]
+        {
+            test: /\.scss$/,
+            loaders: ['to-string-loader', 'css-loader', 'sass-loader'],
+            exclude: /(vendor\.scss|global\.scss)/
+        },
+        {
+            test: /(vendor\.scss|global\.scss)/,
+            use: extractSASS.extract({
+                fallback: 'style-loader',
+                use: ['css-loader', 'postcss-loader', 'sass-loader']
+            })
+        },
+        {
+            test: /\.css$/,
+            loaders: ['to-string-loader', 'css-loader'],
+            exclude: /(vendor\.css|global\.css)/
+        },
+        {
+            test: /(vendor\.css|global\.css)/,
+            use: extractCSS.extract({
+                fallback: 'style-loader',
+                use: ['css-loader']
+            })
+        }]
     },
     plugins: [
         extractSASS,
@@ -112,14 +91,18 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
                 }
             }
         }),
-        new ngcWebpack.NgcWebpackPlugin({
-            disabled: false,
-            tsConfig: utils.root('tsconfig-aot.json'),
-            resourceOverride: ''
+        new AngularCompilerPlugin({
+            mainPath: utils.root('src/main/webapp/app/app.main.ts'),
+            tsConfigPath: utils.root('tsconfig-aot.json'),
+            sourceMap: true
         }),
         new webpack.LoaderOptionsPlugin({
             minimize: true,
             debug: false
+        }),
+        new WorkboxPlugin({
+          clientsClaim: true,
+          skipWaiting: true,
         })
     ]
 });

@@ -22,7 +22,7 @@ import io.iansoft.blockchain.domain.enumeration.ConsensusAlgorithms;
 @Table(name = "coin")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Document(indexName = "coin")
-public class Coin implements Serializable {
+public class Coin extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -54,12 +54,6 @@ public class Coin implements Serializable {
     @Column(name = "releaseat")
     private ZonedDateTime releaseat;
 
-    @Column(name = "createdat")
-    private ZonedDateTime createdat;
-
-    @Column(name = "updatedat")
-    private ZonedDateTime updatedat;
-
     @OneToMany(mappedBy = "coin")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -70,9 +64,27 @@ public class Coin implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<CoinBoard> boards = new HashSet<>();
 
-    @OneToOne
+    @OneToMany(mappedBy = "coin")
     @JsonIgnore
-    private Bitfinex bitfinex;
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<MarketCoin> marketCoins = new HashSet<>();
+
+
+    @ManyToOne
+    private Market market;
+
+    public Market getMarket() {
+        return market;
+    }
+
+    public void setMarket(Market market) {
+        this.market = market;
+    }
+
+    public Coin market(Market market) {
+        this.market = market;
+        return this;
+    }
 
     public Long getId() {
         return id;
@@ -173,32 +185,6 @@ public class Coin implements Serializable {
         this.releaseat = releaseat;
     }
 
-    public ZonedDateTime getCreatedat() {
-        return createdat;
-    }
-
-    public Coin createdat(ZonedDateTime createdat) {
-        this.createdat = createdat;
-        return this;
-    }
-
-    public void setCreatedat(ZonedDateTime createdat) {
-        this.createdat = createdat;
-    }
-
-    public ZonedDateTime getUpdatedat() {
-        return updatedat;
-    }
-
-    public Coin updatedat(ZonedDateTime updatedat) {
-        this.updatedat = updatedat;
-        return this;
-    }
-
-    public void setUpdatedat(ZonedDateTime updatedat) {
-        this.updatedat = updatedat;
-    }
-
     public Set<Resource> getResources() {
         return resources;
     }
@@ -245,14 +231,6 @@ public class Coin implements Serializable {
         return this;
     }
 
-    public Bitfinex getBitfinex() {
-        return bitfinex;
-    }
-
-    public void setBitfinex(Bitfinex bitfinex) {
-        this.bitfinex = bitfinex;
-    }
-
     public void setBoards(Set<CoinBoard> coinBoards) {
         this.boards = coinBoards;
     }
@@ -288,11 +266,8 @@ public class Coin implements Serializable {
         sb.append(", whitePaper='").append(whitePaper).append('\'');
         sb.append(", context='").append(context).append('\'');
         sb.append(", releaseat=").append(releaseat);
-        sb.append(", createdat=").append(createdat);
-        sb.append(", updatedat=").append(updatedat);
         sb.append(", resources=").append(resources);
         sb.append(", boards=").append(boards);
-        sb.append(", bitfinex=").append(bitfinex);
         sb.append('}');
         return sb.toString();
     }

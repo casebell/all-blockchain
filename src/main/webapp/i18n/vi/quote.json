@@ -1,0 +1,33 @@
+
+{
+    "blockchainApp": {
+        "quote" : {
+            "home": {
+                "title": "Quotes",
+                "createLabel": "Thêm mới một Quote",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Quote",
+                "search": "Tìm Quote"
+            },
+            "created": "Một Quote mới được tạo với định danh {{ param }}",
+            "updated": "Một Quote cập nhật với định danh {{ param }}",
+            "deleted": "Một Quote đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Quote {{ id }}?"
+            },
+            "detail": {
+                "title": "Quote"
+            },
+            "lastPrice": "Last Price",
+            "volume": "Volume",
+            "lowPrice": "Low Price",
+            "highPrice": "High Price",
+            "avgPrice": "Avg Price",
+            "buyPrice": "Buy Price",
+            "sellPrice": "Sell Price",
+            "openingPrice": "Opening Price",
+            "closingPrice": "Closing Price",
+            "quoteTime": "Quote Time",
+            "marketCoin": "Market Coin"
+        }
+    }
+}

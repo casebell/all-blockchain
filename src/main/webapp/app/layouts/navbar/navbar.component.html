@@ -4,8 +4,9 @@
             <mat-icon>home</mat-icon>
             <span jhiTranslate="global.title">All Blockchain</span>
     </button>
-<!--
-  <button mat-button  routerLink="coin/home"><span jhiTranslate="navbar.coin.title">coin</span></button>
+    <!--<button mat-button  routerLink="news/home"><span jhiTranslate="navbar.news.title">News</span></button>-->
+      <!--<button mat-button  routerLink="coin/home"><span jhiTranslate="navbar.coin.title">coin</span></button>-->
+      <button mat-button  routerLink="ticker" *jhiHasAnyAuthority="'ROLE_USER'"><span jhiTranslate="navbar.ticker.title">ticker</span></button>
 
     <button mat-button *jhiHasAnyAuthority="'ROLE_ADMIN'" [matMenuTriggerFor]="adminMenu">
         Admin
@@ -44,6 +45,9 @@
             </button>
 
     <mat-menu #entityMenu="matMenu">
+        <button mat-menu-item routerLink="market" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <span >Market </span>
+        </button>
         <button mat-menu-item routerLink="coin-block-chain-info" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                             <span >Coin </span>
                     </button>
@@ -62,7 +66,7 @@
 
    <button mat-button [matMenuTriggerFor]="accountMenu">
             <span jhiTranslate="navbar.account.title">account</span>
-        </button>
+  </button>
 
     <mat-menu #accountMenu="matMenu" [ngSwitch]="isAuthenticated()">
         <button mat-menu-item (click)="logout()" *ngSwitchCase="true">
@@ -71,7 +75,7 @@
         <button mat-menu-item (click)="login()" *ngSwitchCase="false">
                 <span jhiTranslate="navbar.account.login">로그인</span>
             </button>
-        <button *ngSwitchCase="false" mat-menu-item routerLink="register" routerLinkActive="active">
+        <button *ngSwitchCase="false" mat-menu-item routerLink="/register" routerLinkActive="active">
                 <span jhiTranslate="navbar.account.register">회원가입</span>
             </button>
         <button *ngSwitchCase="true" mat-menu-item routerLink="settings" routerLinkActive="active">
@@ -80,7 +84,7 @@
         <button *ngSwitchCase="true" mat-menu-item routerLink="password" routerLinkActive="active">
             <span jhiTranslate="global.menu.account.password">Password</span>
             </button>
-    </mat-menu>-->
+    </mat-menu>
 
 
     <button mat-button [matMenuTriggerFor]="languageMenu" style="margin-left:auto">
@@ -97,8 +101,6 @@
 </mat-toolbar>
 
 
-
-
 <!--mobile -->
 
 <mat-toolbar color="primary" [ngSwitch]="isAuthenticated()" class="mobile">
@@ -109,11 +111,14 @@
     </button>
 
     <!-- coins-->
-    <!--
-    <button mat-button routerLink="coin/home">
-        <span jhiTranslate="navbar.coin.title">Coin</span>
-    </button>
--->
+    <!--<button mat-button routerLink="coin/home">-->
+        <!--<span jhiTranslate="navbar.coin.title">Coin</span>-->
+    <!--</button>-->
+    <!--<button mat-button  routerLink="news/home">-->
+        <!--<span jhiTranslate="navbar.news.title">News</span>-->
+    <!--</button>-->
+    <button mat-button  routerLink="ticker" *jhiHasAnyAuthority="'ROLE_USER'"><span jhiTranslate="navbar.ticker.title">ticker</span></button>
+
     <span class="fill-remaining-space"></span>
 
 
@@ -125,6 +130,29 @@
         <button mat-menu-item *ngFor="let language of languages" (click)="changeLanguage(language)">
             {{language | findLanguageFromKey}}
         </button>
+    </mat-menu>
+
+    <button mat-button [matMenuTriggerFor]="accountMenuMobile" class="mobile-button">
+        <span jhiTranslate="navbar.account.title">account</span>
+    </button>
+
+    <mat-menu #accountMenuMobile="matMenu" [ngSwitch]="isAuthenticated()">
+        <button mat-menu-item (click)="logout()" *ngSwitchCase="true">
+            <span jhiTranslate="navbar.account.logout">로그아웃</span>
+        </button>
+        <button mat-menu-item (click)="login()" *ngSwitchCase="false">
+            <span jhiTranslate="navbar.account.login">로그인</span>
+        </button>
+        <button *ngSwitchCase="false" mat-menu-item routerLink="register" routerLinkActive="active">
+            <span jhiTranslate="navbar.account.register">회원가입</span>
+        </button>
+        <button *ngSwitchCase="true" mat-menu-item routerLink="settings" routerLinkActive="active">
+            <span jhiTranslate="global.menu.account.settings">Settings</span>
+        </button>
+        <button *ngSwitchCase="true" mat-menu-item routerLink="password" routerLinkActive="active">
+            <span jhiTranslate="global.menu.account.password">Password</span>
+        </button>
+
     </mat-menu>
 
 </mat-toolbar>
@@ -299,6 +327,12 @@
                             <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
                             <span
                                 jhiTranslate="global.menu.entities.resourceBlockChainInfo">Resource Block Chain Info</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="market" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.entities.market">Market</span>
                         </a>
                     </li>
                     &lt;!&ndash; jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here &ndash;&gt;

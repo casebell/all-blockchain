@@ -1,0 +1,31 @@
+<div style="padding:10px">
+
+    <div style="display:flex;">
+        <!--<mat-form-field  style="margin-left:auto;margin-right:10px; width:80px;">-->
+            <!--<mat-select [placeholder]="'market.time' | translate" (change)="timeChange()" [(ngModel)]="myUpdateTime">-->
+                <!--<mat-option *ngFor="let time of timeLists" [value]="time.value">-->
+                    <!--{{ time.viewValue }}-->
+                <!--</mat-option>-->
+            <!--</mat-select>-->
+        <!--</mat-form-field>-->
+
+        <button mat-raised-button color="primary" (click)="openAddTickerDialog()"  style="margin-right:10px; height:50px;">
+            <span jhiTranslate="ticker.addCoin">Add Coin</span>
+        </button>
+        <span class="fill-remaining-space"></span>
+        <mat-form-field style="width:80px;">
+            <mat-select [placeholder]="'market.currency' | translate" [(ngModel)]="myCurrency" (change)="currencyChange($event)">
+                <mat-option *ngFor="let currency of currencyLists" [value]="currency.value">
+                    {{ currency.viewValue }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <mat-grid-list [cols]="cols | async"  rowHeight="7:3" dnd-sortable-container  [sortableData]="myTickers">
+        <mat-grid-tile *ngFor="let myTicker of myTickers ; let i = index"  dnd-sortable [sortableIndex]="i" >
+            <coin-ticker-item [myTicker]=myTicker [myCurrency]=myCurrency (close)="onClose($event)"></coin-ticker-item>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+</div>

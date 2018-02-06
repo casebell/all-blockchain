@@ -6,6 +6,12 @@
             "bitcoin":"BITCOIN",
             "ethereum":"ETHEREUM"
         },
+        "news": {
+            "title":"News"
+        },
+        "ticker": {
+            "title":"My Ticker"
+        },
         "account": {
             "title":"Account",
             "login":"Login",

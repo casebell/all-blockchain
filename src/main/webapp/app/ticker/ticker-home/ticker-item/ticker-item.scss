@@ -1,0 +1,64 @@
+.example-card {
+  //  width: 100%;
+}
+
+.inc{
+    color:#FF4C4C;
+    //color:#FFFFFF;
+}
+
+.dec {
+    color:#60AFFE;
+    //color:#FFFFFF;
+}
+
+.equal {
+    //background-color:#FFFFFF;
+    color:#000000;
+}
+.last-price {
+    font-size:1.6em;
+    font-weight:700;
+    height:40px;
+}
+
+.market-name {
+    font-size:1.2em;
+    font-weight:500;
+}
+.coin-name {
+    font-size:1.0em;
+    font-weight:500;
+    line-height: 25px;
+}
+
+.img-size {
+    width:24px;
+    height:24px;
+    margin-right:5px;
+}
+
+.ticker-header{
+    display: flex;
+}
+
+.close-button{
+    position:absolute;
+    top:3px;
+    right:3px;
+    button {
+        opacity:0;
+        -webkit-transition:.5s;
+        -moz-transition:.5s;
+        -o-transition:.5s;
+        -ms-transition:.5s;
+        transition:.5s;
+        width:24px;
+        height:24px;
+    }
+    button:hover {
+        opacity:1;
+    }
+
+}
+

@@ -20,21 +20,21 @@ import {
     SocialAuthComponent,
     accountState
 } from './';
-import { MdInputModule, MdButtonModule,
-         MdIconModule, MdSnackBarModule,
-         MdCardModule, MdSelectModule } from "@angular/material";
-
+import {
+    MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatSelectModule,
+    MatSnackBarModule
+} from '@angular/material';
 @NgModule({
     imports: [
         BlockchainSharedModule,
         ReactiveFormsModule,
-        MdInputModule,
-        MdButtonModule,
-        MdIconModule,
-        MdSnackBarModule,
-        MdCardModule,
-        MdSelectModule,
-        RouterModule.forRoot(accountState, { useHash: true })
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSnackBarModule,
+        MatCardModule,
+        MatSelectModule,
+        RouterModule.forChild(accountState)
     ],
     declarations: [
         SocialRegisterComponent,

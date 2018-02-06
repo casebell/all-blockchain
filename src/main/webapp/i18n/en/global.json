@@ -1,10 +1,15 @@
 {
     "global": {
         "title": "All Blockchain",
+        "footer-donation" : "help support all blockchain.",
         "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
         "coin":"coin",
         "close" : "Close",
         "open" : "Open",
+        "write" : "Write",
+        "volume" : "Volume",
+        "yes" : "Yes",
+        "no" : "No",
         "menu": {
             "home": "Home",
             "language": "Language",
@@ -14,6 +19,7 @@
             },
             "entities": {
                 "main": "Entities",
+                "quote": "Quote",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -121,7 +127,8 @@
             "maxbytes": "This field cannot be more than {{ max }} bytes.",
             "pattern": "This field should follow pattern for {{ pattern }}.",
             "number": "This field should be a number.",
-            "datetimelocal": "This field should be a date and time."
+            "datetimelocal": "This field should be a date and time.",
+            "patternLogin": "This field can only contain letters, digits and e-mail addresses."
         }
     },
     "error": {

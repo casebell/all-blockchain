@@ -1,3 +1,4 @@
+
 {
     "blockchainApp": {
         "coin" : {
@@ -27,7 +28,8 @@
             "updatedat": "Updatedat",
             "resource": "Resource",
             "board": "Board",
-            "bitcoin":"비트코인"
+            "bitcoin":"비트코인",
+            "market" : "거래소"
         }
     }
 }

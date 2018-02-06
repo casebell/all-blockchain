@@ -1,7 +1,7 @@
 export class CoinPrice {
     market: string;
     currencies: string;
-    coins : Coins[];
+    coins: Coins[];
 }
 
 class Coins {

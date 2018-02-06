@@ -29,6 +29,7 @@ import 'core-js/es6/math';
 import 'core-js/es6/string';
 import 'core-js/es6/date';
 import 'core-js/es6/array';
+import 'core-js/es7/array';
 import 'core-js/es6/regexp';
 import 'core-js/es6/map';
 import 'core-js/es6/weak-map';
@@ -45,7 +46,7 @@ import 'core-js/es7/reflect';
  * Required to support Web Animations `@angular/animation`.
  * Needed for: All but Chrome, Firefox and Opera. http://caniuse.com/#feat=web-animation
  **/
-// import 'web-animations-js';  // Run `npm install --save web-animations-js`.
+import 'web-animations-js';  // Run `npm install --save web-animations-js`.
 
 /***************************************************************************************************
  * Zone JS is required by Angular itself.

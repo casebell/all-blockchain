@@ -1,0 +1,252 @@
+
+
+    <mat-card class="example-card">
+        <p class="close-button">
+            <button mat-icon-button (click)="deleteTicker(myTicker?.id)"  ><i class="material-icons">close</i></button>
+        </p>
+        <div [ngSwitch]="myTicker?.coinName">
+            <p *ngSwitchCase="'btc'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/bitcoin.png"/>
+                <span class="coin-name"> Bitcoin </span>
+            </p>
+
+            <p  *ngSwitchCase="'eth'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img src="../../../../content/images/icon/ethereum.png"/>
+                <span class="coin-name"> Ethereum </span>
+            </p>
+            <p  *ngSwitchCase="'xrp'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/ripple.png"/>
+                <span class="coin-name"> Ripple </span>
+            </p>
+            <p  *ngSwitchCase="'dash'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/dash.png"/>
+                <span class="coin-name"> Dash </span>
+            </p>
+            <p  *ngSwitchCase="'ltc'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/lite-coin.png"/>
+                <span class="coin-name"> Litecoin </span>
+            </p>
+            <p  *ngSwitchCase="'etc'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/ethereum-classic.png"/>
+                <span class="coin-name"> Ethereum C</span>
+            </p>
+            <p  *ngSwitchCase="'bch'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/bitcoin-cash.png"/>
+                <span class="coin-name"> Bitcoin C</span>
+            </p>
+            <p  *ngSwitchCase="'zec'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/zcash.png"/>
+                <span class="coin-name"> Zcash </span>
+            </p>
+            <p  *ngSwitchCase="'xmr'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/monero.png"/>
+                <span class="coin-name"> Monero </span>
+            </p>
+            <p  *ngSwitchCase="'neo'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/neo.png"/>
+                <span class="coin-name"> Neo </span>
+            </p>
+            <p  *ngSwitchCase="'qtum'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/qtum.png"/>
+                <span class="coin-name"> Qtum </span>
+            </p>
+            <p  *ngSwitchCase="'iota'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/iota.png"/>
+                <span class="coin-name"> IOTA </span>
+            </p>
+            <p  *ngSwitchCase="'cardano'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/cardano.png"/>
+                <span class="coin-name"> Cardano </span>
+            </p>
+            <p  *ngSwitchCase="'btg'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/bitcoin-gold.png"/>
+                <span class="coin-name"> Bitcoin G</span>
+            </p>
+            <p  *ngSwitchCase="'eos'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/eos.png"/>
+                <span class="coin-name"> EOS </span>
+            </p>
+            <p  *ngSwitchCase="'snt'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/status.png"/>
+                <span class="coin-name"> STATUS </span>
+            </p>
+            <p  *ngSwitchCase="'tix'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/blocktix.png"/>
+                <span class="coin-name"> Blocktix </span>
+            </p>
+            <p  *ngSwitchCase="'steem'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/steem.png"/>
+                <span class="coin-name"> Steem </span>
+            </p>
+            <p  *ngSwitchCase="'steem'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/steem.png"/>
+                <span class="coin-name"> Steem </span>
+            </p>
+            <p  *ngSwitchCase="'mtl'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/metal.png"/>
+                <span class="coin-name"> Metal </span>
+            </p>
+            <p  *ngSwitchCase="'powr'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/power-ledger.png"/>
+                <span class="coin-name"> Power Ledger </span>
+            </p>
+            <p  *ngSwitchCase="'xem'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/nem.png"/>
+                <span class="coin-name"> NEM </span>
+            </p>
+            <p  *ngSwitchCase="'kmd'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/komodo.png"/>
+                <span class="coin-name"> Komodo </span>
+            </p>
+            <p  *ngSwitchCase="'lsk'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/lisk.png"/>
+                <span class="coin-name"> Lisk </span>
+            </p>
+            <p  *ngSwitchCase="'mer'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/mercury.png"/>
+                <span class="coin-name"> Mercury </span>
+            </p>
+            <p  *ngSwitchCase="'emc2'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/einsteinium.png"/>
+                <span class="coin-name"> Einsteinium </span>
+            </p>
+            <p  *ngSwitchCase="'grs'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/groestlcoin.png"/>
+                <span class="coin-name"> Groestlcoin </span>
+            </p>
+            <p  *ngSwitchCase="'sbd'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/steem-dollars.png"/>
+                <span class="coin-name"> Steem Dollars </span>
+            </p>
+            <p  *ngSwitchCase="'storj'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/storj.png"/>
+                <span class="coin-name"> Storj </span>
+            </p>
+            <p  *ngSwitchCase="'waves'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/waves.png"/>
+                <span class="coin-name"> Waves </span>
+            </p>
+            <p  *ngSwitchCase="'omg'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/omisego.png"/>
+                <span class="coin-name"> OmiseGO </span>
+            </p>
+            <p  *ngSwitchCase="'strat'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/stratis.png"/>
+                <span class="coin-name"> Stratis </span>
+            </p>
+            <p  *ngSwitchCase="'rep'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/augur.png"/>
+                <span class="coin-name"> Augur </span>
+            </p>
+            <p  *ngSwitchCase="'pivx'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/pivx.png"/>
+                <span class="coin-name"> Pivx </span>
+            </p>
+            <p  *ngSwitchCase="'vtc'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/vertcoin.png"/>
+                <span class="coin-name"> Vertcoin </span>
+            </p>
+            <p  *ngSwitchCase="'ardr'" class="ticker-header">
+                <span class="market-name">{{myTicker?.marketName}}</span>
+                <span class="fill-remaining-space"></span>
+                <img class="img-size" src="../../../../content/images/icon/ardor.png"/>
+                <span class="coin-name"> Ardor </span>
+            </p>
+        </div>
+
+
+        </mat-card-header>
+
+        <mat-card-content  [ngSwitch]="true">
+            <p  class="inc" *ngSwitchCase="diff>0">
+                <span class="last-price">{{quote?.lastPrice| currencyExchange :{myCurrency:myCurrency,currency:quote?.currency,exchangeRate:exchangeRate} }}</span>
+                <span><i class="fas fa-caret-up"></i></span>  <span> {{diff|currencyExchange :{myCurrency:myCurrency,currency:quote.currency,exchangeRate:exchangeRate} }}</span>
+            </p>
+
+            <p class="equal" *ngSwitchCase="diff == 0">
+                <span class="last-price" [hidden]="quote.lastPrice == null">{{quote?.lastPrice| currencyExchange :{myCurrency:myCurrency,currency:quote?.currency,exchangeRate:exchangeRate} }}</span>
+            </p>
+
+            <p class="dec" *ngSwitchCase="diff < 0">
+                <span class="last-price" >{{quote?.lastPrice| currencyExchange :{myCurrency:myCurrency,currency:quote?.currency,exchangeRate:exchangeRate} }}</span>
+                <span><i class="fas fa-caret-down"></i></span>
+                <span> {{diff|currencyExchange :{myCurrency:myCurrency,currency:quote?.currency,exchangeRate:exchangeRate} }}</span>
+            </p>
+
+            <p> <span jhiTranslate="ticker.volume">거래량</span> : {{quote?.volume|number:'1.0-0'}}</p>
+
+        </mat-card-content>
+
+
+    </mat-card>
+

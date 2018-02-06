@@ -5,18 +5,18 @@ import {DOCUMENT} from '@angular/common'
   templateUrl: './coin-home.component.html',
   styles: []
 })
-export class CoinHomeComponent implements OnInit,AfterViewInit {
+export class CoinHomeComponent implements OnInit, AfterViewInit {
 //type="text/javascript" src="//widget.coindesk.com/bpiticker/coindesk-widget.min.js"
   constructor( @Inject(DOCUMENT) private document,
-                private elementRef:ElementRef) { }
+                private elementRef: ElementRef) { }
 
   ngOnInit() {
   }
 
   ngAfterViewInit() {
-    let s = this.document.createElement("script");
-    s.type = "text/javascript";
-    s.src = "//widget.coindesk.com/bpiticker/coindesk-widget.min.js";
+    const s = this.document.createElement('script');
+    s.type = 'text/javascript';
+    s.src = '//widget.coindesk.com/bpiticker/coindesk-widget.min.js';
     this.elementRef.nativeElement.appendChild(s);
   }
 }

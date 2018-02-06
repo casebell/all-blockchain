@@ -1,12 +1,11 @@
 import { Component, OnInit, AfterViewInit, Renderer, ElementRef, ViewEncapsulation } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiLanguageService } from 'ng-jhipster';
-
 import { Register } from './register.service';
-import { LoginModalService } from '../../shared';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
-import { TranslateService } from "@ngx-translate/core";
+import { TranslateService } from '@ngx-translate/core';
+import { EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE } from '../../shared';
 
 @Component({
     selector: 'jhi-register',
@@ -23,7 +22,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     registerAccount: any;
     success: boolean;
     modalRef: NgbModalRef;
-    registerForm:FormGroup
+    registerForm: FormGroup;
     constructor(
         private languageService: JhiLanguageService,
         private registerService: Register,
@@ -37,7 +36,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
             login: ['', [Validators.required,
                          Validators.minLength(1),
                          Validators.maxLength(50)]],
-            password: ['',Validators.compose([Validators.required,
+            password: ['', Validators.compose([Validators.required,
                        Checkpassword.checkPasswordPattern])],
             email: ['', Validators.required]
         });
@@ -45,8 +44,8 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     ngOnInit() {
         this.success = false;
         this.registerAccount = {};
-        console.log('translate ', this.translateService.instant('blockchainApp.resource.home.title'))
-        console.log('translate ', this.translateService.instant('global.form.email.placeholder'))
+        console.log('translate ', this.translateService.instant('blockchainApp.resource.home.title'));
+        console.log('translate ', this.translateService.instant('global.form.email.placeholder'));
     }
 
     ngAfterViewInit() {
@@ -98,38 +97,31 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         return this.registerForm.get('password');
     }
 
-
     get getEmail() {
         return this.registerForm.get('email');
     }
-
-   
 
     private processError(response) {
         console.log('error response : ', response.error);
         console.log('error response : ', response.error.code);
         console.log('translate ', this.translateService.instant('blockchainApp.resource.home.title'))
-        if (response.status === 400 && response.error.code === 'duplicated.login.exception') {
-            console.log('test');
-            this.errorUserExists='ERROR';
-        } else if (response.status === 400 && response.error.code === 'duplicated.email.exception') {
+        if (response.status === 400 && response.json().type === LOGIN_ALREADY_USED_TYPE) {
+            this.errorUserExists = 'ERROR';
+        } else if (response.status === 400 && response.json().type === EMAIL_ALREADY_USED_TYPE) {
             this.errorEmailExists = 'ERROR';
         } else {
-            this.error ='ERROR';
+            this.error = 'ERROR';
         }
     }
 
-    openSnackBar(message: string,action:string) {
-        this.snackBar.open(message, action, {
-          duration: 2000,
-          extraClasses:['custom-snack-bar'],
-        });
+    openSnackBar(message: string, action: string) {
+        this.snackBar.open(message, action)
       }
 }
 
 export class Checkpassword {
     static checkPasswordPattern(control: FormControl){
-        const passwordRegx = new RegExp("^(?=.*[a-z])(?=.*[0-9])(?=.{6,100})")
+        const passwordRegx = new RegExp('^(?=.*[a-z])(?=.*[0-9])(?=.{6,100})')
             if (!passwordRegx.test(control.value)) {
               return {'passwordPattern' : true};
             }

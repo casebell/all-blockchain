@@ -1,49 +1,171 @@
-import { browser, element, by, $ } from 'protractor';
+import { browser, element, by } from 'protractor';
+import { NavBarPage } from './../page-objects/jhi-page-objects';
 
 describe('CoinBoard e2e test', () => {
 
-    const username = element(by.id('username'));
-    const password = element(by.id('password'));
-    const entityMenu = element(by.id('entity-menu'));
-    const accountMenu = element(by.id('account-menu'));
-    const login = element(by.id('login'));
-    const logout = element(by.id('logout'));
+    let navBarPage: NavBarPage;
+    let coinBoardDialogPage: CoinBoardDialogPage;
+    let coinBoardComponentsPage: CoinBoardComponentsPage;
 
     beforeAll(() => {
         browser.get('/');
-
-        accountMenu.click();
-        login.click();
-
-        username.sendKeys('admin');
-        password.sendKeys('admin');
-        element(by.css('button[type=submit]')).click();
+        browser.waitForAngular();
+        navBarPage = new NavBarPage();
+        navBarPage.getSignInPage().autoSignInUsing('admin', 'admin');
         browser.waitForAngular();
     });
 
     it('should load CoinBoards', () => {
-        entityMenu.click();
-        element.all(by.css('[routerLink="coin-board-block-chain-info"]')).first().click().then(() => {
-            const expectVal = /blockchainApp.coinBoard.home.title/;
-            element.all(by.css('h2 span')).first().getAttribute('jhiTranslate').then((value) => {
-                expect(value).toMatch(expectVal);
-            });
-        });
+        navBarPage.goToEntity('coin-board-block-chain-info');
+        coinBoardComponentsPage = new CoinBoardComponentsPage();
+        expect(coinBoardComponentsPage.getTitle())
+            .toMatch(/blockchainApp.coinBoard.home.title/);
+
     });
 
     it('should load create CoinBoard dialog', () => {
-        element(by.css('button.create-coin-board-block-chain-info')).click().then(() => {
-            const expectVal = /blockchainApp.coinBoard.home.createOrEditLabel/;
-            element.all(by.css('h4.modal-title')).first().getAttribute('jhiTranslate').then((value) => {
-                expect(value).toMatch(expectVal);
-            });
+        coinBoardComponentsPage.clickOnCreateButton();
+        coinBoardDialogPage = new CoinBoardDialogPage();
+        expect(coinBoardDialogPage.getModalTitle())
+            .toMatch(/blockchainApp.coinBoard.home.createOrEditLabel/);
+        coinBoardDialogPage.close();
+    });
 
-            element(by.css('button.close')).click();
-        });
+    it('should create and save CoinBoards', () => {
+        coinBoardComponentsPage.clickOnCreateButton();
+        coinBoardDialogPage.setTitleInput('title');
+        expect(coinBoardDialogPage.getTitleInput()).toMatch('title');
+        coinBoardDialogPage.setContextInput('context');
+        expect(coinBoardDialogPage.getContextInput()).toMatch('context');
+        coinBoardDialogPage.coninBoardTypeSelectLastOption();
+        coinBoardDialogPage.setCreatedatInput(12310020012301);
+        expect(coinBoardDialogPage.getCreatedatInput()).toMatch('2001-12-31T02:30');
+        coinBoardDialogPage.setUpdatedatInput(12310020012301);
+        expect(coinBoardDialogPage.getUpdatedatInput()).toMatch('2001-12-31T02:30');
+        coinBoardDialogPage.coinSelectLastOption();
+        coinBoardDialogPage.userSelectLastOption();
+        coinBoardDialogPage.save();
+        expect(coinBoardDialogPage.getSaveButton().isPresent()).toBeFalsy();
     });
 
     afterAll(() => {
-        accountMenu.click();
-        logout.click();
+        navBarPage.autoSignOut();
     });
 });
+
+export class CoinBoardComponentsPage {
+    createButton = element(by.css('.jh-create-entity'));
+    title = element.all(by.css('jhi-coin-board-block-chain-info div h2 span')).first();
+
+    clickOnCreateButton() {
+        return this.createButton.click();
+    }
+
+    getTitle() {
+        return this.title.getAttribute('jhiTranslate');
+    }
+}
+
+export class CoinBoardDialogPage {
+    modalTitle = element(by.css('h4#myCoinBoardLabel'));
+    saveButton = element(by.css('.modal-footer .btn.btn-primary'));
+    closeButton = element(by.css('button.close'));
+    titleInput = element(by.css('input#field_title'));
+    contextInput = element(by.css('input#field_context'));
+    coninBoardTypeSelect = element(by.css('select#field_coninBoardType'));
+    createdatInput = element(by.css('input#field_createdat'));
+    updatedatInput = element(by.css('input#field_updatedat'));
+    coinSelect = element(by.css('select#field_coin'));
+    userSelect = element(by.css('select#field_user'));
+
+    getModalTitle() {
+        return this.modalTitle.getAttribute('jhiTranslate');
+    }
+
+    setTitleInput = function(title) {
+        this.titleInput.sendKeys(title);
+    };
+
+    getTitleInput = function() {
+        return this.titleInput.getAttribute('value');
+    };
+
+    setContextInput = function(context) {
+        this.contextInput.sendKeys(context);
+    };
+
+    getContextInput = function() {
+        return this.contextInput.getAttribute('value');
+    };
+
+    setConinBoardTypeSelect = function(coninBoardType) {
+        this.coninBoardTypeSelect.sendKeys(coninBoardType);
+    };
+
+    getConinBoardTypeSelect = function() {
+        return this.coninBoardTypeSelect.element(by.css('option:checked')).getText();
+    };
+
+    coninBoardTypeSelectLastOption = function() {
+        this.coninBoardTypeSelect.all(by.tagName('option')).last().click();
+    };
+    setCreatedatInput = function(createdat) {
+        this.createdatInput.sendKeys(createdat);
+    };
+
+    getCreatedatInput = function() {
+        return this.createdatInput.getAttribute('value');
+    };
+
+    setUpdatedatInput = function(updatedat) {
+        this.updatedatInput.sendKeys(updatedat);
+    };
+
+    getUpdatedatInput = function() {
+        return this.updatedatInput.getAttribute('value');
+    };
+
+    coinSelectLastOption = function() {
+        this.coinSelect.all(by.tagName('option')).last().click();
+    };
+
+    coinSelectOption = function(option) {
+        this.coinSelect.sendKeys(option);
+    };
+
+    getCoinSelect = function() {
+        return this.coinSelect;
+    };
+
+    getCoinSelectedOption = function() {
+        return this.coinSelect.element(by.css('option:checked')).getText();
+    };
+
+    userSelectLastOption = function() {
+        this.userSelect.all(by.tagName('option')).last().click();
+    };
+
+    userSelectOption = function(option) {
+        this.userSelect.sendKeys(option);
+    };
+
+    getUserSelect = function() {
+        return this.userSelect;
+    };
+
+    getUserSelectedOption = function() {
+        return this.userSelect.element(by.css('option:checked')).getText();
+    };
+
+    save() {
+        this.saveButton.click();
+    }
+
+    close() {
+        this.closeButton.click();
+    }
+
+    getSaveButton() {
+        return this.saveButton;
+    }
+}

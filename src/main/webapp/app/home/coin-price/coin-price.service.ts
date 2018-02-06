@@ -7,6 +7,7 @@ import {Observable, Subject} from 'rxjs/Rx';
 export class CoinPriceService {
     public poloniexMessage: Subject<any>;
     public bitfinexMessage: Subject<any>;
+    private upBitsMarketCoinIds: any = [1101,1102,1103,1104,1105,1106,1107,1108,1109,1110,1111,1112];
 
     constructor(private http: HttpClient) {
     }
@@ -46,5 +47,10 @@ export class CoinPriceService {
     }
     getYunbis(): Observable<any> {
         return   this.http.get(`https://yunbi.com//api/v2/tickers.json`);
+    }
+
+    getUpbit(): Observable<any> {
+        return   this.http.get(`${SERVER_API_URL}/api/coin-api/upbit/${this.upBitsMarketCoinIds}`);
+
     }
 }

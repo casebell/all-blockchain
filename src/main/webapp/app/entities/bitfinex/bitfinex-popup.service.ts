@@ -1,6 +1,7 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { HttpResponse } from '@angular/common/http';
 import { Bitfinex } from './bitfinex.model';
 import { BitfinexService } from './bitfinex.service';
 
@@ -25,10 +26,12 @@ export class BitfinexPopupService {
             }
 
             if (id) {
-                this.bitfinexService.find(id).subscribe((bitfinex) => {
-                    this.ngbModalRef = this.bitfinexModalRef(component, bitfinex);
-                    resolve(this.ngbModalRef);
-                });
+                this.bitfinexService.find(id)
+                    .subscribe((bitfinexResponse: HttpResponse<Bitfinex>) => {
+                        const bitfinex: Bitfinex = bitfinexResponse.body;
+                        this.ngbModalRef = this.bitfinexModalRef(component, bitfinex);
+                        resolve(this.ngbModalRef);
+                    });
             } else {
                 // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
                 setTimeout(() => {

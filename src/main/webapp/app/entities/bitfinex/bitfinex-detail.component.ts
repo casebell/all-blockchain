@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
+import { HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { Bitfinex } from './bitfinex.model';
@@ -31,9 +32,10 @@ export class BitfinexDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.bitfinexService.find(id).subscribe((bitfinex) => {
-            this.bitfinex = bitfinex;
-        });
+        this.bitfinexService.find(id)
+            .subscribe((bitfinexResponse: HttpResponse<Bitfinex>) => {
+                this.bitfinex = bitfinexResponse.body;
+            });
     }
     previousState() {
         window.history.back();

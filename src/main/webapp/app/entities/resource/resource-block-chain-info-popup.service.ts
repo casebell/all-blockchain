@@ -23,7 +23,7 @@ export class ResourceBlockChainInfoPopupService {
         this.isOpen = true;
 
         if (id) {
-            this.resourceService.find(id).subscribe((resource) => {
+            this.resourceService.find(id).subscribe((resource:ResourceBlockChainInfo) => {
                 resource.createdAt = this.datePipe
                     .transform(resource.createdAt, 'yyyy-MM-ddThh:mm');
                 resource.updatedAt = this.datePipe

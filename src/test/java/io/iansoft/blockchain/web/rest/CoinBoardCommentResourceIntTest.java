@@ -7,13 +7,13 @@ import io.iansoft.blockchain.repository.CoinBoardCommentRepository;
 import io.iansoft.blockchain.service.CoinBoardCommentService;
 import io.iansoft.blockchain.repository.search.CoinBoardCommentSearchRepository;
 import io.iansoft.blockchain.service.dto.CoinBoardCommentDTO;
-import io.iansoft.blockchain.service.mapper.CoinBoardCommentMapper;
 import io.iansoft.blockchain.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
@@ -68,7 +68,7 @@ public class CoinBoardCommentResourceIntTest {
     private CoinBoardCommentRepository coinBoardCommentRepository;
 
     @Autowired
-    private CoinBoardCommentMapper coinBoardCommentMapper;
+    private ModelMapper modelMapper;
 
     @Autowired
     private CoinBoardCommentService coinBoardCommentService;
@@ -131,7 +131,7 @@ public class CoinBoardCommentResourceIntTest {
         int databaseSizeBeforeCreate = coinBoardCommentRepository.findAll().size();
 
         // Create the CoinBoardComment
-        CoinBoardCommentDTO coinBoardCommentDTO = coinBoardCommentMapper.toDto(coinBoardComment);
+        CoinBoardCommentDTO coinBoardCommentDTO = modelMapper.map(coinBoardComment,CoinBoardCommentDTO.class);
         restCoinBoardCommentMockMvc.perform(post("/api/coin-board-comments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(coinBoardCommentDTO)))
@@ -160,7 +160,7 @@ public class CoinBoardCommentResourceIntTest {
 
         // Create the CoinBoardComment with an existing ID
         coinBoardComment.setId(1L);
-        CoinBoardCommentDTO coinBoardCommentDTO = coinBoardCommentMapper.toDto(coinBoardComment);
+        CoinBoardCommentDTO coinBoardCommentDTO = modelMapper.map(coinBoardComment,CoinBoardCommentDTO.class);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restCoinBoardCommentMockMvc.perform(post("/api/coin-board-comments")
@@ -236,7 +236,7 @@ public class CoinBoardCommentResourceIntTest {
             .depth(UPDATED_DEPTH)
             .createdat(UPDATED_CREATEDAT)
             .updatedat(UPDATED_UPDATEDAT);
-        CoinBoardCommentDTO coinBoardCommentDTO = coinBoardCommentMapper.toDto(updatedCoinBoardComment);
+        CoinBoardCommentDTO coinBoardCommentDTO = modelMapper.map(coinBoardComment,CoinBoardCommentDTO.class);
 
         restCoinBoardCommentMockMvc.perform(put("/api/coin-board-comments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -265,7 +265,7 @@ public class CoinBoardCommentResourceIntTest {
         int databaseSizeBeforeUpdate = coinBoardCommentRepository.findAll().size();
 
         // Create the CoinBoardComment
-        CoinBoardCommentDTO coinBoardCommentDTO = coinBoardCommentMapper.toDto(coinBoardComment);
+        CoinBoardCommentDTO coinBoardCommentDTO = modelMapper.map(coinBoardComment,CoinBoardCommentDTO.class);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restCoinBoardCommentMockMvc.perform(put("/api/coin-board-comments")
@@ -351,10 +351,10 @@ public class CoinBoardCommentResourceIntTest {
         assertThat(coinBoardCommentDTO1).isNotEqualTo(coinBoardCommentDTO2);
     }
 
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(coinBoardCommentMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(coinBoardCommentMapper.fromId(null)).isNull();
-    }
+//    @Test
+//    @Transactional
+//    public void testEntityFromId() {
+//        assertThat(coinBoardCommentMapper.fromId(42L).getId()).isEqualTo(42);
+//        assertThat(coinBoardCommentMapper.fromId(null)).isNull();
+//    }
 }

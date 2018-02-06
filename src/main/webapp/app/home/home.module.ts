@@ -10,7 +10,9 @@ import { ExchangeRateService } from './coin-price/coin-price-row/exchange-rate.s
 import { ExchangeRateComponent } from './exchange-rate/exchange-rate.component';
 import { BitfinexWebsocketService } from './coin-price/bitfinex-websocket.service';
 import { PuserService } from './coin-price/pusher.service';
-
+import { GDAXWebsocketService } from './coin-price/gdax-websocket.service';
+import { OkcoincnWebsocketService } from './coin-price/okcoincn-websocket.service';
+import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
     imports: [
@@ -19,7 +21,8 @@ import { PuserService } from './coin-price/pusher.service';
         MatIconModule,
         MatTabsModule,
         MatSelectModule,
-        RouterModule.forRoot([ HOME_ROUTE ], { useHash: true })
+        AdsenseModule,
+        RouterModule.forChild([ HOME_ROUTE ])
     ],
     declarations: [
         HomeComponent,
@@ -32,7 +35,9 @@ import { PuserService } from './coin-price/pusher.service';
     providers: [
         CoinPriceService,
         BitfinexWebsocketService,
+        GDAXWebsocketService,
         ExchangeRateService,
+        OkcoincnWebsocketService,
         PuserService,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

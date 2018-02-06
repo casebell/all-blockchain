@@ -6,6 +6,7 @@ import io.iansoft.blockchain.repository.AuthorityRepository;
 import io.iansoft.blockchain.repository.UserRepository;
 import io.iansoft.blockchain.repository.search.UserSearchRepository;
 
+import io.iansoft.blockchain.security.AuthoritiesConstants;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -132,7 +133,7 @@ public class SocialService {
         String login = getLoginDependingOnProviderId(userProfile, providerId);
         String encryptedPassword = passwordEncoder.encode(RandomStringUtils.random(10));
         Set<Authority> authorities = new HashSet<>(1);
-        authorities.add(authorityRepository.findOne("ROLE_USER"));
+        authorities.add(authorityRepository.findOne(AuthoritiesConstants.USER));
 
         User newUser = new User();
         newUser.setLogin(login);
@@ -158,7 +159,7 @@ public class SocialService {
             case "twitter":
                 return userProfile.getUsername().toLowerCase();
             default:
-                return userProfile.getEmail();
+                return userProfile.getFirstName().toLowerCase() + "_" + userProfile.getLastName().toLowerCase();
         }
     }
 

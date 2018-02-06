@@ -1,5 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import {DndModule} from 'ng2-dnd';
 
 import {
     BlockchainSharedLibsModule,
@@ -17,20 +18,24 @@ import {
     SocialService,
     JhiLoginModalComponent
 } from './';
-import { MdCheckboxModule, MdDialogModule, MdInputModule, MdButtonModule, MdIconModule, MdTabsModule } from "@angular/material";
-import {ReactiveFormsModule} from "@angular/forms";
+import {ReactiveFormsModule} from '@angular/forms';
+import {
+    MatButtonModule, MatCheckboxModule, MatDialogModule, MatIconModule, MatInputModule,
+    MatTabsModule
+} from '@angular/material';
 
 @NgModule({
     imports: [
         BlockchainSharedLibsModule,
         BlockchainSharedCommonModule,
-        MdDialogModule,
-        MdInputModule,
-        MdButtonModule,
-        MdIconModule,
+        MatDialogModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
         ReactiveFormsModule,
-        MdCheckboxModule,
-        MdTabsModule
+        MatCheckboxModule,
+        MatTabsModule,
+        DndModule
     ],
     declarations: [
         JhiSocialComponent,
@@ -55,7 +60,8 @@ import {ReactiveFormsModule} from "@angular/forms";
         JhiSocialComponent,
         JhiLoginModalComponent,
         HasAnyAuthorityDirective,
-        DatePipe
+        DatePipe,
+        DndModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 

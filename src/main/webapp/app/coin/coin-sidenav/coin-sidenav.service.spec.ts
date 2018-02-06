@@ -1,8 +1,8 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { CoinSidenavService } from './coin-sidenav.service';
-import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { HttpTestingController } from "@angular/common/http/testing";
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpTestingController } from '@angular/common/http/testing';
 
 describe('CoinSidenavService', () => {
   beforeEach(() => {

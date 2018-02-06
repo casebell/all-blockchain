@@ -33,7 +33,7 @@ export class ActivateComponent implements OnInit {
         });
     }
 
-    login() {
-        this.modalRef = this.loginModalService.open();
-    }
+    // login() {
+    //     this.modalRef = this.loginModalService.open();
+    // }
 }

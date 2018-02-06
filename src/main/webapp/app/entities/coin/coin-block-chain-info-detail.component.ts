@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
-import { JhiEventManager  } from 'ng-jhipster';
+import { HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs/Subscription';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { CoinBlockChainInfo } from './coin-block-chain-info.model';
 import { CoinBlockChainInfoService } from './coin-block-chain-info.service';
@@ -31,9 +32,10 @@ export class CoinBlockChainInfoDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.coinService.find(id).subscribe((coin) => {
-            this.coin = coin;
-        });
+        this.coinService.find(id)
+            .subscribe((coinResponse: HttpResponse<CoinBlockChainInfo>) => {
+                this.coin = coinResponse.body;
+            });
     }
     previousState() {
         window.history.back();
