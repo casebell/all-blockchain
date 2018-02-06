@@ -3,7 +3,7 @@ import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { JhiDateUtils } from 'ng-jhipster';
 
-import { ResourceBlockChainInfoService } from '../../../../../../main/webapp/app/entities/resource-block-chain-info/resource-block-chain-info.service';
+import { ResourceBlockChainInfoService } from '../../../../../../main/webapp/app/entities/resource/resource-block-chain-info.service';
 import { SERVER_API_URL } from '../../../../../../main/webapp/app/app.constants';
 
 describe('Service Tests', () => {

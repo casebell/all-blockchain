@@ -1,5 +1,6 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
 import { CoinBoardCommentBlockChainInfo } from './coin-board-comment-block-chain-info.model';
@@ -23,7 +24,8 @@ export class CoinBoardCommentBlockChainInfoPopupService {
         this.isOpen = true;
 
         if (id) {
-            this.coinBoardCommentService.find(id).subscribe((coinBoardComment) => {
+            this.coinBoardCommentService.find(id).subscribe((res:HttpResponse<CoinBoardCommentBlockChainInfo>) => {
+               const coinBoardComment = res.body;
                 coinBoardComment.createdat = this.datePipe
                     .transform(coinBoardComment.createdat, 'yyyy-MM-ddThh:mm');
                 coinBoardComment.updatedat = this.datePipe

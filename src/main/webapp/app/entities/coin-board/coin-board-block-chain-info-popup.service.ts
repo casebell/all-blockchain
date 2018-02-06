@@ -2,6 +2,7 @@ import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { CoinBoardBlockChainInfo } from './coin-board-block-chain-info.model';
 import { CoinBoardBlockChainInfoService } from './coin-board-block-chain-info.service';
 
@@ -23,7 +24,8 @@ export class CoinBoardBlockChainInfoPopupService {
         this.isOpen = true;
 
         if (id) {
-            this.coinBoardService.find(id).subscribe((coinBoard) => {
+            this.coinBoardService.find(id).subscribe((res:HttpResponse<CoinBoardBlockChainInfo>) => {
+                const coinBoard = res.body;
                 coinBoard.createdat = this.datePipe
                     .transform(coinBoard.createdat, 'yyyy-MM-ddThh:mm');
                 coinBoard.updatedat = this.datePipe

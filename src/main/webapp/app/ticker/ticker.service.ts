@@ -22,10 +22,10 @@ export class TickerService {
         });
     }
 
-    getTickers(userId:number): Observable<EntityResponseType> {
+    getTickers(userId:number): Observable<HttpResponse<Ticker[]>> {
 
-        return this.http.get(`${this.resourceUrl}/user/${userId}`, { observe: 'response'})
-            .map((res: EntityResponseType) => this.convertResponse(res));
+        return this.http.get<Ticker[]>(`${this.resourceUrl}/user/${userId}`, { observe: 'response'})
+            .map((res: HttpResponse<Ticker[]>) => this.convertArrayResponse(res));
     }
 
 
@@ -45,5 +45,14 @@ export class TickerService {
     private convertItemFromServer(ticker : Ticker): Ticker {
         const copy: Ticker = Object.assign({}, ticker);
         return copy;
+    }
+
+    private convertArrayResponse(res: HttpResponse<Ticker[]>): HttpResponse<Ticker[]> {
+        const jsonResponse: Ticker[] = res.body;
+        const body: Ticker[] = [];
+        for (let i = 0; i < jsonResponse.length; i++) {
+            body.push(this.convertItemFromServer(jsonResponse[i]));
+        }
+        return res.clone({body});
     }
 }

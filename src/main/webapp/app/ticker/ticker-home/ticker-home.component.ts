@@ -5,10 +5,14 @@ import { TickerService } from '../ticker.service';
 import { Principal } from '../../shared';
 import { MyTicker } from '../models/my-ticker.model';
 import { Observable } from "rxjs/Observable";
+import { JhiAlertService } from 'ng-jhipster';
+
 import { ObservableMedia } from '@angular/flex-layout';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/takeWhile";
 import "rxjs/add/operator/startWith";
+import { Ticker } from '../ticker.model';
 
 @Component({
     selector: 'jhi-ticker-home',
@@ -28,6 +32,7 @@ export class TickerHomeComponent implements OnInit {
     grid;
     myCurrency: string;
     constructor(public dialog: MatDialog,
+                private jhiAlertService: JhiAlertService,
                 private principal: Principal,
                 private tickerService: TickerService,
                 private observableMedia: ObservableMedia) {
@@ -67,10 +72,10 @@ export class TickerHomeComponent implements OnInit {
 
 
     getTickers() {
-        this.tickerService.getTickers(this.userId).subscribe((result) => {
-            this.myTickers = result.json;
+        this.tickerService.getTickers(this.userId).subscribe((res:HttpResponse<Ticker[]>) => {
+            this.myTickers = res.body
 
-        })
+        }, (res: HttpErrorResponse) => this.onError(res.message))
     }
 
 
@@ -90,6 +95,11 @@ export class TickerHomeComponent implements OnInit {
         if(event)
             this.getTickers();
     }
+
+    private onError(error: any) {
+        this.jhiAlertService.error(error.message, null, null);
+    }
+
 
     currencyChange(value) {
 
