@@ -11,6 +11,8 @@
         },
         "ticker": {
             "title":"Ticker"
+        },"airdrop": {
+            "title":"Airdrop"
         },
         "account": {
             "title":"Account",

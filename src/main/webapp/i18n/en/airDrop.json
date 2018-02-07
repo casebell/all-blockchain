@@ -1,0 +1,34 @@
+
+{
+    "blockchainApp": {
+        "airDrop" : {
+            "home": {
+                "title": "Air Drops",
+                "createLabel": "Create a new Air Drop",
+                "createOrEditLabel": "Create or edit a Air Drop",
+                "search": "Search for Air Drop"
+            },
+            "created": "A new Air Drop is created with identifier {{ param }}",
+            "updated": "A Air Drop is updated with identifier {{ param }}",
+            "deleted": "A Air Drop is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Air Drop {{ id }}?"
+            },
+            "detail": {
+                "title": "Air Drop"
+            },
+            "coinName": "Coin Name",
+            "startDate": "Start Date",
+            "finishDate": "Finish Date",
+            "context": "Context",
+            "value": "Value",
+            "telegram": "Telegram",
+            "twitter": "Twitter",
+            "facebook": "Facebook",
+            "reddit": "Reddit",
+            "website": "Website",
+            "airdropPage": "Airdrop Page",
+            "bitcoinTalk": "Bitcoin Talk"
+        }
+    }
+}

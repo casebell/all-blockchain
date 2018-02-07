@@ -1,0 +1,70 @@
+
+<div *ngIf="airDrop">
+    <h2><span jhiTranslate="blockchainApp.airDrop.detail.title">Air Drop</span> {{airDrop.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="blockchainApp.airDrop.coinName">Coin Name</span></dt>
+        <dd>
+            <span>{{airDrop.coinName}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.airDrop.startDate">Start Date</span></dt>
+        <dd>
+            <span>{{airDrop.startDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.airDrop.finishDate">Finish Date</span></dt>
+        <dd>
+            <span>{{airDrop.finishDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.airDrop.context">Context</span></dt>
+        <dd>
+            <span>{{airDrop.context}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.airDrop.value">Value</span></dt>
+        <dd>
+            <span>{{airDrop.value}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.airDrop.telegram">Telegram</span></dt>
+        <dd>
+            <span>{{airDrop.telegram}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.airDrop.twitter">Twitter</span></dt>
+        <dd>
+            <span>{{airDrop.twitter}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.airDrop.facebook">Facebook</span></dt>
+        <dd>
+            <span>{{airDrop.facebook}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.airDrop.reddit">Reddit</span></dt>
+        <dd>
+            <span>{{airDrop.reddit}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.airDrop.website">Website</span></dt>
+        <dd>
+            <span>{{airDrop.website}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.airDrop.airdropPage">Airdrop Page</span></dt>
+        <dd>
+            <span>{{airDrop.airdropPage}}</span>
+        </dd>
+        <dt><span jhiTranslate="blockchainApp.airDrop.bitcoinTalk">Bitcoin Talk</span></dt>
+        <dd>
+            <span>{{airDrop.bitcoinTalk}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'air-drop/'+ airDrop.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -8,6 +8,9 @@
       <!--<button mat-button  routerLink="coin/home"><span jhiTranslate="navbar.coin.title">coin</span></button>-->
       <button mat-button  routerLink="ticker" *jhiHasAnyAuthority="'ROLE_USER'"><span jhiTranslate="navbar.ticker.title">ticker</span></button>
 
+    <button mat-button routerLink="airdrops">
+        <span jhiTranslate="navbar.airdrop.title">Airdrop</span>
+    </button>
     <button mat-button *jhiHasAnyAuthority="'ROLE_ADMIN'" [matMenuTriggerFor]="adminMenu">
         Admin
     </button>
@@ -59,7 +62,11 @@
                     </button>
         <button mat-menu-item routerLink="resource-block-chain-info" routerLinkActive="active">
                            <span >Resource</span>
-                    </button>
+        </button>
+
+        <button mat-menu-item routerLink="air-drop" routerLinkActive="active">
+            <span >Air Drop</span>
+        </button>
     </mat-menu>
 
     <span class="fill-remaining-space"></span>

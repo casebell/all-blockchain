@@ -16,6 +16,7 @@
     <include file="config/liquibase/changelog/20170828045352_added_entity_Coinis.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20171216043127_added_entity_Market.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20171230105750_added_entity_Quote.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180206085234_added_entity_AirDrop.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20171230105750_added_entity_constraints_Quote.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->

@@ -7,6 +7,7 @@ import { BlockchainResourceBlockChainInfoModule } from './resource/resource-bloc
 import { BlockchainBitfinexModule } from './bitfinex/bitfinex.module';
 import { BlockchainMarketModule } from './market/market.module';
 import { BlockchainQuoteModule } from './quote/quote.module';
+import { BlockchainAirDropModule } from './air-drop/air-drop.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -14,6 +15,7 @@ import { BlockchainQuoteModule } from './quote/quote.module';
         BlockchainBitfinexModule,
         BlockchainMarketModule,
         BlockchainQuoteModule,
+        BlockchainAirDropModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
         BlockchainCoinBlockChainInfoModule,
         BlockchainCoinBoardCommentBlockChainInfoModule,

@@ -39,6 +39,7 @@ import { BlockchainAppRoutingModule } from './app-routing.module';
 import { TickerModule } from './ticker/ticker.module';
 import { DndModule } from 'ng2-dnd';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { AirdropsModule } from './airdrops/airdrops.module';
 
 @NgModule({
     imports: [
@@ -63,6 +64,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         MatToolbarModule,
         MatButtonToggleModule,
         FlexLayoutModule,
+        AirdropsModule,
         DndModule.forRoot(),
         AdsenseModule.forRoot({
             adClient: 'ca-pub-3429112291996061',
@@ -76,7 +78,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         ErrorComponent,
         PageRibbonComponent,
         ActiveMenuDirective,
-        FooterComponent
+        FooterComponent,
     ],
     providers: [
         ProfileService,

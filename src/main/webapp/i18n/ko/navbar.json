@@ -12,6 +12,9 @@
         "ticker": {
             "title":"내시세판"
         },
+        "airdrop": {
+            "title":"Airdrop"
+        },
         "account": {
             "title":"계정",
             "login":"로그인",
