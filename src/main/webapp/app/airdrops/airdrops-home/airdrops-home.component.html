@@ -1,3 +1,5 @@
-<p>
-  airdrops-home works!
-</p>
+<div infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+    <div *ngFor="let airDrop of airDrops ;trackBy: trackId">
+        <airdrops-item [airDrop]="airDrop"> </airdrops-item>
+    </div>
+</div>
